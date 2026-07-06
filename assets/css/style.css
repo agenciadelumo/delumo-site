@@ -188,15 +188,16 @@ section{padding:110px 0}
 .case-band.light .case-media .media{box-shadow:0 24px 60px rgba(12,31,20,.16)}
 .case-band.light .video-media{border-color:rgba(12,31,20,.12)}
 
-/* ---------- clientes (faixa lima) ---------- */
-.clients{background:var(--lima);color:var(--floresta);padding:60px 0}
-.clients .eyebrow{color:rgba(12,31,20,.6)}
-.clients .eyebrow .sl{color:var(--floresta)}
-.clients h2{font-size:clamp(28px,4vw,44px);margin-top:14px;max-width:22ch;color:var(--floresta)}
-.client-marquee{overflow:hidden;margin-top:48px}
-.client-marquee .track{display:flex;white-space:nowrap;animation:mq 30s linear infinite;width:max-content}
-.client-marquee span{font-family:var(--display);font-weight:800;font-size:clamp(26px,3.4vw,40px);letter-spacing:-.02em;color:var(--floresta);padding:0 8px}
-.client-marquee i{font-style:normal;color:rgba(12,31,20,.45);padding:0 18px}
+/* ---------- clientes (faixa de marcas) ---------- */
+.clients{background:var(--floresta);color:var(--areia);padding:72px 0}
+.clients .eyebrow{color:rgba(245,238,214,.68)}
+.clients .eyebrow .sl{color:var(--lima)}
+.clients h2{font-size:clamp(28px,4vw,44px);margin-top:14px;max-width:22ch;color:var(--areia)}
+.client-marquee{overflow:hidden;margin-top:50px;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.client-marquee .track{display:flex;align-items:center;gap:42px;width:max-content;animation:mq 34s linear infinite}
+.client-marquee .logo-item{display:flex;align-items:center;justify-content:center;min-width:220px;height:92px;flex:0 0 auto}
+.client-marquee img{display:block;width:auto;max-width:220px;max-height:76px;object-fit:contain;filter:drop-shadow(0 8px 24px rgba(0,0,0,.22));opacity:.96}
+@media(max-width:700px){.clients{padding:58px 0}.client-marquee .track{gap:28px}.client-marquee .logo-item{min-width:170px;height:76px}.client-marquee img{max-width:170px;max-height:58px}}
 
 /* ---------- método ---------- */
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
