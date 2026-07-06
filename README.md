@@ -1,4 +1,4 @@
-# Site Delumo — delumo.com.br
+# Site Delumo, delumo.com.br
 
 Site multi-páginas da Delumo: treinamentos empresariais gamificados e imersivos.
 
@@ -25,13 +25,10 @@ delumo-site/
    No registro.br → Editar zona DNS: registro **A** @ = `76.76.21.21` e **CNAME** www = `cname.vercel-dns.com`
    (confirme os valores exatos exibidos pela Vercel). HTTPS é automático.
 
-## ⚠️ Antes de publicar — 3 ajustes seus
+## ⚠️ Antes de publicar, 3 ajustes seus
 
-1. **WhatsApp**: troque o número de exemplo `5554999999999` pelo seu.
-   Busque por `wa.me/5554999999999` (aparece em todas as páginas) e substitua.
-2. **Formulário de contato**: usa o FormSubmit (grátis). No PRIMEIRO envio,
-   o serviço manda um e-mail de ativação para contato@delumo.com.br — clique
-   em "Activate" uma única vez e os envios passam a chegar normalmente.
+1. **WhatsApp**: configurado para `+5554981302517` e exibido como `(54) 98130-2517` em todas as páginas.
+2. **Formulário de contato**: usa o FormSubmit (grátis) com envio para `agenciadelumo@gmail.com`. No primeiro envio, o serviço manda um e-mail de ativação para liberar o formulário.
 3. **Depoimentos (home)**: os 3 cards estão com texto entre [colchetes].
    Peça as frases aos clientes e substitua no index.html.
 
