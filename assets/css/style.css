@@ -21,7 +21,7 @@ body{background:var(--floresta);color:var(--areia);font-family:var(--body);font-
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
 .wrap{max-width:1200px;margin:0 auto;padding:0 24px}
-.display{font-family:var(--display);font-weight:800;letter-spacing:-.03em;line-height:1.02}
+.display{font-family:var(--display);font-weight:800;letter-spacing:0;line-height:1.02}
 .eyebrow{font-family:var(--display);font-weight:800;font-size:13px;letter-spacing:.32em;text-transform:uppercase;color:var(--areia-60)}
 .eyebrow .sl{color:var(--lima)}
 :focus-visible{outline:2px solid var(--lima);outline-offset:3px;border-radius:4px}
@@ -29,7 +29,7 @@ img{max-width:100%;display:block}
 /* ---------- header ---------- */
 header{position:fixed;inset:0 0 auto 0;z-index:50;background:rgba(12,31,20,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--linha)}
 .nav{display:flex;align-items:center;justify-content:space-between;height:76px}
-.logo{display:flex;align-items:center;font-family:var(--display);font-weight:800;font-size:30px;letter-spacing:-.035em;color:var(--lima);line-height:1}
+.logo{display:flex;align-items:center;font-family:var(--display);font-weight:800;font-size:30px;letter-spacing:0;color:var(--lima);line-height:1}
 .logo svg{width:.58em;height:.58em;margin-left:.04em;transform:translateY(.015em)}
 .menu{display:flex;gap:34px;font-weight:600;font-size:15px}
 .menu a{color:var(--areia-60);transition:color .2s}
@@ -49,7 +49,7 @@ header{position:fixed;inset:0 0 auto 0;z-index:50;background:rgba(12,31,20,.82);
              linear-gradient(180deg,rgba(12,31,20,.4) 0%,transparent 26%)}
 /* logotipo em destaque */
 .hero-logo{display:flex;justify-content:center;margin-bottom:26px}
-.hero-logo .mark{display:inline-flex;align-items:center;font-family:var(--display);font-weight:800;font-size:clamp(52px,10vw,104px);letter-spacing:-.04em;color:var(--lima);line-height:1;filter:drop-shadow(0 6px 34px rgba(180,244,40,.28))}
+.hero-logo .mark{display:inline-flex;align-items:center;font-family:var(--display);font-weight:800;font-size:clamp(52px,10vw,104px);letter-spacing:0;color:var(--lima);line-height:1;filter:drop-shadow(0 6px 34px rgba(180,244,40,.28))}
 .hero-logo .mark svg{width:.58em;height:.58em;margin-left:.05em;transform:translateY(.015em)}
 /* animação do "o": anéis travam como alvo, depois ping de radar sutil */
 .o-anim .rw{opacity:0;transform-box:fill-box;transform-origin:center;animation:oPop .5s cubic-bezier(.34,1.56,.64,1) forwards}
@@ -67,7 +67,7 @@ header{position:fixed;inset:0 0 auto 0;z-index:50;background:rgba(12,31,20,.82);
 .hero-cta{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:32px}
 .hero-stats{display:flex;justify-content:center;gap:56px;flex-wrap:wrap;margin:64px 0 0;padding:32px 0;border-top:1px solid var(--linha)}
 .stat{text-align:center}
-.stat b{font-family:var(--display);font-weight:800;font-size:clamp(34px,4.4vw,52px);color:var(--lima);line-height:1;display:block;letter-spacing:-.02em}
+.stat b{font-family:var(--display);font-weight:800;font-size:clamp(34px,4.4vw,52px);color:var(--lima);line-height:1;display:block;letter-spacing:0}
 .stat span{color:var(--areia-60);font-size:14px}
 @media(prefers-reduced-motion:reduce){#map-canvas{display:none}}
 
@@ -120,7 +120,7 @@ section{padding:110px 0}
 .services{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .svc{background:#FFFFFF;border:1px solid rgba(12,31,20,.08);border-radius:var(--radius);padding:36px 30px;display:flex;flex-direction:column;gap:16px;transition:transform .25s,box-shadow .25s;box-shadow:0 6px 24px rgba(12,31,20,.06)}
 .svc:hover{transform:translateY(-6px);box-shadow:0 18px 44px rgba(12,31,20,.12)}
-.svc .line{font-family:var(--display);font-weight:800;font-size:26px;letter-spacing:-.02em;color:var(--floresta)}
+.svc .line{font-family:var(--display);font-weight:800;font-size:26px;letter-spacing:0;color:var(--floresta)}
 .svc .line b{color:var(--vivo);font-weight:800}
 .svc h3{font-family:var(--display);font-weight:600;font-size:20px;color:var(--floresta)}
 .svc p{color:rgba(12,31,20,.62);font-size:15.5px;flex:1}
@@ -203,7 +203,7 @@ section{padding:110px 0}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .step{border:1px solid var(--linha);border-radius:var(--radius);padding:36px 30px;background:transparent}
 .step .num{width:64px;height:64px;margin-bottom:20px}
-.step h3{font-family:var(--display);font-weight:800;font-size:24px;color:var(--lima);margin-bottom:10px;letter-spacing:-.01em}
+.step h3{font-family:var(--display);font-weight:800;font-size:24px;color:var(--lima);margin-bottom:10px;letter-spacing:0}
 .step p{color:var(--areia-60);font-size:15.5px}
 @media(max-width:900px){.steps{grid-template-columns:1fr}}
 
@@ -227,7 +227,7 @@ section{padding:110px 0}
   background:linear-gradient(180deg,rgba(12,31,20,.55) 0%,rgba(12,31,20,.18) 50%,rgba(12,31,20,.6) 100%)}
 .cta h2{font-size:clamp(40px,7vw,86px);max-width:14ch;margin:20px auto 34px}
 .cta h2 .lima{color:var(--lima)}
-.cta-logo{display:inline-flex;align-items:center;gap:8px;margin-top:28px;color:#fff;font-family:var(--display);font-size:clamp(34px,5vw,58px);font-weight:800;letter-spacing:-.04em;line-height:1}
+.cta-logo{display:inline-flex;align-items:center;gap:8px;margin-top:28px;color:#fff;font-family:var(--display);font-size:clamp(34px,5vw,58px);font-weight:800;letter-spacing:0;line-height:1}
 .cta-logo svg{width:.78em;height:.78em;stroke:currentColor}
 
 /* ---------- footer ---------- */
@@ -252,7 +252,7 @@ footer{border-top:1px solid var(--linha);padding:70px 0 40px}
 /* ================= COMPONENTES DAS PÁGINAS INTERNAS ================= */
 /* hero de página interna */
 .page-hero{background:var(--floresta);padding:150px 0 64px}
-.page-hero h1{font-size:clamp(38px,6vw,68px);color:var(--areia);margin-top:16px;max-width:18ch;font-family:var(--display);font-weight:800;letter-spacing:-.03em;line-height:1.05}
+.page-hero h1{font-size:clamp(38px,6vw,68px);color:var(--areia);margin-top:16px;max-width:18ch;font-family:var(--display);font-weight:800;letter-spacing:0;line-height:1.05}
 .page-hero p.lead{color:var(--areia-60);max-width:620px;margin-top:18px;font-size:18px}
 .page-hero .breadcrumb{font-size:13px;color:var(--areia-60);margin-bottom:8px}
 .page-hero .breadcrumb a{color:var(--lima)}
@@ -275,7 +275,7 @@ footer{border-top:1px solid var(--linha);padding:70px 0 40px}
 .tl-step{position:relative;display:grid;grid-template-columns:64px 1fr;gap:26px;padding:0 0 54px}
 .tl-step:last-child{padding-bottom:0}
 .tl-num{position:relative;z-index:1;width:64px;height:64px;border-radius:50%;background:var(--floresta);color:var(--lima);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:22px;border:4px solid var(--areia)}
-.tl-step h3{font-family:var(--display);font-weight:800;font-size:24px;color:var(--floresta);letter-spacing:-.01em}
+.tl-step h3{font-family:var(--display);font-weight:800;font-size:24px;color:var(--floresta);letter-spacing:0}
 .tl-step .tl-kicker{font-size:12px;font-weight:800;letter-spacing:.18em;color:var(--vivo);font-family:var(--display);text-transform:uppercase;margin-bottom:6px}
 .tl-step p{margin-top:10px;max-width:62ch}
 .tl-step .tl-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
@@ -384,6 +384,126 @@ header.scrolled .nav{height:62px}
 .mobile-nav a:hover{color:var(--lima)}
 .mobile-nav .close-nav{position:absolute;top:20px;right:22px;font-size:30px;color:var(--lima);background:none;border:0;cursor:pointer}
 @media(max-width:820px){.menu-btn{display:block}.nav > .btn{display:none}}
+
+/* ---------- ajustes responsivos ---------- */
+html,body{max-width:100%;overflow-x:hidden}
+section,.page-light,.page-white,.case-band,.clients,.cta,footer{overflow-wrap:break-word}
+.media,.video-media,.contact-map iframe{max-width:100%}
+.btn{min-height:48px}
+@media(max-width:1024px){
+  .wrap{padding:0 22px}
+  .case{gap:38px}
+  .case-mark{height:auto;max-width:260px}
+  .case-logos img{height:76px}
+}
+@media(max-width:760px){
+  body{font-size:16px}
+  .wrap{padding:0 18px}
+  .nav{height:68px}
+  header.scrolled .nav{height:60px}
+  .logo{font-size:28px}
+  .btn{justify-content:center;padding:12px 22px;line-height:1.15}
+  .hero{padding:118px 0 28px}
+  .hero-logo{margin-bottom:20px}
+  .hero-logo .mark{font-size:64px}
+  .hero-tag{font-size:12px;letter-spacing:.18em;margin-bottom:34px}
+  .hero h1{font-size:46px;max-width:11ch;margin-bottom:20px}
+  .hero-sub{font-size:16.5px;max-width:100%}
+  .hero-cta{display:grid;grid-template-columns:1fr;gap:12px;margin-top:28px}
+  .hero-cta .btn{width:100%}
+  .hero-stats{display:grid;grid-template-columns:1fr;gap:22px;margin-top:42px;padding:24px 0}
+  .stat span{display:block;max-width:20ch;margin:0 auto}
+  section{padding:72px 0}
+  .sec-head{align-items:flex-start;margin-bottom:36px;gap:16px}
+  .sec-head h2{font-size:38px;max-width:100%}
+  .sec-head p{max-width:100%}
+  .services,.steps,.concept-grid,.depo-grid,.post-grid{gap:16px;margin-top:34px}
+  .svc,.step,.concept,.depo{padding:28px 22px;border-radius:16px}
+  #cases{padding:74px 0 12px}
+  .case-band{padding:54px 0}
+  .case-band.light + .case-band.light .wrap{padding-top:54px}
+  .case{gap:26px}
+  .case h3{font-size:34px}
+  .case-mark{height:auto;max-width:min(260px,80vw)}
+  .chips{gap:8px;margin:18px 0 22px}
+  .chip{padding:7px 13px;font-size:13px}
+  .case-links{display:grid;grid-template-columns:1fr;gap:10px}
+  .tours{grid-template-columns:1fr 1fr}
+  .tour{min-height:72px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .case-gallery,.mini-thumbs{gap:10px}
+  .case-logos a{flex:1 1 150px;padding:14px}
+  .case-logos img{height:64px;max-width:100%;object-fit:contain}
+  .media .play span{width:68px;height:68px}
+  .media .tag{left:12px;top:12px;max-width:calc(100% - 24px);font-size:12px;padding:7px 12px}
+  .sound-btn{right:10px;bottom:10px;padding:9px 14px;font-size:12px}
+  .clients{padding:58px 0}
+  .client-marquee{margin-top:34px}
+  .client-marquee .track{gap:24px}
+  .client-marquee .logo-item{min-width:168px;height:72px}
+  .client-marquee img{max-width:168px;max-height:56px}
+  .cta,.cta[style]{padding:96px 0!important}
+  .cta h2{font-size:44px;max-width:11ch}
+  .cta .btn{width:100%;max-width:320px}
+  .cta-logo{font-size:42px}
+  footer{padding:54px 0 34px}
+  .foot{gap:28px}
+  .copy{margin-top:36px;flex-direction:column}
+  .page-hero{padding:118px 0 52px}
+  .page-hero h1{font-size:40px;max-width:100%}
+  .page-hero p.lead{font-size:16.5px}
+  .page-light,.page-white{padding:68px 0}
+  .timeline{margin-top:38px}
+  .timeline::before{left:23px}
+  .tl-step{grid-template-columns:48px 1fr;gap:16px;padding-bottom:38px}
+  .tl-num{width:48px;height:48px;font-size:18px;border-width:3px}
+  .tl-step h3{font-size:22px}
+  .partner-box{padding:24px 20px;margin-top:32px}
+  .quem-grid{gap:16px;margin-top:34px}
+  .quem{padding:24px 20px;border-radius:14px}
+  .form-grid{margin-top:26px}
+  .contact-wrap{gap:24px}
+  .contact-side{padding:28px 22px;border-radius:16px}
+  .contact-map iframe{height:210px}
+  .faq{margin-top:32px}
+  .faq details{padding:0 18px}
+  .faq summary{font-size:15.5px}
+  .article{max-width:100%}
+  .article h2{font-size:24px}
+  .article p{font-size:16px}
+  .post-card .thumb{height:140px}
+  .mobile-nav a{font-size:24px}
+  .wa-fab{right:16px;bottom:16px;width:54px;height:54px}
+  .wa-fab svg{width:28px;height:28px}
+}
+@media(max-width:520px){
+  .wrap{padding:0 16px}
+  .hero h1{font-size:40px}
+  .hero-logo .mark{font-size:56px}
+  .hero-tag{font-size:11px;letter-spacing:.14em}
+  .hero-sub{font-size:16px}
+  .case-gallery,.mini-thumbs,.tours{grid-template-columns:1fr!important}
+  .case-gallery[style]{grid-template-columns:1fr!important}
+  .case-gallery img{aspect-ratio:16/10}
+  .case-links .btn,.form-grid .btn{width:100%}
+  .client-marquee .logo-item{min-width:148px;height:66px}
+  .client-marquee img{max-width:148px;max-height:50px}
+  .cta h2{font-size:39px}
+  .cta-logo{font-size:36px}
+  .contact-map iframe{height:190px}
+  .modal{padding:14px}
+  .modal .box{border-radius:10px}
+  .modal .close{top:14px;right:14px;width:42px;height:42px}
+}
+@media(max-width:380px){
+  .wrap{padding:0 14px}
+  .logo{font-size:26px}
+  .btn{padding:12px 18px;font-size:14px}
+  .hero{padding-top:110px}
+  .hero h1{font-size:36px}
+  .sec-head h2,.case h3,.page-hero h1{font-size:34px}
+  .cta h2{font-size:35px}
+  .cta-logo{font-size:32px}
+}
 
 /* 404 */
 .p404{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;background:var(--floresta)}
