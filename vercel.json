@@ -8,6 +8,10 @@
   ],
   "rewrites": [
     {
+      "source": "/telegestao/",
+      "destination": "https://telemetria-olive.vercel.app/"
+    },
+    {
       "source": "/telegestao/:path*",
       "destination": "https://telemetria-olive.vercel.app/:path*"
     }
