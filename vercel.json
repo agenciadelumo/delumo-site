@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/telegestao",
+      "destination": "/telegestao/",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/telegestao/:path*",
+      "destination": "https://telemetria-olive.vercel.app/:path*"
+    }
+  ]
+}
