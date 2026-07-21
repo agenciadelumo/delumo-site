@@ -1,21 +1,82 @@
-/* ---------- vídeo MetaTrade: autoplay mudo + som ao clicar ---------- */
+/* ---------- ambientes 360: senha de demonstração ---------- */
 (function(){
-  var wrap=document.getElementById('mt-video'),frame=document.getElementById('mt-player'),btn=document.getElementById('mt-sound');
-  if(!wrap||!frame||!btn)return;
-  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches){
-    // sem autoplay: player padrão com controles
-    frame.src='https://www.youtube-nocookie.com/embed/-C6du1R1xyg?rel=0&playsinline=1';
-    wrap.classList.add('controls-on');
-    btn.remove();
-    return;
+  var links=document.querySelectorAll('.protected-tour[data-protected-url]');
+  if(!links.length)return;
+  var PASSWORD='Delumo@123';
+  var targetUrl='';
+
+  function ensureModal(){
+    var modal=document.getElementById('tour-password-modal');
+    if(modal)return modal;
+    modal=document.createElement('div');
+    modal.className='tour-modal';
+    modal.id='tour-password-modal';
+    modal.setAttribute('role','dialog');
+    modal.setAttribute('aria-modal','true');
+    modal.setAttribute('aria-labelledby','tour-password-title');
+    modal.innerHTML=
+      '<div class="tour-dialog">'+
+        '<h3 id="tour-password-title">SOLICITE A SENHA DE DEMONSTRAÇÃO.</h3>'+
+        '<p>Digite a senha para acessar o ambiente 360° de demonstração do MetaTrade.</p>'+
+        '<form id="tour-password-form">'+
+          '<div class="tour-field">'+
+            '<label for="tour-password-input">Senha</label>'+
+            '<input id="tour-password-input" type="password" autocomplete="off" required>'+
+          '</div>'+
+          '<p class="tour-error" id="tour-password-error" aria-live="polite"></p>'+
+          '<div class="tour-actions">'+
+            '<button class="btn" type="submit">Acessar ambiente</button>'+
+            '<button class="btn ghost" type="button" id="tour-password-close">Cancelar</button>'+
+          '</div>'+
+        '</form>'+
+      '</div>';
+    document.body.appendChild(modal);
+
+    modal.addEventListener('click',function(e){if(e.target===modal)closeModal();});
+    modal.querySelector('#tour-password-close').addEventListener('click',closeModal);
+    modal.querySelector('#tour-password-form').addEventListener('submit',function(e){
+      e.preventDefault();
+      var input=modal.querySelector('#tour-password-input');
+      var error=modal.querySelector('#tour-password-error');
+      if(input.value===PASSWORD){
+        var url=targetUrl;
+        closeModal();
+        window.open(url,'_blank','noopener');
+      }else{
+        error.textContent='Senha incorreta. Solicite a senha de demonstração.';
+        input.select();
+      }
+    });
+    return modal;
   }
-  var soundOn=false;
-  function cmd(func){frame.contentWindow.postMessage(JSON.stringify({event:'command',func:func,args:[]}),'*');}
-  btn.addEventListener('click',function(){
-    soundOn=!soundOn;
-    if(soundOn){cmd('unMute');cmd('playVideo');btn.innerHTML='🔊&nbsp; Desativar som';btn.setAttribute('aria-pressed','true');}
-    else{cmd('mute');btn.innerHTML='🔇&nbsp; Ativar som';btn.setAttribute('aria-pressed','false');}
+
+  function openModal(url){
+    targetUrl=url;
+    var modal=ensureModal();
+    var input=modal.querySelector('#tour-password-input');
+    var error=modal.querySelector('#tour-password-error');
+    input.value='';
+    error.textContent='';
+    modal.classList.add('open');
+    document.body.style.overflow='hidden';
+    setTimeout(function(){input.focus();},30);
+  }
+
+  function closeModal(){
+    var modal=document.getElementById('tour-password-modal');
+    if(!modal)return;
+    modal.classList.remove('open');
+    document.body.style.overflow='';
+    targetUrl='';
+  }
+
+  links.forEach(function(link){
+    link.addEventListener('click',function(e){
+      e.preventDefault();
+      openModal(link.getAttribute('data-protected-url'));
+    });
   });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal();});
 })();
 
 /* ---------- mapa animado estilo War: time comercial conquista os leads ---------- */

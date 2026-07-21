@@ -91,7 +91,7 @@ section{padding:110px 0}
 
 
 
-/* vídeo de fundo do case MetaTrade */
+/* player do case MetaTrade */
 .video-media{position:relative;aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden;background:#000;border:1px solid var(--linha)}
 .video-media iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none}
 .video-media.controls-on iframe{pointer-events:auto}
@@ -112,6 +112,8 @@ section{padding:110px 0}
 .case-logos span{font-size:12.5px;font-weight:600;color:var(--areia)}
 .case .game-site,.page-white .game-site{margin:18px 0 0;font-weight:800;color:var(--floresta)}
 .case .game-site a,.page-white .game-site a{color:var(--vivo);text-decoration:underline;text-underline-offset:4px}
+.project-credit{font-weight:800}
+.project-credit a{color:var(--vivo);text-decoration:underline;text-underline-offset:4px}
 
 /* serviços, faixa clara (areia) */
 #servicos{background:var(--areia)}
@@ -149,6 +151,21 @@ section{padding:110px 0}
 .tour{background:var(--musgo);border:1px solid var(--linha);border-radius:14px;padding:14px 12px;text-align:center;font-weight:600;font-size:13.5px;transition:border-color .2s,transform .2s;color:var(--areia)}
 .tour:hover{border-color:rgba(180,244,40,.5);transform:translateY(-3px)}
 .tour em{display:block;font-style:normal;color:var(--lima);font-size:11px;font-weight:800;letter-spacing:.14em;margin-top:4px}
+.protected-tour{cursor:pointer}
+.tour-modal{position:fixed;inset:0;z-index:110;display:none;align-items:center;justify-content:center;padding:22px;background:rgba(6,14,9,.82);backdrop-filter:blur(8px)}
+.tour-modal.open{display:flex}
+.tour-dialog{width:min(440px,100%);background:var(--areia);color:var(--floresta);border:1px solid rgba(12,31,20,.12);border-radius:18px;padding:28px;box-shadow:0 28px 80px rgba(0,0,0,.42)}
+.tour-dialog h3{font-family:var(--display);font-weight:800;font-size:24px;line-height:1.1;margin-bottom:10px;color:var(--floresta)}
+.tour-dialog p{color:rgba(12,31,20,.68);font-size:15px}
+.tour-field{margin-top:20px}
+.tour-field label{display:block;font-size:13px;font-weight:800;color:var(--floresta);margin-bottom:8px}
+.tour-field input{width:100%;border:1.5px solid rgba(12,31,20,.18);border-radius:12px;padding:13px 14px;font:inherit;color:var(--floresta);background:#fff}
+.tour-field input:focus{outline:2px solid var(--vivo);outline-offset:1px;border-color:var(--vivo)}
+.tour-error{min-height:20px;margin-top:10px;color:#9b1c1c!important;font-size:13px!important;font-weight:700}
+.tour-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.tour-actions .btn{flex:1 1 160px}
+.tour-actions .btn.ghost{color:var(--floresta);border-color:rgba(12,31,20,.55)}
+.tour-actions .btn.ghost:hover{background:rgba(12,31,20,.06)}
 .mini-thumbs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
 .mini-thumbs .media{aspect-ratio:16/9;border-radius:14px}
 .mini-thumbs .media .play span{width:52px;height:52px}
