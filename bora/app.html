@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>bora. — app do turista</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#10241F; --ink-2:#163029; --ink-3:#23433a; --ink-4:#2d5448;
+    --sand:#F5EFE3; --muted:#9DB4AC;
+    --coral:#FF6B4A; --leaf:#54C08A; --gold:#EAB94B; --plum:#B070C9;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:"Instrument Sans",system-ui,sans-serif;
+    background:radial-gradient(900px 600px at 50% -5%, #16302a, #0a1814 60%);
+    min-height:100vh;display:flex;flex-direction:column;align-items:center;
+    padding:26px 14px 46px;color:var(--sand);-webkit-font-smoothing:antialiased;
+  }
+  .intro{max-width:412px;text-align:center;margin-bottom:20px}
+  .intro .eb{font-family:"Space Mono";font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+  .intro h1{font-family:"Bricolage Grotesque";font-weight:800;font-size:23px;letter-spacing:-.02em;margin:6px 0 4px}
+  .intro p{color:var(--muted);font-size:13px;line-height:1.5}
+
+  .phone{
+    width:390px;max-width:100%;height:820px;background:var(--ink);border-radius:46px;
+    border:1px solid #2a4a40;box-shadow:0 40px 90px rgba(0,0,0,.55),inset 0 0 0 6px #0c1c17;
+    position:relative;overflow:hidden;display:flex;flex-direction:column;
+  }
+  .statusbar{height:44px;display:flex;align-items:center;justify-content:space-between;
+    padding:0 26px;font-family:"Space Mono";font-size:12px;color:var(--sand);flex:0 0 auto;z-index:5}
+  .notch{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:110px;height:26px;background:#0c1c17;border-radius:14px;z-index:30}
+
+  .screen-host{flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none}
+  .screen-host::-webkit-scrollbar{display:none}
+  .screen{display:none;padding:4px 18px 100px}
+  .screen.active{display:block;animation:fade .3s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  /* top / home */
+  .loc{display:flex;align-items:center;justify-content:space-between;padding:6px 0 14px}
+  .loc .place{font-family:"Space Mono";font-size:12px;color:var(--muted)}
+  .loc .place b{color:var(--sand);font-family:"Instrument Sans";font-weight:600;font-size:15px;display:block}
+  .topicons{display:flex;align-items:center;gap:6px}
+  .iconbtn{width:38px;height:38px;border-radius:11px;background:var(--ink-2);border:1px solid var(--ink-3);
+    display:grid;place-items:center;font-size:16px;cursor:pointer;position:relative}
+  .iconbtn .dot{position:absolute;top:8px;right:9px;width:7px;height:7px;border-radius:50%;background:var(--coral)}
+  .avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--coral),var(--gold));
+    display:grid;place-items:center;font-weight:700;color:#0c1c17;font-size:15px;cursor:pointer}
+  .greet{font-family:"Bricolage Grotesque";font-weight:800;font-size:25px;letter-spacing:-.02em;line-height:1.1;margin-bottom:14px}
+  .greet span{color:var(--coral)}
+
+  .modes{display:flex;gap:7px;background:var(--ink-2);border:1px solid var(--ink-3);border-radius:14px;padding:5px;margin-bottom:14px}
+  .mode{flex:1;border:none;background:transparent;color:var(--muted);font-family:"Instrument Sans";font-weight:600;
+    font-size:12.5px;padding:9px 4px;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;transition:.2s}
+  .mode.on{background:var(--coral);color:#0c1c17}
+  .mode.adult.on{background:var(--plum);color:#fff}
+
+  .searchpill{display:flex;align-items:center;gap:10px;background:var(--ink-2);border:1px solid var(--ink-3);
+    border-radius:14px;padding:13px 16px;color:var(--muted);font-size:14px;cursor:pointer;margin-bottom:8px}
+
+  .chiprow{display:flex;gap:8px;overflow-x:auto;padding:8px 0 14px;scrollbar-width:none}
+  .chiprow::-webkit-scrollbar{display:none}
+  .chip{flex:0 0 auto;font-size:13px;border:1px solid var(--ink-3);background:var(--ink-2);border-radius:10px;
+    padding:8px 13px;color:var(--sand);cursor:pointer;white-space:nowrap;transition:.2s}
+  .chip.on{background:var(--leaf);color:#0c1c17;border-color:var(--leaf);font-weight:600}
+  .chip.lens{border-style:dashed;border-color:var(--leaf);color:var(--leaf)}
+  .chip.lens.on{background:var(--leaf);color:#0c1c17}
+
+  .seclabel{display:flex;align-items:baseline;justify-content:space-between;margin:18px 0 12px}
+  .seclabel h3{font-family:"Bricolage Grotesque";font-weight:700;font-size:18px;letter-spacing:-.01em}
+  .seclabel a{font-size:12px;color:var(--leaf);font-family:"Space Mono";cursor:pointer}
+
+  .hscroll{display:flex;gap:13px;overflow-x:auto;padding:0 18px 6px;margin:0 -18px;scrollbar-width:none}
+  .hscroll::-webkit-scrollbar{display:none}
+  .xp{flex:0 0 220px;background:var(--ink-2);border:1px solid var(--ink-3);border-radius:18px;overflow:hidden;cursor:pointer;transition:.15s}
+  .xp:active{transform:scale(.98)}
+  .xp .pic{height:120px;position:relative;display:flex;align-items:flex-end;padding:10px}
+  .xp .pic .em{position:absolute;top:9px;right:12px;font-size:22px}
+  .xp .pic .tag{font-family:"Space Mono";font-size:10px;background:rgba(12,28,23,.7);padding:4px 8px;border-radius:7px;color:var(--sand);backdrop-filter:blur(4px)}
+  .xp .pic .fav{position:absolute;top:8px;left:10px;font-size:16px;cursor:pointer;opacity:.9}
+  .xp .body{padding:12px 13px}
+  .xp .body h4{font-family:"Bricolage Grotesque";font-weight:700;font-size:15px;line-height:1.2;margin-bottom:5px}
+  .xp .meta{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+  .xp .rate{font-size:12px;color:var(--gold);font-family:"Space Mono"}
+  .xp .price{font-size:13px;font-weight:700;color:var(--leaf)}
+  .xp .price small{color:var(--muted);font-weight:400;font-size:11px}
+
+  .g-vinho{background:linear-gradient(135deg,#7a2d3a,#c95a6e)}
+  .g-mata{background:linear-gradient(135deg,#1d5e44,#54c08a)}
+  .g-museu{background:linear-gradient(135deg,#3a4a7a,#7088c9)}
+  .g-parque{background:linear-gradient(135deg,#c97a2d,#eab94b)}
+  .g-kids{background:linear-gradient(135deg,#2d86c9,#54c0b8)}
+  .g-teatro{background:linear-gradient(135deg,#7a2d6e,#c970b0)}
+  .g-show{background:linear-gradient(135deg,#c93a5a,#eab94b)}
+  .g-bar{background:linear-gradient(135deg,#2d4a7a,#b070c9)}
+  .g-festa{background:linear-gradient(135deg,#b0309a,#ff6b4a)}
+  .g-night{background:linear-gradient(135deg,#3a1d5e,#b070c9)}
+  .g-vip{background:linear-gradient(135deg,#1a1a2e,#eab94b)}
+  .g-clube{background:linear-gradient(135deg,#5e1d3a,#b07090)}
+
+  .guide{display:flex;gap:12px;background:var(--ink-2);border:1px solid var(--ink-3);border-radius:16px;padding:13px;margin-bottom:11px;cursor:pointer}
+  .guide:active{transform:scale(.99)}
+  .guide .face{width:54px;height:54px;border-radius:14px;flex:0 0 auto;display:grid;place-items:center;font-size:24px}
+  .guide .info{flex:1;min-width:0}
+  .guide .info h4{font-family:"Bricolage Grotesque";font-weight:700;font-size:15px;display:flex;align-items:center;gap:6px}
+  .verified{font-size:10px;background:rgba(84,192,138,.16);color:var(--leaf);padding:2px 7px;border-radius:6px;font-family:"Space Mono"}
+  .guide .info p{font-size:12.5px;color:var(--muted);margin-top:2px}
+  .guide .info .langs{font-size:11px;color:var(--gold);font-family:"Space Mono";margin-top:4px}
+  .guide .right{text-align:right;flex:0 0 auto}
+  .guide .right .r{font-size:12px;color:var(--gold);font-family:"Space Mono"}
+  .guide .right .p{font-size:14px;font-weight:700;color:var(--leaf);margin-top:6px}
+  .guide .right .p small{display:block;font-weight:400;font-size:10px;color:var(--muted)}
+
+  .banner{background:linear-gradient(120deg,var(--ink-4),var(--ink-2));border:1px solid var(--ink-3);
+    border-radius:18px;padding:18px;margin:18px 0 4px;position:relative;overflow:hidden;cursor:pointer}
+  .banner .k{font-family:"Space Mono";font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+  .banner h4{font-family:"Bricolage Grotesque";font-weight:800;font-size:19px;margin:5px 0 5px;max-width:15ch}
+  .banner p{font-size:13px;color:var(--muted);max-width:28ch}
+  .banner .em{position:absolute;right:14px;bottom:10px;font-size:46px;opacity:.85}
+
+  .adultnote{background:rgba(176,112,201,.1);border:1px solid rgba(176,112,201,.3);border-radius:14px;padding:13px 15px;font-size:12.5px;color:#d9bfe6;margin-bottom:6px;display:flex;gap:9px}
+
+  /* search */
+  .field{background:var(--ink-2);border:1px solid var(--ink-3);border-radius:13px;padding:12px 15px;margin-bottom:10px;display:flex;align-items:center;gap:11px}
+  .field input{background:none;border:none;color:var(--sand);font-family:inherit;font-size:14px;width:100%;outline:none}
+  .field input::placeholder{color:var(--muted)}
+  .fieldrow{display:flex;gap:10px}.fieldrow .field{flex:1}
+  .filt-h{font-family:"Space Mono";font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:16px 0 9px}
+  .result{display:flex;gap:12px;background:var(--ink-2);border:1px solid var(--ink-3);border-radius:16px;overflow:hidden;margin-bottom:11px;cursor:pointer}
+  .result:active{transform:scale(.99)}
+  .result .pic{width:92px;flex:0 0 auto;display:grid;place-items:center;font-size:26px}
+  .result .body{padding:11px 13px 11px 2px;flex:1;min-width:0}
+  .result .body h4{font-family:"Bricolage Grotesque";font-weight:700;font-size:14.5px;line-height:1.2}
+  .result .body .sub{font-size:12px;color:var(--muted);margin:3px 0 6px}
+  .result .body .meta{display:flex;align-items:center;gap:10px}
+  .result .body .meta .r{font-size:11.5px;color:var(--gold);font-family:"Space Mono"}
+  .result .body .meta .p{font-size:13px;color:var(--leaf);font-weight:700;margin-left:auto}
+
+  /* trips */
+  .scr-title{font-family:"Bricolage Grotesque";font-weight:800;font-size:24px;letter-spacing:-.02em;margin:10px 0 16px}
+  .trip{background:var(--ink-2);border:1px solid var(--ink-3);border-radius:18px;padding:16px;margin-bottom:13px;cursor:pointer}
+  .trip:active{transform:scale(.99)}
+  .trip .top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
+  .trip h4{font-family:"Bricolage Grotesque";font-weight:700;font-size:16px}
+  .trip .when{font-size:12px;color:var(--muted);font-family:"Space Mono";margin-top:3px}
+  .badge{font-size:10px;font-family:"Space Mono";padding:4px 9px;border-radius:7px;white-space:nowrap}
+  .badge.hold{background:rgba(234,185,75,.16);color:var(--gold)}
+  .badge.done{background:rgba(84,192,138,.16);color:var(--leaf)}
+  .escrow{display:flex;align-items:center;gap:9px;font-size:12px;color:var(--muted);border-top:1px dashed var(--ink-3);padding-top:11px;margin-top:4px}
+  .escrow .dotg{width:8px;height:8px;border-radius:50%;background:var(--gold);flex:0 0 auto}
+  .escrow .dotok{background:var(--leaf)}
+
+  /* profile */
+  .pcard{display:flex;align-items:center;gap:14px;background:var(--ink-2);border:1px solid var(--ink-3);border-radius:18px;padding:16px;margin-bottom:16px}
+  .pcard .big{width:60px;height:60px;border-radius:18px;background:linear-gradient(135deg,var(--coral),var(--gold));display:grid;place-items:center;font-size:26px;color:#0c1c17;font-weight:800}
+  .pcard h4{font-family:"Bricolage Grotesque";font-weight:800;font-size:18px}
+  .pcard p{font-size:12.5px;color:var(--muted)}
+  .prow{display:flex;align-items:center;gap:13px;padding:15px 4px;border-bottom:1px solid var(--ink-3);font-size:14.5px;cursor:pointer}
+  .prow .ic{font-size:17px;width:24px;text-align:center}
+  .prow .st{margin-left:auto;font-size:12px;font-family:"Space Mono"}
+  .prow .st.ok{color:var(--leaf)} .prow .st.off{color:var(--muted)}
+  .toggle{margin-left:auto;width:42px;height:25px;border-radius:13px;background:var(--ink-4);position:relative;cursor:pointer;transition:.2s;flex:0 0 auto}
+  .toggle::after{content:"";position:absolute;top:3px;left:3px;width:19px;height:19px;border-radius:50%;background:var(--sand);transition:.2s}
+  .toggle.on{background:var(--plum)} .toggle.on::after{left:20px}
+
+  /* promos */
+  .promos{display:flex;gap:12px;overflow-x:auto;padding:2px 0 14px;margin:0 -18px;padding-left:18px;padding-right:18px;scrollbar-width:none}
+  .promos::-webkit-scrollbar{display:none}
+  .promo{flex:0 0 270px;border-radius:18px;padding:16px;position:relative;overflow:hidden;cursor:pointer;min-height:104px;display:flex;flex-direction:column;justify-content:center;
+    background-size:cover;background-position:center}
+  .promo::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(12,28,23,.86),rgba(12,28,23,.45))}
+  .promo>*{position:relative;z-index:1}
+  .promo .off{font-family:"Bricolage Grotesque";font-weight:800;font-size:28px;line-height:1;color:var(--gold)}
+  .promo h4{font-family:"Bricolage Grotesque";font-weight:700;font-size:15px;margin:4px 0 3px;max-width:20ch}
+  .promo p{font-size:11.5px;color:var(--muted);font-family:"Space Mono"}
+  .promo .cta{margin-top:9px;font-size:11px;font-weight:600;color:var(--coral)}
+
+  /* discreet ad slot */
+  .adslot{display:flex;gap:12px;align-items:center;background:var(--ink-2);border:1px dashed var(--ink-4);border-radius:14px;padding:12px 13px;margin:4px 0 6px;cursor:pointer}
+  .adslot .ic{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;font-size:21px;flex:0 0 auto;background-size:cover;background-position:center}
+  .adslot h4{font-size:13.5px;font-family:"Bricolage Grotesque";font-weight:700}
+  .adslot p{font-size:11.5px;color:var(--muted)}
+  .adtag{font-family:"Space Mono";font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#6f857d;border:1px solid var(--ink-4);border-radius:5px;padding:2px 5px;margin-left:auto;flex:0 0 auto;align-self:flex-start}
+
+  /* services */
+  .svc-hd{font-family:"Space Mono";font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:20px 0 10px;display:flex;align-items:center;gap:8px}
+  .svc{display:flex;gap:12px;align-items:center;background:var(--ink-2);border:1px solid var(--ink-3);border-radius:15px;padding:13px;margin-bottom:10px;cursor:pointer}
+  .svc .ic{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;font-size:23px;flex:0 0 auto;background-size:cover;background-position:center}
+  .svc .info{flex:1;min-width:0}
+  .svc .info h4{font-family:"Bricolage Grotesque";font-weight:700;font-size:14.5px;display:flex;align-items:center;gap:7px}
+  .svc .info p{font-size:12px;color:var(--muted);margin-top:2px}
+  .svc .info .pe{font-size:10.5px;color:var(--leaf);font-family:"Space Mono";margin-top:3px}
+  .svc .go{font-size:12px;color:var(--coral);font-weight:600;flex:0 0 auto}
+  .svc-intro{font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:4px}
+
+  /* tab bar */
+  .tabbar{flex:0 0 auto;display:flex;background:rgba(12,28,23,.94);backdrop-filter:blur(12px);
+    border-top:1px solid var(--ink-3);padding:9px 8px 22px;z-index:10}
+  .tab{flex:1;border:none;background:none;color:var(--muted);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;font-family:inherit}
+  .tab .ti{font-size:21px;line-height:1}
+  .tab .tl{font-size:10.5px;font-weight:600}
+  .tab.on{color:var(--coral)}
+
+  /* ===== SHEETS (push screens) ===== */
+  .sheet{position:absolute;inset:0;background:var(--ink);z-index:18;display:flex;flex-direction:column;
+    transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);visibility:hidden}
+  .sheet.open{transform:none;visibility:visible}
+  .appbar{flex:0 0 auto;display:flex;align-items:center;gap:12px;padding:50px 16px 12px;border-bottom:1px solid var(--ink-3);background:var(--ink);z-index:2}
+  .appbar .back{width:36px;height:36px;border-radius:10px;background:var(--ink-2);border:1px solid var(--ink-3);display:grid;place-items:center;font-size:17px;cursor:pointer}
+  .appbar h2{font-family:"Bricolage Grotesque";font-weight:700;font-size:17px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .appbar .act{font-size:19px;cursor:pointer;width:36px;text-align:center}
+  .sheet-body{flex:1;overflow-y:auto;scrollbar-width:none}
+  .sheet-body::-webkit-scrollbar{display:none}
+
+  /* xp detail */
+  .hero{height:230px;position:relative;display:flex;align-items:flex-end;padding:16px}
+  .hero .em{position:absolute;top:16px;right:18px;font-size:40px}
+  .hero .cat{font-family:"Space Mono";font-size:11px;background:rgba(12,28,23,.7);padding:5px 11px;border-radius:8px;backdrop-filter:blur(4px)}
+  .dtl{padding:18px}
+  .dtl h1{font-family:"Bricolage Grotesque";font-weight:800;font-size:23px;line-height:1.12;letter-spacing:-.02em}
+  .dtl .qmeta{display:flex;flex-wrap:wrap;gap:14px;margin:12px 0 16px;font-size:13px;color:var(--muted);font-family:"Space Mono"}
+  .dtl .qmeta b{color:var(--gold)}
+  .dtl h5{font-family:"Bricolage Grotesque";font-weight:700;font-size:15px;margin:20px 0 9px}
+  .dtl p.desc{font-size:14px;color:var(--muted);line-height:1.6}
+  .inc{list-style:none}
+  .inc li{display:flex;gap:10px;align-items:center;font-size:14px;padding:6px 0;color:var(--sand)}
+  .inc li::before{content:"✓";color:var(--leaf);font-weight:700}
+  .rev{background:var(--ink-2);border:1px solid var(--ink-3);border-radius:14px;padding:14px;margin-bottom:10px}
+  .rev .rh{display:flex;align-items:center;gap:9px;margin-bottom:6px}
+  .rev .rh .a{width:30px;height:30px;border-radius:50%;background:var(--ink-4);display:grid;place-items:center;font-size:14px}
+  .rev .rh b{font-size:13.5px} .rev .rh .s{margin-left:auto;color:var(--gold);font-family:"Space Mono";font-size:12px}
+  .rev p{font-size:13px;color:var(--muted);line-height:1.5}
+
+  .stickybar{flex:0 0 auto;display:flex;align-items:center;gap:14px;padding:14px 18px 26px;border-top:1px solid var(--ink-3);background:var(--ink)}
+  .stickybar .pr{flex:1}
+  .stickybar .pr .v{font-family:"Bricolage Grotesque";font-weight:800;font-size:20px;color:var(--leaf)}
+  .stickybar .pr small{display:block;font-size:11px;color:var(--muted);font-family:"Space Mono"}
+  .btn{background:var(--coral);color:#0c1c17;border:none;border-radius:13px;padding:15px 22px;font-family:"Bricolage Grotesque";font-weight:700;font-size:15px;cursor:pointer}
+  .btn.full{width:100%;display:block;text-align:center}
+  .btn.ghost{background:var(--ink-2);color:var(--sand);border:1px solid var(--ink-3)}
+  .btn.plum{background:var(--plum);color:#fff}
+
+  /* booking flow */
+  .steps{display:flex;gap:6px;padding:14px 18px 4px}
+  .steps .sd{flex:1;height:4px;border-radius:3px;background:var(--ink-3)}
+  .steps .sd.on{background:var(--coral)}
+  .bk{padding:18px}
+  .bk .sumrow{display:flex;gap:12px;align-items:center;background:var(--ink-2);border:1px solid var(--ink-3);border-radius:14px;padding:12px;margin-bottom:18px}
+  .bk .sumrow .ic{width:46px;height:46px;border-radius:11px;display:grid;place-items:center;font-size:22px;flex:0 0 auto}
+  .bk .sumrow h4{font-family:"Bricolage Grotesque";font-weight:700;font-size:14px;line-height:1.2}
+  .bk .sumrow p{font-size:12px;color:var(--muted);font-family:"Space Mono";margin-top:2px}
+  .bk label{font-family:"Space Mono";font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);display:block;margin:18px 0 9px}
+  .pickrow{display:flex;gap:8px;flex-wrap:wrap}
+  .pick{border:1px solid var(--ink-3);background:var(--ink-2);border-radius:11px;padding:11px 14px;font-size:13.5px;cursor:pointer;text-align:center}
+  .pick.on{background:var(--coral);color:#0c1c17;border-color:var(--coral);font-weight:700}
+  .stepper{display:flex;align-items:center;gap:18px;background:var(--ink-2);border:1px solid var(--ink-3);border-radius:13px;padding:10px 16px;width:fit-content}
+  .stepper button{width:34px;height:34px;border-radius:9px;border:1px solid var(--ink-3);background:var(--ink);color:var(--sand);font-size:20px;cursor:pointer}
+  .stepper .n{font-family:"Bricolage Grotesque";font-weight:700;font-size:18px;min-width:24px;text-align:center}
+  .payrow{display:flex;gap:12px;align-items:center;background:var(--ink-2);border:1px solid var(--ink-3);border-radius:13px;padding:14px;margin-bottom:10px;cursor:pointer}
+  .payrow.on{border-color:var(--coral)}
+  .payrow .pm{width:40px;height:40px;border-radius:10px;background:var(--ink);display:grid;place-items:center;font-size:18px}
+  .payrow h4{font-size:14px;font-family:"Bricolage Grotesque";font-weight:700}
+  .payrow p{font-size:12px;color:var(--muted)}
+  .payrow .rd{margin-left:auto;width:20px;height:20px;border-radius:50%;border:2px solid var(--ink-4);flex:0 0 auto}
+  .payrow.on .rd{border-color:var(--coral);background:radial-gradient(circle,var(--coral) 0 5px,transparent 6px)}
+  .totbox{background:var(--ink-2);border:1px solid var(--ink-3);border-radius:14px;padding:14px 16px;margin:18px 0}
+  .totbox .ln{display:flex;justify-content:space-between;font-size:13.5px;padding:4px 0;color:var(--muted)}
+  .totbox .ln.tot{border-top:1px solid var(--ink-3);margin-top:6px;padding-top:10px;color:var(--sand);font-weight:700;font-size:16px}
+  .totbox .ln.tot b{color:var(--leaf);font-family:"Bricolage Grotesque"}
+  .escrowbox{display:flex;gap:10px;background:rgba(234,185,75,.08);border:1px solid rgba(234,185,75,.25);border-radius:13px;padding:13px;font-size:12.5px;color:#e7d6a8;margin-bottom:6px}
+  .success{text-align:center;padding:40px 24px}
+  .success .ck{width:78px;height:78px;border-radius:50%;background:rgba(84,192,138,.15);border:2px solid var(--leaf);display:grid;place-items:center;font-size:38px;margin:0 auto 18px}
+  .success h2{font-family:"Bricolage Grotesque";font-weight:800;font-size:24px;margin-bottom:8px}
+  .success p{font-size:14px;color:var(--muted);line-height:1.55;margin-bottom:8px}
+
+  /* chat */
+  .chatwrap{display:flex;flex-direction:column;gap:10px;padding:16px}
+  .bub{max-width:78%;padding:11px 14px;border-radius:15px;font-size:13.5px;line-height:1.45}
+  .bub.them{background:var(--ink-2);border:1px solid var(--ink-3);border-bottom-left-radius:5px;align-self:flex-start}
+  .bub.me{background:var(--coral);color:#0c1c17;border-bottom-right-radius:5px;align-self:flex-end}
+  .chatin{flex:0 0 auto;display:flex;gap:9px;padding:12px 16px 26px;border-top:1px solid var(--ink-3)}
+  .chatin input{flex:1;background:var(--ink-2);border:1px solid var(--ink-3);border-radius:12px;padding:12px 14px;color:var(--sand);font-family:inherit;font-size:14px;outline:none}
+  .chatin button{width:46px;border:none;border-radius:12px;background:var(--coral);font-size:18px;cursor:pointer}
+
+  /* notifications */
+  .notif{display:flex;gap:12px;padding:14px;border-bottom:1px solid var(--ink-3)}
+  .notif .ni{width:40px;height:40px;border-radius:11px;background:var(--ink-2);display:grid;place-items:center;font-size:18px;flex:0 0 auto}
+  .notif h4{font-size:14px;font-family:"Bricolage Grotesque";font-weight:700}
+  .notif p{font-size:12.5px;color:var(--muted);margin-top:2px}
+  .notif .t{font-size:10.5px;color:#6f857d;font-family:"Space Mono";margin-top:3px}
+
+  .empty{text-align:center;color:var(--muted);padding:50px 30px;font-size:14px}
+  .empty .e{font-size:42px;display:block;margin-bottom:12px}
+
+  /* age gate */
+  .overlay{position:absolute;inset:0;background:rgba(8,18,14,.82);backdrop-filter:blur(6px);z-index:40;
+    display:none;align-items:center;justify-content:center;padding:26px}
+  .overlay.show{display:flex;animation:fade .25s ease}
+  .gate{background:var(--ink-2);border:1px solid var(--plum);border-radius:22px;padding:26px 22px;text-align:center;max-width:320px}
+  .gate .em{font-size:42px}
+  .gate h3{font-family:"Bricolage Grotesque";font-weight:800;font-size:20px;margin:10px 0 8px}
+  .gate p{font-size:13.5px;color:var(--muted);line-height:1.55;margin-bottom:18px}
+  .gate .b1{width:100%;background:var(--plum);color:#fff;border:none;border-radius:13px;padding:14px;font-family:inherit;font-weight:700;font-size:15px;cursor:pointer}
+  .gate .b2{width:100%;background:none;color:var(--muted);border:none;padding:13px;font-family:inherit;font-size:14px;cursor:pointer;margin-top:4px}
+  .gate .law{font-family:"Space Mono";font-size:10px;color:#6f857d;margin-top:14px}
+
+  .toast{position:absolute;bottom:96px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink-4);
+    border:1px solid var(--leaf);color:var(--sand);padding:11px 18px;border-radius:12px;font-size:13px;z-index:45;opacity:0;transition:.3s;white-space:nowrap}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  .hint{text-align:center;color:var(--muted);font-size:12px;margin-top:18px;max-width:412px;line-height:1.5}
+  :focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="intro">
+  <span class="eb">Protótipo navegável · app do turista</span>
+  <h1>bora<span style="color:var(--leaf)">.</span></h1>
+  <p>Tudo é clicável. Toque num passeio para ver o detalhe, reservar e pagar (em escrow). Abra o perfil de um guia, mande mensagem, favorite, veja notificações. Troque o público no topo — o modo Adulto pede verificação +18.</p>
+</div>
+
+<div class="phone">
+  <div class="notch"></div>
+  <div class="statusbar"><span>9:41</span><span>5G &nbsp; 100%</span></div>
+
+  <div class="screen-host">
+
+    <!-- HOME -->
+    <section class="screen active" id="s-home">
+      <div class="loc">
+        <div class="place">Você está em<b>Gramado, RS ▾</b></div>
+        <div class="topicons">
+          <div class="iconbtn" onclick="openSheet('notif')">🔔<span class="dot"></span></div>
+          <div class="avatar" onclick="go('perfil')">G</div>
+        </div>
+      </div>
+      <div class="greet">Olá, Guto.<br>Para onde <span>hoje?</span></div>
+      <div class="modes">
+        <button class="mode on" data-mode="familia">👨‍👩‍👧 Família</button>
+        <button class="mode" data-mode="solteiros">🎉 Solteiros</button>
+        <button class="mode adult" data-mode="adulto">🔒 Adulto</button>
+      </div>
+      <div class="searchpill" onclick="go('buscar')"><span>🔎</span> Buscar passeios, guias, experiências…</div>
+      <div class="chiprow" id="chips"></div>
+      <div class="promos" id="home-promos"></div>
+      <div id="home-feed"></div>
+
+      <div class="banner" onclick="openXp('privativo')">
+        <span class="k">Carro privativo com Guia+Motorista</span>
+        <h4>Você monta o roteiro. Ele dirige e guia.</h4>
+        <p>Diária só pra você. Sem grupo, sem pressa.</p>
+        <span class="em">🚐</span>
+      </div>
+
+      <div class="seclabel"><h3>Guias+Motoristas em destaque</h3><a onclick="go('buscar')">ver todos</a></div>
+      <div id="home-guides"></div>
+    </section>
+
+    <!-- BUSCAR -->
+    <section class="screen" id="s-buscar">
+      <div class="scr-title">Buscar</div>
+      <div class="field"><span>📍</span><input id="q" placeholder="Destino ou experiência" oninput="renderResults()"></div>
+      <div class="fieldrow">
+        <div class="field"><span>📅</span><input placeholder="Data"></div>
+        <div class="field"><span>👥</span><input placeholder="Pessoas"></div>
+      </div>
+      <div class="filt-h">Interesses</div>
+      <div class="chiprow" id="search-chips"></div>
+      <div class="filt-h">Lentes de inclusão</div>
+      <div class="chiprow" id="lens-row">
+        <span class="chip lens" data-lens="LGBT-friendly" onclick="toggleLens(this)">🏳️‍🌈 LGBT-friendly</span>
+        <span class="chip lens" data-lens="Kids" onclick="toggleLens(this)">🧒 Kids</span>
+        <span class="chip lens" data-lens="Acessível" onclick="toggleLens(this)">♿ Acessível</span>
+        <span class="chip lens" data-lens="Pet" onclick="toggleLens(this)">🐾 Pet</span>
+      </div>
+      <div class="filt-h" id="result-count">Resultados</div>
+      <div id="results"></div>
+    </section>
+
+    <!-- VIAGENS -->
+    <section class="screen" id="s-viagens">
+      <div class="scr-title">Minhas viagens</div>
+      <div id="trips-up"></div>
+      <div class="scr-title" style="font-size:18px;margin-top:24px">Histórico</div>
+      <div id="trips-done"></div>
+    </section>
+
+    <!-- PERFIL -->
+    <section class="screen" id="s-perfil">
+      <div class="scr-title">Perfil</div>
+      <div class="pcard"><div class="big">G</div><div><h4>Guto</h4><p>Turista · membro desde 2026</p></div></div>
+      <div class="prow"><span class="ic">✅</span> Conta verificada <span class="st ok">ativo</span></div>
+      <div class="prow"><span class="ic">🔞</span> Verificação +18 <span class="st off" id="age-st">não verificado</span></div>
+      <div class="prow"><span class="ic">🌙</span> Modo adulto no app <span class="toggle" id="adult-toggle" onclick="toggleAdult(event)"></span></div>
+      <div class="prow" onclick="openSheet('favoritos')"><span class="ic">❤️</span> Favoritos <span class="st off" id="fav-count">0</span></div>
+      <div class="prow"><span class="ic">💳</span> Pagamento — Pix e cartão <span class="st off">gerenciar</span></div>
+      <div class="prow"><span class="ic">🌐</span> Idiomas <span class="st off">PT · EN</span></div>
+      <div class="prow"><span class="ic">⚙️</span> Configurações <span class="st off"></span></div>
+      <div class="prow" style="border:none"><span class="ic">↩️</span> Sair <span class="st off"></span></div>
+      <div style="margin-top:18px;padding:12px 4px;border-top:1px solid var(--ink-3);font-size:10px;color:#6f857d;line-height:1.7;font-family:'Space Mono',monospace">
+        Fotos dos locais: Wikimedia Commons — "Caracol Falls" (CC BY-SA 3.0) · "Catedral de Pedra, Canela - RS" (CC BY-SA 4.0) · "Natal Luz - Gramado" e "Entrada a Gramado" (Panoramio, CC BY-SA 3.0) · "Cave de la Vale dos Vinhedos, Bento Gonçalves" · "Punta del Este 2005" (CC BY 2.0) · "Enfeites de Natal em Gramado" (CC). Autores e licenças completas nas páginas dos arquivos em commons.wikimedia.org.
+      </div>
+    </section>
+
+    <!-- SERVIÇOS -->
+    <section class="screen" id="s-servicos">
+      <div class="scr-title">Serviços</div>
+      <p class="svc-intro">Parceiros e lojas para facilitar sua viagem. Itens marcados como <b>Anúncio</b> ou <b>Patrocinado</b> são publicidade paga.</p>
+      <div id="svc-list"></div>
+    </section>
+
+  </div><!-- /screen-host -->
+
+  <!-- SHEETS -->
+  <div class="sheet" id="sheet-xp"></div>
+  <div class="sheet" id="sheet-booking"></div>
+  <div class="sheet" id="sheet-guide"></div>
+  <div class="sheet" id="sheet-chat"></div>
+  <div class="sheet" id="sheet-trip"></div>
+
+  <div class="sheet" id="sheet-notif">
+    <div class="appbar"><div class="back" onclick="closeSheet('notif')">←</div><h2>Notificações</h2></div>
+    <div class="sheet-body">
+      <div class="notif"><div class="ni">✅</div><div><h4>Reserva confirmada</h4><p>Tânia M. confirmou seu tour de vinícolas.</p><div class="t">há 2h</div></div></div>
+      <div class="notif"><div class="ni">💬</div><div><h4>Nova mensagem</h4><p>Marcelo R.: "Combinado, te pego às 8h30!"</p><div class="t">há 5h</div></div></div>
+      <div class="notif"><div class="ni">💰</div><div><h4>Pagamento retido em escrow</h4><p>Seu valor está seguro até o passeio acontecer.</p><div class="t">ontem</div></div></div>
+      <div class="notif"><div class="ni">⭐</div><div><h4>Avalie sua experiência</h4><p>Como foi a trilha na Cascata do Caracol?</p><div class="t">2 dias</div></div></div>
+    </div>
+  </div>
+
+  <div class="sheet" id="sheet-favoritos">
+    <div class="appbar"><div class="back" onclick="closeSheet('favoritos')">←</div><h2>Favoritos</h2></div>
+    <div class="sheet-body" id="fav-body"></div>
+  </div>
+
+  <!-- age gate -->
+  <div class="overlay" id="gate">
+    <div class="gate">
+      <div class="em">🔞</div>
+      <h3>Conteúdo para maiores de 18 anos</h3>
+      <p>O modo Adulto reúne vida noturna e entretenimento adulto com parceiros verificados. Para acessar, confirme que você tem 18 anos ou mais.</p>
+      <button class="b1" onclick="confirmAge()">Verificar idade e entrar</button>
+      <button class="b2" onclick="closeGate()">Agora não</button>
+      <div class="law">Verificação por documento · separado do conteúdo família</div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- tab bar -->
+  <nav class="tabbar">
+    <button class="tab on" data-tab="home" onclick="go('home')"><span class="ti">🏠</span><span class="tl">Início</span></button>
+    <button class="tab" data-tab="buscar" onclick="go('buscar')"><span class="ti">🔎</span><span class="tl">Buscar</span></button>
+    <button class="tab" data-tab="viagens" onclick="go('viagens')"><span class="ti">🧳</span><span class="tl">Viagens</span></button>
+    <button class="tab" data-tab="servicos" onclick="go('servicos')"><span class="ti">🏷️</span><span class="tl">Serviços</span></button>
+    <button class="tab" data-tab="perfil" onclick="go('perfil')"><span class="ti">👤</span><span class="tl">Perfil</span></button>
+  </nav>
+</div>
+
+<p class="hint">Versão <b>com seleção de público</b>. Para a versão "só filtro", basta não usar o seletor do topo — Família já é a experiência geral. Pagamento é simulado. Fotos dos locais: Wikimedia Commons, licenças CC BY / CC BY-SA — créditos completos na tela Perfil e nas páginas dos arquivos.</p>
+
+<script>
+/* ============ DADOS ============ */
+var GUIDES = {
+  marcelo:{name:"Marcelo R.",face:"🧔",grad:"g-mata",langs:"PT · EN · ES",vehicle:"SUV · 4 lugares",years:8,rating:"4.9",reviews:212,spec:"Trilhas, natureza e aventura",bio:"Nascido na Serra, conheço cada cascata e mirante da região. Dirijo com segurança e gosto de mostrar os cantos que os pacotes não levam."},
+  tania:{name:"Tânia M.",face:"👩",grad:"g-vinho",langs:"PT · EN · IT",vehicle:"Van · 6 lugares",years:11,rating:"5.0",reviews:341,spec:"Enoturismo e gastronomia",bio:"Sommelière e guia há 11 anos no Vale dos Vinhedos. Monto roteiros de vinho e comida no seu ritmo, com as melhores vinícolas parceiras."},
+  joao:{name:"João P.",face:"🧑",grad:"g-museu",langs:"PT · EN",vehicle:"Sedan · 3 lugares",years:5,rating:"4.7",reviews:98,spec:"História e cultura urbana",bio:"Apaixonado pela história de Gramado e Canela. Roteiros culturais a pé ou de carro, com causos e curiosidades."}
+};
+
+/* Experiências baseadas em eventos e locais REAIS de Gramado/Canela (2026).
+   Datas e nomes conferidos em pesquisa; valores e disponibilidade são ilustrativos. */
+var XP = [
+  /* ---- FAMÍLIA: eventos reais do calendário 2026 ---- */
+  {id:"natalluz",t:"Natal Luz — Grande Desfile + Rua Coberta",em:"🎄",g:"g-festa",cat:"Evento",mode:"familia",sec:"Eventos em Gramado 🎟️",price:290,unit:"pessoa",rate:"5.0",rev:980,dur:"5h",loc:"Centro de Gramado",guide:"joao",ev:"22 out 2026 – 17 jan 2027",inc:["Transfer porta a porta","Grande Desfile de Natal","Shows na Rua Coberta","Guia acompanhando"],desc:"O maior evento da cidade: luzes, desfiles e shows que encantam toda a família. Roteiro pelo Grande Desfile, Vila de Natal e a decoração espalhada pela cidade. Acontece de 22/10/2026 a 17/01/2027."},
+  {id:"vindima",t:"Vindima de Gramado — Vila do Vinho",em:"🍇",g:"g-vinho",cat:"Evento",mode:"familia",sec:"Eventos em Gramado 🎟️",price:240,unit:"pessoa",rate:"4.8",rev:210,dur:"5h",loc:"Praça das Etnias",guide:"tania",ev:"30 jan – 7 fev 2026",inc:["Transfer","Vila do Vinho","Degustação de vinhos e sucos","Pisa das uvas"],desc:"Celebração da colheita da uva com a Vila do Vinho junto à Praça das Etnias: degustação, vinícolas do interior e a tradicional pisa das uvas. Perfeito em família ou casal."},
+  {id:"colonia",t:"Festa da Colônia — sabores da Serra",em:"🥨",g:"g-parque",cat:"Evento",mode:"familia",sec:"Eventos em Gramado 🎟️",price:160,unit:"pessoa",rate:"4.7",rev:175,dur:"4h",loc:"Expogramado",guide:"joao",ev:"30 abr – 17 mai 2026",inc:["Transfer","Entrada na Expogramado","Comidas típicas coloniais","Guia local"],desc:"A 35ª Festa da Colônia: um evento feito para a comunidade, com a melhor gastronomia e tradições da Serra Gaúcha. Os turistas entram como convidados de uma grande festa de família."},
+  /* ---- FAMÍLIA: roteiros clássicos ---- */
+  {id:"caracol",t:"Parque do Caracol — cascata e trilha",em:"🌲",g:"g-mata",cat:"Natureza",mode:"familia",sec:"Roteiros em família",price:150,unit:"pessoa",rate:"5.0",rev:212,dur:"4h",loc:"Canela, RS",guide:"marcelo",inc:["Transporte ida e volta","Guia+Motorista credenciado","Ingresso do parque","Água e apoio"],desc:"A cascata de 130m e a trilha pela mata nativa, com mirante e tempo para fotos. Em Canela, a 7 km de Gramado. Ideal para famílias."},
+  {id:"pedra",t:"Catedral de Pedra + centro histórico",em:"⛪",g:"g-museu",cat:"Cultura",mode:"familia",sec:"Roteiros em família",price:120,unit:"pessoa",rate:"4.7",rev:98,dur:"3h",loc:"Canela, RS",guide:"joao",inc:["Guia+Motorista","Catedral de Pedra","Centro histórico","Causos e curiosidades"],desc:"A imponente Catedral de Pedra dedicada a Nossa Senhora de Lourdes e o centro de Canela, num roteiro que o turismo de massa passa correndo."},
+  {id:"automovel",t:"Museu do Automóvel de Gramado",em:"🚗",g:"g-vip",cat:"Cultura",mode:"familia",sec:"Roteiros em família",price:90,unit:"pessoa",rate:"4.6",rev:77,dur:"2h",loc:"Av. das Hortênsias",guide:"marcelo",inc:["Transfer","Ingresso do museu","Guia acompanhando","Sem fila"],desc:"Coleção de automóveis clássicos na Avenida das Hortênsias. Visita tranquila e sem fila, ótima parada cultural para todas as idades."},
+  /* ---- FAMÍLIA / KIDS ---- */
+  {id:"minimundo",t:"Mini Mundo — dia em família",em:"🎡",g:"g-kids",cat:"Kids",mode:"familia",sec:"Para as crianças 🧒",price:90,unit:"criança",rate:"4.9",rev:156,dur:"3h",loc:"Gramado, RS",guide:"joao",inc:["Transporte com cadeirinha","Ingresso do parque","Guia acompanhando","Lanche infantil"],desc:"O parque de miniaturas que encanta a criançada, com programações especiais ao longo de 2026. Transporte com cadeirinha e guia acompanhando a família."},
+  {id:"chocopascoa",t:"Choco Páscoa — caça aos ovos",em:"🐰",g:"g-teatro",cat:"Kids",mode:"familia",sec:"Para as crianças 🧒",price:110,unit:"criança",rate:"4.8",rev:132,dur:"3h",loc:"Gramado, RS",guide:"joao",ev:"12 mar – 12 abr 2026",inc:["Transporte com cadeirinha","Decoração e atrações temáticas","Chocolate artesanal","Apresentações artísticas"],desc:"Na Choco Páscoa, Gramado vira um cenário lúdico de chocolate: ruas decoradas, apresentações e atividades para encantar as crianças. De 12/03 a 12/04/2026."},
+  /* ---- SOLTEIROS: vida noturna real ---- */
+  {id:"mustclub",t:"Must Club — boate com DJs e bandas",em:"🎧",g:"g-festa",cat:"Festas",mode:"solteiros",sec:"Hoje à noite 🎶",price:90,unit:"pessoa",rate:"4.6",rev:142,dur:"a noite",loc:"Gramado, RS",guide:"joao",inc:["Transfer ida e volta","Entrada na boate","Pista com DJs e bandas","Ritmos variados"],desc:"A boate mais animada da cidade, com pista de dança, DJs e bandas até mais tarde. Público jovem, principalmente na alta temporada."},
+  {id:"gatzz",t:"Gatzz — jantar com shows temáticos",em:"🎤",g:"g-show",cat:"Música ao vivo",mode:"solteiros",sec:"Hoje à noite 🎶",price:180,unit:"pessoa",rate:"4.8",rev:96,dur:"4h",loc:"Gramado, RS",guide:"joao",inc:["Transfer","Jantar","Shows temáticos ao vivo","Ambiente animado"],desc:"Um dos principais pontos da noite em Gramado: une jantar, música e shows temáticos numa experiência completa. Vai além do simples sair pra beber."},
+  {id:"pubcrawl",t:"Rota de cervejarias — MF Taberna & La Birra",em:"🍻",g:"g-bar",cat:"Bares & pubs",mode:"solteiros",sec:"Bares & pubs perto de você",price:110,unit:"pessoa",rate:"4.9",rev:88,dur:"4h",loc:"Centro de Gramado",guide:"joao",inc:["Guia local","MF Taberna (30+ rótulos)","La Birra Bar & Cervejaria","Transfer entre casas"],desc:"Pub crawl pelas cervejarias artesanais do centro: a MF Taberna com mais de 30 rótulos e o La Birra, com chope e música ao vivo. Guia que conhece todo mundo."},
+  {id:"sunset",t:"Sunset no Olivas de Gramado",em:"🌅",g:"g-vinho",cat:"Conhecer gente",mode:"solteiros",sec:"Bares & pubs perto de você",price:130,unit:"pessoa",rate:"4.7",rev:64,dur:"3h",loc:"Linha Bonita, Gramado",guide:"tania",inc:["Transfer","Sunset com vista","Drinks e tábua","Ambiente para socializar"],desc:"O pôr do sol 'de arrepiar' no Olivas de Gramado, com olival, drinks e clima descontraído. Ótimo para conhecer gente num fim de tarde animado."},
+  /* ---- PRIVATIVO (comum) ---- */
+  {id:"privativo",t:"Carro privativo — dia livre na Serra",em:"🚐",g:"g-mata",cat:"Privativo",mode:"familia",sec:null,price:590,unit:"diária",rate:"4.9",rev:212,dur:"8h",loc:"Serra Gaúcha",guide:"marcelo",inc:["Veículo + Guia+Motorista só pra você","Roteiro definido por você","Combustível incluso","Flexível o dia todo"],desc:"Você monta o roteiro e o Guia+Motorista conduz e orienta o dia inteiro. Sem grupo, sem horário fixo — a Serra no seu ritmo."},
+  /* ---- ADULTO 18+ ---- */
+  {id:"harley",t:"Harley Motor Show Bar — clima Las Vegas",em:"🍸",g:"g-night",cat:"Casas noturnas",mode:"adulto",sec:"Noite premium 🌙",price:160,unit:"pessoa",rate:"4.7",rev:71,dur:"a noite",loc:"Av. das Hortênsias",guide:"joao",inc:["Transfer porta a porta","Bar temático com luzes neon","Drinks autorais","Sigilo e segurança"],desc:"Bar temático no subsolo do Harley Motor Show, com clima de casa clássica de Las Vegas: neon, drinks e noite animada para público adulto."},
+  {id:"divino",t:"Divino Gastro Club — DJ e coquetelaria",em:"🥂",g:"g-clube",cat:"Camarote VIP",mode:"adulto",sec:"Noite premium 🌙",price:280,unit:"pessoa",rate:"4.8",rev:58,dur:"a noite",loc:"Gramado, RS",guide:"joao",inc:["Mesa reservada","Coquetelaria autoral","DJ / música ao vivo","Transfer porta a porta"],desc:"Bar, gastronomia e música num só lugar: à noite o Divino ganha clima animado com DJs e apresentações ao vivo. Experiência adulta, com mesa reservada."},
+  {id:"casino",t:"Noite no cassino — Punta del Este",em:"🎰",g:"g-vip",cat:"Cassino (exterior)",mode:"adulto",sec:"Cassino · internacional 🌎",price:0,unit:"pacote",rate:"4.7",rev:31,dur:"viagem",loc:"Uruguai 🇺🇾",guide:"tania",inc:["Pacote internacional","Cassino legalizado no Uruguai","Jantar + transfer","Roteiro 18+"],desc:"Pacote para destinos onde o cassino é legalizado. Cassino físico é proibido no Brasil — por isso o roteiro aponta para o exterior (Uruguai/Argentina)."}
+];
+
+/* Fotos REAIS dos locais — Wikimedia Commons (licenças livres CC BY / CC BY-SA).
+   Servidas via endpoint estável Special:FilePath. Créditos: ver seção no Perfil e README. */
+var IMGS = {
+  caracol:  "https://commons.wikimedia.org/wiki/Special:FilePath/Caracol_Falls.jpg?width=900",
+  pedra:    "https://commons.wikimedia.org/wiki/Special:FilePath/Catedral_de_Pedra,_Canela_-_RS.jpg?width=900",
+  natalluz: "https://commons.wikimedia.org/wiki/Special:FilePath/Natal_Luz_-_Gramado_-_panoramio.jpg?width=900",
+  vindima:  "https://commons.wikimedia.org/wiki/Special:FilePath/Cave_de_la_Vale_dos_Vinhedos,_Bento_Gon%C3%A7alves,_Br%C3%A9sil.jpg?width=900",
+  privativo:"https://commons.wikimedia.org/wiki/Special:FilePath/Entrada_a_Gramado_-_panoramio.jpg?width=900",
+  casino:   "https://commons.wikimedia.org/wiki/Special:FilePath/Punta_del_Este_2005.jpg?width=900"
+};
+XP.forEach(function(x){ if(IMGS[x.id]) x.img=IMGS[x.id]; });
+
+var REVIEWS = [
+  {a:"M",n:"Marina S.",s:"5.0",txt:"Experiência impecável. O Guia+Motorista foi pontual, atencioso e mostrou lugares que a gente nunca acharia sozinho."},
+  {a:"R",n:"Rafael T.",s:"4.8",txt:"Valeu cada centavo. Pagamento simples e o valor só foi liberado depois do passeio, me senti seguro."}
+];
+
+/* Promoções por público. img: deixe "" para usar o gradiente; preencha com URL de foto LICENCIADA do parceiro. */
+/* Lentes de inclusão por experiência (identidade/público que ATRAVESSA as verticais).
+   LGBT-friendly é curadoria respeitosa de locais acolhedores — uma lente, não um canal nem conteúdo adulto. */
+var LENSES = {
+  natalluz:["LGBT-friendly","Acessível"],
+  vindima:["LGBT-friendly","Pet"],
+  colonia:["Kids","Acessível"],
+  caracol:["Pet","Kids"],
+  pedra:["Acessível","LGBT-friendly"],
+  automovel:["Acessível","Kids"],
+  minimundo:["Kids","Acessível"],
+  chocopascoa:["Kids"],
+  mustclub:["LGBT-friendly"],
+  gatzz:["LGBT-friendly","Acessível"],
+  pubcrawl:["LGBT-friendly","Pet"],
+  sunset:["LGBT-friendly","Pet"],
+  privativo:["Pet","Acessível"],
+  harley:["LGBT-friendly"],
+  divino:["LGBT-friendly"],
+  casino:["LGBT-friendly"]
+};
+var LENS_ICON={"LGBT-friendly":"🏳️‍🌈","Kids":"🧒","Acessível":"♿","Pet":"🐾"};
+function lensesOf(id){return LENSES[id]||[]}
+
+var PROMOS = {
+  familia:[
+    {off:"-15%",t:"Natal Luz antecipado",p:"Reserve até set e economize",grad:"g-festa",img:""},
+    {off:"2x1",t:"Mini Mundo + Choco Páscoa",p:"Combo para a criançada",grad:"g-kids",img:""},
+    {off:"-20%",t:"2ª diária de carro privativo",p:"Fim de semana na Serra",grad:"g-mata",img:""}
+  ],
+  solteiros:[
+    {off:"Free",t:"Welcome drink no pub crawl",p:"Reservando pelo app",grad:"g-bar",img:""},
+    {off:"-30%",t:"Combo Gatzz + transfer",p:"Jantar com show",grad:"g-show",img:""}
+  ],
+  adulto:[
+    {off:"VIP",t:"Mesa reservada no Divino",p:"Coquetelaria autoral",grad:"g-clube",img:""},
+    {off:"-25%",t:"Pacote cassino Uruguai",p:"Grupos a partir de 4",grad:"g-vip",img:""}
+  ]
+};
+
+/* Foto real no banner do Natal Luz (Wikimedia Commons, licença livre) */
+PROMOS.familia[0].img="https://commons.wikimedia.org/wiki/Special:FilePath/Enfeites_de_Natal_em_Gramado._(6622498789).jpg?width=900";
+
+/* Anúncio discreto que entra no meio do feed (1 por público). */
+var ADSLOT = {
+  familia:{ic:"📷",t:"Fotógrafo profissional na Serra",p:"Ensaio em família nos pontos turísticos",img:""},
+  solteiros:{ic:"📸",t:"Fotos para suas redes",p:"Cobertura da balada e do sunset",img:""},
+  adulto:{ic:"🚘",t:"Transfer executivo discreto",p:"Motorista a noite toda, com sigilo",img:""}
+};
+
+/* Serviços patrocinados por público (aba Serviços). tag = como o anúncio se identifica. */
+var SERVICES = {
+  familia:[
+    {ic:"🍼",t:"Aluguel de carrinho de bebê",p:"BabyServe · entrega no hotel",pe:"Pronta entrega",tag:"Parceiro"},
+    {ic:"🪑",t:"Cadeirinha e bebê conforto",p:"Para o transfer e o carro privativo",pe:"Pronta entrega",tag:"Anúncio"},
+    {ic:"📷",t:"Fotógrafo de família",p:"Ensaio nos pontos turísticos de Gramado",pe:"Agenda no app",tag:"Patrocinado"},
+    {ic:"📱",t:"Acessórios de celular",p:"Carregador, cabo e capa a pronta entrega",pe:"Pronta entrega",tag:"Anúncio"}
+  ],
+  solteiros:[
+    {ic:"📸",t:"Fotógrafo para redes sociais",p:"Cobertura de balada, sunset e role",pe:"Agenda no app",tag:"Patrocinado"},
+    {ic:"💈",t:"Barbearia & salão express",p:"Antes de sair à noite",pe:"Hora marcada",tag:"Anúncio"},
+    {ic:"🚲",t:"Locação de bike & scooter",p:"Para circular pela cidade",pe:"Pronta entrega",tag:"Parceiro"},
+    {ic:"📱",t:"Acessórios de celular",p:"Power bank e cabo a pronta entrega",pe:"Pronta entrega",tag:"Anúncio"}
+  ],
+  adulto:[
+    {ic:"🚘",t:"Transfer executivo discreto",p:"Motorista a noite toda, com sigilo",pe:"Sob demanda",tag:"Patrocinado"},
+    {ic:"🤵",t:"Aluguel de traje de gala",p:"Para cassino e eventos premium",pe:"Reserva 24h",tag:"Anúncio"},
+    {ic:"🥂",t:"Concierge da noite",p:"Reserva de mesa e lista em casas parceiras",pe:"Sob demanda",tag:"Parceiro"}
+  ]
+};
+
+var TRIPS_UP = [
+  {xp:"pedra",when:"Sáb, 28 jun · 09:00",status:"hold",note:"Pagamento retido — só vai para o guia depois do passeio"},
+  {xp:"privativo",when:"Dom, 29 jun · 08:30",status:"hold",note:"Roteiro definido por você · pagamento em escrow"}
+];
+var TRIPS_DONE = [
+  {xp:"caracol",when:"12 mar",status:"done",note:"Pago e avaliado · ★ 5.0"}
+];
+
+/* ============ ESTADO ============ */
+var ageVerified=false, currentMode="familia", favs={}, sheetStack=[];
+var booking={xp:null,date:null,time:null,people:1,pay:null,step:1};
+
+var chipSets={
+  familia:["Tudo","Aventura","Gastronomia","Cultura","Natureza","Kids","Romântico"],
+  solteiros:["Tudo","Shows","Bares & pubs","Festas","Música ao vivo","Conhecer gente"],
+  adulto:["Tudo","Casas noturnas","Camarote VIP","Festas privadas","Cassino (exterior)"]
+};
+
+/* ============ HELPERS ============ */
+function xpById(id){return XP.find(function(x){return x.id===id})}
+function money(n){return "R$ "+n.toLocaleString("pt-BR")}
+function toast(msg){var t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(function(){t.classList.remove("show")},2200)}
+
+function xpCard(x){
+  var fav=favs[x.id]?"❤️":"🤍";
+  var price=x.price>0?(money(x.price)+'<small>/'+x.unit+'</small>'):x.unit;
+  var picStyle=x.img?(' style="background-image:linear-gradient(rgba(12,28,23,.12),rgba(12,28,23,.58)),url(\''+x.img+'\');background-size:cover;background-position:center" '):"";
+  var picClass=x.img?"pic":("pic "+x.g);
+  return '<div class="xp" onclick="openXp(\''+x.id+'\')">'
+    +'<div class="'+picClass+'"'+picStyle+'><span class="fav" onclick="toggleFav(event,\''+x.id+'\')">'+fav+'</span><span class="em">'+x.em+'</span><span class="tag">'+x.cat+'</span></div>'
+    +'<div class="body"><h4>'+x.t+'</h4>'+(x.ev?'<div style="font-size:10.5px;color:var(--gold);font-family:\'Space Mono\';margin:-2px 0 4px">📅 '+x.ev+'</div>':'')+'<div class="meta"><span class="rate">★ '+x.rate+'</span><span class="price">'+price+'</span></div></div></div>';
+}
+function guideCard(id){
+  var gd=GUIDES[id];
+  return '<div class="guide" onclick="openGuide(\''+id+'\')"><div class="face '+gd.grad+'">'+gd.face+'</div>'
+    +'<div class="info"><h4>'+gd.name+' <span class="verified">✓ Verificado</span></h4><p>'+gd.spec+' · '+gd.years+' anos</p><p class="langs">'+gd.langs+'</p></div>'
+    +'<div class="right"><div class="r">★ '+gd.rate+'</div><div class="p">'+money(id==="tania"?720:id==="marcelo"?590:480)+'<small>/diária</small></div></div></div>';
+}
+
+/* ============ HOME ============ */
+function renderChips(){
+  var box=document.getElementById("chips");box.innerHTML="";
+  chipSets[currentMode].forEach(function(c,i){
+    var s=document.createElement("span");s.className="chip"+(i===0?" on":"");s.textContent=c;
+    s.onclick=function(){box.querySelectorAll(".chip").forEach(function(x){x.classList.remove("on")});s.classList.add("on")};
+    box.appendChild(s);
+  });
+}
+function renderPromos(){
+  var box=document.getElementById("home-promos");
+  box.innerHTML=(PROMOS[currentMode]||[]).map(function(pr){
+    var cls=pr.img?"promo":"promo "+pr.grad;
+    var style=pr.img?' style="background-image:url(\''+pr.img+'\')"':"";
+    return '<div class="'+cls+'"'+style+' onclick="go(\'buscar\')">'
+      +'<span class="off">'+pr.off+'</span><h4>'+pr.t+'</h4><p>'+pr.p+'</p><span class="cta">Aproveitar →</span></div>';
+  }).join("");
+}
+function renderHomeFeed(){
+  var wrap=document.getElementById("home-feed");
+  var list=XP.filter(function(x){return x.mode===currentMode && x.sec});
+  var secs=[];list.forEach(function(x){if(secs.indexOf(x.sec)<0)secs.push(x.sec)});
+  var html="";
+  if(currentMode==="adulto"){
+    html+='<div class="adultnote"><span>🔞</span><div>Conteúdo +18 · vida noturna e entretenimento adulto, com sigilo e parceiros verificados.</div></div>';
+  }
+  secs.forEach(function(sec,idx){
+    html+='<div class="seclabel"><h3>'+sec+'</h3><a onclick="go(\'buscar\')">ver tudo</a></div><div class="hscroll">';
+    list.filter(function(x){return x.sec===sec}).forEach(function(x){html+=xpCard(x)});
+    html+='</div>';
+    if(idx===0){ /* anúncio discreto após a 1ª seção */
+      var ad=ADSLOT[currentMode];
+      if(ad){
+        var icStyle=ad.img?(' style="background-image:url(\''+ad.img+'\')"'):"";
+        html+='<div class="adslot" onclick="go(\'servicos\')"><div class="ic"'+icStyle+'>'+(ad.img?"":ad.ic)+'</div>'
+          +'<div><h4>'+ad.t+'</h4><p>'+ad.p+'</p></div><span class="adtag">Anúncio</span></div>';
+      }
+    }
+  });
+  wrap.innerHTML=html;
+  document.getElementById("home-guides").innerHTML=Object.keys(GUIDES).map(guideCard).join("");
+}
+function renderServices(){
+  var box=document.getElementById("svc-list");
+  var blocks=[{m:"familia",lab:"👨‍👩‍👧 Para a família"},{m:"solteiros",lab:"🎉 Para solteiros"}];
+  if(ageVerified)blocks.push({m:"adulto",lab:"🌙 Adulto 18+"});
+  box.innerHTML=blocks.map(function(b){
+    var items=(SERVICES[b.m]||[]).map(function(s){
+      var icStyle=s.img?(' style="background-image:url(\''+s.img+'\')"'):"";
+      return '<div class="svc" onclick="toast(\'Serviço solicitado (simulado)\')"><div class="ic"'+icStyle+'>'+(s.img?"":s.ic)+'</div>'
+        +'<div class="info"><h4>'+s.t+' <span class="adtag">'+s.tag+'</span></h4><p>'+s.p+'</p><div class="pe">⚡ '+s.pe+'</div></div><span class="go">Ver</span></div>';
+    }).join("");
+    return '<div class="svc-hd">'+b.lab+'</div>'+items;
+  }).join("")
+  + (ageVerified?"":'<div class="svc-hd" style="opacity:.6">🔒 Serviços adulto</div><div class="empty" style="padding:20px"><span class="e">🔞</span>Verifique +18 no seu perfil para ver os serviços adultos.</div>');
+}
+function setMode(mode){
+  currentMode=mode;
+  document.querySelectorAll(".mode").forEach(function(m){m.classList.toggle("on",m.getAttribute("data-mode")===mode)});
+  renderChips();renderPromos();renderHomeFeed();
+}
+document.querySelectorAll(".mode").forEach(function(btn){
+  btn.addEventListener("click",function(){
+    var mode=btn.getAttribute("data-mode");
+    if(mode==="adulto"&&!ageVerified){openGate();return}
+    setMode(mode);
+  });
+});
+
+/* ============ BUSCAR ============ */
+function renderSearchChips(){
+  var box=document.getElementById("search-chips");
+  var cats=["Tudo","Aventura","Gastronomia","Cultura","Natureza","Vida noturna"];
+  box.innerHTML="";
+  cats.forEach(function(c,i){
+    var s=document.createElement("span");s.className="chip"+(i===0?" on":"");s.textContent=c;
+    s.onclick=function(){box.querySelectorAll(".chip").forEach(function(x){x.classList.remove("on")});s.classList.add("on");renderResults()};
+    box.appendChild(s);
+  });
+}
+function renderResults(){
+  var q=(document.getElementById("q").value||"").toLowerCase();
+  var activeChip=document.querySelector("#search-chips .chip.on");
+  var cat=activeChip?activeChip.textContent:"Tudo";
+  var activeLenses=Array.prototype.map.call(document.querySelectorAll("#lens-row .chip.on"),function(c){return c.getAttribute("data-lens")});
+  var list=XP.filter(function(x){
+    if(x.mode==="adulto"&&!ageVerified)return false;
+    var okq=!q||x.t.toLowerCase().indexOf(q)>=0||x.loc.toLowerCase().indexOf(q)>=0||x.cat.toLowerCase().indexOf(q)>=0;
+    var okc=cat==="Tudo"||x.cat.indexOf(cat)>=0||(cat==="Vida noturna"&&(x.mode==="solteiros"));
+    var xl=lensesOf(x.id);
+    var okl=activeLenses.every(function(l){return xl.indexOf(l)>=0});
+    return okq&&okc&&okl;
+  });
+  var lensTxt=activeLenses.length?(" · "+activeLenses.map(function(l){return LENS_ICON[l]}).join(" ")):"";
+  document.getElementById("result-count").textContent="Resultados · "+list.length+" experiências"+lensTxt;
+  document.getElementById("results").innerHTML=list.map(function(x){
+    var gd=GUIDES[x.guide];
+    var price=x.price>0?money(x.price):x.unit;
+    var badges=lensesOf(x.id).map(function(l){return '<span title="'+l+'">'+LENS_ICON[l]+'</span>'}).join(" ");
+    return '<div class="result" onclick="openXp(\''+x.id+'\')"><div class="pic '+x.g+'">'+x.em+'</div>'
+      +'<div class="body"><h4>'+x.t+'</h4><div class="sub">'+gd.name+' · Guia+Motorista Verificado</div>'
+      +'<div class="meta"><span class="r">★ '+x.rate+'</span>'+(badges?'<span style="font-size:13px">'+badges+'</span>':'')+'<span class="p">'+price+'</span></div></div></div>';
+  }).join("")||'<div class="empty"><span class="e">🔍</span>Nada encontrado com essas lentes. Tente afrouxar um filtro.</div>';
+}
+function toggleLens(el){el.classList.toggle("on");renderResults()}
+
+/* ============ FAVORITOS ============ */
+function toggleFav(e,id){
+  e.stopPropagation();
+  favs[id]=!favs[id];
+  document.getElementById("fav-count").textContent=Object.keys(favs).filter(function(k){return favs[k]}).length;
+  renderHomeFeed();renderFavs();
+  toast(favs[id]?"Adicionado aos favoritos":"Removido dos favoritos");
+}
+function renderFavs(){
+  var ids=Object.keys(favs).filter(function(k){return favs[k]});
+  var body=document.getElementById("fav-body");
+  if(!ids.length){body.innerHTML='<div class="empty"><span class="e">🤍</span>Você ainda não favoritou nada.<br>Toque no coração de um passeio.</div>';return}
+  body.innerHTML='<div style="padding:14px">'+ids.map(function(id){
+    var x=xpById(id);var gd=GUIDES[x.guide];var price=x.price>0?money(x.price):x.unit;
+    return '<div class="result" onclick="closeSheet(\'favoritos\');openXp(\''+x.id+'\')"><div class="pic '+x.g+'">'+x.em+'</div>'
+      +'<div class="body"><h4>'+x.t+'</h4><div class="sub">'+gd.name+'</div><div class="meta"><span class="r">★ '+x.rate+'</span><span class="p">'+price+'</span></div></div></div>';
+  }).join("")+'</div>';
+}
+
+/* ============ XP DETAIL ============ */
+function openXp(id){
+  var x=xpById(id);var gd=GUIDES[x.guide];
+  var price=x.price>0?(money(x.price)):"Sob consulta";
+  var unit=x.price>0?("por "+x.unit):x.unit;
+  var fav=favs[id]?"❤️":"🤍";
+  var html='<div class="appbar"><div class="back" onclick="closeSheet(\'xp\')">←</div><h2>'+x.cat+'</h2><span class="act" onclick="toggleFavDetail(\''+id+'\')" id="dtl-fav">'+fav+'</span></div>'
+    +'<div class="sheet-body">'
+    +'<div class="hero '+(x.img?"":x.g)+'"'+(x.img?' style="background-image:linear-gradient(rgba(12,28,23,.1),rgba(12,28,23,.5)),url(\''+x.img+'\');background-size:cover;background-position:center"':'')+'><span class="em">'+x.em+'</span><span class="cat">📍 '+x.loc+'</span></div>'
+    +'<div class="dtl"><h1>'+x.t+'</h1>'
+    +'<div class="qmeta"><span>★ <b>'+x.rate+'</b> ('+x.rev+')</span><span>⏱ '+x.dur+'</span><span>📍 '+x.loc+'</span>'+(x.ev?'<span>📅 <b>'+x.ev+'</b></span>':'')+'</div>'
+    +'<h5>Sobre a experiência</h5><p class="desc">'+x.desc+'</p>'
+    +'<h5>O que está incluso</h5><ul class="inc">'+x.inc.map(function(i){return "<li>"+i+"</li>"}).join("")+'</ul>'
+    +'<h5>Seu Guia+Motorista</h5>'+guideCard(x.guide)
+    +'<h5>Avaliações</h5>'+REVIEWS.map(function(r){return '<div class="rev"><div class="rh"><div class="a">'+r.a+'</div><b>'+r.n+'</b><span class="s">★ '+r.s+'</span></div><p>'+r.txt+'</p></div>'}).join("")
+    +'</div></div>'
+    +'<div class="stickybar"><div class="pr"><span class="v">'+price+'</span><small>'+unit+'</small></div>'
+    +'<button class="btn" onclick="startBooking(\''+id+'\')">Reservar</button></div>';
+  document.getElementById("sheet-xp").innerHTML=html;
+  openSheet("xp");
+}
+function toggleFavDetail(id){
+  favs[id]=!favs[id];
+  document.getElementById("dtl-fav").textContent=favs[id]?"❤️":"🤍";
+  document.getElementById("fav-count").textContent=Object.keys(favs).filter(function(k){return favs[k]}).length;
+  renderHomeFeed();renderFavs();
+}
+
+/* ============ GUIDE PROFILE ============ */
+function openGuide(id){
+  var gd=GUIDES[id];
+  var theirs=XP.filter(function(x){return x.guide===id&&(x.mode!=="adulto"||ageVerified)});
+  var html='<div class="appbar"><div class="back" onclick="closeSheet(\'guide\')">←</div><h2>Perfil do guia</h2></div>'
+    +'<div class="sheet-body"><div class="dtl" style="text-align:center;padding-bottom:6px">'
+    +'<div class="face '+gd.grad+'" style="width:84px;height:84px;border-radius:24px;font-size:40px;margin:6px auto 12px;display:grid;place-items:center">'+gd.face+'</div>'
+    +'<h1 style="font-size:22px">'+gd.name+' <span class="verified">✓ Verificado</span></h1>'
+    +'<div class="qmeta" style="justify-content:center"><span>★ <b>'+gd.rate+'</b> ('+gd.reviews+')</span><span>🗣 '+gd.langs+'</span></div>'
+    +'<p class="desc" style="text-align:left">'+gd.bio+'</p>'
+    +'<h5 style="text-align:left">Veículo</h5><p class="desc" style="text-align:left">🚗 '+gd.vehicle+'</p>'
+    +'<button class="btn ghost full" style="margin-top:16px" onclick="openChat(\''+id+'\')">💬 Enviar mensagem</button>'
+    +'<h5 style="text-align:left;margin-top:22px">Experiências de '+gd.name.split(" ")[0]+'</h5></div>'
+    +'<div style="padding:0 18px 30px">'+theirs.map(function(x){var price=x.price>0?money(x.price):x.unit;
+      return '<div class="result" onclick="closeSheet(\'guide\');openXp(\''+x.id+'\')"><div class="pic '+x.g+'">'+x.em+'</div><div class="body"><h4>'+x.t+'</h4><div class="sub">'+x.cat+' · '+x.dur+'</div><div class="meta"><span class="r">★ '+x.rate+'</span><span class="p">'+price+'</span></div></div></div>'
+    }).join("")+'</div></div>';
+  document.getElementById("sheet-guide").innerHTML=html;
+  openSheet("guide");
+}
+
+/* ============ CHAT ============ */
+function openChat(id){
+  var gd=GUIDES[id];
+  var html='<div class="appbar"><div class="back" onclick="closeSheet(\'chat\')">←</div><h2>'+gd.name+'</h2><span class="act">📞</span></div>'
+    +'<div class="sheet-body"><div class="chatwrap" id="chatwrap">'
+    +'<div class="bub them">Oi! Que bom que você se interessou pela experiência 😊</div>'
+    +'<div class="bub me">Oi! Queria saber se rola adaptar o horário.</div>'
+    +'<div class="bub them">Claro! Consigo te pegar mais cedo, sem problema.</div>'
+    +'</div></div>'
+    +'<div class="chatin"><input id="chatinput" placeholder="Mensagem..."><button onclick="sendChat()">➤</button></div>';
+  document.getElementById("sheet-chat").innerHTML=html;
+  openSheet("chat");
+}
+function sendChat(){
+  var inp=document.getElementById("chatinput");if(!inp.value.trim())return;
+  var w=document.getElementById("chatwrap");
+  var b=document.createElement("div");b.className="bub me";b.textContent=inp.value;w.appendChild(b);
+  inp.value="";w.parentElement.scrollTop=w.parentElement.scrollHeight;
+  setTimeout(function(){var r=document.createElement("div");r.className="bub them";r.textContent="Perfeito, combinado! 👍";w.appendChild(r);w.parentElement.scrollTop=w.parentElement.scrollHeight},700);
+}
+
+/* ============ BOOKING ============ */
+function startBooking(id){
+  booking={xp:id,date:null,time:null,people:1,pay:null,step:1};
+  renderBooking();openSheet("booking");
+}
+function renderBooking(){
+  var x=xpById(booking.xp);var gd=GUIDES[x.guide];
+  var host=document.getElementById("sheet-booking");
+  var head='<div class="appbar"><div class="back" onclick="bookingBack()">←</div><h2>Reservar</h2></div>'
+    +'<div class="steps"><div class="sd '+(booking.step>=1?"on":"")+'"></div><div class="sd '+(booking.step>=2?"on":"")+'"></div><div class="sd '+(booking.step>=3?"on":"")+'"></div></div>';
+  var sumrow='<div class="sumrow"><div class="ic '+x.g+'">'+x.em+'</div><div><h4>'+x.t+'</h4><p>'+gd.name+' · '+x.loc+'</p></div></div>';
+  var body="";
+  if(booking.step===1){
+    var dates=["Sáb 28","Dom 29","Seg 30","Ter 01"];
+    var times=["08:30","10:00","14:00","19:00"];
+    body='<div class="bk">'+sumrow
+      +'<label>Escolha a data</label><div class="pickrow">'+dates.map(function(d){return '<div class="pick'+(booking.date===d?" on":"")+'" onclick="pickDate(\''+d+'\')">'+d+'</div>'}).join("")+'</div>'
+      +'<label>Horário</label><div class="pickrow">'+times.map(function(tm){return '<div class="pick'+(booking.time===tm?" on":"")+'" onclick="pickTime(\''+tm+'\')">'+tm+'</div>'}).join("")+'</div>'
+      +'<label>Pessoas</label><div class="stepper"><button onclick="ppl(-1)">−</button><span class="n">'+booking.people+'</span><button onclick="ppl(1)">+</button></div>'
+      +'</div>';
+    var ok=booking.date&&booking.time;
+    host.innerHTML=head+'<div class="sheet-body">'+body+'</div>'
+      +'<div class="stickybar"><button class="btn full'+(ok?"":" ghost")+'" '+(ok?'onclick="booking.step=2;renderBooking()"':'disabled style="opacity:.5"')+'>Continuar</button></div>';
+  } else if(booking.step===2){
+    var total=x.price*booking.people;
+    body='<div class="bk">'+sumrow
+      +'<div class="totbox"><div class="ln"><span>'+x.t+'</span><span>'+money(x.price)+'</span></div>'
+      +'<div class="ln"><span>'+booking.date+' · '+booking.time+'</span><span>'+booking.people+'× </span></div>'
+      +'<div class="ln tot"><span>Total</span><b>'+money(total)+'</b></div></div>'
+      +'<label>Forma de pagamento</label>'
+      +'<div class="payrow'+(booking.pay==="pix"?" on":"")+'" onclick="pickPay(\'pix\')"><div class="pm">⚡</div><div><h4>Pix</h4><p>Aprovação na hora</p></div><div class="rd"></div></div>'
+      +'<div class="payrow'+(booking.pay==="card"?" on":"")+'" onclick="pickPay(\'card\')"><div class="pm">💳</div><div><h4>Cartão •••• 4242</h4><p>Salvo na conta</p></div><div class="rd"></div></div>'
+      +'<div class="escrowbox"><span>🔒</span><div>Seu pagamento fica <b>retido em escrow</b> e só é liberado ao Guia+Motorista depois do passeio acontecer. Protege você e ele.</div></div>'
+      +'</div>';
+    var ok=!!booking.pay;
+    host.innerHTML=head+'<div class="sheet-body">'+body+'</div>'
+      +'<div class="stickybar"><button class="btn full'+(ok?"":" ghost")+'" '+(ok?'onclick="confirmBooking()"':'disabled style="opacity:.5"')+'>'+(ok?"Confirmar e pagar "+money(total):"Escolha o pagamento")+'</button></div>';
+  } else {
+    body='<div class="success"><div class="ck">✓</div><h2>Reserva confirmada!</h2>'
+      +'<p>'+x.t+'<br><b style="color:var(--sand)">'+booking.date+' · '+booking.time+' · '+booking.people+' pessoa(s)</b></p>'
+      +'<div class="escrowbox" style="text-align:left;margin:18px 0"><span>🔒</span><div>Pagamento retido em escrow. '+gd.name+' recebe só depois do passeio. Você pode conversar com o guia pelo chat.</div></div>'
+      +'<button class="btn full" onclick="finishBooking()">Ver em Minhas viagens</button>'
+      +'<button class="btn ghost full" style="margin-top:10px" onclick="closeAllSheets();go(\'home\')">Voltar ao início</button></div>';
+    host.innerHTML=head+'<div class="sheet-body">'+body+'</div>';
+  }
+}
+function pickDate(d){booking.date=d;renderBooking()}
+function pickTime(t){booking.time=t;renderBooking()}
+function ppl(n){booking.people=Math.max(1,booking.people+n);renderBooking()}
+function pickPay(p){booking.pay=p;renderBooking()}
+function bookingBack(){if(booking.step>1){booking.step--;renderBooking()}else{closeSheet("booking")}}
+function confirmBooking(){booking.step=3;renderBooking();toast("Pagamento retido em escrow ✓")}
+function finishBooking(){
+  TRIPS_UP.unshift({xp:booking.xp,when:booking.date+" · "+booking.time,status:"hold",note:"Pagamento retido — só vai para o guia depois do passeio"});
+  renderTrips();closeAllSheets();go("viagens");
+}
+
+/* ============ TRIPS ============ */
+function renderTrips(){
+  document.getElementById("trips-up").innerHTML=TRIPS_UP.map(function(t){return tripCard(t)}).join("")||'<div class="empty"><span class="e">🧳</span>Nenhuma viagem marcada ainda.</div>';
+  document.getElementById("trips-done").innerHTML=TRIPS_DONE.map(function(t){return tripCard(t)}).join("");
+}
+function tripCard(t){
+  var x=xpById(t.xp);
+  var badge=t.status==="done"?'<span class="badge done">Concluído ✓</span>':'<span class="badge hold">A confirmar</span>';
+  var dot=t.status==="done"?"dotg dotok":"dotg";
+  return '<div class="trip" onclick="openTrip(\''+t.xp+'\',\''+t.when+'\',\''+t.status+'\')"><div class="top"><div><h4>'+x.t+'</h4><div class="when">'+t.when+' · '+GUIDES[x.guide].name+'</div></div>'+badge+'</div>'
+    +'<div class="escrow"><span class="'+dot+'"></span> '+t.note+'</div></div>';
+}
+function openTrip(id,when,status){
+  var x=xpById(id);var gd=GUIDES[x.guide];
+  var html='<div class="appbar"><div class="back" onclick="closeSheet(\'trip\')">←</div><h2>Detalhe da viagem</h2></div>'
+    +'<div class="sheet-body"><div class="hero '+x.g+'"><span class="em">'+x.em+'</span><span class="cat">📍 '+x.loc+'</span></div>'
+    +'<div class="dtl"><h1>'+x.t+'</h1><div class="qmeta"><span>📅 <b>'+when+'</b></span><span>⏱ '+x.dur+'</span></div>'
+    +'<div class="escrowbox" style="margin:6px 0 16px"><span>🔒</span><div>'+(status==="done"?"Pago e avaliado. Obrigado pela viagem!":"Pagamento <b>retido em escrow</b> — liberado ao guia só após o passeio.")+'</div></div>'
+    +'<h5>O que está incluso</h5><ul class="inc">'+x.inc.map(function(i){return "<li>"+i+"</li>"}).join("")+'</ul>'
+    +'<h5>Seu Guia+Motorista</h5>'+guideCard(x.guide)
+    +'<button class="btn ghost full" style="margin-top:14px" onclick="openChat(\''+x.guide+'\')">💬 Falar com '+gd.name.split(" ")[0]+'</button>'
+    +(status!=="done"?'<button class="btn ghost full" style="margin-top:10px;color:var(--coral)" onclick="toast(\'Reserva cancelada (simulado)\')">Cancelar reserva</button>':'')
+    +'</div></div>';
+  document.getElementById("sheet-trip").innerHTML=html;
+  openSheet("trip");
+}
+
+/* ============ NAV ============ */
+function go(screen){
+  closeAllSheets();
+  document.querySelectorAll(".screen").forEach(function(s){s.classList.remove("active")});
+  document.getElementById("s-"+screen).classList.add("active");
+  document.querySelectorAll(".tab").forEach(function(t){t.classList.toggle("on",t.getAttribute("data-tab")===screen)});
+  document.querySelector(".screen-host").scrollTop=0;
+  if(screen==="servicos")renderServices();
+}
+function openSheet(name){
+  var el=document.getElementById("sheet-"+name);
+  el.classList.add("open");el.querySelector(".sheet-body")&&(el.querySelector(".sheet-body").scrollTop=0);
+  if(sheetStack.indexOf(name)<0)sheetStack.push(name);
+  if(name==="favoritos")renderFavs();
+}
+function closeSheet(name){
+  document.getElementById("sheet-"+name).classList.remove("open");
+  sheetStack=sheetStack.filter(function(s){return s!==name});
+}
+function closeAllSheets(){
+  sheetStack.slice().forEach(function(n){document.getElementById("sheet-"+n).classList.remove("open")});
+  sheetStack=[];
+}
+
+/* ============ AGE GATE ============ */
+function openGate(){document.getElementById("gate").classList.add("show")}
+function closeGate(){document.getElementById("gate").classList.remove("show")}
+function confirmAge(){
+  ageVerified=true;
+  document.getElementById("age-st").textContent="verificado ✓";
+  document.getElementById("age-st").className="st ok";
+  document.getElementById("adult-toggle").classList.add("on");
+  closeGate();setMode("adulto");renderServices();toast("Verificação +18 concluída");
+}
+function toggleAdult(e){
+  var t=document.getElementById("adult-toggle");
+  if(!ageVerified){go("home");openGate();return}
+  t.classList.toggle("on");
+}
+
+/* ============ INIT ============ */
+renderChips();renderPromos();renderHomeFeed();renderSearchChips();renderResults();renderTrips();renderServices();
+
+/* Modo embutido: quando o app roda dentro do onepage (iframe), esconde a introdução */
+if(window.self!==window.top){
+  document.body.classList.add("embedded");
+  var st=document.createElement("style");
+  st.textContent=".embedded{padding:0;background:transparent;min-height:auto}.embedded .intro,.embedded .hint{display:none}.embedded .phone{box-shadow:none;border-radius:40px;margin:0 auto}";
+  document.head.appendChild(st);
+}
+</script>
+</body>
+</html>

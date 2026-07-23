@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>bora. — Projeto completo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#10241F;        /* base — verde-petróleo profundo (mata + atlântico) */
+    --ink-2:#163029;      /* painel elevado */
+    --ink-3:#1d3b32;      /* borda sutil */
+    --sand:#F5EFE3;       /* pergaminho quente */
+    --sand-2:#E7DFCE;
+    --muted:#9DB4AC;      /* texto secundário sobre escuro */
+    --coral:#FF6B4A;      /* pôr do sol — acento principal */
+    --leaf:#54C08A;       /* verde tropical — acento secundário */
+    --gold:#EAB94B;       /* âmbar — coordenadas / detalhes */
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--ink);
+    color:var(--sand);
+    font-family:"Instrument Sans",system-ui,sans-serif;
+    font-size:17px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--coral);color:var(--ink)}
+  a{color:var(--leaf);text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .mono{font-family:"Space Mono",monospace}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:120px 0 96px;
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(255,107,74,.22), transparent 60%),
+      radial-gradient(900px 500px at -10% 110%, rgba(84,192,138,.16), transparent 55%),
+      var(--ink);
+    overflow:hidden;
+  }
+  .hero::after{ /* linha de rota saindo do hero */
+    content:"";position:absolute;left:50%;bottom:-1px;width:2px;height:64px;
+    background:linear-gradient(var(--coral),transparent);transform:translateX(-540px);
+  }
+  @media(max-width:1140px){.hero::after{left:24px;transform:none}}
+  .eyebrow{
+    font-family:"Space Mono",monospace;font-size:12.5px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--gold);display:inline-flex;gap:10px;align-items:center;
+  }
+  .eyebrow::before{content:"◆";color:var(--coral);font-size:9px}
+  .hero h1{
+    font-family:"Bricolage Grotesque",sans-serif;font-weight:800;
+    font-size:clamp(40px,7vw,76px);line-height:1.02;letter-spacing:-.02em;
+    margin:22px 0 8px;max-width:14ch;
+  }
+  .hero h1 .accent{color:var(--coral)}
+  .hero .lead{font-size:clamp(18px,2.4vw,22px);color:var(--muted);max-width:52ch;margin-top:18px}
+  .working{
+    margin-top:34px;display:inline-flex;align-items:center;gap:14px;
+    padding:10px 18px;border:1px solid var(--ink-3);border-radius:999px;background:rgba(255,255,255,.02)
+  }
+  .working .tag{font-family:"Space Mono",monospace;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+  .working .name{font-family:"Bricolage Grotesque";font-weight:700;font-size:19px}
+  .pillrow{margin-top:40px;display:flex;flex-wrap:wrap;gap:10px}
+  .pill{font-family:"Space Mono",monospace;font-size:12.5px;color:var(--sand);
+    border:1px solid var(--ink-3);border-radius:999px;padding:7px 14px}
+  .pill b{color:var(--leaf)}
+
+  /* ---------- JOURNEY RAIL ---------- */
+  .journey{position:relative;padding:8px 0 0}
+  .journey::before{ /* a rota */
+    content:"";position:absolute;top:0;bottom:120px;left:23px;width:2px;
+    background:linear-gradient(var(--coral),var(--leaf) 40%,var(--gold) 80%, transparent);
+    opacity:.5;
+  }
+  .stop{position:relative;padding:64px 0 8px 64px}
+  .stop-head{display:flex;align-items:center;gap:14px;margin-bottom:10px;margin-left:-64px}
+  .dot{flex:0 0 auto;width:14px;height:14px;border-radius:50%;background:var(--coral);
+    box-shadow:0 0 0 5px var(--ink),0 0 0 6px var(--ink-3);margin-left:17px}
+  .stop .coord{font-family:"Space Mono",monospace;font-size:12px;color:var(--gold);letter-spacing:.08em}
+  .stop h2{
+    font-family:"Bricolage Grotesque",sans-serif;font-weight:800;
+    font-size:clamp(28px,4.4vw,44px);line-height:1.05;letter-spacing:-.02em;margin:6px 0 14px;
+  }
+  .stop .sub{color:var(--muted);max-width:62ch;font-size:18px}
+  @media(max-width:640px){
+    .journey::before{left:11px}
+    .stop{padding-left:34px}
+    .stop-head{margin-left:-34px}
+    .dot{margin-left:5px}
+  }
+
+  /* ---------- CONTENT BLOCKS ---------- */
+  .grid{display:grid;gap:18px;margin-top:30px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  @media(max-width:860px){.g3,.g4{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.g2,.g3,.g4{grid-template-columns:1fr}}
+
+  .card{background:var(--ink-2);border:1px solid var(--ink-3);border-radius:16px;padding:24px}
+  .card h3{font-family:"Bricolage Grotesque";font-weight:700;font-size:21px;letter-spacing:-.01em;margin-bottom:8px}
+  .card p{color:var(--muted);font-size:15.5px}
+  .card .num{font-family:"Space Mono",monospace;color:var(--coral);font-size:13px;letter-spacing:.1em}
+
+  /* verticais — cartões parchment destacados */
+  .vert{background:var(--sand);color:var(--ink);border:none;position:relative;overflow:hidden}
+  .vert .kicker{font-family:"Space Mono",monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#7a6f59}
+  .vert h3{color:var(--ink);font-size:24px;margin:6px 0 10px}
+  .vert p{color:#4a4438}
+  .vert .ribbon{position:absolute;top:16px;right:-30px;transform:rotate(38deg);
+    background:var(--coral);color:#fff;font-family:"Space Mono",monospace;font-size:10px;
+    letter-spacing:.12em;padding:5px 40px;text-transform:uppercase}
+  .vert.core{outline:3px solid var(--coral);outline-offset:-3px}
+  .vert ul{margin-top:12px;padding-left:0;list-style:none}
+  .vert li{position:relative;padding-left:22px;margin:7px 0;font-size:15px;color:#4a4438}
+  .vert li::before{content:"→";position:absolute;left:0;color:var(--coral);font-weight:700}
+
+  .note{margin-top:14px;padding:14px 16px;border-left:3px solid var(--gold);
+    background:rgba(234,185,75,.08);border-radius:0 10px 10px 0;font-size:14.5px;color:#5b5240}
+  .vert .note{color:#5b5240}
+
+  /* how it works steps */
+  .flow{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:30px}
+  @media(max-width:780px){.flow{grid-template-columns:1fr}}
+  .step{padding:20px;border:1px solid var(--ink-3);border-right:none;position:relative}
+  .flow .step:last-child{border-right:1px solid var(--ink-3)}
+  @media(max-width:780px){.step{border-right:1px solid var(--ink-3);border-bottom:none}.flow .step:last-child{border-bottom:1px solid var(--ink-3)}}
+  .step .n{font-family:"Space Mono",monospace;color:var(--coral);font-size:13px}
+  .step h4{font-family:"Bricolage Grotesque";font-weight:700;font-size:17px;margin:8px 0 6px}
+  .step p{color:var(--muted);font-size:14px}
+
+  /* revenue */
+  .rev{display:flex;flex-direction:column;gap:12px;margin-top:26px}
+  .rev-row{display:flex;align-items:flex-start;gap:18px;background:var(--ink-2);border:1px solid var(--ink-3);
+    border-radius:14px;padding:18px 20px}
+  .rev-row .pct{font-family:"Bricolage Grotesque";font-weight:800;color:var(--leaf);font-size:26px;flex:0 0 130px}
+  .rev-row .pct span{display:block;font-family:"Space Mono";font-weight:400;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+  .rev-row h4{font-family:"Bricolage Grotesque";font-weight:700;font-size:18px;margin-bottom:4px}
+  .rev-row p{color:var(--muted);font-size:14.5px}
+  @media(max-width:560px){.rev-row{flex-direction:column;gap:8px}.rev-row .pct{flex:none}}
+
+  /* tech stack */
+  .layer{margin-top:18px;border:1px solid var(--ink-3);border-radius:16px;overflow:hidden}
+  .layer summary{cursor:pointer;list-style:none;padding:18px 22px;display:flex;align-items:center;gap:14px;
+    background:var(--ink-2);font-family:"Bricolage Grotesque";font-weight:700;font-size:18px}
+  .layer summary::-webkit-details-marker{display:none}
+  .layer summary .lab{font-family:"Space Mono";font-size:12px;color:var(--gold);letter-spacing:.1em}
+  .layer summary .chev{margin-left:auto;color:var(--coral);transition:transform .25s}
+  .layer[open] summary .chev{transform:rotate(90deg)}
+  .layer .body{padding:6px 22px 20px}
+  .row{display:flex;gap:14px;padding:13px 0;border-bottom:1px dashed var(--ink-3);align-items:baseline}
+  .row:last-child{border-bottom:none}
+  .row .what{flex:0 0 200px;font-weight:600}
+  .row .tools{color:var(--muted);font-size:15px}
+  .row .tools b{color:var(--leaf);font-weight:600}
+  @media(max-width:600px){.row{flex-direction:column;gap:3px}.row .what{flex:none}}
+
+  /* cost table */
+  .tbl{width:100%;border-collapse:collapse;margin-top:24px;font-size:15px}
+  .tbl th,.tbl td{text-align:left;padding:13px 14px;border-bottom:1px solid var(--ink-3)}
+  .tbl th{font-family:"Space Mono";font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+  .tbl td.val{font-family:"Space Mono";color:var(--sand);white-space:nowrap;text-align:right}
+  .tbl tr.head td{font-family:"Bricolage Grotesque";font-weight:700;color:var(--coral);font-size:16px;padding-top:22px;border-bottom:2px solid var(--ink-3)}
+  .tbl tr.total td{font-weight:700;color:var(--leaf);border-top:2px solid var(--ink-3);border-bottom:none}
+  .tbl td small{color:var(--muted);display:block;font-size:13px;margin-top:2px}
+  @media(max-width:600px){.tbl,.tbl tbody,.tbl tr,.tbl td{display:block}.tbl thead{display:none}
+    .tbl td{border:none;padding:3px 0}.tbl tr{border-bottom:1px solid var(--ink-3);padding:12px 0}
+    .tbl td.val{text-align:left}.tbl tr.head td{border:none}}
+
+  /* benchmark table */
+  .bench{width:100%;border-collapse:collapse;margin-top:26px;font-size:14px}
+  .bench th,.bench td{padding:11px 10px;border-bottom:1px solid var(--ink-3);text-align:center}
+  .bench th{font-family:"Space Mono";font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--gold);font-weight:400;vertical-align:bottom}
+  .bench td:first-child,.bench th:first-child{text-align:left;font-weight:600}
+  .bench .yes{color:var(--leaf);font-weight:700}
+  .bench .no{color:#5d7068}
+  .bench .part{color:var(--gold)}
+  .bench tr.you td{background:rgba(255,107,74,.10)}
+  .bench tr.you td:first-child{color:var(--coral);font-family:"Bricolage Grotesque";font-weight:800}
+  .bench-wrap{overflow-x:auto;margin:0 -4px}
+  @media(max-width:760px){.bench{font-size:12.5px;min-width:640px}}
+
+  /* segmentation */
+  .seg{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:30px}
+  @media(max-width:680px){.seg{grid-template-columns:1fr}}
+  .seg .col{background:var(--ink-2);border:1px solid var(--ink-3);border-radius:16px;padding:22px}
+  .seg .col h3{font-family:"Bricolage Grotesque";font-weight:700;font-size:19px;margin-bottom:4px}
+  .seg .col .lab{font-family:"Space Mono";font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:12px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{font-size:13px;border:1px solid var(--ink-3);border-radius:8px;padding:6px 11px;color:var(--sand)}
+  .chip.lens{border-color:var(--leaf);color:var(--leaf)}
+  .seg .col p{color:var(--muted);font-size:14px;margin-top:12px}
+
+  /* regions */
+  .region{background:var(--ink-2);border:1px solid var(--ink-3);border-radius:16px;padding:22px}
+  .region .flag{font-family:"Space Mono";font-size:12px;color:var(--coral);letter-spacing:.08em;text-transform:uppercase}
+  .region h3{font-family:"Bricolage Grotesque";font-weight:700;font-size:20px;margin:6px 0 12px}
+  .region .spots{display:flex;flex-wrap:wrap;gap:7px}
+  .region .spots span{font-size:13px;border:1px solid var(--ink-3);border-radius:8px;padding:4px 9px;color:var(--muted)}
+  .region.intl{outline:1px dashed var(--gold);outline-offset:-1px}
+
+  /* names */
+  .names{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:26px}
+  @media(max-width:640px){.names{grid-template-columns:1fr}}
+  .nm{background:var(--ink-2);border:1px solid var(--ink-3);border-radius:14px;padding:18px 20px;display:flex;gap:16px;align-items:baseline}
+  .nm .word{font-family:"Bricolage Grotesque";font-weight:800;font-size:23px;letter-spacing:-.01em;flex:0 0 auto}
+  .nm .word.star{color:var(--coral)}
+  .nm .why{color:var(--muted);font-size:14.5px}
+  .nm .why .type{font-family:"Space Mono";font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:3px}
+
+  /* roadmap */
+  .phase{display:flex;gap:20px;padding:22px 0;border-bottom:1px solid var(--ink-3)}
+  .phase:last-child{border-bottom:none}
+  .phase .ph{font-family:"Bricolage Grotesque";font-weight:800;font-size:40px;color:var(--ink-3);flex:0 0 64px;line-height:1}
+  .phase h4{font-family:"Bricolage Grotesque";font-weight:700;font-size:19px;margin-bottom:6px}
+  .phase p{color:var(--muted);font-size:15px}
+  .phase .when{font-family:"Space Mono";font-size:11.5px;color:var(--leaf);letter-spacing:.08em;text-transform:uppercase;margin-top:6px;display:inline-block}
+
+  /* footer */
+  footer{padding:80px 0 70px;text-align:center}
+  footer h2{font-family:"Bricolage Grotesque";font-weight:800;font-size:clamp(26px,4vw,40px);letter-spacing:-.02em;max-width:20ch;margin:0 auto 16px}
+  footer p{color:var(--muted);max-width:54ch;margin:0 auto}
+  .disc{margin-top:48px;font-size:12.5px;color:#6f857d;max-width:64ch;margin-left:auto;margin-right:auto;line-height:1.7}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .reveal{opacity:1;transform:none;transition:none}
+    .layer[open] summary .chev{transition:none}
+  }
+  :focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:4px}
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Projeto · Documento de visão · v1</span>
+    <h1>O turismo <span class="accent">sem atravessador.</span></h1>
+    <p class="lead">Um marketplace que conecta o turista diretamente ao guia-motorista e ao veículo — ele escolhe a experiência, a data, o horário e o roteiro. Preço transparente na tela, pagamento direto a quem trabalha, sem ônibus lotado e sem pacote engessado.</p>
+    <div class="working">
+      <span class="tag">nome escolhido</span>
+      <span class="name">bora.</span>
+      <span class="tag" style="color:var(--leaf)">✓ definido</span>
+    </div>
+    <div class="pillrow">
+      <span class="pill">Estilo <b>Uber</b>, mas para experiências</span>
+      <span class="pill"><b>4</b> verticais</span>
+      <span class="pill">Pagamento em <b>escrow</b></span>
+      <span class="pill">Largada na <b>Serra Gaúcha</b></span>
+    </div>
+  </div>
+</header>
+
+<!-- ===== JOURNEY ===== -->
+<div class="journey wrap">
+
+  <!-- 1 · PROBLEMA -->
+  <section class="stop reveal">
+    <div class="stop-head"><span class="dot"></span><span class="coord">PARADA 01 · A DOR</span></div>
+    <h2>O atravessador fica com o passeio — e com o lucro.</h2>
+    <p class="sub">Quem viaja para Gramado, Campos do Jordão, Porto Seguro ou o Nordeste inteiro quase sempre cai na mão de uma agência intermediária. O resultado é previsível.</p>
+    <div class="grid g3">
+      <div class="card"><span class="num">01</span><h3>Sobrepreço</h3><p>O turista — em especial o estrangeiro — paga muito acima do justo, sem saber quanto chega a quem realmente presta o serviço.</p></div>
+      <div class="card"><span class="num">02</span><h3>Experiência engessada</h3><p>Ônibus cheio, horário rígido e paradas em lugares que nem todos queriam visitar. Pouca ou nenhuma personalização.</p></div>
+      <div class="card"><span class="num">03</span><h3>Risco dos dois lados</h3><p>O turista corre risco de calote; o motorista recebe pouco, atrasado e cheio de burocracia. O intermediário leva a maior fatia.</p></div>
+    </div>
+  </section>
+
+  <!-- 2 · COMO FUNCIONA -->
+  <section class="stop reveal">
+    <div class="stop-head"><span class="dot"></span><span class="coord">PARADA 02 · O FLUXO</span></div>
+    <h2>Como funciona, do toque ao destino.</h2>
+    <p class="sub">A jornada do turista é simples e o dinheiro só troca de mãos quando o passeio acontece — o que protege os dois lados ao mesmo tempo.</p>
+    <div class="flow">
+      <div class="step"><span class="n">01</span><h4>Escolhe a experiência</h4><p>Passeio, aventura ou roteiro próprio — não apenas um trajeto.</p></div>
+      <div class="step"><span class="n">02</span><h4>Define data e horário</h4><p>Vê a disponibilidade real de cada guia-motorista.</p></div>
+      <div class="step"><span class="n">03</span><h4>Seleciona guia + veículo</h4><p>Com foto, avaliações, idiomas e preço fixo na tela.</p></div>
+      <div class="step"><span class="n">04</span><h4>Paga em escrow</h4><p>O valor fica retido na plataforma até o passeio acontecer.</p></div>
+      <div class="step"><span class="n">05</span><h4>Vive e avalia</h4><p>Check-in confirma a realização; o valor é liberado ao guia.</p></div>
+    </div>
+    <div class="note"><b>O segredo é o escrow.</b> Reter o pagamento elimina o calote do turista e garante que o guia receba — sem intermediário ficando com o dinheiro. É o mecanismo que sustenta a promessa do projeto.</div>
+  </section>
+
+  <!-- 3 · VERTICAIS -->
+  <section class="stop reveal">
+    <div class="stop-head"><span class="dot"></span><span class="coord">PARADA 03 · AS QUATRO VERTICAIS</span></div>
+    <h2>Quatro formas de viajar, um app só.</h2>
+    <p class="sub">Cada vertical resolve um público diferente, mas todas rodam sobre o mesmo motor: escolher, agendar, pagar com segurança e avaliar.</p>
+    <div class="grid g2">
+
+      <div class="card vert core">
+        <span class="ribbon">núcleo</span>
+        <span class="kicker">Vertical 01</span>
+        <h3>Passeios &amp; Aventuras</h3>
+        <p>O coração do negócio. Roteiros prontos, montados pelo próprio guia-motorista, com preço fixo e avaliação pública.</p>
+        <ul>
+          <li>Cachoeiras, vinícolas, city tours, trilhas, mirantes</li>
+          <li>Curadoria local de verdade, não pacote de catálogo</li>
+          <li>É aqui que mora ~80% do valor inicial</li>
+        </ul>
+      </div>
+
+      <div class="card vert">
+        <span class="kicker">Vertical 02</span>
+        <h3>Carro Privativo com Guia+Motorista</h3>
+        <p>O turista define tudo — destino, paradas e horários. O guia-motorista vira o <b>“chefe da excursão”</b>: conduz, orienta e cuida do dia inteiro.</p>
+        <ul>
+          <li>Roteiro 100% sob medida, sem grupo, sem terceiros</li>
+          <li>Diária ou por período, com veículo privativo</li>
+          <li>Papel do profissional: <b>Guia+Motorista</b></li>
+        </ul>
+      </div>
+
+      <div class="card vert">
+        <span class="ribbon" style="background:var(--leaf)">confiança</span>
+        <span class="kicker">Vertical 03</span>
+        <h3>KIDS</h3>
+        <p>Transporte e curadoria para parques, eventos e atrações infantis. Pais pagam por <b>confiança</b> — e é exatamente isso que o selo entrega.</p>
+        <ul>
+          <li>Motorista com antecedentes verificados</li>
+          <li>Veículo vistoriado, cadeirinha, rota acompanhada</li>
+          <li>Diferencial fácil de comunicar e difícil de copiar</li>
+        </ul>
+      </div>
+
+      <div class="card vert">
+        <span class="kicker">Vertical 04</span>
+        <h3>Nightlife &amp; Adulto</h3>
+        <p>Vida noturna, casas de show e entretenimento adulto com sigilo, privacidade e parceiros confiáveis — para quem viaja a negócios e quer se divertir com segurança.</p>
+        <ul>
+          <li>Bares, casas noturnas e experiências adultas (legal no Brasil)</li>
+          <li><b>Cassinos: apenas no exterior</b> — Uruguai, Argentina e países onde é liberado</li>
+        </ul>
+        <div class="note"><b>Atenção regulatória.</b> Cassino físico segue proibido no Brasil (Decreto-Lei 9.215/1946); o projeto que pode mudar isso ainda tramita no Senado. Por isso a vertical de cassino aponta para destinos internacionais — e fica um módulo pronto para ativar no Brasil se a lei passar.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 4 · BENCHMARK -->
+  <section class="stop reveal">
+    <div class="stop-head"><span class="dot"></span><span class="coord">PARADA 04 · QUEM JÁ FAZ ISSO</span></div>
+    <h2>O mercado é cheio — menos onde você entra.</h2>
+    <p class="sub">Existem dezenas de apps de turismo, mas eles se dividem em famílias que não fazem o que você propõe. Pesquisa de concorrência resumida no que importa: funcionalidade por funcionalidade.</p>
+    <div class="bench-wrap">
+      <table class="bench">
+        <thead>
+          <tr>
+            <th>Plataforma</th>
+            <th>Guia + motorista + veículo juntos</th>
+            <th>Roteiro sob medida</th>
+            <th>Pagamento em escrow</th>
+            <th>Foco Brasil / Pix</th>
+            <th>Várias verticais</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>GetYourGuide / Viator</td><td class="no">não</td><td class="no">não</td><td class="yes">sim</td><td class="part">parcial</td><td class="part">parcial</td></tr>
+          <tr><td>Civitatis</td><td class="no">não</td><td class="no">não</td><td class="yes">sim</td><td class="yes">sim (PT-BR)</td><td class="no">não</td></tr>
+          <tr><td>Airbnb Experiences</td><td class="no">não</td><td class="part">parcial</td><td class="yes">sim</td><td class="no">não</td><td class="part">parcial</td></tr>
+          <tr><td>ToursByLocals / WithLocals</td><td class="no">não</td><td class="yes">sim</td><td class="yes">sim</td><td class="no">não</td><td class="no">não</td></tr>
+          <tr><td>Showaround (guia por hora)</td><td class="no">não</td><td class="yes">sim</td><td class="part">parcial</td><td class="no">não</td><td class="no">não</td></tr>
+          <tr><td>InDriver</td><td class="no">só transporte</td><td class="no">não</td><td class="part">parcial</td><td class="yes">sim</td><td class="no">não</td></tr>
+          <tr class="you"><td>Seu projeto</td><td class="yes">sim</td><td class="yes">sim</td><td class="yes">sim</td><td class="yes">sim</td><td class="yes">sim · 4</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="grid g3">
+      <div class="card"><span class="num">BURACO 01</span><h3>Guia que também dirige</h3><p>Quase todos são guia <em>ou</em> transporte. Unir os dois numa reserva — o “chefe da excursão” — é território aberto.</p></div>
+      <div class="card"><span class="num">BURACO 02</span><h3>Brasil de verdade</h3><p>Os grandes miram o brasileiro viajando pra fora. Destino nacional, Pix e rede local de prefeituras e hotéis quase ninguém ataca.</p></div>
+      <div class="card"><span class="num">BURACO 03</span><h3>Tudo num app só</h3><p>Passeios, privativo, kids e noturno juntos. Os concorrentes são de propósito único.</p></div>
+    </div>
+    <div class="note"><b>Lição da pesquisa:</b> o modelo “instantâneo estilo Uber” é o ponto fraco — bons guias costumam estar agendados com antecedência, raramente livres na hora. Aposte em <b>agenda + disponibilidade</b>, não em match imediato. E o escrow, já usado por GetYourGuide e Civitatis, é padrão de mercado: seu diferencial é o repasse <b>direto ao guia-motorista</b> somado à rede local — não o escrow sozinho.</div>
+  </section>
+
+  <!-- 5 · CANAIS & SEGMENTAÇÃO -->
+  <section class="stop reveal">
+    <div class="stop-head"><span class="dot"></span><span class="coord">PARADA 05 · CANAIS &amp; SEGMENTAÇÃO</span></div>
+    <h2>Netflix, não TV aberta.</h2>
+    <p class="sub">A ideia de “canais” por público é boa — segmentar vende, e nichos como o turismo LGBT movimentam bilhões. Mas viagem não é canal fechado: uma viagem pode ser “família + natureza” ao mesmo tempo. Então o certo é poucas verticais claras, somadas a filtros de interesse e lentes de inclusão que atravessam tudo.</p>
+    <div class="seg">
+      <div class="col">
+        <span class="lab">Eixo 1 · tipo de experiência</span>
+        <h3>Filtros de interesse</h3>
+        <div class="chips">
+          <span class="chip">Aventura &amp; adrenalina</span>
+          <span class="chip">Gastronomia &amp; vinho</span>
+          <span class="chip">Cultura &amp; história</span>
+          <span class="chip">Natureza &amp; ecoturismo</span>
+          <span class="chip">Romântico</span>
+          <span class="chip">Vida noturna</span>
+          <span class="chip">Religioso</span>
+          <span class="chip">Compras</span>
+        </div>
+        <p>Tags que combinam livremente dentro de cada vertical. É o “gênero” que faz sentido pra turismo — não comédia ou ação, mas o que a pessoa quer sentir.</p>
+      </div>
+      <div class="col">
+        <span class="lab">Eixo 2 · público &amp; inclusão</span>
+        <h3>Lentes que atravessam o app</h3>
+        <div class="chips">
+          <span class="chip lens">LGBT-friendly</span>
+          <span class="chip lens">Kids / família</span>
+          <span class="chip lens">Acessível (PCD)</span>
+          <span class="chip lens">Pet-friendly</span>
+          <span class="chip lens">Mulher viajando só</span>
+          <span class="chip lens">Sênior</span>
+        </div>
+        <p>Curadoria respeitosa de prestadores e locais acolhedores, com foco em segurança. Identidade e comunidade são uma <em>lente</em> — coisa diferente do conteúdo adulto, que fica na sua própria vertical.</p>
+      </div>
+    </div>
+    <div class="note"><b>Cuidado de produto:</b> não misture identidade (LGBT) com conteúdo adulto na mesma lista — é erro de UX e soa redutor. E não lance seis canais de uma vez: canal sem oferta densa fica vazio. Comece com 1 vertical numa praça e abra o resto conforme a oferta cresce.</div>
+  </section>
+
+  <!-- 6 · MODELO DE NEGÓCIO -->
+  <section class="stop reveal">
+    <div class="stop-head"><span class="dot"></span><span class="coord">PARADA 06 · COMO O APP GANHA</span></div>
+    <h2>Quatro fontes de receita.</h2>
+    <p class="sub">A plataforma não disputa a margem do guia — ela ganha por viabilizar o encontro, e diversifica para não depender de uma só torneira.</p>
+    <div class="rev">
+      <div class="rev-row"><div class="pct">15–25%<span>take rate</span></div><div><h4>Comissão por passeio</h4><p>Percentual sobre cada experiência. Começa mais baixo para atrair guias e sobe conforme a liquidez da praça cresce.</p></div></div>
+      <div class="rev-row"><div class="pct">+margem<span>pacotes</span></div><div><h4>Pacotes premium curados</h4><p>Roteiros de múltiplos dias e experiências assinadas, onde a margem é maior e o ticket médio também.</p></div></div>
+      <div class="rev-row"><div class="pct">CPC/CPA<span>destinos</span></div><div><h4>Anúncios e comissão de parceiros</h4><p>Restaurantes, vinícolas, parques e atrações pagam para aparecer ou por reserva gerada via app.</p></div></div>
+      <div class="rev-row"><div class="pct">R$/mês<span>recorrente</span></div><div><h4>Assinatura do guia</h4><p>Plano mensal que dá destaque e reduz a comissão por viagem. Receita recorrente que estabiliza o caixa.</p></div></div>
+    </div>
+  </section>
+
+  <!-- 5 · STACK -->
+  <section class="stop reveal">
+    <div class="stop-head"><span class="dot"></span><span class="coord">PARADA 07 · STACK TECNOLÓGICO</span></div>
+    <h2>Tudo que o app precisa por baixo do capô.</h2>
+    <p class="sub">Levantamento completo das camadas. Toque em cada uma para ver as ferramentas recomendadas — opções consolidadas no mercado brasileiro.</p>
+
+    <details class="layer reveal" open>
+      <summary><span class="lab">A</span> Aplicativos &amp; painel <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="row"><span class="what">App do turista + guia</span><span class="tools"><b>React Native</b> ou <b>Flutter</b> — uma base de código para iOS e Android</span></div>
+        <div class="row"><span class="what">Painel admin / backoffice</span><span class="tools"><b>Next.js</b> — gestão de usuários, pagamentos, disputas e relatórios</span></div>
+        <div class="row"><span class="what">Site institucional</span><span class="tools"><b>Next.js</b> ou HTML estático — captação e SEO</span></div>
+      </div>
+    </details>
+
+    <details class="layer reveal">
+      <summary><span class="lab">B</span> Backend &amp; dados <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="row"><span class="what">API / regras de negócio</span><span class="tools"><b>Node.js (NestJS)</b> ou similar — arquitetura de serviços</span></div>
+        <div class="row"><span class="what">Banco de dados</span><span class="tools"><b>PostgreSQL + PostGIS</b> (geolocalização) · <b>Redis</b> (cache e matching em tempo real)</span></div>
+        <div class="row"><span class="what">Tempo real</span><span class="tools"><b>WebSockets</b> / <b>Firebase</b> — posição do guia, status do passeio</span></div>
+      </div>
+    </details>
+
+    <details class="layer reveal">
+      <summary><span class="lab">C</span> Mapas &amp; localização <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="row"><span class="what">Mapas e rotas</span><span class="tools"><b>Google Maps Platform</b> ou <b>Mapbox</b> — mapa, rota, ETA, geocoding</span></div>
+        <div class="row"><span class="what">Check-in por GPS</span><span class="tools">Geofencing para confirmar início/fim do passeio (libera o escrow)</span></div>
+      </div>
+    </details>
+
+    <details class="layer reveal">
+      <summary><span class="lab">D</span> Pagamentos &amp; escrow <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="row"><span class="what">Gateway com split</span><span class="tools"><b>Asaas</b>, <b>Pagar.me</b>, <b>Mercado Pago</b> ou <b>Stripe Connect</b> — Pix + cartão, split automático e retenção</span></div>
+        <div class="row"><span class="what">Repasse ao guia</span><span class="tools">Liberação automática pós-passeio, sem burocracia manual</span></div>
+      </div>
+    </details>
+
+    <details class="layer reveal">
+      <summary><span class="lab">E</span> Identidade &amp; confiança <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="row"><span class="what">Verificação do guia (KYC)</span><span class="tools"><b>idwall</b>, <b>CAF</b> ou <b>Unico</b> — CNH, antecedentes, biometria/liveness</span></div>
+        <div class="row"><span class="what">Login do usuário</span><span class="tools"><b>Firebase Auth</b> / Auth0 — e-mail, telefone, social</span></div>
+        <div class="row"><span class="what">Avaliações &amp; reputação</span><span class="tools">Nota e comentários públicos nos dois sentidos</span></div>
+      </div>
+    </details>
+
+    <details class="layer reveal">
+      <summary><span class="lab">F</span> Comunicação &amp; suporte <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="row"><span class="what">Notificações</span><span class="tools"><b>Firebase Cloud Messaging</b> / OneSignal · SMS (<b>Zenvia</b>/Twilio) · <b>WhatsApp Business API</b></span></div>
+        <div class="row"><span class="what">Atendimento</span><span class="tools"><b>Zendesk</b> ou <b>Chatwoot</b> + chat dentro do app</span></div>
+      </div>
+    </details>
+
+    <details class="layer reveal">
+      <summary><span class="lab">G</span> Infra, dados &amp; segurança <span class="chev">›</span></summary>
+      <div class="body">
+        <div class="row"><span class="what">Nuvem &amp; deploy</span><span class="tools"><b>AWS</b> ou <b>GCP</b> · CI/CD · containers</span></div>
+        <div class="row"><span class="what">Monitoramento</span><span class="tools"><b>Sentry</b> (erros) · <b>Mixpanel</b>/GA4 (produto) · <b>Metabase</b> (BI)</span></div>
+        <div class="row"><span class="what">Antifraude &amp; LGPD</span><span class="tools">Regras de fraude, geofencing e conformidade com a LGPD desde o dia 1</span></div>
+      </div>
+    </details>
+  </section>
+
+  <!-- 6 · INVESTIMENTO -->
+  <section class="stop reveal">
+    <div class="stop-head"><span class="dot"></span><span class="coord">PARADA 08 · INVESTIMENTO (SEM PROGRAMAÇÃO)</span></div>
+    <h2>Quanto custa, fora o desenvolvimento.</h2>
+    <p class="sub">Estimativas para tirar o projeto do papel e validar a primeira praça — excluindo a programação do app, como você pediu. Valores em reais, por faixa, porque variam muito com fornecedor e volume.</p>
+    <table class="tbl">
+      <thead><tr><th>Item</th><th style="text-align:right">Faixa estimada</th></tr></thead>
+      <tbody>
+        <tr class="head"><td colspan="2">Setup inicial — uma vez</td></tr>
+        <tr><td>Abertura de empresa + contábil inicial</td><td class="val">R$ 1.500 – 4.000</td></tr>
+        <tr><td>Consultoria jurídica<small>marketplace, termos, contratos do guia, CADASTUR, LGPD</small></td><td class="val">R$ 8.000 – 25.000</td></tr>
+        <tr><td>Marca + identidade visual + design do app<small>logo, telas, sistema visual</small></td><td class="val">R$ 5.000 – 20.000</td></tr>
+        <tr><td>Registro de marca no INPI<small>por classe</small></td><td class="val">R$ 1.000 – 1.500</td></tr>
+        <tr><td>Contas de loja<small>Apple ~US$99/ano · Google ~US$25 única</small></td><td class="val">R$ 700 – 900</td></tr>
+
+        <tr class="head"><td colspan="2">Operação — mensal (no início)</td></tr>
+        <tr><td>Nuvem / infraestrutura</td><td class="val">R$ 500 – 3.000</td></tr>
+        <tr><td>Mapas (Google/Mapbox)<small>tem cota grátis; cresce com o uso</small></td><td class="val">R$ 0 – 5.000</td></tr>
+        <tr><td>Verificação de guia (KYC)<small>por motorista cadastrado</small></td><td class="val">R$ 5 – 25 / un.</td></tr>
+        <tr><td>Suporte / SAC<small>1–2 pessoas no começo</small></td><td class="val">R$ 2.000 – 8.000</td></tr>
+        <tr><td>Taxas de pagamento<small>~1% Pix · ~3–4% + R$0,40 cartão</small></td><td class="val">% por transação</td></tr>
+        <tr><td>Seguro de responsabilidade / passageiro</td><td class="val">cotar c/ corretora</td></tr>
+
+        <tr class="head"><td colspan="2">Lançamento — uma praça (ex.: Serra Gaúcha)</td></tr>
+        <tr><td>Marketing &amp; aquisição<small>captar guias + turistas, conteúdo, tráfego pago</small></td><td class="val">R$ 10.000 – 50.000</td></tr>
+
+        <tr class="total"><td>Para começar com segurança<small>setup + ~3 meses de operação + lançamento de 1 praça</small></td><td class="val">~R$ 45.000 – 130.000</td></tr>
+      </tbody>
+    </table>
+    <div class="note">Números de referência (início de 2026) para dimensionar a conversa, não orçamento fechado. Variam com fornecedor, volume e negociação — e não incluem o desenvolvimento do software. Não é aconselhamento financeiro: vale cotar cada item com fornecedores reais antes de decidir.</div>
+  </section>
+
+  <!-- 7 · REGIÕES -->
+  <section class="stop reveal">
+    <div class="stop-head"><span class="dot"></span><span class="coord">PARADA 09 · MAPA DE REGIÕES</span></div>
+    <h2>Onde está a demanda.</h2>
+    <p class="sub">Os destinos onde o turista mais sofre com atravessador — e onde o app tem mais a ganhar. Começa concentrado, depois replica.</p>
+    <div class="grid g2">
+      <div class="region"><span class="flag">Sul · largada</span><h3>Serra Gaúcha &amp; entorno</h3><div class="spots"><span>Gramado</span><span>Canela</span><span>Bento Gonçalves</span><span>Vale dos Vinhedos</span><span>Nova Petrópolis</span><span>Cânions (SC)</span><span>Foz do Iguaçu</span></div></div>
+      <div class="region"><span class="flag">Sudeste</span><h3>Serras &amp; litoral</h3><div class="spots"><span>Campos do Jordão</span><span>Rio de Janeiro</span><span>Paraty</span><span>Ouro Preto</span><span>Tiradentes</span><span>Litoral de SP</span></div></div>
+      <div class="region"><span class="flag">Nordeste · alto volume</span><h3>O litoral inteiro</h3><div class="spots"><span>Porto Seguro</span><span>Trancoso</span><span>Salvador</span><span>Chapada Diamantina</span><span>Maragogi</span><span>Porto de Galinhas</span><span>Pipa</span><span>Jericoacoara</span><span>Noronha</span><span>Lençóis Maranhenses</span></div></div>
+      <div class="region"><span class="flag">Centro-Oeste &amp; Norte</span><h3>Natureza &amp; aventura</h3><div class="spots"><span>Bonito</span><span>Chapada dos Veadeiros</span><span>Pantanal</span><span>Jalapão</span><span>Amazônia / Manaus</span></div></div>
+      <div class="region intl"><span class="flag" style="color:var(--gold)">Internacional · cassino legal</span><h3>Uruguai</h3><div class="spots"><span>Punta del Este</span><span>Montevidéu</span><span>Conrad / cassinos</span></div></div>
+      <div class="region intl"><span class="flag" style="color:var(--gold)">Internacional · cassino legal</span><h3>Argentina</h3><div class="spots"><span>Buenos Aires</span><span>Mendoza</span><span>Bariloche</span><span>Puerto Iguazú</span></div></div>
+    </div>
+  </section>
+
+  <!-- 8 · NOMES -->
+  <section class="stop reveal">
+    <div class="stop-head"><span class="dot"></span><span class="coord">PARADA 10 · NOME DO APP</span></div>
+    <h2>Oito caminhos para o nome.</h2>
+    <p class="sub">Divididos por estratégia: nomes <b>amigáveis e populares</b> (fáceis de viralizar) versus nomes <b>premium e próprios</b> (mais distintos e defensáveis). A ⭐ marca minhas favoritas.</p>
+    <div class="names">
+      <div class="nm"><span class="word">Cicerone</span><span class="why"><span class="type">premium · ownable</span>Significa “guia turístico”. Elegante, único e já conta a história do produto. Risco: soletrar.</span></div>
+      <div class="nm"><span class="word star">Bora ✓ escolhido</span><span class="why"><span class="type">popular · BR</span>Curto, caloroso, 100% brasileiro — “bora viajar” — com eco de Bora Bora, o destino dos sonhos. Nome oficial do projeto.</span></div>
+      <div class="nm"><span class="word">Rota</span><span class="why"><span class="type">popular · claro</span>Direto ao conceito de jornada. Limpo e versátil para marca e logo.</span></div>
+      <div class="nm"><span class="word star">Léguas</span><span class="why"><span class="type">premium · evocativo</span>Unidade de distância antiga — cheia de imaginário de viagem. Bonito e raro.</span></div>
+      <div class="nm"><span class="word">Bússola</span><span class="why"><span class="type">premium · imagético</span>Orientação, descoberta, rumo. Bom para um app que guia o turista.</span></div>
+      <div class="nm"><span class="word">Trippa</span><span class="why"><span class="type">popular · jovem</span>Brinca com “trip”. Moderno e internacionalizável, com cara de startup.</span></div>
+      <div class="nm"><span class="word">Anfitrião</span><span class="why"><span class="type">premium · acolhedor</span>Foca na figura do guia que recebe e cuida. Forte para a vertical privativa.</span></div>
+      <div class="nm"><span class="word">Vai</span><span class="why"><span class="type">popular · mínimo</span>Imperativo de partir. Curtíssimo — ótimo para ícone e para “Vai com a gente”.</span></div>
+    </div>
+    <div class="note">Antes de fechar: verificar disponibilidade de <b>domínio (.com.br / .com)</b>, <b>registro no INPI</b> na classe certa e <b>@ nas redes</b>. Posso pesquisar isso quando você escolher os 2–3 finalistas.</div>
+  </section>
+
+  <!-- 9 · ROADMAP -->
+  <section class="stop reveal">
+    <div class="stop-head"><span class="dot"></span><span class="coord">PARADA 11 · ROADMAP</span></div>
+    <h2>Por onde caminhar.</h2>
+    <p class="sub">O erro clássico de marketplace é abrir em dez cidades com tudo ao mesmo tempo e não ter densidade em lugar nenhum. O caminho é o oposto.</p>
+    <div>
+      <div class="phase"><span class="ph">01</span><div><h4>Validar uma praça, uma vertical</h4><p>Serra Gaúcha, só Passeios &amp; Aventuras. 20–30 guias bons, escrow funcionando, preço transparente. Provar que o modelo gira.</p><span class="when">Mês 0–6</span></div></div>
+      <div class="phase"><span class="ph">02</span><div><h4>Adensar e abrir verticais</h4><p>Ligar Carro Privativo e KIDS na mesma praça. Refinar reputação, suporte e repasse antes de espalhar.</p><span class="when">Mês 6–12</span></div></div>
+      <div class="phase"><span class="ph">03</span><div><h4>Replicar para novas praças</h4><p>Campos do Jordão, Rio, Nordeste. Playbook de lançamento repetível, com case da Serra como prova.</p><span class="when">Ano 2</span></div></div>
+      <div class="phase"><span class="ph">04</span><div><h4>Nightlife e destinos internacionais</h4><p>Vertical adulta e rotas para Uruguai/Argentina. Módulo de cassino pronto para o Brasil caso a lei avance.</p><span class="when">Ano 2+</span></div></div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="wrap reveal">
+  <h2>Esse é o mapa. O próximo passo é escolher a primeira parada.</h2>
+  <p>Dá para avançar por qualquer frente: fechar o nome e a identidade visual, detalhar o plano de negócio para apresentar a sócio ou investidor, ou prototipar as telas do app para ver funcionando.</p>
+  <p class="disc">Documento de visão de projeto, versão 1 — material de trabalho para organizar e apresentar a ideia. As estimativas de custo são faixas de referência (início de 2026) que variam com fornecedor, volume e negociação, e não substituem orçamentos reais nem aconselhamento jurídico, financeiro ou contábil. O status regulatório de cassinos no Brasil deve ser reconfirmado antes de qualquer decisão sobre a vertical adulta.</p>
+</footer>
+
+<script>
+  (function(){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+    },{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  })();
+</script>
+</body>
+</html>
