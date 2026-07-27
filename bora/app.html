@@ -57,7 +57,6 @@
   .mode{flex:1;border:none;background:transparent;color:var(--muted);font-family:"Instrument Sans";font-weight:600;
     font-size:12.5px;padding:9px 4px;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;transition:.2s}
   .mode.on{background:var(--coral);color:#0c1c17}
-  .mode.adult.on{background:var(--plum);color:#fff}
 
   .searchpill{display:flex;align-items:center;gap:10px;background:var(--ink-2);border:1px solid var(--ink-3);
     border-radius:14px;padding:13px 16px;color:var(--muted);font-size:14px;cursor:pointer;margin-bottom:8px}
@@ -121,8 +120,6 @@
   .banner h4{font-family:"Bricolage Grotesque";font-weight:800;font-size:19px;margin:5px 0 5px;max-width:15ch}
   .banner p{font-size:13px;color:var(--muted);max-width:28ch}
   .banner .em{position:absolute;right:14px;bottom:10px;font-size:46px;opacity:.85}
-
-  .adultnote{background:rgba(176,112,201,.1);border:1px solid rgba(176,112,201,.3);border-radius:14px;padding:13px 15px;font-size:12.5px;color:#d9bfe6;margin-bottom:6px;display:flex;gap:9px}
 
   /* search */
   .field{background:var(--ink-2);border:1px solid var(--ink-3);border-radius:13px;padding:12px 15px;margin-bottom:10px;display:flex;align-items:center;gap:11px}
@@ -296,18 +293,6 @@
   .empty{text-align:center;color:var(--muted);padding:50px 30px;font-size:14px}
   .empty .e{font-size:42px;display:block;margin-bottom:12px}
 
-  /* age gate */
-  .overlay{position:absolute;inset:0;background:rgba(8,18,14,.82);backdrop-filter:blur(6px);z-index:40;
-    display:none;align-items:center;justify-content:center;padding:26px}
-  .overlay.show{display:flex;animation:fade .25s ease}
-  .gate{background:var(--ink-2);border:1px solid var(--plum);border-radius:22px;padding:26px 22px;text-align:center;max-width:320px}
-  .gate .em{font-size:42px}
-  .gate h3{font-family:"Bricolage Grotesque";font-weight:800;font-size:20px;margin:10px 0 8px}
-  .gate p{font-size:13.5px;color:var(--muted);line-height:1.55;margin-bottom:18px}
-  .gate .b1{width:100%;background:var(--plum);color:#fff;border:none;border-radius:13px;padding:14px;font-family:inherit;font-weight:700;font-size:15px;cursor:pointer}
-  .gate .b2{width:100%;background:none;color:var(--muted);border:none;padding:13px;font-family:inherit;font-size:14px;cursor:pointer;margin-top:4px}
-  .gate .law{font-family:"Space Mono";font-size:10px;color:#6f857d;margin-top:14px}
-
   .toast{position:absolute;bottom:96px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink-4);
     border:1px solid var(--leaf);color:var(--sand);padding:11px 18px;border-radius:12px;font-size:13px;z-index:45;opacity:0;transition:.3s;white-space:nowrap}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -325,6 +310,29 @@
   .plan-card p{font-size:13px;line-height:1.45;color:#e4eee9;max-width:30ch}
   .plan-card button{margin-top:14px;border:0;border-radius:12px;background:var(--coral);color:#10241f;
     padding:12px 15px;font-family:inherit;font-weight:700;font-size:13px;cursor:pointer}
+  .modes{overflow-x:auto;scrollbar-width:none;justify-content:flex-start}
+  .modes::-webkit-scrollbar{display:none}
+  .mode{flex:0 0 auto;min-width:88px;padding-left:11px;padding-right:11px}
+  .nowbox{border-radius:22px;background:#173d33;color:#fff;padding:18px;margin:8px 0 14px;box-shadow:0 12px 28px rgba(17,55,43,.18)}
+  .nowtop{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+  .nowtop .eyebrow{font:700 10px "Space Mono";letter-spacing:.12em;text-transform:uppercase;color:#9ee2bd}
+  .nowtop h2{font:800 22px "Bricolage Grotesque";line-height:1.08;margin:5px 0}
+  .nowtop p{font-size:12.5px;color:#cee1da;line-height:1.4}
+  .livepulse{display:flex;align-items:center;gap:5px;font:700 10px "Space Mono";color:#9ee2bd;white-space:nowrap;margin-top:2px}
+  .livepulse::before{content:"";width:7px;height:7px;border-radius:50%;background:#54c08a;box-shadow:0 0 0 5px rgba(84,192,138,.14)}
+  .nowfilters{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;margin:14px -2px 12px}
+  .nowfilters::-webkit-scrollbar{display:none}
+  .nowfilter{flex:0 0 auto;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#e6f2ee;border-radius:10px;padding:8px 10px;font:600 11px "Instrument Sans";cursor:pointer}
+  .nowfilter.on{background:#fff;color:#17352d;border-color:#fff}
+  .nowlist{display:grid;gap:8px}
+  .nowitem{width:100%;border:0;background:#fff;color:#17352d;border-radius:14px;padding:11px;display:grid;grid-template-columns:42px 1fr auto;gap:10px;align-items:center;text-align:left;font-family:inherit;cursor:pointer}
+  .nowitem .ni{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;font-size:21px}
+  .nowitem h4{font:700 13.5px "Bricolage Grotesque";line-height:1.18}
+  .nowitem p{font-size:10.5px;color:#61756e;margin-top:3px}
+  .nowitem .nr{text-align:right}
+  .nowitem .nr b{display:block;font-size:13px}
+  .nowitem .spots{display:inline-block;margin-top:4px;border-radius:6px;background:#fff0ec;color:#b64028;padding:3px 5px;font:700 9px "Space Mono"}
+  .nowempty{font-size:12px;color:#cee1da;padding:8px 2px}
   .trustrow{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:0 0 14px}
   .trustitem{background:var(--ink-2);border:1px solid var(--ink-3);border-radius:12px;padding:9px 6px;text-align:center;
     font-size:10px;line-height:1.3;color:var(--muted)}
@@ -372,6 +380,33 @@
   .trip-tool span{display:block;font-size:20px;margin-bottom:5px}
   .startup-note{background:rgba(84,192,138,.1);border:1px solid rgba(84,192,138,.28);border-radius:14px;padding:12px 14px;
     color:var(--muted);font-size:12px;line-height:1.45;margin:12px 0}
+  .livebox{display:flex;gap:9px;align-items:center;background:#edf8f2;border:1px solid #c9e9d8;border-radius:13px;padding:11px 12px;margin:14px 0;color:#31584b;font-size:12px;line-height:1.4}
+  .livebox b{color:#17352d}
+  .providerbox{display:flex;align-items:center;gap:10px;border:1px solid var(--ink-3);background:var(--ink-2);border-radius:14px;padding:12px;margin:10px 0}
+  .providerbox .logo{width:40px;height:40px;border-radius:11px;background:#e8f0ec;display:grid;place-items:center;font-size:20px}
+  .providerbox h4{font:700 13.5px "Bricolage Grotesque"}
+  .providerbox p{font-size:11.5px;color:var(--muted);margin-top:2px}
+  .guarantee{background:#f2f8f5;border:1px solid #cfe3d9;border-radius:15px;padding:14px;margin:15px 0}
+  .guarantee h4{font:800 15px "Bricolage Grotesque";margin-bottom:8px}
+  .guarantee-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+  .guarantee-grid span{font-size:11px;color:#46675d;background:#fff;border-radius:9px;padding:8px}
+  .compare-intro{padding:18px}
+  .compare-intro h3{font:800 21px "Bricolage Grotesque";margin-bottom:6px}
+  .compare-intro p{font-size:13px;color:var(--muted);line-height:1.5}
+  .offer{margin:0 18px 11px;background:var(--ink-2);border:1px solid var(--ink-3);border-radius:16px;padding:14px}
+  .offer.best{border-color:var(--leaf);box-shadow:0 0 0 2px rgba(84,192,138,.1)}
+  .offer .offerhead{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+  .offer h4{font:700 15px "Bricolage Grotesque"}
+  .offer .supplier{font-size:11.5px;color:var(--muted);margin-top:2px}
+  .offer .amount{font:800 16px "Bricolage Grotesque";color:#173d33;white-space:nowrap}
+  .offer .includes{font-size:12px;color:var(--muted);line-height:1.45;margin:10px 0}
+  .offer button{width:100%;border:0;border-radius:11px;background:var(--coral);color:#10241f;padding:11px;font:700 13px "Instrument Sans";cursor:pointer}
+  .resolvehero{text-align:center;padding:28px 22px 18px}
+  .resolvehero .ric{width:64px;height:64px;border-radius:20px;background:#e7f7ee;display:grid;place-items:center;font-size:30px;margin:0 auto 12px}
+  .resolvehero h3{font:800 22px "Bricolage Grotesque"}
+  .resolvehero p{font-size:13px;color:var(--muted);line-height:1.5;margin-top:6px}
+  .resolveoption{display:flex;gap:11px;align-items:center;margin:0 18px 10px;padding:13px;background:#fff;border:1px solid var(--ink-3);border-radius:14px;cursor:pointer}
+  .resolveoption .ri{font-size:22px}.resolveoption h4{font:700 14px "Bricolage Grotesque"}.resolveoption p{font-size:11.5px;color:var(--muted);margin-top:2px}
 
   /* Tema claro com contraste maior */
   :root{--ink:#f6f8f5;--ink-2:#ffffff;--ink-3:#d9e4df;--ink-4:#e8f0ec;--sand:#17352d;--muted:#61756e}
@@ -382,11 +417,9 @@
   .tabbar{background:rgba(255,255,255,.94)}
   .promo,.promo h4{color:#fff}.promo p{color:#dfeae5}.promo .cta{color:#ffd1c6}
   .xp .pic .tag,.hero .cat{color:#fff}
-  .adultnote{color:#694778}
   .escrowbox{color:#6d5924}
   .bub.me{color:#10241f}
   .sheet,.appbar,.stickybar{background:var(--ink)}
-  .gate{background:#fff}
   .toast{background:#17352d;color:#fff}
   .appbar .back{color:var(--sand)}
   .searchpill{width:100%;font-family:inherit;text-align:left;color:var(--muted)}
@@ -421,13 +454,26 @@
           <button class="avatar" aria-label="Abrir perfil" onclick="go('perfil')">G</button>
         </div>
       </div>
-      <div class="greet">Olá, Guto.<br>O que vamos fazer <span>hoje?</span></div>
+      <div class="greet">Olá, Guto.<br>O que cabe no seu dia <span>hoje?</span></div>
       <div class="modes">
         <button class="mode on" data-mode="familia">👨‍👩‍👧 Família</button>
-        <button class="mode" data-mode="solteiros">🎉 Solteiros</button>
-        <button class="mode adult" data-mode="adulto">🔒 Adulto</button>
+        <button class="mode" data-mode="casal">💛 Casal</button>
+        <button class="mode" data-mode="amigos">🎉 Amigos</button>
+        <button class="mode" data-mode="solo">🎒 Solo</button>
+        <button class="mode" data-mode="60mais">🌿 60+</button>
       </div>
-      <button class="searchpill" onclick="go('buscar')"><span>🔎</span> Buscar passeios, guias e experiências</button>
+      <button class="searchpill" onclick="go('buscar')"><span>🔎</span> Buscar passeios, atrações e experiências</button>
+      <div class="nowbox">
+        <div class="nowtop"><div><span class="eyebrow">BORA Agora</span><h2>O que dá para fazer agora?</h2><p>Opções perto de você com horário e vagas.</p></div><span class="livepulse">AO VIVO</span></div>
+        <div class="nowfilters" id="now-filters">
+          <button class="nowfilter on" data-window="agora" onclick="setNowWindow('agora')">Agora</button>
+          <button class="nowfilter" data-window="2h" onclick="setNowWindow('2h')">Próximas 2h</button>
+          <button class="nowfilter" data-window="hoje" onclick="setNowWindow('hoje')">Hoje</button>
+          <button class="nowfilter" data-window="noite" onclick="setNowWindow('noite')">À noite</button>
+          <button class="nowfilter" data-window="amanha" onclick="setNowWindow('amanha')">Amanhã</button>
+        </div>
+        <div class="nowlist" id="now-feed"></div>
+      </div>
       <div class="plan-card">
         <span class="eyebrow">Seu dia na Serra</span>
         <h2>Um roteiro com a sua cara</h2>
@@ -435,7 +481,7 @@
         <button onclick="openPlanner()">Montar meu roteiro</button>
       </div>
       <div class="trustrow" aria-label="Recursos de segurança">
-        <div class="trustitem">✓<b>Guias verificados</b></div>
+        <div class="trustitem">✓<b>Parceiros verificados</b></div>
         <div class="trustitem">🔒<b>Pagamento protegido</b></div>
         <div class="trustitem">💬<b>Suporte local</b></div>
       </div>
@@ -450,7 +496,7 @@
         <span class="em">🚐</span>
       </div>
 
-      <div class="seclabel"><h3>Guias+Motoristas em destaque</h3><a onclick="go('buscar')">ver todos</a></div>
+      <div class="seclabel"><h3>Profissionais locais em destaque</h3><a onclick="go('buscar')">ver todos</a></div>
       <div id="home-guides"></div>
     </section>
 
@@ -496,6 +542,7 @@
       <div class="pcard"><div class="big">G</div><div><h4>Guto</h4><p>Turista · membro desde 2026</p></div></div>
       <div class="prow"><span class="ic">✅</span> Conta verificada <span class="st ok">ativo</span></div>
       <div class="prow" onclick="openSheet('favoritos')"><span class="ic">❤️</span> Favoritos <span class="st off" id="fav-count">0</span></div>
+      <div class="prow" onclick="openResolve()"><span class="ic">💬</span> BORA Resolve <span class="st ok">ajuda rápida</span></div>
       <div class="prow"><span class="ic">💳</span> Pagamento: Pix e cartão <span class="st off">gerenciar</span></div>
       <div class="prow"><span class="ic">🌐</span> Idiomas <span class="st off">PT · EN</span></div>
       <div class="prow"><span class="ic">⚙️</span> Configurações <span class="st off"></span></div>
@@ -521,6 +568,8 @@
   <div class="sheet" id="sheet-chat"></div>
   <div class="sheet" id="sheet-trip"></div>
   <div class="sheet" id="sheet-planner"></div>
+  <div class="sheet" id="sheet-compare"></div>
+  <div class="sheet" id="sheet-resolve"></div>
 
   <div class="sheet" id="sheet-notif">
     <div class="appbar"><button class="back" aria-label="Voltar" onclick="closeSheet('notif')">←</button><h2>Notificações</h2></div>
@@ -535,18 +584,6 @@
   <div class="sheet" id="sheet-favoritos">
     <div class="appbar"><button class="back" aria-label="Voltar" onclick="closeSheet('favoritos')">←</button><h2>Favoritos</h2></div>
     <div class="sheet-body" id="fav-body"></div>
-  </div>
-
-  <!-- age gate -->
-  <div class="overlay" id="gate">
-    <div class="gate">
-      <div class="em">🔞</div>
-      <h3>Conteúdo para maiores de 18 anos</h3>
-      <p>O modo Adulto reúne vida noturna e entretenimento adulto com parceiros verificados. Para acessar, confirme que você tem 18 anos ou mais.</p>
-      <button class="b1" onclick="confirmAge()">Verificar idade e entrar</button>
-      <button class="b2" onclick="closeGate()">Agora não</button>
-      <div class="law">Verificação por documento · separado do conteúdo família</div>
-    </div>
   </div>
 
   <div class="toast" id="toast"></div>
@@ -574,15 +611,15 @@ var GUIDES = {
 var XP = [
   /* ---- FAMÍLIA: eventos reais do calendário 2026 ---- */
   {id:"natalluz",t:"Natal Luz: Grande Desfile + Rua Coberta",em:"🎄",g:"g-festa",cat:"Evento",mode:"familia",sec:"Eventos em Gramado 🎟️",price:290,unit:"pessoa",rate:"5.0",rev:980,dur:"5h",loc:"Centro de Gramado",guide:"joao",ev:"22 out 2026 – 17 jan 2027",inc:["Transfer porta a porta","Grande Desfile de Natal","Shows na Rua Coberta","Guia acompanhando"],desc:"O maior evento da cidade: luzes, desfiles e shows que encantam toda a família. Roteiro pelo Grande Desfile, Vila de Natal e a decoração espalhada pela cidade. Acontece de 22/10/2026 a 17/01/2027."},
-  {id:"vindima",t:"Vindima de Gramado: Vila do Vinho",em:"🍇",g:"g-vinho",cat:"Evento",mode:"familia",sec:"Eventos em Gramado 🎟️",price:240,unit:"pessoa",rate:"4.8",rev:210,dur:"5h",loc:"Praça das Etnias",guide:"tania",ev:"30 jan – 7 fev 2026",inc:["Transfer","Vila do Vinho","Degustação de vinhos e sucos","Pisa das uvas"],desc:"Celebração da colheita da uva com a Vila do Vinho junto à Praça das Etnias: degustação, vinícolas do interior e a tradicional pisa das uvas. Perfeito em família ou casal."},
-  {id:"colonia",t:"Festa da Colônia: sabores da Serra",em:"🥨",g:"g-parque",cat:"Evento",mode:"familia",sec:"Eventos em Gramado 🎟️",price:160,unit:"pessoa",rate:"4.7",rev:175,dur:"4h",loc:"Expogramado",guide:"joao",ev:"30 abr – 17 mai 2026",inc:["Transfer","Entrada na Expogramado","Comidas típicas coloniais","Guia local"],desc:"A 35ª Festa da Colônia: um evento feito para a comunidade, com a melhor gastronomia e tradições da Serra Gaúcha. Os turistas entram como convidados de uma grande festa de família."},
+  {id:"vindima",t:"Vindima de Gramado: Vila do Vinho",em:"🍇",g:"g-vinho",cat:"Evento",mode:"familia",sec:"Eventos em Gramado 🎟️",price:240,unit:"pessoa",rate:"4.8",rev:210,dur:"5h",loc:"Praça das Etnias",guide:"tania",ev:"30 jan – 7 fev 2026",past:true,inc:["Transfer","Vila do Vinho","Degustação de vinhos e sucos","Pisa das uvas"],desc:"Celebração da colheita da uva com a Vila do Vinho junto à Praça das Etnias: degustação, vinícolas do interior e a tradicional pisa das uvas. Perfeito em família ou casal."},
+  {id:"colonia",t:"Festa da Colônia: sabores da Serra",em:"🥨",g:"g-parque",cat:"Evento",mode:"familia",sec:"Eventos em Gramado 🎟️",price:160,unit:"pessoa",rate:"4.7",rev:175,dur:"4h",loc:"Expogramado",guide:"joao",ev:"30 abr – 17 mai 2026",past:true,inc:["Transfer","Entrada na Expogramado","Comidas típicas coloniais","Guia local"],desc:"A 35ª Festa da Colônia: um evento feito para a comunidade, com a melhor gastronomia e tradições da Serra Gaúcha. Os turistas entram como convidados de uma grande festa de família."},
   /* ---- FAMÍLIA: roteiros clássicos ---- */
   {id:"caracol",t:"Parque do Caracol: cascata e trilha",em:"🌲",g:"g-mata",cat:"Natureza",mode:"familia",sec:"Roteiros em família",price:150,unit:"pessoa",rate:"5.0",rev:212,dur:"4h",loc:"Canela, RS",guide:"marcelo",inc:["Transporte ida e volta","Guia+Motorista credenciado","Ingresso do parque","Água e apoio"],desc:"A cascata de 130m e a trilha pela mata nativa, com mirante e tempo para fotos. Em Canela, a 7 km de Gramado. Ideal para famílias."},
   {id:"pedra",t:"Catedral de Pedra + centro histórico",em:"⛪",g:"g-museu",cat:"Cultura",mode:"familia",sec:"Roteiros em família",price:120,unit:"pessoa",rate:"4.7",rev:98,dur:"3h",loc:"Canela, RS",guide:"joao",inc:["Guia+Motorista","Catedral de Pedra","Centro histórico","Causos e curiosidades"],desc:"A imponente Catedral de Pedra dedicada a Nossa Senhora de Lourdes e o centro de Canela, num roteiro que o turismo de massa passa correndo."},
   {id:"automovel",t:"Museu do Automóvel de Gramado",em:"🚗",g:"g-vip",cat:"Cultura",mode:"familia",sec:"Roteiros em família",price:90,unit:"pessoa",rate:"4.6",rev:77,dur:"2h",loc:"Av. das Hortênsias",guide:"marcelo",inc:["Transfer","Ingresso do museu","Guia acompanhando","Sem fila"],desc:"Coleção de automóveis clássicos na Avenida das Hortênsias. Visita tranquila e sem fila, ótima parada cultural para todas as idades."},
   /* ---- FAMÍLIA / KIDS ---- */
   {id:"minimundo",t:"Mini Mundo: dia em família",em:"🎡",g:"g-kids",cat:"Kids",mode:"familia",sec:"Para as crianças 🧒",price:90,unit:"criança",rate:"4.9",rev:156,dur:"3h",loc:"Gramado, RS",guide:"joao",inc:["Transporte com cadeirinha","Ingresso do parque","Guia acompanhando","Lanche infantil"],desc:"O parque de miniaturas que encanta a criançada, com programações especiais ao longo de 2026. Transporte com cadeirinha e guia acompanhando a família."},
-  {id:"chocopascoa",t:"Choco Páscoa: caça aos ovos",em:"🐰",g:"g-teatro",cat:"Kids",mode:"familia",sec:"Para as crianças 🧒",price:110,unit:"criança",rate:"4.8",rev:132,dur:"3h",loc:"Gramado, RS",guide:"joao",ev:"12 mar – 12 abr 2026",inc:["Transporte com cadeirinha","Decoração e atrações temáticas","Chocolate artesanal","Apresentações artísticas"],desc:"Na Choco Páscoa, Gramado vira um cenário lúdico de chocolate: ruas decoradas, apresentações e atividades para encantar as crianças. De 12/03 a 12/04/2026."},
+  {id:"chocopascoa",t:"Choco Páscoa: caça aos ovos",em:"🐰",g:"g-teatro",cat:"Kids",mode:"familia",sec:"Para as crianças 🧒",price:110,unit:"criança",rate:"4.8",rev:132,dur:"3h",loc:"Gramado, RS",guide:"joao",ev:"12 mar – 12 abr 2026",past:true,inc:["Transporte com cadeirinha","Decoração e atrações temáticas","Chocolate artesanal","Apresentações artísticas"],desc:"Na Choco Páscoa, Gramado vira um cenário lúdico de chocolate: ruas decoradas, apresentações e atividades para encantar as crianças. De 12/03 a 12/04/2026."},
   /* ---- SOLTEIROS: vida noturna real ---- */
   {id:"mustclub",t:"Must Club: boate com DJs e bandas",em:"🎧",g:"g-festa",cat:"Festas",mode:"solteiros",sec:"Hoje à noite 🎶",price:90,unit:"pessoa",rate:"4.6",rev:142,dur:"a noite",loc:"Gramado, RS",guide:"joao",inc:["Transfer ida e volta","Entrada na boate","Pista com DJs e bandas","Ritmos variados"],desc:"A boate mais animada da cidade, com pista de dança, DJs e bandas até mais tarde. Público jovem, principalmente na alta temporada."},
   {id:"gatzz",t:"Gatzz: jantar com shows temáticos",em:"🎤",g:"g-show",cat:"Música ao vivo",mode:"solteiros",sec:"Hoje à noite 🎶",price:180,unit:"pessoa",rate:"4.8",rev:96,dur:"4h",loc:"Gramado, RS",guide:"joao",inc:["Transfer","Jantar","Shows temáticos ao vivo","Ambiente animado"],desc:"Um dos principais pontos da noite em Gramado: une jantar, música e shows temáticos numa experiência completa. Vai além do simples sair pra beber."},
@@ -590,9 +627,6 @@ var XP = [
   {id:"sunset",t:"Sunset no Olivas de Gramado",em:"🌅",g:"g-vinho",cat:"Conhecer gente",mode:"solteiros",sec:"Bares & pubs perto de você",price:130,unit:"pessoa",rate:"4.7",rev:64,dur:"3h",loc:"Linha Bonita, Gramado",guide:"tania",inc:["Transfer","Sunset com vista","Drinks e tábua","Ambiente para socializar"],desc:"O pôr do sol 'de arrepiar' no Olivas de Gramado, com olival, drinks e clima descontraído. Ótimo para conhecer gente num fim de tarde animado."},
   /* ---- PRIVATIVO (comum) ---- */
   {id:"privativo",t:"Carro privativo: dia livre na Serra",em:"🚐",g:"g-mata",cat:"Privativo",mode:"familia",sec:null,price:590,unit:"diária",rate:"4.9",rev:212,dur:"8h",loc:"Serra Gaúcha",guide:"marcelo",inc:["Veículo + Guia+Motorista só pra você","Roteiro definido por você","Combustível incluso","Flexível o dia todo"],desc:"Você monta o roteiro e o Guia+Motorista conduz e orienta o dia inteiro. Sem grupo e sem horário fixo, para conhecer a Serra no seu ritmo."},
-  /* ---- ADULTO 18+ ---- */
-  {id:"harley",t:"Harley Motor Show Bar: clima Las Vegas",em:"🍸",g:"g-night",cat:"Casas noturnas",mode:"adulto",sec:"Noite premium 🌙",price:160,unit:"pessoa",rate:"4.7",rev:71,dur:"a noite",loc:"Av. das Hortênsias",guide:"joao",inc:["Transfer porta a porta","Bar temático com luzes neon","Drinks autorais","Sigilo e segurança"],desc:"Bar temático no subsolo do Harley Motor Show, com clima de casa clássica de Las Vegas: neon, drinks e noite animada para público adulto."},
-  {id:"divino",t:"Divino Gastro Club: DJ e coquetelaria",em:"🥂",g:"g-clube",cat:"Camarote VIP",mode:"adulto",sec:"Noite premium 🌙",price:280,unit:"pessoa",rate:"4.8",rev:58,dur:"a noite",loc:"Gramado, RS",guide:"joao",inc:["Mesa reservada","Coquetelaria autoral","DJ / música ao vivo","Transfer porta a porta"],desc:"Bar, gastronomia e música num só lugar: à noite o Divino ganha clima animado com DJs e apresentações ao vivo. Experiência adulta, com mesa reservada."},
 ];
 
 /* Fotos REAIS dos locais: Wikimedia Commons (licenças livres CC BY / CC BY-SA).
@@ -612,8 +646,7 @@ var REVIEWS = [
 ];
 
 /* Promoções por público. img: deixe "" para usar o gradiente; preencha com URL de foto LICENCIADA do parceiro. */
-/* Lentes de inclusão por experiência (identidade/público que ATRAVESSA as verticais).
-   LGBT-friendly é uma seleção respeitosa de locais acolhedores, não um canal nem conteúdo adulto. */
+/* Lentes de inclusão por experiência (identidade/público que atravessa as verticais). */
 var LENSES = {
   natalluz:["LGBT-friendly","Acessível"],
   vindima:["LGBT-friendly","Pet"],
@@ -628,24 +661,39 @@ var LENSES = {
   pubcrawl:["LGBT-friendly","Pet"],
   sunset:["LGBT-friendly","Pet"],
   privativo:["Pet","Acessível"],
-  harley:["LGBT-friendly"],
-  divino:["LGBT-friendly"],
 };
 var LENS_ICON={"LGBT-friendly":"🏳️‍🌈","Kids":"🧒","Acessível":"♿","Pet":"🐾"};
 function lensesOf(id){return LENSES[id]||[]}
 
+var PROVIDERS={
+  natalluz:"BORA Ingressos",vindima:"Serra Wine Tours",colonia:"Festa da Colônia",
+  caracol:"Parque do Caracol",pedra:"Canela Turismo",automovel:"Museu do Automóvel",
+  minimundo:"Mini Mundo",chocopascoa:"Gramado Eventos",mustclub:"Must Club",
+  gatzz:"Gatzz Gramado",pubcrawl:"Serra Pub Tours",sunset:"Olivas de Gramado",
+  privativo:"BORA Private"
+};
+function providerOf(id){return PROVIDERS[id]||"Parceiro local verificado"}
+
+var NOW_INVENTORY=[
+  {id:"caracol",minutes:35,distance:"6,8 km",spots:4,windows:["agora","2h","hoje"]},
+  {id:"privativo",minutes:55,distance:"1,2 km",spots:2,windows:["agora","2h","hoje"]},
+  {id:"pedra",minutes:90,distance:"7,4 km",spots:8,windows:["2h","hoje"]},
+  {id:"pubcrawl",minutes:110,distance:"900 m",spots:6,windows:["2h","hoje","noite"]},
+  {id:"minimundo",minutes:150,distance:"1,6 km",spots:9,windows:["hoje"]},
+  {id:"sunset",minutes:210,distance:"12 km",spots:5,windows:["hoje","noite"]},
+  {id:"gatzz",minutes:260,distance:"1,1 km",spots:7,windows:["hoje","noite"]},
+  {id:"natalluz",minutes:1440,distance:"700 m",spots:12,windows:["amanha"]}
+];
+
 var PROMOS = {
   familia:[
     {off:"-15%",t:"Natal Luz antecipado",p:"Reserve até set e economize",grad:"g-festa",img:""},
-    {off:"2x1",t:"Mini Mundo + Choco Páscoa",p:"Combo para a criançada",grad:"g-kids",img:""},
+    {off:"Combo",t:"Mini Mundo + Museu do Automóvel",p:"Duas atrações para a família",grad:"g-kids",img:""},
     {off:"-20%",t:"2ª diária de carro privativo",p:"Fim de semana na Serra",grad:"g-mata",img:""}
   ],
   solteiros:[
     {off:"Free",t:"Welcome drink no pub crawl",p:"Reservando pelo app",grad:"g-bar",img:""},
     {off:"-30%",t:"Combo Gatzz + transfer",p:"Jantar com show",grad:"g-show",img:""}
-  ],
-  adulto:[
-    {off:"VIP",t:"Mesa reservada no Divino",p:"Coquetelaria autoral",grad:"g-clube",img:""}
   ]
 };
 
@@ -655,8 +703,7 @@ PROMOS.familia[0].img="https://commons.wikimedia.org/wiki/Special:FilePath/Enfei
 /* Anúncio discreto que entra no meio do feed (1 por público). */
 var ADSLOT = {
   familia:{ic:"📷",t:"Fotógrafo profissional na Serra",p:"Ensaio em família nos pontos turísticos",img:""},
-  solteiros:{ic:"📸",t:"Fotos para suas redes",p:"Cobertura da balada e do sunset",img:""},
-  adulto:{ic:"🚘",t:"Transfer executivo discreto",p:"Motorista a noite toda, com sigilo",img:""}
+  solteiros:{ic:"📸",t:"Fotos para suas redes",p:"Cobertura da balada e do sunset",img:""}
 };
 
 /* Serviços patrocinados por público (aba Serviços). tag = como o anúncio se identifica. */
@@ -672,16 +719,11 @@ var SERVICES = {
     {ic:"💈",t:"Barbearia & salão express",p:"Antes de sair à noite",pe:"Hora marcada",tag:"Anúncio"},
     {ic:"🚲",t:"Locação de bike & scooter",p:"Para circular pela cidade",pe:"Pronta entrega",tag:"Parceiro"},
     {ic:"📱",t:"Acessórios de celular",p:"Power bank e cabo a pronta entrega",pe:"Pronta entrega",tag:"Anúncio"}
-  ],
-  adulto:[
-    {ic:"🚘",t:"Transfer executivo discreto",p:"Motorista a noite toda, com sigilo",pe:"Sob demanda",tag:"Patrocinado"},
-    {ic:"🤵",t:"Aluguel de traje de gala",p:"Para jantares e eventos especiais",pe:"Reserva 24h",tag:"Anúncio"},
-    {ic:"🥂",t:"Concierge da noite",p:"Reserva de mesa e lista em casas parceiras",pe:"Sob demanda",tag:"Parceiro"}
   ]
 };
 
 var TRIPS_UP = [
-  {xp:"pedra",when:"Sáb, 8 ago · 09:00",status:"hold",note:"Pagamento protegido. O guia recebe depois do passeio."},
+  {xp:"pedra",when:"Sáb, 8 ago · 09:00",status:"hold",note:"Pagamento protegido. O fornecedor recebe depois da experiência."},
   {xp:"privativo",when:"Dom, 9 ago · 08:30",status:"hold",note:"Roteiro definido por você · pagamento protegido"}
 ];
 var TRIPS_DONE = [
@@ -689,14 +731,16 @@ var TRIPS_DONE = [
 ];
 
 /* ============ ESTADO ============ */
-var ageVerified=false, currentMode="familia", favs={}, sheetStack=[], searchView="list", searchList=[];
-var booking={xp:null,date:null,time:null,people:1,pay:null,step:1};
+var currentMode="familia", nowWindow="agora", favs={}, sheetStack=[], searchView="list", searchList=[];
+var booking={xp:null,date:null,time:null,people:1,pay:null,step:1,unitPrice:null,offerName:null,provider:null};
 var planner={company:"família",pace:"leve",interest:"Natureza",ready:false};
 
 var chipSets={
-  familia:["Tudo","Aventura","Gastronomia","Cultura","Natureza","Kids","Romântico"],
-  solteiros:["Tudo","Shows","Bares & pubs","Festas","Música ao vivo","Conhecer gente"],
-  adulto:["Tudo","Casas noturnas","Camarote VIP","Festas privadas"]
+  familia:["Tudo","Natureza","Cultura","Kids","Acessível","Com chuva"],
+  casal:["Tudo","Romântico","Gastronomia","Natureza","Cultura","À noite"],
+  amigos:["Tudo","Aventura","Gastronomia","Shows","Bares & pubs","Festas"],
+  solo:["Tudo","Perto de mim","Cultura","Natureza","Conhecer gente","Privativo"],
+  "60mais":["Tudo","Com calma","Cultura","Natureza","Acessível","Gastronomia"]
 };
 
 /* ============ HELPERS ============ */
@@ -710,6 +754,22 @@ function upcomingDateLabels(){
     return days[d.getDay()]+" "+String(d.getDate()).padStart(2,"0")+" "+months[d.getMonth()];
   });
 }
+function profileMatches(x){
+  if(x.past)return false;
+  if(currentMode==="familia")return x.mode==="familia";
+  if(currentMode==="casal")return x.cat!=="Kids"&&["mustclub","pubcrawl"].indexOf(x.id)<0;
+  if(currentMode==="amigos")return x.cat!=="Kids";
+  if(currentMode==="solo")return x.cat!=="Kids";
+  if(currentMode==="60mais")return x.mode==="familia"&&["Kids","Festas"].indexOf(x.cat)<0;
+  return true;
+}
+function promoKey(){return currentMode==="familia"||currentMode==="60mais"?"familia":"solteiros"}
+function clockFromNow(minutes){
+  if(minutes>=1440)return "amanhã";
+  var d=new Date(Date.now()+minutes*60000);
+  return "às "+String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");
+}
+function availabilityFor(id){return NOW_INVENTORY.find(function(a){return a.id===id})}
 function saveState(){
   try{localStorage.setItem("bora-app-v2",JSON.stringify({favs:favs,trips:TRIPS_UP}))}catch(e){}
 }
@@ -748,7 +808,7 @@ function renderChips(){
 }
 function renderPromos(){
   var box=document.getElementById("home-promos");
-  box.innerHTML=(PROMOS[currentMode]||[]).map(function(pr){
+  box.innerHTML=(PROMOS[promoKey()]||[]).map(function(pr){
     var cls=pr.img?"promo":"promo "+pr.grad;
     var style=pr.img?' style="background-image:url(\''+pr.img+'\')"':"";
     return '<div class="'+cls+'"'+style+' onclick="go(\'buscar\')">'
@@ -757,18 +817,15 @@ function renderPromos(){
 }
 function renderHomeFeed(){
   var wrap=document.getElementById("home-feed");
-  var list=XP.filter(function(x){return x.mode===currentMode && x.sec});
+  var list=XP.filter(function(x){return profileMatches(x)&&x.sec});
   var secs=[];list.forEach(function(x){if(secs.indexOf(x.sec)<0)secs.push(x.sec)});
   var html="";
-  if(currentMode==="adulto"){
-    html+='<div class="adultnote"><span>🔞</span><div>Conteúdo +18 · vida noturna e entretenimento adulto, com sigilo e parceiros verificados.</div></div>';
-  }
   secs.forEach(function(sec,idx){
     html+='<div class="seclabel"><h3>'+sec+'</h3><a onclick="go(\'buscar\')">ver tudo</a></div><div class="hscroll">';
     list.filter(function(x){return x.sec===sec}).forEach(function(x){html+=xpCard(x)});
     html+='</div>';
     if(idx===0){ /* anúncio discreto após a 1ª seção */
-      var ad=ADSLOT[currentMode];
+        var ad=ADSLOT[promoKey()];
       if(ad){
         var icStyle=ad.img?(' style="background-image:url(\''+ad.img+'\')"'):"";
         html+='<div class="adslot" onclick="go(\'servicos\')"><div class="ic"'+icStyle+'>'+(ad.img?"":ad.ic)+'</div>'
@@ -779,10 +836,22 @@ function renderHomeFeed(){
   wrap.innerHTML=html;
   document.getElementById("home-guides").innerHTML=Object.keys(GUIDES).map(guideCard).join("");
 }
+function renderNowFeed(){
+  document.querySelectorAll(".nowfilter").forEach(function(btn){btn.classList.toggle("on",btn.getAttribute("data-window")===nowWindow)});
+  var list=NOW_INVENTORY.filter(function(a){
+    var x=xpById(a.id);
+    return x&&a.windows.indexOf(nowWindow)>=0&&profileMatches(x);
+  }).slice(0,2);
+  document.getElementById("now-feed").innerHTML=list.map(function(a){
+    var x=xpById(a.id);
+    var urgency=a.spots<=4?'<span class="spots">Últimas '+a.spots+' vagas</span>':'<span class="spots" style="background:#edf8f2;color:#2d6a4f">'+a.spots+' vagas</span>';
+    return '<button class="nowitem" onclick="openXp(\''+x.id+'\')"><span class="ni '+x.g+'">'+x.em+'</span><span><h4>'+x.t+'</h4><p>'+a.distance+' · '+providerOf(x.id)+' · '+clockFromNow(a.minutes)+'</p></span><span class="nr"><b>'+money(x.price)+'</b>'+urgency+'</span></button>';
+  }).join("")||'<div class="nowempty">Não há opções neste período para o seu perfil. Veja “Hoje” ou troque quem vai com você.</div>';
+}
+function setNowWindow(value){nowWindow=value;renderNowFeed()}
 function renderServices(){
   var box=document.getElementById("svc-list");
-  var blocks=[{m:"familia",lab:"👨‍👩‍👧 Para a família"},{m:"solteiros",lab:"🎉 Para solteiros"}];
-  if(ageVerified&&currentMode==="adulto")blocks=[{m:"adulto",lab:"🌙 Serviços do modo Adulto"}];
+  var blocks=[{m:"familia",lab:"👨‍👩‍👧 Para a família"},{m:"solteiros",lab:"🎒 Para sua viagem"}];
   box.innerHTML=blocks.map(function(b){
     var items=(SERVICES[b.m]||[]).map(function(s){
       var icStyle=s.img?(' style="background-image:url(\''+s.img+'\')"'):"";
@@ -795,13 +864,11 @@ function renderServices(){
 function setMode(mode){
   currentMode=mode;
   document.querySelectorAll(".mode").forEach(function(m){m.classList.toggle("on",m.getAttribute("data-mode")===mode)});
-  renderChips();renderPromos();renderHomeFeed();
+  renderChips();renderPromos();renderNowFeed();renderHomeFeed();
 }
 document.querySelectorAll(".mode").forEach(function(btn){
   btn.addEventListener("click",function(){
-    var mode=btn.getAttribute("data-mode");
-    if(mode==="adulto"&&!ageVerified){openGate();return}
-    setMode(mode);
+    setMode(btn.getAttribute("data-mode"));
   });
 });
 
@@ -822,7 +889,7 @@ function renderResults(){
   var cat=activeChip?activeChip.textContent:"Tudo";
   var activeLenses=Array.prototype.map.call(document.querySelectorAll("#lens-row .chip.on"),function(c){return c.getAttribute("data-lens")});
   var list=XP.filter(function(x){
-    if(x.mode==="adulto"&&!ageVerified)return false;
+    if(x.past)return false;
     var okq=!q||x.t.toLowerCase().indexOf(q)>=0||x.loc.toLowerCase().indexOf(q)>=0||x.cat.toLowerCase().indexOf(q)>=0;
     var okc=cat==="Tudo"||x.cat.indexOf(cat)>=0||(cat==="Vida noturna"&&(x.mode==="solteiros"));
     var xl=lensesOf(x.id);
@@ -838,7 +905,7 @@ function renderResults(){
     var badges=lensesOf(x.id).map(function(l){return '<span title="'+l+'">'+LENS_ICON[l]+'</span>'}).join(" ");
     var picStyle=x.img?(' style="background-image:linear-gradient(rgba(12,28,23,.08),rgba(12,28,23,.34)),url(\''+x.img+'\');background-size:cover;background-position:center"'):"";
     return '<div class="result" role="button" tabindex="0" onclick="openXp(\''+x.id+'\')" onkeydown="if(event.key===\'Enter\')openXp(\''+x.id+'\')"><div class="pic '+x.g+'"'+picStyle+'>'+x.em+'</div>'
-      +'<div class="body"><h4>'+x.t+'</h4><div class="sub">'+gd.name+' · Guia+Motorista Verificado</div>'
+      +'<div class="body"><h4>'+x.t+'</h4><div class="sub">'+providerOf(x.id)+' · fornecedor verificado</div>'
       +'<div class="meta"><span class="r">★ '+x.rate+'</span>'+(badges?'<span style="font-size:13px">'+badges+'</span>':'')+'<span class="p">'+price+'</span></div></div></div>';
   }).join("")||'<div class="empty"><span class="e">🔍</span>Nada encontrado com essas lentes. Tente afrouxar um filtro.</div>';
   renderMap();
@@ -908,6 +975,36 @@ function renderPlanner(){
     +'<div style="padding:14px 18px"><button class="btn full" onclick="buildPlan()">Ver sugestão de roteiro</button></div>'+result+'</div>';
 }
 
+/* ============ COMPARAR E SUPORTE ============ */
+function offersFor(id){
+  var x=xpById(id),base=x.price;
+  return [
+    {name:"Somente a experiência",provider:providerOf(id),price:base,includes:"Entrada ou experiência no horário escolhido.",best:true},
+    {name:"Experiência + transfer",provider:"Serra Sul Turismo",price:base+70,includes:"Reserva da experiência e transporte de ida e volta."},
+    {name:"Experiência privativa",provider:"BORA Private",price:Math.max(base+220,390),includes:"Horário mais flexível, veículo e acompanhamento privativo."}
+  ];
+}
+function openCompare(id){
+  var x=xpById(id);
+  var html='<div class="appbar"><button class="back" aria-label="Voltar" onclick="closeSheet(\'compare\')">←</button><h2>Comparar opções</h2></div>'
+    +'<div class="sheet-body"><div class="compare-intro"><h3>'+x.t+'</h3><p>Escolha como prefere aproveitar. O preço e o que está incluso aparecem antes da reserva.</p></div>'
+    +offersFor(id).map(function(o){
+      return '<div class="offer'+(o.best?" best":"")+'"><div class="offerhead"><div><h4>'+o.name+'</h4><div class="supplier">'+o.provider+' · verificado</div></div><div class="amount">'+money(o.price)+'</div></div>'
+        +'<div class="includes">'+o.includes+'</div><button onclick="startBooking(\''+id+'\','+o.price+',\''+o.name+'\',\''+o.provider+'\')">Escolher esta opção</button></div>';
+    }).join("")+'</div>';
+  document.getElementById("sheet-compare").innerHTML=html;
+  openSheet("compare");
+}
+function openResolve(){
+  var html='<div class="appbar"><button class="back" aria-label="Voltar" onclick="closeSheet(\'resolve\')">←</button><h2>BORA Resolve</h2></div>'
+    +'<div class="sheet-body"><div class="resolvehero"><div class="ric">💬</div><h3>Como podemos ajudar?</h3><p>Ajuda rápida para reserva, cancelamento, reembolso ou imprevisto durante o passeio.</p></div>'
+    +'<div class="resolveoption" onclick="toast(\'Atendimento pelo WhatsApp iniciado (demonstração)\')"><span class="ri">🟢</span><div><h4>Continuar pelo WhatsApp</h4><p>Canal principal para resolver mais rápido.</p></div></div>'
+    +'<div class="resolveoption" onclick="toast(\'Solicitação registrada\')"><span class="ri">🧾</span><div><h4>Acompanhar cancelamento ou reembolso</h4><p>Veja o andamento sem precisar repetir a história.</p></div></div>'
+    +'<div class="resolveoption" onclick="toast(\'Regras abertas (demonstração)\')"><span class="ri">📋</span><div><h4>Consultar regras da reserva</h4><p>Condições claras antes e depois da compra.</p></div></div></div>';
+  document.getElementById("sheet-resolve").innerHTML=html;
+  openSheet("resolve");
+}
+
 /* ============ FAVORITOS ============ */
 function toggleFav(e,id){
   e.stopPropagation();
@@ -921,9 +1018,9 @@ function renderFavs(){
   var body=document.getElementById("fav-body");
   if(!ids.length){body.innerHTML='<div class="empty"><span class="e">🤍</span>Você ainda não favoritou nada.<br>Toque no coração de um passeio.</div>';return}
   body.innerHTML='<div style="padding:14px">'+ids.map(function(id){
-    var x=xpById(id);var gd=GUIDES[x.guide];var price=x.price>0?money(x.price):x.unit;
+    var x=xpById(id);var price=x.price>0?money(x.price):x.unit;
     return '<div class="result" onclick="closeSheet(\'favoritos\');openXp(\''+x.id+'\')"><div class="pic '+x.g+'">'+x.em+'</div>'
-      +'<div class="body"><h4>'+x.t+'</h4><div class="sub">'+gd.name+'</div><div class="meta"><span class="r">★ '+x.rate+'</span><span class="p">'+price+'</span></div></div></div>';
+      +'<div class="body"><h4>'+x.t+'</h4><div class="sub">'+providerOf(x.id)+'</div><div class="meta"><span class="r">★ '+x.rate+'</span><span class="p">'+price+'</span></div></div></div>';
   }).join("")+'</div>';
 }
 
@@ -933,14 +1030,20 @@ function openXp(id){
   var price=x.price>0?(money(x.price)):"Sob consulta";
   var unit=x.price>0?("por "+x.unit):x.unit;
   var fav=favs[id]?"❤️":"🤍";
+  var av=availabilityFor(id),provider=providerOf(id);
+  var live=av?'<div class="livebox"><span>🟢</span><div><b>Próximo horário '+clockFromNow(av.minutes)+'</b><br>'+av.distance+' de você · '+av.spots+' vagas nesta demonstração</div></div>':"";
   var html='<div class="appbar"><button class="back" aria-label="Voltar" onclick="closeSheet(\'xp\')">←</button><h2>'+x.cat+'</h2><button class="act" aria-label="Salvar nos favoritos" onclick="toggleFavDetail(\''+id+'\')" id="dtl-fav">'+fav+'</button></div>'
     +'<div class="sheet-body">'
     +'<div class="hero '+(x.img?"":x.g)+'"'+(x.img?' style="background-image:linear-gradient(rgba(12,28,23,.1),rgba(12,28,23,.5)),url(\''+x.img+'\');background-size:cover;background-position:center"':'')+'><span class="em">'+x.em+'</span><span class="cat">📍 '+x.loc+'</span></div>'
     +'<div class="dtl"><h1>'+x.t+'</h1>'
     +'<div class="qmeta"><span>★ <b>'+x.rate+'</b> ('+x.rev+')</span><span>⏱ '+x.dur+'</span><span>📍 '+x.loc+'</span>'+(x.ev?'<span>📅 <b>'+x.ev+'</b></span>':'')+'</div>'
+    +live
+    +'<div class="providerbox"><span class="logo">🏢</span><div><h4>'+provider+'</h4><p>Fornecedor verificado no marketplace BORA</p></div></div>'
     +'<h5>Sobre a experiência</h5><p class="desc">'+x.desc+'</p>'
     +'<h5>O que está incluso</h5><ul class="inc">'+x.inc.map(function(i){return "<li>"+i+"</li>"}).join("")+'</ul>'
-    +'<h5>Seu Guia+Motorista</h5>'+guideCard(x.guide)
+    +'<div class="guarantee"><h4>🛡️ BORA Garantia</h4><div class="guarantee-grid"><span>✓ Fornecedor verificado</span><span>🔒 Pagamento protegido</span><span>📋 Regras claras</span><span>💬 BORA Resolve</span></div></div>'
+    +'<button class="btn ghost full" onclick="openCompare(\''+id+'\')">Comparar formas de reservar</button>'
+    +'<h5>Guia da experiência</h5>'+guideCard(x.guide)
     +'<h5>Avaliações</h5>'+REVIEWS.map(function(r){return '<div class="rev"><div class="rh"><div class="a">'+r.a+'</div><b>'+r.n+'</b><span class="s">★ '+r.s+'</span></div><p>'+r.txt+'</p></div>'}).join("")
     +'</div></div>'
     +'<div class="stickybar"><div class="pr"><span class="v">'+price+'</span><small>'+unit+'</small></div>'
@@ -952,13 +1055,13 @@ function toggleFavDetail(id){
   favs[id]=!favs[id];
   document.getElementById("dtl-fav").textContent=favs[id]?"❤️":"🤍";
   document.getElementById("fav-count").textContent=Object.keys(favs).filter(function(k){return favs[k]}).length;
-  renderHomeFeed();renderFavs();
+  renderHomeFeed();renderFavs();saveState();
 }
 
 /* ============ GUIDE PROFILE ============ */
 function openGuide(id){
   var gd=GUIDES[id];
-  var theirs=XP.filter(function(x){return x.guide===id&&(x.mode!=="adulto"||ageVerified)});
+  var theirs=XP.filter(function(x){return x.guide===id&&!x.past});
   var html='<div class="appbar"><button class="back" aria-label="Voltar" onclick="closeSheet(\'guide\')">←</button><h2>Perfil do guia</h2></div>'
     +'<div class="sheet-body"><div class="dtl" style="text-align:center;padding-bottom:6px">'
     +'<div class="face '+gd.grad+'" style="width:84px;height:84px;border-radius:24px;font-size:40px;margin:6px auto 12px;display:grid;place-items:center">'+gd.face+'</div>'
@@ -997,8 +1100,9 @@ function sendChat(){
 }
 
 /* ============ BOOKING ============ */
-function startBooking(id){
-  booking={xp:id,date:null,time:null,people:1,pay:null,step:1};
+function startBooking(id,unitPrice,offerName,provider){
+  var x=xpById(id);
+  booking={xp:id,date:null,time:null,people:1,pay:null,step:1,unitPrice:unitPrice||x.price,offerName:offerName||"Experiência",provider:provider||providerOf(id)};
   renderBooking();openSheet("booking");
 }
 function renderBooking(){
@@ -1006,7 +1110,7 @@ function renderBooking(){
   var host=document.getElementById("sheet-booking");
   var head='<div class="appbar"><button class="back" aria-label="Voltar" onclick="bookingBack()">←</button><h2>Reservar</h2></div>'
     +'<div class="steps"><div class="sd '+(booking.step>=1?"on":"")+'"></div><div class="sd '+(booking.step>=2?"on":"")+'"></div><div class="sd '+(booking.step>=3?"on":"")+'"></div></div>';
-  var sumrow='<div class="sumrow"><div class="ic '+x.g+'">'+x.em+'</div><div><h4>'+x.t+'</h4><p>'+gd.name+' · '+x.loc+'</p></div></div>';
+  var sumrow='<div class="sumrow"><div class="ic '+x.g+'">'+x.em+'</div><div><h4>'+x.t+'</h4><p>'+booking.offerName+' · '+booking.provider+'</p></div></div>';
   var body="";
   if(booking.step===1){
     var dates=upcomingDateLabels();
@@ -1020,15 +1124,15 @@ function renderBooking(){
     host.innerHTML=head+'<div class="sheet-body">'+body+'</div>'
       +'<div class="stickybar"><button class="btn full'+(ok?"":" ghost")+'" '+(ok?'onclick="booking.step=2;renderBooking()"':'disabled style="opacity:.5"')+'>Continuar</button></div>';
   } else if(booking.step===2){
-    var total=x.price*booking.people;
+    var total=booking.unitPrice*booking.people;
     body='<div class="bk">'+sumrow
-      +'<div class="totbox"><div class="ln"><span>'+x.t+'</span><span>'+money(x.price)+'</span></div>'
+      +'<div class="totbox"><div class="ln"><span>'+booking.offerName+'</span><span>'+money(booking.unitPrice)+'</span></div>'
       +'<div class="ln"><span>'+booking.date+' · '+booking.time+'</span><span>'+booking.people+'× </span></div>'
       +'<div class="ln tot"><span>Total</span><b>'+money(total)+'</b></div></div>'
       +'<label>Forma de pagamento</label>'
       +'<div class="payrow'+(booking.pay==="pix"?" on":"")+'" role="button" tabindex="0" onclick="pickPay(\'pix\')" onkeydown="if(event.key===\'Enter\')pickPay(\'pix\')"><div class="pm">⚡</div><div><h4>Pix</h4><p>Aprovação na hora</p></div><div class="rd"></div></div>'
       +'<div class="payrow'+(booking.pay==="card"?" on":"")+'" role="button" tabindex="0" onclick="pickPay(\'card\')" onkeydown="if(event.key===\'Enter\')pickPay(\'card\')"><div class="pm">💳</div><div><h4>Cartão •••• 4242</h4><p>Salvo na conta</p></div><div class="rd"></div></div>'
-      +'<div class="escrowbox"><span>🔒</span><div>Seu pagamento fica <b>protegido</b>. O valor só é repassado ao Guia+Motorista depois do passeio. Assim, os dois lados ficam seguros.</div></div>'
+      +'<div class="escrowbox"><span>🔒</span><div>Seu pagamento fica <b>protegido</b>. O valor só é repassado ao fornecedor depois da experiência. Assim, os dois lados ficam seguros.</div></div>'
       +'</div>';
     var ok=!!booking.pay;
     host.innerHTML=head+'<div class="sheet-body">'+body+'</div>'
@@ -1036,7 +1140,7 @@ function renderBooking(){
   } else {
     body='<div class="success"><div class="ck">✓</div><h2>Reserva confirmada!</h2>'
       +'<p>'+x.t+'<br><b style="color:var(--sand)">'+booking.date+' · '+booking.time+' · '+booking.people+' '+(booking.people===1?"pessoa":"pessoas")+'</b></p>'
-      +'<div class="escrowbox" style="text-align:left;margin:18px 0"><span>🔒</span><div>Pagamento protegido. '+gd.name+' recebe só depois do passeio. Você pode conversar com o guia pelo chat.</div></div>'
+      +'<div class="escrowbox" style="text-align:left;margin:18px 0"><span>🔒</span><div>Pagamento protegido. '+booking.provider+' recebe só depois da experiência. Se precisar, o BORA Resolve acompanha você.</div></div>'
       +'<button class="btn full" onclick="finishBooking()">Ver em Minhas viagens</button>'
       +'<button class="btn ghost full" style="margin-top:10px" onclick="closeAllSheets();go(\'home\')">Voltar ao início</button></div>';
     host.innerHTML=head+'<div class="sheet-body">'+body+'</div>';
@@ -1049,7 +1153,7 @@ function pickPay(p){booking.pay=p;renderBooking()}
 function bookingBack(){if(booking.step>1){booking.step--;renderBooking()}else{closeSheet("booking")}}
 function confirmBooking(){booking.step=3;renderBooking();toast("Pagamento protegido ✓")}
 function finishBooking(){
-  TRIPS_UP.unshift({xp:booking.xp,when:booking.date+" · "+booking.time,status:"hold",note:"Pagamento protegido. O guia recebe depois do passeio."});
+  TRIPS_UP.unshift({xp:booking.xp,when:booking.date+" · "+booking.time,status:"hold",note:"Pagamento protegido. O fornecedor recebe depois da experiência."});
   saveState();renderTrips();closeAllSheets();go("viagens");
 }
 
@@ -1062,7 +1166,7 @@ function tripCard(t){
   var x=xpById(t.xp);
   var badge=t.status==="done"?'<span class="badge done">Concluído ✓</span>':'<span class="badge hold">A confirmar</span>';
   var dot=t.status==="done"?"dotg dotok":"dotg";
-  return '<div class="trip" onclick="openTrip(\''+t.xp+'\',\''+t.when+'\',\''+t.status+'\')"><div class="top"><div><h4>'+x.t+'</h4><div class="when">'+t.when+' · '+GUIDES[x.guide].name+'</div></div>'+badge+'</div>'
+  return '<div class="trip" onclick="openTrip(\''+t.xp+'\',\''+t.when+'\',\''+t.status+'\')"><div class="top"><div><h4>'+x.t+'</h4><div class="when">'+t.when+' · '+providerOf(x.id)+'</div></div>'+badge+'</div>'
     +'<div class="escrow"><span class="'+dot+'"></span> '+t.note+'</div></div>';
 }
 function openTrip(id,when,status){
@@ -1070,9 +1174,9 @@ function openTrip(id,when,status){
   var html='<div class="appbar"><button class="back" aria-label="Voltar" onclick="closeSheet(\'trip\')">←</button><h2>Detalhe da viagem</h2></div>'
     +'<div class="sheet-body"><div class="hero '+x.g+'"><span class="em">'+x.em+'</span><span class="cat">📍 '+x.loc+'</span></div>'
     +'<div class="dtl"><h1>'+x.t+'</h1><div class="qmeta"><span>📅 <b>'+when+'</b></span><span>⏱ '+x.dur+'</span></div>'
-    +'<div class="escrowbox" style="margin:6px 0 16px"><span>🔒</span><div>'+(status==="done"?"Pago e avaliado. Obrigado pela viagem!":"Pagamento <b>protegido</b>. O guia recebe após o passeio.")+'</div></div>'
+    +'<div class="escrowbox" style="margin:6px 0 16px"><span>🔒</span><div>'+(status==="done"?"Pago e avaliado. Obrigado pela viagem!":"Pagamento <b>protegido</b>. O fornecedor recebe após a experiência.")+'</div></div>'
     +'<h5>O que está incluso</h5><ul class="inc">'+x.inc.map(function(i){return "<li>"+i+"</li>"}).join("")+'</ul>'
-    +'<div class="trip-tools"><button class="trip-tool" onclick="toast(\'Voucher pronto para apresentar\')"><span>🎟️</span>Voucher</button><button class="trip-tool" onclick="toast(\'Trajeto aberto no mapa\')"><span>🧭</span>Trajeto</button><button class="trip-tool" onclick="openChat(\''+x.guide+'\')"><span>💬</span>Ajuda</button></div>'
+    +'<div class="trip-tools"><button class="trip-tool" onclick="toast(\'Voucher pronto para apresentar\')"><span>🎟️</span>Voucher</button><button class="trip-tool" onclick="toast(\'Trajeto aberto no mapa\')"><span>🧭</span>Trajeto</button><button class="trip-tool" onclick="openResolve()"><span>💬</span>Ajuda</button></div>'
     +'<div class="startup-note"><b>Central da viagem:</b> aqui ficam o horário, o voucher, o contato do guia e o status do pagamento.</div>'
     +'<h5>Seu Guia+Motorista</h5>'+guideCard(x.guide)
     +'<button class="btn ghost full" style="margin-top:14px" onclick="openChat(\''+x.guide+'\')">💬 Falar com '+gd.name.split(" ")[0]+'</button>'
@@ -1112,20 +1216,12 @@ function closeAllSheets(){
   sheetStack=[];
 }
 
-/* ============ AGE GATE ============ */
-function openGate(){document.getElementById("gate").classList.add("show")}
-function closeGate(){document.getElementById("gate").classList.remove("show")}
-function confirmAge(){
-  ageVerified=true;
-  closeGate();setMode("adulto");renderServices();toast("Verificação +18 concluída");
-}
-
 /* ============ INIT ============ */
 loadState();
 document.getElementById("fav-count").textContent=Object.keys(favs).filter(function(k){return favs[k]}).length;
 var today=new Date().toISOString().slice(0,10);
 document.getElementById("search-date").min=today;
-renderChips();renderPromos();renderHomeFeed();renderSearchChips();renderResults();renderTrips();renderServices();
+renderChips();renderPromos();renderNowFeed();renderHomeFeed();renderSearchChips();renderResults();renderTrips();renderServices();
 
 /* Modo embutido: quando o app roda dentro do onepage (iframe), esconde a introdução */
 if(window.self!==window.top){
