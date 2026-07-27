@@ -322,7 +322,7 @@
 <div class="intro">
   <span class="eb">Protótipo navegável · app do turista</span>
   <h1>bora<span style="color:var(--leaf)">.</span></h1>
-  <p>Tudo é clicável. Toque num passeio para ver o detalhe, reservar e pagar (em escrow). Abra o perfil de um guia, mande mensagem, favorite, veja notificações. Troque o público no topo — o modo Adulto pede verificação +18.</p>
+  <p>Tudo é clicável. Toque em um passeio para ver os detalhes, reservar e pagar. Você também pode abrir o perfil do guia, mandar mensagem, salvar favoritos e acompanhar notificações.</p>
 </div>
 
 <div class="phone">
@@ -396,15 +396,13 @@
       <div class="scr-title">Perfil</div>
       <div class="pcard"><div class="big">G</div><div><h4>Guto</h4><p>Turista · membro desde 2026</p></div></div>
       <div class="prow"><span class="ic">✅</span> Conta verificada <span class="st ok">ativo</span></div>
-      <div class="prow"><span class="ic">🔞</span> Verificação +18 <span class="st off" id="age-st">não verificado</span></div>
-      <div class="prow"><span class="ic">🌙</span> Modo adulto no app <span class="toggle" id="adult-toggle" onclick="toggleAdult(event)"></span></div>
       <div class="prow" onclick="openSheet('favoritos')"><span class="ic">❤️</span> Favoritos <span class="st off" id="fav-count">0</span></div>
       <div class="prow"><span class="ic">💳</span> Pagamento — Pix e cartão <span class="st off">gerenciar</span></div>
       <div class="prow"><span class="ic">🌐</span> Idiomas <span class="st off">PT · EN</span></div>
       <div class="prow"><span class="ic">⚙️</span> Configurações <span class="st off"></span></div>
       <div class="prow" style="border:none"><span class="ic">↩️</span> Sair <span class="st off"></span></div>
       <div style="margin-top:18px;padding:12px 4px;border-top:1px solid var(--ink-3);font-size:10px;color:#6f857d;line-height:1.7;font-family:'Space Mono',monospace">
-        Fotos dos locais: Wikimedia Commons — "Caracol Falls" (CC BY-SA 3.0) · "Catedral de Pedra, Canela - RS" (CC BY-SA 4.0) · "Natal Luz - Gramado" e "Entrada a Gramado" (Panoramio, CC BY-SA 3.0) · "Cave de la Vale dos Vinhedos, Bento Gonçalves" · "Punta del Este 2005" (CC BY 2.0) · "Enfeites de Natal em Gramado" (CC). Autores e licenças completas nas páginas dos arquivos em commons.wikimedia.org.
+        Fotos dos locais: Wikimedia Commons — "Caracol Falls" (CC BY-SA 3.0) · "Catedral de Pedra, Canela - RS" (CC BY-SA 4.0) · "Natal Luz - Gramado" e "Entrada a Gramado" (Panoramio, CC BY-SA 3.0) · "Cave de la Vale dos Vinhedos, Bento Gonçalves" · "Enfeites de Natal em Gramado" (CC). Autores e licenças completas nas páginas dos arquivos em commons.wikimedia.org.
       </div>
     </section>
 
@@ -497,7 +495,6 @@ var XP = [
   /* ---- ADULTO 18+ ---- */
   {id:"harley",t:"Harley Motor Show Bar — clima Las Vegas",em:"🍸",g:"g-night",cat:"Casas noturnas",mode:"adulto",sec:"Noite premium 🌙",price:160,unit:"pessoa",rate:"4.7",rev:71,dur:"a noite",loc:"Av. das Hortênsias",guide:"joao",inc:["Transfer porta a porta","Bar temático com luzes neon","Drinks autorais","Sigilo e segurança"],desc:"Bar temático no subsolo do Harley Motor Show, com clima de casa clássica de Las Vegas: neon, drinks e noite animada para público adulto."},
   {id:"divino",t:"Divino Gastro Club — DJ e coquetelaria",em:"🥂",g:"g-clube",cat:"Camarote VIP",mode:"adulto",sec:"Noite premium 🌙",price:280,unit:"pessoa",rate:"4.8",rev:58,dur:"a noite",loc:"Gramado, RS",guide:"joao",inc:["Mesa reservada","Coquetelaria autoral","DJ / música ao vivo","Transfer porta a porta"],desc:"Bar, gastronomia e música num só lugar: à noite o Divino ganha clima animado com DJs e apresentações ao vivo. Experiência adulta, com mesa reservada."},
-  {id:"casino",t:"Noite no cassino — Punta del Este",em:"🎰",g:"g-vip",cat:"Cassino (exterior)",mode:"adulto",sec:"Cassino · internacional 🌎",price:0,unit:"pacote",rate:"4.7",rev:31,dur:"viagem",loc:"Uruguai 🇺🇾",guide:"tania",inc:["Pacote internacional","Cassino legalizado no Uruguai","Jantar + transfer","Roteiro 18+"],desc:"Pacote para destinos onde o cassino é legalizado. Cassino físico é proibido no Brasil — por isso o roteiro aponta para o exterior (Uruguai/Argentina)."}
 ];
 
 /* Fotos REAIS dos locais — Wikimedia Commons (licenças livres CC BY / CC BY-SA).
@@ -508,7 +505,6 @@ var IMGS = {
   natalluz: "https://commons.wikimedia.org/wiki/Special:FilePath/Natal_Luz_-_Gramado_-_panoramio.jpg?width=900",
   vindima:  "https://commons.wikimedia.org/wiki/Special:FilePath/Cave_de_la_Vale_dos_Vinhedos,_Bento_Gon%C3%A7alves,_Br%C3%A9sil.jpg?width=900",
   privativo:"https://commons.wikimedia.org/wiki/Special:FilePath/Entrada_a_Gramado_-_panoramio.jpg?width=900",
-  casino:   "https://commons.wikimedia.org/wiki/Special:FilePath/Punta_del_Este_2005.jpg?width=900"
 };
 XP.forEach(function(x){ if(IMGS[x.id]) x.img=IMGS[x.id]; });
 
@@ -536,7 +532,6 @@ var LENSES = {
   privativo:["Pet","Acessível"],
   harley:["LGBT-friendly"],
   divino:["LGBT-friendly"],
-  casino:["LGBT-friendly"]
 };
 var LENS_ICON={"LGBT-friendly":"🏳️‍🌈","Kids":"🧒","Acessível":"♿","Pet":"🐾"};
 function lensesOf(id){return LENSES[id]||[]}
@@ -552,8 +547,7 @@ var PROMOS = {
     {off:"-30%",t:"Combo Gatzz + transfer",p:"Jantar com show",grad:"g-show",img:""}
   ],
   adulto:[
-    {off:"VIP",t:"Mesa reservada no Divino",p:"Coquetelaria autoral",grad:"g-clube",img:""},
-    {off:"-25%",t:"Pacote cassino Uruguai",p:"Grupos a partir de 4",grad:"g-vip",img:""}
+    {off:"VIP",t:"Mesa reservada no Divino",p:"Coquetelaria autoral",grad:"g-clube",img:""}
   ]
 };
 
@@ -583,7 +577,7 @@ var SERVICES = {
   ],
   adulto:[
     {ic:"🚘",t:"Transfer executivo discreto",p:"Motorista a noite toda, com sigilo",pe:"Sob demanda",tag:"Patrocinado"},
-    {ic:"🤵",t:"Aluguel de traje de gala",p:"Para cassino e eventos premium",pe:"Reserva 24h",tag:"Anúncio"},
+    {ic:"🤵",t:"Aluguel de traje de gala",p:"Para jantares e eventos especiais",pe:"Reserva 24h",tag:"Anúncio"},
     {ic:"🥂",t:"Concierge da noite",p:"Reserva de mesa e lista em casas parceiras",pe:"Sob demanda",tag:"Parceiro"}
   ]
 };
@@ -603,7 +597,7 @@ var booking={xp:null,date:null,time:null,people:1,pay:null,step:1};
 var chipSets={
   familia:["Tudo","Aventura","Gastronomia","Cultura","Natureza","Kids","Romântico"],
   solteiros:["Tudo","Shows","Bares & pubs","Festas","Música ao vivo","Conhecer gente"],
-  adulto:["Tudo","Casas noturnas","Camarote VIP","Festas privadas","Cassino (exterior)"]
+  adulto:["Tudo","Casas noturnas","Camarote VIP","Festas privadas"]
 };
 
 /* ============ HELPERS ============ */
@@ -672,7 +666,7 @@ function renderHomeFeed(){
 function renderServices(){
   var box=document.getElementById("svc-list");
   var blocks=[{m:"familia",lab:"👨‍👩‍👧 Para a família"},{m:"solteiros",lab:"🎉 Para solteiros"}];
-  if(ageVerified)blocks.push({m:"adulto",lab:"🌙 Adulto 18+"});
+  if(ageVerified&&currentMode==="adulto")blocks=[{m:"adulto",lab:"🌙 Serviços do modo Adulto"}];
   box.innerHTML=blocks.map(function(b){
     var items=(SERVICES[b.m]||[]).map(function(s){
       var icStyle=s.img?(' style="background-image:url(\''+s.img+'\')"'):"";
@@ -680,8 +674,7 @@ function renderServices(){
         +'<div class="info"><h4>'+s.t+' <span class="adtag">'+s.tag+'</span></h4><p>'+s.p+'</p><div class="pe">⚡ '+s.pe+'</div></div><span class="go">Ver</span></div>';
     }).join("");
     return '<div class="svc-hd">'+b.lab+'</div>'+items;
-  }).join("")
-  + (ageVerified?"":'<div class="svc-hd" style="opacity:.6">🔒 Serviços adulto</div><div class="empty" style="padding:20px"><span class="e">🔞</span>Verifique +18 no seu perfil para ver os serviços adultos.</div>');
+  }).join("");
 }
 function setMode(mode){
   currentMode=mode;
@@ -934,15 +927,7 @@ function openGate(){document.getElementById("gate").classList.add("show")}
 function closeGate(){document.getElementById("gate").classList.remove("show")}
 function confirmAge(){
   ageVerified=true;
-  document.getElementById("age-st").textContent="verificado ✓";
-  document.getElementById("age-st").className="st ok";
-  document.getElementById("adult-toggle").classList.add("on");
   closeGate();setMode("adulto");renderServices();toast("Verificação +18 concluída");
-}
-function toggleAdult(e){
-  var t=document.getElementById("adult-toggle");
-  if(!ageVerified){go("home");openGate();return}
-  t.classList.toggle("on");
 }
 
 /* ============ INIT ============ */

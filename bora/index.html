@@ -46,9 +46,11 @@
   .accent{color:var(--coral)} .gold{color:var(--gold)} .leaf{color:var(--leaf)}
 
   /* ===== HERO ===== */
-  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:150px 0 0;
-    background:radial-gradient(1000px 560px at 78% -10%, rgba(255,107,74,.18), transparent 60%),
-               radial-gradient(760px 440px at -6% 100%, rgba(84,192,138,.14), transparent 55%), var(--ink)}
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:150px 0 80px;
+    background:
+      linear-gradient(90deg,rgba(7,20,17,.94) 0%,rgba(7,20,17,.78) 48%,rgba(7,20,17,.46) 100%),
+      linear-gradient(0deg,rgba(14,36,32,.75),rgba(14,36,32,.08)),
+      url("assets/serra-gaucha.jpg") center 44%/cover no-repeat}
   .hero .wrap{position:relative;z-index:3}
   .heromark{display:inline-flex;align-items:center;gap:14px;margin-bottom:26px}
   .heromark svg{width:58px;height:58px;filter:drop-shadow(0 10px 24px rgba(255,107,74,.35))}
@@ -57,7 +59,7 @@
   .pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:34px}
   .pill{font-family:"Space Mono";font-size:13px;border:1px solid var(--ink-3);background:rgba(20,48,41,.5);border-radius:999px;padding:9px 16px}
   .pill b{color:var(--leaf)}
-  .serra{position:absolute;left:0;right:0;bottom:-2px;width:100%;z-index:1;pointer-events:none}
+  .serra{display:none}
 
   /* ===== CARDS ===== */
   .grid{display:grid;gap:16px;margin-top:36px}
@@ -179,7 +181,7 @@
     <p class="lead reveal" style="margin-top:24px">Conectamos o turista diretamente ao guia que também dirige. Escolha a experiência, a data e o roteiro — com preço transparente e pagamento protegido do início ao fim. Decidiu? <b style="color:var(--sand)">Bora.</b></p>
     <div class="pills reveal">
       <span class="pill">Estilo <b>Uber</b>, para experiências</span>
-      <span class="pill"><b>4</b> formas de viajar</span>
+      <span class="pill"><b>3</b> formas de viajar</span>
       <span class="pill">Pagamento <b>seguro</b></span>
       <span class="pill">Largada na <b>Serra Gaúcha</b></span>
     </div>
@@ -201,7 +203,7 @@
     <h2 class="t reveal">Entre o turista e o passeio,<br>sempre tem alguém levando a maior fatia.</h2>
     <p class="lead reveal">Quem viaja para Gramado, Campos do Jordão, o Rio ou o Nordeste quase sempre cai na mão de uma agência intermediária. O resultado é previsível.</p>
     <div class="grid g3">
-      <div class="card reveal"><span class="n">01</span><span class="ic">💸</span><h3>Sobrepreço</h3><p>O turista — em especial o estrangeiro — paga muito acima do justo, sem saber quanto chega a quem presta o serviço.</p></div>
+      <div class="card reveal"><span class="n">01</span><span class="ic">💸</span><h3>Preço sem clareza</h3><p>Quem viaja muitas vezes paga mais do que esperava e não sabe quanto desse valor chega ao guia.</p></div>
       <div class="card reveal"><span class="n">02</span><span class="ic">🚌</span><h3>Experiência engessada</h3><p>Ônibus cheio, horário rígido e paradas em lugares que nem todos queriam. Pouca ou nenhuma personalização.</p></div>
       <div class="card reveal"><span class="n">03</span><span class="ic">⚠️</span><h3>Risco dos dois lados</h3><p>O turista corre risco de calote; o guia recebe pouco e com burocracia. O intermediário fica com o melhor pedaço.</p></div>
     </div>
@@ -230,13 +232,12 @@
 <section id="verticais" style="padding-top:0">
   <div class="wrap">
     <span class="secnum reveal">03 — Verticais</span>
-    <span class="eyebrow reveal">Quatro formas de viajar, um app só</span>
+    <span class="eyebrow reveal">Três formas de viajar, um app só</span>
     <h2 class="t reveal">Cada público, sua experiência.</h2>
-    <div class="grid g4">
+    <div class="grid g3">
       <div class="card hl reveal"><span class="ic">🏔️</span><h3>Passeios &amp; Aventuras</h3><p>O núcleo. Roteiros locais de verdade — cachoeiras, vinícolas, trilhas, city tours — com curadoria do próprio guia.</p></div>
       <div class="card reveal"><span class="ic">🚐</span><h3>Carro Privativo</h3><p>O turista monta o roteiro; o Guia+Motorista conduz e orienta o dia inteiro. Sem grupo, sem pressa.</p></div>
       <div class="card reveal"><span class="ic">🧒</span><h3>KIDS</h3><p>Parques, teatros e eventos infantis com motorista verificado, cadeirinha e total segurança. Confiança como diferencial.</p></div>
-      <div class="card reveal"><span class="ic">🌙</span><h3>Nightlife &amp; Adulto</h3><p>Vida noturna com sigilo e parceiros confiáveis, isolada atrás de verificação +18. Cassino apenas em destinos internacionais.</p></div>
     </div>
     <div class="grid g2">
       <div class="card reveal"><span class="ic">🎯</span><h3>Filtros de interesse</h3><p style="margin-bottom:12px">Combinam livremente dentro de cada vertical — porque uma viagem pode ser "família + natureza" ao mesmo tempo.</p><div class="dest sp" style="background:none;border:none;padding:0"><div class="sp"><span>Aventura</span><span>Gastronomia</span><span>Cultura</span><span>Natureza</span><span>Romântico</span><span>Vida noturna</span></div></div></div>
@@ -261,7 +262,7 @@
         </div>
       </div>
       <ul class="featl">
-        <li class="reveal"><span class="fi">👨‍👩‍👧</span><div><h4>Três públicos, um seletor</h4><p>Família (com Kids dentro), Solteiros e o modo Adulto — trancado atrás da verificação +18.</p></div></li>
+        <li class="reveal"><span class="fi">👨‍👩‍👧</span><div><h4>Escolha o seu tipo de viagem</h4><p>Veja opções para família, crianças, quem viaja sozinho ou quer aproveitar a noite.</p></div></li>
         <li class="reveal"><span class="fi">🎟️</span><div><h4>Eventos reais de Gramado</h4><p>Natal Luz, Vindima, Festa da Colônia, Choco Páscoa e a vida noturna real da cidade, já no feed.</p></div></li>
         <li class="reveal"><span class="fi">🔒</span><div><h4>Reserva com pagamento seguro</h4><p>Fluxo completo: data, pessoas, Pix ou cartão — e o valor retido até o passeio acontecer.</p></div></li>
         <li class="reveal"><span class="fi">✅</span><div><h4>Guia+Motorista verificado</h4><p>Perfil com bio, idiomas, veículo, avaliações e chat direto com o profissional.</p></div></li>
@@ -275,20 +276,20 @@
 <section id="diferencial" style="padding-bottom:0">
   <div class="wrap">
     <span class="secnum reveal">05 — Por que o bora ganha</span>
-    <span class="eyebrow reveal">O que ninguém mais junta</span>
-    <h2 class="t reveal">O mercado é cheio.<br>Nosso encaixe está vazio.</h2>
+    <span class="eyebrow reveal">O que torna o bora diferente</span>
+    <h2 class="t reveal">Guia e motorista<br>na mesma reserva.</h2>
     <div class="vs">
       <div class="col them reveal"><h4>Agências e apps que já existem</h4><ul>
         <li>São guia <em>ou</em> transporte, nunca os dois juntos</li>
         <li>Focados no brasileiro indo para fora, não no destino nacional</li>
         <li>Pagamento e suporte distantes do jeito local</li>
-        <li>Um único propósito por app</li>
+        <li>Cada serviço funciona em um lugar diferente</li>
       </ul></div>
       <div class="col us reveal"><h4>bora.</h4><ul>
         <li>Guia + motorista + veículo numa só reserva</li>
         <li>Foco no destino brasileiro, com Pix e rede local</li>
         <li>Pagamento seguro e suporte em português</li>
-        <li>Quatro verticais num app só, por agenda real</li>
+        <li>Passeios, carro privativo e opções para crianças no mesmo app</li>
       </ul></div>
     </div>
   </div>
@@ -296,9 +297,9 @@
 
 <section id="rede">
   <div class="wrap">
-    <span class="eyebrow reveal">A vantagem que não se copia</span>
-    <h2 class="t reveal">Tecnologia qualquer um faz.<br><span class="gold">Rede, não.</span></h2>
-    <p class="lead reveal">O diferencial não é o código — é a rede de relacionamentos que entra na plataforma. Um concorrente copia a tela; reconstruir cada relação leva anos.</p>
+    <span class="eyebrow reveal">Tecnologia com gente de verdade</span>
+    <h2 class="t reveal">O app organiza.<br><span class="gold">A rede local faz acontecer.</span></h2>
+    <p class="lead reveal">Além de uma boa plataforma, o bora depende de guias, hotéis, pousadas e parceiros que conhecem cada destino. É essa rede que torna o serviço confiável.</p>
     <div class="grid g4">
       <div class="card reveal"><span class="ic">🏛️</span><h3>Prefeituras</h3><p>Secretarias de turismo querem profissionalizar o guia local. A chancela pública é prova social que não se compra.</p></div>
       <div class="card reveal"><span class="ic">🏨</span><h3>Hotéis e pousadas</h3><p>Cada recepção vira ponto de venda, com comissão limpa e automática. Distribuição sem custo de mídia.</p></div>
@@ -319,14 +320,14 @@
   <div class="wrap">
     <span class="secnum reveal">06 — Destinos</span>
     <span class="eyebrow reveal">Onde está a demanda</span>
-    <h2 class="t reveal">Começa na Serra.<br>Depois, o Brasil — e a ponte com a Europa.</h2>
+    <h2 class="t reveal">Começa na Serra.<br>Depois, chega a outras regiões do Brasil.</h2>
     <div class="grid g3">
       <div class="dest reveal"><span class="flag">Sul · largada</span><h3>Serra Gaúcha</h3><div class="sp"><span>Gramado</span><span>Canela</span><span>Bento Gonçalves</span><span>Vale dos Vinhedos</span></div></div>
       <div class="dest reveal"><span class="flag">Sudeste</span><h3>Serras &amp; litoral</h3><div class="sp"><span>Campos do Jordão</span><span>Rio de Janeiro</span><span>Paraty</span><span>Tiradentes</span></div></div>
       <div class="dest reveal"><span class="flag">Nordeste · alto fluxo</span><h3>O litoral inteiro</h3><div class="sp"><span>Porto Seguro</span><span>Salvador</span><span>Maragogi</span><span>Jericoacoara</span><span>Noronha</span></div></div>
       <div class="dest reveal"><span class="flag">Centro-Oeste &amp; Norte</span><h3>Natureza</h3><div class="sp"><span>Bonito</span><span>Chapada dos Veadeiros</span><span>Pantanal</span></div></div>
-      <div class="dest intl reveal"><span class="flag">Internacional</span><h3>Cone Sul</h3><div class="sp"><span>Punta del Este 🇺🇾</span><span>Buenos Aires 🇦🇷</span><span>Mendoza</span></div></div>
-      <div class="dest intl reveal"><span class="flag">Horizonte</span><h3>Brasil ↔ Portugal</h3><div class="sp"><span>Turista europeu no Brasil</span><span>Ponte cultural e linguística</span></div></div>
+      <div class="dest reveal"><span class="flag">Norte</span><h3>Amazônia</h3><div class="sp"><span>Manaus</span><span>Alter do Chão</span><span>Ilha do Marajó</span></div></div>
+      <div class="dest reveal"><span class="flag">Brasil inteiro</span><h3>Novos destinos</h3><div class="sp"><span>Capitais</span><span>Cidades históricas</span><span>Rotas regionais</span></div></div>
     </div>
   </div>
 </section>
@@ -341,7 +342,7 @@
       <div class="phase"><span class="ph">01</span><div><h4>Validar a Serra Gaúcha</h4><p>Uma praça, uma vertical (Passeios &amp; Aventuras). Guias selecionados, pagamento seguro funcionando, preço transparente. Provar que o modelo gira.</p><span class="w">Fase inicial</span></div></div>
       <div class="phase"><span class="ph">02</span><div><h4>Adensar e abrir verticais</h4><p>Ligar Carro Privativo e KIDS na mesma praça. Refinar reputação, suporte e repasse antes de espalhar.</p><span class="w">Consolidação</span></div></div>
       <div class="phase"><span class="ph">03</span><div><h4>Replicar para novas praças</h4><p>Campos do Jordão, Rio, Nordeste — com um playbook repetível e o case da Serra como prova.</p><span class="w">Expansão</span></div></div>
-      <div class="phase"><span class="ph">04</span><div><h4>Nightlife e destinos internacionais</h4><p>Vertical adulta, rotas para o Cone Sul e a ponte com o turista europeu. Concierge com IA, passaporte de carimbos e o "Experiences" brasileiro no horizonte.</p><span class="w">Escala</span></div></div>
+      <div class="phase"><span class="ph">04</span><div><h4>Chegar a mais destinos brasileiros</h4><p>Levar o modelo para outras regiões do país, mantendo guias verificados, atendimento próximo e experiências locais.</p><span class="w">Escala</span></div></div>
     </div>
   </div>
 </section>
@@ -362,7 +363,7 @@
     <div class="ftmeta reveal">
       <b>bora.</b> · Guto — Erechim, RS, Brasil<br>
       seu-email@exemplo.com · Protótipo conceitual — valores, notas e parcerias exibidos no app são ilustrativos.<br>
-      Nome e marca sujeitos a verificação de disponibilidade (INPI / domínio). Fotos dos locais no app: Wikimedia Commons (CC BY / CC BY-SA), com créditos nas páginas dos arquivos.
+      Nome e marca sujeitos a verificação de disponibilidade (INPI / domínio). Foto da capa: panorama do Vale dos Vinhedos, Felipe Valduga, via Wikimedia Commons. Fotos dos locais no app: Wikimedia Commons (CC BY / CC BY-SA), com créditos nas páginas dos arquivos.
     </div>
   </div>
 </footer>
