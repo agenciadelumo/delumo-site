@@ -1,4 +1,4 @@
-# bora. — o turismo sem atravessador
+# bora. O turismo sem atravessador
 
 Site onepage + protótipo navegável do app **bora.**, marketplace que conecta o turista diretamente ao Guia+Motorista: experiências no seu ritmo, preço transparente e pagamento retido até o passeio acontecer.
 
@@ -10,7 +10,7 @@ Site onepage + protótipo navegável do app **bora.**, marketplace que conecta o
 | `app.html` | Protótipo navegável do app do turista (funciona sozinho e dentro do onepage) |
 | `projeto.html` | Documento de projeto completo (planejamento, stack, custos, regiões, roadmap) |
 
-Site 100% estático — sem build, sem dependências, sem backend. Basta servir os arquivos.
+Site 100% estático, sem build, dependências ou backend. Basta servir os arquivos.
 
 ## Como publicar no GitHub (conta: delumo)
 
@@ -26,7 +26,7 @@ Site 100% estático — sem build, sem dependências, sem backend. Basta servir 
 cd pasta-do-site
 git init
 git add .
-git commit -m "bora. — site onepage + app"
+git commit -m "bora. site onepage + app"
 git branch -M main
 git remote add origin https://github.com/delumo/bora.git
 git push -u origin main
@@ -37,7 +37,7 @@ git push -u origin main
 1. Entre em **vercel.com** e faça login com a conta do GitHub (delumo)
 2. Clique em **Add New… → Project**
 3. Selecione o repositório **bora** → **Import**
-4. Framework Preset: **Other** (não precisa mudar mais nada — é site estático)
+4. Framework Preset: **Other** (não precisa mudar mais nada, pois é um site estático)
 5. Clique em **Deploy**
 
 Pronto: a Vercel gera um endereço tipo `bora-delumo.vercel.app`. Todo push novo no GitHub atualiza o site automaticamente.
@@ -49,4 +49,4 @@ Pronto: a Vercel gera um endereço tipo `bora-delumo.vercel.app`. Todo push novo
 - Verificar disponibilidade da marca **bora** no INPI (classe de software/turismo) e do domínio (`.com.br` / `.app`)
 - Trocar `seu-email@exemplo.com` no rodapé do `index.html` pelo contato real
 - Os valores, notas, avaliações e "parcerias" exibidos no app são **ilustrativos** (protótipo conceitual)
-- As fotos dos locais no app vêm do **Wikimedia Commons** (licenças CC BY / CC BY-SA), servidas via `Special:FilePath`, com créditos na tela Perfil do app. Antes do uso comercial definitivo, confira autor e licença na página de cada arquivo em commons.wikimedia.org; fotos de estabelecimentos privados (bares, clubes) seguem estilizadas de propósito — devem vir dos próprios parceiros com autorização
+- As fotos dos locais no app vêm do **Wikimedia Commons** (licenças CC BY / CC BY-SA), servidas via `Special:FilePath`, com créditos na tela Perfil do app. Antes do uso comercial definitivo, confira autor e licença na página de cada arquivo em commons.wikimedia.org. Fotos de estabelecimentos privados (bares, clubes) seguem estilizadas de propósito e devem vir dos próprios parceiros com autorização.
