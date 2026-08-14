@@ -4,9 +4,22 @@
       "source": "/telegestao",
       "destination": "/telegestao/",
       "permanent": false
+    },
+    {
+      "source": "/gestor",
+      "destination": "/gestor/",
+      "permanent": false
     }
   ],
   "rewrites": [
+    {
+      "source": "/gestor/",
+      "destination": "https://delumo-gestor-delumo.vercel.app/gestor/"
+    },
+    {
+      "source": "/gestor/:path*",
+      "destination": "https://delumo-gestor-delumo.vercel.app/gestor/:path*"
+    },
     {
       "source": "/telegestao/",
       "destination": "https://telemetria-olive.vercel.app/"
