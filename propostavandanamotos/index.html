@@ -450,9 +450,53 @@
     .dependency h3 { margin: 0 0 10px; color: #0f739d; }
     .dependency p { margin: 0; color: #4b6273; font-size: .92rem; }
 
+    .next-step {
+      min-height: 190px;
+      padding: 34px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+      color: white;
+      background: linear-gradient(120deg, #07111f, #123b58);
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+      text-decoration: none;
+      overflow: hidden;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .next-step:hover { transform: translateY(-3px); box-shadow: 0 30px 74px rgba(7,17,31,.22); }
+    .next-copy span { display: block; margin-bottom: 8px; color: var(--blue-2); font-size: .76rem; font-weight: 900; letter-spacing: .15em; text-transform: uppercase; }
+    .next-copy strong { display: block; font-size: clamp(1.8rem, 4vw, 3.35rem); line-height: 1; letter-spacing: -.04em; }
+    .next-copy p { margin: 12px 0 0; color: #afbfcc; }
+    .next-arrow { color: var(--orange); font-size: clamp(5rem, 10vw, 8rem); font-weight: 300; line-height: .7; transition: transform .2s ease; }
+    .next-step:hover .next-arrow { transform: translateX(10px); }
+
+    .total-services {
+      padding: 42px;
+      color: white;
+      background:
+        radial-gradient(circle at 88% 10%, rgba(255,122,26,.28), transparent 26%),
+        linear-gradient(135deg, #06101c, #0d2c46);
+      border-radius: 28px;
+      box-shadow: 0 28px 76px rgba(7,17,31,.22);
+    }
+    .total-services .section-kicker { color: var(--orange); }
+    .total-services .section-title { max-width: 940px; }
+    .total-grid { display: grid; grid-template-columns: .9fr .9fr 1.2fr; gap: 14px; margin-top: 28px; }
+    .total-item { padding: 24px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1); border-radius: 18px; }
+    .total-item.grand { color: var(--ink); background: var(--orange); border-color: var(--orange); }
+    .total-label { display: block; margin-bottom: 12px; color: #aebdcc; font-size: .72rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+    .grand .total-label { color: #713406; }
+    .total-value { display: block; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 900; letter-spacing: -.045em; line-height: 1; }
+    .total-detail { display: block; margin-top: 11px; color: #aebdcc; font-size: .84rem; }
+    .grand .total-detail { color: #713406; }
+    .total-note { margin: 22px 0 0; color: #aabac8; font-size: .84rem; }
+    .total-note strong { color: white; }
+
     .closing {
       width: min(1120px, calc(100% - 40px));
-      margin: 0 auto;
+      margin: 0 auto 72px;
       padding: 44px;
       display: grid;
       grid-template-columns: 1.15fr .85fr;
@@ -480,6 +524,7 @@
       .grid.three, .price-grid { grid-template-columns: 1fr; }
       .method { grid-template-columns: 1fr 1fr; }
       .focus-actions { grid-template-columns: 1fr 1fr; }
+      .total-grid { grid-template-columns: 1fr; }
       .pricing-head { align-items: start; flex-direction: column; }
       .pricing-head p { text-align: left; }
     }
@@ -499,6 +544,9 @@
       .grid.two, .grid.four, .method, .focus-actions, .solution-list, .price-comparison { grid-template-columns: 1fr; }
       .card, .pricing, .differential, .closing, .admin-showcase, .focus-box, .solution-panel { padding: 24px; }
       .diagnostic-card { padding-top: 68px; }
+      .next-step { min-height: 160px; padding: 26px 24px; }
+      .next-arrow { font-size: 4.6rem; }
+      .total-services { padding: 26px 24px; }
       .admin-image-wrap { min-height: 380px; padding: 14px; }
       .admin-image-wrap img { height: 440px; max-height: 62vh; }
       .admin-tags { grid-template-columns: 1fr; }
@@ -520,10 +568,10 @@
 <body>
   <header class="topbar">
     <div class="topbar-inner">
-      <a class="mini-brand" href="#ecommerce">Vandana Moto Peças</a>
+      <a class="mini-brand" href="#diagnostico">Vandana Moto Peças</a>
       <nav class="proposal-nav" aria-label="Menu da proposta">
-        <a href="#ecommerce" data-target="ecommerce"><span class="nav-full">Proposta E-commerce</span><span class="nav-short">E-commerce</span></a>
         <a href="#diagnostico" data-target="diagnostico">Diagnóstico</a>
+        <a href="#ecommerce" data-target="ecommerce"><span class="nav-full">Proposta E-commerce</span><span class="nav-short">E-commerce</span></a>
         <a href="#social-media" data-target="social-media"><span class="nav-full">Proposta Social Media</span><span class="nav-short">Social Media</span></a>
       </nav>
     </div>
@@ -536,8 +584,8 @@
         <h1>Do conteúdo à venda. <span>Posta e vende.</span></h1>
         <p class="hero-copy">Uma nova operação digital para transformar a força local da Vandana em alcance, relacionamento e vendas: E-commerce B2C/B2B, Social Media orientado à conversão e tecnologia trabalhando no mesmo ritmo.</p>
         <div class="hero-actions">
-          <a class="button primary" href="#ecommerce">Ver proposta de E-commerce</a>
-          <a class="button" href="#social-media">Ver proposta de Social Media</a>
+          <a class="button primary" href="#diagnostico">Começar pelo Diagnóstico</a>
+          <a class="button" href="#ecommerce">Ver proposta de E-commerce</a>
         </div>
       </div>
       <div class="logo-stage">
@@ -622,6 +670,13 @@
           </ul>
           <div class="results-note"><strong>Tecnologia cria a base; competitividade gera resultado.</strong> O desempenho comercial também dependerá de preço, frete, disponibilidade, qualidade do cadastro, investimento em mídia e execução da estratégia de vendas.</div>
         </div>
+      </section>
+
+      <section class="section">
+        <a class="next-step" href="#ecommerce" aria-label="Avançar para a proposta de E-commerce">
+          <span class="next-copy"><span>Próxima etapa</span><strong>Proposta E-commerce</strong><p>Conheça a plataforma que responde aos pontos levantados no diagnóstico.</p></span>
+          <span class="next-arrow" aria-hidden="true">→</span>
+        </a>
       </section>
     </article>
 
@@ -742,6 +797,13 @@
           <p>O cronograma considera a entrega, pela Vandana e pelos fornecedores, dos acessos, credenciais, documentação e disponibilidade de homologação necessários. As integrações dependem dos recursos de API disponibilizados pelo Versátil Sistemas, Meta, Mercado Livre, Shopee, meios de pagamento e operadores de frete.</p>
         </div>
       </section>
+
+      <section class="section">
+        <a class="next-step" href="#social-media" aria-label="Avançar para a proposta de Social Media">
+          <span class="next-copy"><span>Próxima etapa</span><strong>Proposta Social Media</strong><p>Veja como o conteúdo levará produtos e campanhas até o novo E-commerce.</p></span>
+          <span class="next-arrow" aria-hidden="true">→</span>
+        </a>
+      </section>
     </article>
 
     <article id="social-media" class="proposal-view" aria-labelledby="social-title">
@@ -818,12 +880,25 @@
           <p class="pricing-note">A verba de mídia é indispensável para ampliar alcance, acelerar testes e sustentar o volume de oportunidades. O valor será ajustado conforme objetivos, praça, campanhas e resultados, com investimento realizado nas plataformas de anúncios.</p>
         </div>
       </section>
-    </article>
 
-    <section class="closing">
-      <h2>Uma operação. Dois atendimentos. O mesmo objetivo: vender.</h2>
-      <p>O E-commerce oferece catálogo, preço, estoque, checkout e dados. O Social Media cria demanda, relacionamento e tráfego qualificado. Separados, cada frente perde potência; integrados, formam um ciclo contínuo de conteúdo, compra, aprendizado e crescimento.</p>
-    </section>
+      <section class="closing">
+        <h2>Uma operação. Dois atendimentos. O mesmo objetivo: vender.</h2>
+        <p>O E-commerce oferece catálogo, preço, estoque, checkout e dados. O Social Media cria demanda, relacionamento e tráfego qualificado. Integrados, formam um ciclo contínuo de conteúdo, compra, aprendizado e crescimento.</p>
+      </section>
+
+      <section class="section">
+        <div class="total-services">
+          <p class="section-kicker">Investimento consolidado</p>
+          <h2 class="section-title">Valor total dos serviços.</h2>
+          <div class="total-grid">
+            <div class="total-item"><span class="total-label">Desenvolvimento</span><span class="total-value">R$ 14.000,00</span><span class="total-detail">Investimento único no E-commerce</span></div>
+            <div class="total-item"><span class="total-label">Serviços mensais</span><span class="total-value">R$ 4.000,00</span><span class="total-detail">R$ 1.500 de suporte + R$ 2.500 de Social Media</span></div>
+            <div class="total-item grand"><span class="total-label">Ciclo completo de 6 meses</span><span class="total-value">R$ 38.000,00</span><span class="total-detail">Desenvolvimento + seis mensalidades dos dois serviços</span></div>
+          </div>
+          <p class="total-note"><strong>Tráfego pago não incluído neste total:</strong> verba inicial sugerida de R$ 1.500,00 mensais, investida diretamente nas plataformas de anúncios. O suporte da plataforma começa após a implantação; o cronograma financeiro será ajustado conforme a data de entrada em operação.</p>
+        </div>
+      </section>
+    </article>
   </main>
 
   <footer>
@@ -843,9 +918,9 @@
       };
 
       function activate(rawId, scroll = false) {
-        let id = (rawId || 'ecommerce').replace('#', '').toLowerCase();
+        let id = (rawId || 'diagnostico').replace('#', '').toLowerCase();
         id = aliases[id] || id;
-        if (!views.some(view => view.id === id)) id = 'ecommerce';
+        if (!views.some(view => view.id === id)) id = 'diagnostico';
         views.forEach(view => view.classList.toggle('active', view.id === id));
         links.forEach(link => {
           if (link.dataset.target === id) link.setAttribute('aria-current', 'page');
