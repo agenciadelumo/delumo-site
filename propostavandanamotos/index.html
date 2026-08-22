@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Proposta integrada de E-commerce e Social Media para a Vandana Moto Peças, em Erechim/RS.">
+  <meta name="theme-color" content="#07111f">
+  <title>Proposta Vandana Moto Peças | Delumo</title>
+  <style>
+    :root {
+      --ink: #07111f;
+      --ink-2: #0c1b2e;
+      --panel: #10243b;
+      --blue: #18a8e6;
+      --blue-2: #65cdf5;
+      --orange: #ff7a1a;
+      --paper: #f3f6f9;
+      --white: #ffffff;
+      --muted: #647386;
+      --line: #dce4eb;
+      --shadow: 0 24px 64px rgba(7, 17, 31, .12);
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: inherit; }
+    img { display: block; max-width: 100%; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    .topbar {
+      position: sticky;
+      z-index: 30;
+      top: 0;
+      background: rgba(7, 17, 31, .94);
+      border-bottom: 1px solid rgba(255,255,255,.09);
+      backdrop-filter: blur(18px);
+    }
+    .topbar-inner {
+      width: min(1180px, calc(100% - 32px));
+      min-height: 78px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .mini-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: white;
+      text-decoration: none;
+      font-size: .82rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .mini-brand::before {
+      content: "";
+      width: 12px;
+      height: 12px;
+      background: var(--orange);
+      border-radius: 50%;
+      box-shadow: 0 0 0 7px rgba(255,122,26,.14);
+    }
+    .proposal-nav {
+      display: flex;
+      gap: 8px;
+      padding: 7px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 999px;
+    }
+    .proposal-nav a {
+      padding: 10px 17px;
+      color: #cbd6e2;
+      text-decoration: none;
+      border-radius: 999px;
+      font-size: .87rem;
+      font-weight: 750;
+      transition: .2s ease;
+    }
+    .proposal-nav a:hover,
+    .proposal-nav a[aria-current="page"] {
+      color: var(--ink);
+      background: var(--white);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 620px;
+      color: white;
+      background:
+        radial-gradient(circle at 82% 28%, rgba(24,168,230,.22), transparent 30%),
+        radial-gradient(circle at 12% 86%, rgba(255,122,26,.17), transparent 30%),
+        linear-gradient(135deg, #050b14 0%, #071726 54%, #0c2940 100%);
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .16;
+      background-image: linear-gradient(rgba(255,255,255,.09) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.09) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(to right, black, transparent 72%);
+    }
+    .hero-inner {
+      position: relative;
+      width: min(1180px, calc(100% - 40px));
+      min-height: 620px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.08fr .92fr;
+      align-items: center;
+      gap: 72px;
+      padding: 74px 0 84px;
+    }
+    .eyebrow {
+      margin: 0 0 16px;
+      color: var(--blue-2);
+      font-size: .78rem;
+      font-weight: 850;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .hero h1 {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(2.7rem, 6.4vw, 5.6rem);
+      line-height: .98;
+      letter-spacing: -.055em;
+    }
+    .hero h1 span { color: var(--orange); }
+    .hero-copy {
+      max-width: 660px;
+      margin: 26px 0 0;
+      color: #c4cfda;
+      font-size: clamp(1.02rem, 1.8vw, 1.22rem);
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 22px;
+      border: 1px solid rgba(255,255,255,.17);
+      border-radius: 999px;
+      color: white;
+      background: rgba(255,255,255,.07);
+      text-decoration: none;
+      font-size: .92rem;
+      font-weight: 800;
+    }
+    .button.primary { color: var(--ink); background: var(--orange); border-color: var(--orange); }
+    .button:hover { transform: translateY(-1px); }
+    .logo-stage {
+      position: relative;
+      padding: 34px;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 30px;
+      background: rgba(0,0,0,.32);
+      box-shadow: 0 30px 100px rgba(0,0,0,.36);
+    }
+    .logo-stage::after {
+      content: "Erechim • RS";
+      position: absolute;
+      right: 18px;
+      bottom: 16px;
+      color: #8fa2b4;
+      font-size: .68rem;
+      font-weight: 800;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+    .logo-stage img { width: 100%; height: auto; object-fit: contain; }
+
+    .integration-strip {
+      position: relative;
+      z-index: 2;
+      width: min(1120px, calc(100% - 40px));
+      margin: -44px auto 72px;
+      padding: 26px 30px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      align-items: center;
+      gap: 20px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .flow-step { text-align: center; }
+    .flow-step strong { display: block; margin-bottom: 3px; font-size: 1rem; }
+    .flow-step span { color: var(--muted); font-size: .86rem; }
+    .flow-arrow { color: var(--orange); font-size: 1.5rem; font-weight: 900; }
+
+    main { padding-bottom: 80px; }
+    .proposal-view { display: none; scroll-margin-top: 112px; }
+    .proposal-view.active { display: block; animation: reveal .35s ease both; }
+    @keyframes reveal { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    .section {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto 72px;
+    }
+    .section-kicker {
+      margin: 0 0 10px;
+      color: #1385b7;
+      font-size: .76rem;
+      font-weight: 850;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+    .section-title {
+      max-width: 850px;
+      margin: 0 0 16px;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      line-height: 1.06;
+      letter-spacing: -.045em;
+    }
+    .section-lead { max-width: 820px; margin: 0; color: var(--muted); font-size: 1.08rem; }
+    .section-head { margin-bottom: 30px; }
+    .grid { display: grid; gap: 18px; }
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .card {
+      padding: 26px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: 0 10px 34px rgba(7,17,31,.055);
+    }
+    .card.dark { color: white; background: var(--ink-2); border-color: var(--ink-2); }
+    .card.accent { background: #fff5ed; border-color: #ffd8bd; }
+    .card h3 { margin: 0 0 9px; font-size: 1.08rem; line-height: 1.25; }
+    .card p { margin: 0; color: var(--muted); font-size: .94rem; }
+    .card.dark p { color: #aebdcb; }
+    .number {
+      display: inline-flex;
+      width: 40px;
+      height: 40px;
+      margin-bottom: 18px;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      background: var(--blue);
+      border-radius: 12px;
+      font-size: .82rem;
+      font-weight: 900;
+    }
+    .accent .number { background: var(--orange); }
+    .pill-list { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 22px; }
+    .pill {
+      padding: 9px 13px;
+      color: #304154;
+      background: #eef3f7;
+      border-radius: 999px;
+      font-size: .82rem;
+      font-weight: 750;
+    }
+    .feature-list { list-style: none; padding: 0; margin: 18px 0 0; }
+    .feature-list li { position: relative; padding: 12px 0 12px 28px; border-top: 1px solid var(--line); }
+    .feature-list li::before { content: "✓"; position: absolute; left: 0; color: #0f91c8; font-weight: 900; }
+    .feature-list li:first-child { border-top: 0; }
+
+    .admin-showcase {
+      padding: 34px;
+      display: grid;
+      grid-template-columns: .72fr 1.28fr;
+      gap: 36px;
+      align-items: center;
+      color: white;
+      background: linear-gradient(135deg, #07111f, #0d2942);
+      border-radius: 28px;
+      box-shadow: 0 28px 70px rgba(7,17,31,.22);
+    }
+    .admin-showcase h3 { margin: 0 0 14px; font-size: clamp(1.6rem, 3vw, 2.45rem); line-height: 1.08; }
+    .admin-showcase p { margin: 0 0 20px; color: #b7c5d2; }
+    .admin-image-wrap {
+      min-height: 480px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 22px;
+      background: #040b22;
+      overflow: hidden;
+    }
+    .admin-image-wrap img {
+      width: auto;
+      height: 500px;
+      max-height: 64vh;
+      object-fit: contain;
+      filter: drop-shadow(0 20px 28px rgba(0,0,0,.4));
+    }
+    .admin-tags { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .admin-tags span { padding: 9px 11px; color: #c8d6e3; background: rgba(255,255,255,.06); border-radius: 10px; font-size: .79rem; }
+
+    .differential {
+      padding: 42px;
+      color: white;
+      background: linear-gradient(120deg, #0c1b2e 0%, #153b56 100%);
+      border-radius: 26px;
+    }
+    .differential strong { color: var(--blue-2); }
+    .differential p { max-width: 940px; margin: 12px 0 0; color: #c3cfda; font-size: 1.08rem; }
+
+    .pricing {
+      padding: 38px;
+      color: white;
+      background: linear-gradient(135deg, #07111f, #0c2740);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+    }
+    .pricing-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 26px; }
+    .pricing-head h2 { margin: 0; font-size: clamp(1.8rem, 4vw, 3rem); line-height: 1; }
+    .pricing-head p { max-width: 480px; margin: 0; color: #aebdcb; text-align: right; }
+    .price-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .price-item { padding: 24px; background: rgba(255,255,255,.075); border: 1px solid rgba(255,255,255,.1); border-radius: 18px; }
+    .price-item.featured { color: var(--ink); background: var(--orange); border-color: var(--orange); }
+    .price-label { display: block; margin-bottom: 12px; color: #acbdcb; font-size: .77rem; font-weight: 850; letter-spacing: .09em; text-transform: uppercase; }
+    .featured .price-label { color: #6d3108; }
+    .price-value { display: block; font-size: clamp(1.65rem, 3.6vw, 2.55rem); font-weight: 900; letter-spacing: -.045em; line-height: 1; }
+    .price-detail { display: block; margin-top: 11px; color: #aebdcb; font-size: .84rem; }
+    .featured .price-detail { color: #6d3108; }
+    .pricing-note { margin: 20px 0 0; color: #98aabc; font-size: .83rem; }
+
+    .method {
+      counter-reset: method;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .method-step {
+      position: relative;
+      min-height: 210px;
+      padding: 24px 19px;
+      color: white;
+      background: var(--ink-2);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+    .method-step::before {
+      counter-increment: method;
+      content: "0" counter(method);
+      display: block;
+      margin-bottom: 38px;
+      color: var(--orange);
+      font-size: .76rem;
+      font-weight: 900;
+      letter-spacing: .12em;
+    }
+    .method-step h3 { margin: 0 0 8px; font-size: 1rem; }
+    .method-step p { margin: 0; color: #aebdcb; font-size: .85rem; }
+    .method-step::after { content: ""; position: absolute; width: 70px; height: 70px; right: -32px; top: -34px; background: rgba(24,168,230,.16); border-radius: 50%; }
+
+    .calendar-table { width: 100%; border-collapse: collapse; overflow: hidden; background: white; border: 1px solid var(--line); border-radius: 20px; box-shadow: 0 10px 34px rgba(7,17,31,.055); }
+    .calendar-table th, .calendar-table td { padding: 16px 18px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+    .calendar-table th { color: white; background: var(--ink-2); font-size: .77rem; letter-spacing: .08em; text-transform: uppercase; }
+    .calendar-table tr:last-child td { border-bottom: 0; }
+    .calendar-table td:first-child { width: 20%; font-weight: 850; color: #1284b5; }
+    .calendar-table td { color: var(--muted); font-size: .91rem; }
+
+    .dependency {
+      padding: 28px;
+      background: #edf7fb;
+      border: 1px solid #cfeaf5;
+      border-radius: 20px;
+    }
+    .dependency h3 { margin: 0 0 10px; color: #0f739d; }
+    .dependency p { margin: 0; color: #4b6273; font-size: .92rem; }
+
+    .closing {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 44px;
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 36px;
+      align-items: center;
+      color: white;
+      background: var(--orange);
+      border-radius: 28px;
+    }
+    .closing h2 { margin: 0; font-size: clamp(2rem, 4vw, 3.4rem); line-height: 1; letter-spacing: -.04em; }
+    .closing p { margin: 0; color: #522606; font-weight: 700; }
+
+    footer { padding: 30px 20px 44px; color: #708092; text-align: center; font-size: .82rem; }
+    footer strong { color: var(--ink); }
+
+    @media (max-width: 920px) {
+      .hero-inner, .admin-showcase, .closing { grid-template-columns: 1fr; }
+      .hero-inner { gap: 42px; }
+      .logo-stage { max-width: 570px; }
+      .grid.four { grid-template-columns: 1fr 1fr; }
+      .grid.three, .price-grid { grid-template-columns: 1fr; }
+      .method { grid-template-columns: 1fr 1fr; }
+      .pricing-head { align-items: start; flex-direction: column; }
+      .pricing-head p { text-align: left; }
+    }
+    @media (max-width: 680px) {
+      .proposal-view { scroll-margin-top: 126px; }
+      .topbar-inner { min-height: auto; padding: 10px 0; align-items: stretch; flex-direction: column; gap: 9px; }
+      .mini-brand { justify-content: center; }
+      .proposal-nav { width: 100%; }
+      .proposal-nav a { flex: 1; padding: 9px 7px; text-align: center; font-size: .78rem; }
+      .hero-inner { min-height: 0; padding: 62px 0 92px; }
+      .hero h1 { font-size: clamp(2.55rem, 14vw, 4rem); }
+      .hero-actions { flex-direction: column; }
+      .button { width: 100%; }
+      .logo-stage { padding: 22px; }
+      .integration-strip { grid-template-columns: 1fr; margin-top: -34px; }
+      .flow-arrow { transform: rotate(90deg); justify-self: center; }
+      .grid.two, .grid.four, .method { grid-template-columns: 1fr; }
+      .card, .pricing, .differential, .closing, .admin-showcase { padding: 24px; }
+      .admin-image-wrap { min-height: 380px; padding: 14px; }
+      .admin-image-wrap img { height: 440px; max-height: 62vh; }
+      .admin-tags { grid-template-columns: 1fr; }
+      .calendar-table, .calendar-table tbody, .calendar-table tr, .calendar-table td { display: block; width: 100%; }
+      .calendar-table thead { display: none; }
+      .calendar-table tr { padding: 12px 0; border-bottom: 1px solid var(--line); }
+      .calendar-table td { border: 0; padding: 6px 16px; }
+      .calendar-table td:first-child { width: 100%; }
+    }
+    @media print {
+      .topbar { position: static; }
+      .proposal-view { display: block !important; page-break-before: always; }
+      .hero { min-height: auto; }
+      .hero-inner { min-height: auto; }
+      .card, .pricing, .differential, .admin-showcase { break-inside: avoid; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="mini-brand" href="#ecommerce">Vandana Moto Peças</a>
+      <nav class="proposal-nav" aria-label="Menu da proposta">
+        <a href="#ecommerce" data-target="ecommerce">Proposta E-commerce</a>
+        <a href="#social-media" data-target="social-media">Proposta Social Media</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <p class="eyebrow">Proposta comercial integrada • Erechim/RS</p>
+        <h1>Do conteúdo à venda. <span>Posta e vende.</span></h1>
+        <p class="hero-copy">Uma nova operação digital para transformar a força local da Vandana em alcance, relacionamento e vendas: E-commerce B2C/B2B, Social Media orientado à conversão e tecnologia trabalhando no mesmo ritmo.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#ecommerce">Ver proposta de E-commerce</a>
+          <a class="button" href="#social-media">Ver proposta de Social Media</a>
+        </div>
+      </div>
+      <div class="logo-stage">
+        <img src="vandana-logo.png" alt="Logotipo Vandana Moto Peças" width="3005" height="1368">
+      </div>
+    </div>
+  </section>
+
+  <div class="integration-strip" aria-label="Fluxo integrado de vendas">
+    <div class="flow-step"><strong>Conteúdo estratégico</strong><span>Produto certo, narrativa certa</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><strong>Link direto de compra</strong><span>Menos etapas até o carrinho</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><strong>Venda e aprendizado</strong><span>Dados para a próxima campanha</span></div>
+  </div>
+
+  <main>
+    <article id="ecommerce" class="proposal-view" aria-labelledby="ecommerce-title">
+      <section class="section">
+        <div class="section-head">
+          <p class="section-kicker">Proposta 01 • E-commerce</p>
+          <h2 class="section-title" id="ecommerce-title">Uma plataforma própria para vender ao consumidor e às empresas.</h2>
+          <p class="section-lead">Desenvolvimento de um novo E-commerce para a Vandana Moto Peças, com operação B2C e B2B, integração ao ERP Versátil Sistemas e canais digitais conectados à estratégia comercial.</p>
+        </div>
+        <div class="grid three">
+          <div class="card"><span class="number">01</span><h3>Venda B2C e B2B</h3><p>Jornadas adequadas ao consumidor final e ao cliente empresarial, com cadastro, grupos de clientes e tabelas comerciais integradas.</p></div>
+          <div class="card"><span class="number">02</span><h3>Instagram: posta e vende</h3><p>Catálogo e produtos preparados para receber o tráfego das publicações, reduzindo a distância entre interesse, clique e compra.</p></div>
+          <div class="card"><span class="number">03</span><h3>Marketplaces como vitrine</h3><p>Integração com Mercado Livre e Shopee para ampliar a descoberta da marca e fortalecer a presença digital, respeitando as regras de cada canal.</p></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <p class="section-kicker">Base tecnológica</p>
+          <h2 class="section-title">Performance, segurança e capacidade de evolução.</h2>
+        </div>
+        <div class="grid four">
+          <div class="card dark"><span class="number">N</span><h3>Next.js + React</h3><p>Arquitetura moderna, modular e preparada para crescimento.</p></div>
+          <div class="card dark"><span class="number">V</span><h3>Vercel</h3><p>Hospedagem com deploy automatizado e escalabilidade.</p></div>
+          <div class="card dark"><span class="number">C</span><h3>Cloudflare</h3><p>Camada adicional de segurança, proteção e agilidade na entrega.</p></div>
+          <div class="card dark"><span class="number">S</span><h3>HTTPS / SSL</h3><p>Comunicação criptografada e práticas alinhadas à LGPD.</p></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <p class="section-kicker">Integrações incluídas</p>
+          <h2 class="section-title">A operação conectada, sem ilhas de informação.</h2>
+        </div>
+        <div class="grid two">
+          <div class="card accent">
+            <span class="number">ERP</span>
+            <h3>Versátil Sistemas</h3>
+            <p>Integração do E-commerce ao ERP utilizado pela empresa para manter o fluxo operacional consistente.</p>
+            <div class="pill-list"><span class="pill">Estoque</span><span class="pill">Tabelas de preços</span><span class="pill">Pedidos</span><span class="pill">Cadastros</span></div>
+          </div>
+          <div class="card">
+            <span class="number">+</span>
+            <h3>Ecossistema de vendas</h3>
+            <p>Conexões necessárias para pagamento, frete, descoberta da marca e conversão.</p>
+            <ul class="feature-list">
+              <li>Mercado Pago — gateway de pagamento</li>
+              <li>Frenet — gestão e cálculo de frete</li>
+              <li>Mercado Livre e Shopee — presença e vitrine</li>
+              <li>Instagram / Meta — catálogo e links de produtos</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <p class="section-kicker">Marketing e conversão</p>
+          <h2 class="section-title">Funcionalidades que ajudam a vender mais.</h2>
+        </div>
+        <div class="grid three">
+          <div class="card"><span class="number">↗</span><h3>Upsell e cross-sell</h3><p>Ofertas complementares e adicionais para aumentar o valor médio de cada pedido.</p></div>
+          <div class="card"><span class="number">IA</span><h3>Recomendação inteligente</h3><p>Sugestões de produtos relacionadas ao interesse e ao contexto de navegação do cliente.</p></div>
+          <div class="card"><span class="number">C</span><h3>Recuperação de carrinho</h3><p>Comunicações automáticas para recuperar oportunidades que não foram concluídas.</p></div>
+          <div class="card"><span class="number">%</span><h3>Cupons e promoções</h3><p>Campanhas configuráveis para estimular primeira compra, recompra e ações sazonais.</p></div>
+          <div class="card"><span class="number">↙</span><h3>Pop-up de intenção de saída</h3><p>Oferta final ou cupom para manter o visitante ativo no processo de compra.</p></div>
+          <div class="card"><span class="number">◎</span><h3>Busca e filtros</h3><p>Localização rápida de peças, acessórios e produtos em um catálogo amplo.</p></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <p class="section-kicker">Módulos principais</p>
+          <h2 class="section-title">Controle gerencial completo em um único painel.</h2>
+          <p class="section-lead">A gestão da plataforma centraliza as rotinas comerciais, de catálogo e operação, oferecendo visão clara para a equipe da Vandana.</p>
+        </div>
+        <div class="admin-showcase">
+          <div>
+            <h3>Da venda à saúde do sistema.</h3>
+            <p>O painel administrativo organiza os controles essenciais para que a operação cresça com autonomia e consistência.</p>
+            <div class="admin-tags">
+              <span>Dashboard</span><span>Pedidos</span><span>Clientes</span><span>Produtos</span><span>Estoque</span><span>Categorias</span><span>Marcas</span><span>Atributos</span><span>Mídias</span><span>Cupons</span><span>Atacado</span><span>Grupos de cliente</span><span>Upsell e cross-sell</span><span>Frete</span><span>Integração ERP</span><span>Saúde do sistema</span>
+            </div>
+          </div>
+          <figure class="admin-image-wrap">
+            <img src="painel-gerencial.png" alt="Menu do painel gerencial com controles de pedidos, clientes, catálogo, comercial e operação" width="238" height="703">
+          </figure>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="differential">
+          <p class="section-kicker">Diferencial de implantação</p>
+          <h2 class="section-title">Começar com foco para crescer com consistência.</h2>
+          <p>Na fase inicial, vamos priorizar e atualizar as linhas de produtos que já estão ativas e apresentam maior potencial comercial — itens com preço competitivo, disponibilidade e capacidade de gerar volume. Essa seleção concentrada permitirá criar campanhas mais eficientes, conquistar engajamento, validar a demanda e tornar a Vandana reconhecida por categorias estratégicas. Com os aprendizados e resultados de venda, o catálogo será ampliado de forma progressiva e orientada por dados, aumentando o leque de produtos com segurança e escalabilidade.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="pricing">
+          <div class="pricing-head">
+            <h2>Investimento e prazo</h2>
+            <p>Projeto completo com desenvolvimento, funcionalidades e integrações descritas nesta proposta.</p>
+          </div>
+          <div class="price-grid">
+            <div class="price-item featured"><span class="price-label">Desenvolvimento</span><span class="price-value">R$ 14.000,00</span><span class="price-detail">Investimento único no projeto</span></div>
+            <div class="price-item"><span class="price-label">Prazo de entrega</span><span class="price-value">60 dias</span><span class="price-detail">Após aprovação e disponibilização dos acessos necessários</span></div>
+            <div class="price-item"><span class="price-label">Suporte da plataforma</span><span class="price-value">R$ 1.500,00</span><span class="price-detail">Mensais, após a implantação</span></div>
+          </div>
+          <p class="pricing-note">O suporte mensal contempla manutenção técnica, atualizações, correções, monitoramento, segurança, backups, acompanhamento das integrações e suporte prioritário da plataforma. A gestão de Social Media está apresentada separadamente.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="dependency">
+          <h3>Premissas técnicas</h3>
+          <p>O cronograma considera a entrega, pela Vandana e pelos fornecedores, dos acessos, credenciais, documentação e disponibilidade de homologação necessários. As integrações dependem dos recursos de API disponibilizados pelo Versátil Sistemas, Meta, Mercado Livre, Shopee, meios de pagamento e operadores de frete.</p>
+        </div>
+      </section>
+    </article>
+
+    <article id="social-media" class="proposal-view" aria-labelledby="social-title">
+      <section class="section">
+        <div class="section-head">
+          <p class="section-kicker">Proposta 02 • Social Media</p>
+          <h2 class="section-title" id="social-title">Conteúdo com função comercial: transformar postagem em caminho de compra.</h2>
+          <p class="section-lead">Atendimento mensal em um ciclo inicial de 6 meses para estruturar, testar e evoluir a presença digital da Vandana, com prioridade para publicações de produtos conectadas diretamente ao novo E-commerce.</p>
+        </div>
+        <div class="grid three">
+          <div class="card"><span class="number">01</span><h3>Planejamento mensal</h3><p>Calendário completo de campanhas, temas, produtos, formatos, datas e objetivos, apresentado na reunião mensal.</p></div>
+          <div class="card"><span class="number">02</span><h3>Produção em loja</h3><p>Um dia específico para captura de fotos e vídeos, aproveitando equipe, produtos, ambiente e rotina real da Vandana.</p></div>
+          <div class="card"><span class="number">03</span><h3>Conteúdo que conduz</h3><p>Peças, textos e chamadas pensados para levar o público do interesse ao produto certo dentro do E-commerce.</p></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <p class="section-kicker">Método proprietário</p>
+          <h2 class="section-title">Posta e vende.</h2>
+          <p class="section-lead">O conteúdo deixa de ser apenas presença de marca e passa a operar como parte do processo comercial.</p>
+        </div>
+        <div class="method">
+          <div class="method-step"><h3>Selecionar</h3><p>Escolher produtos ativos, com preço, estoque e potencial de giro.</p></div>
+          <div class="method-step"><h3>Produzir</h3><p>Criar fotos, vídeos, argumentos e ofertas com contexto real de uso.</p></div>
+          <div class="method-step"><h3>Publicar</h3><p>Conectar cada produto divulgado ao seu link direto de compra.</p></div>
+          <div class="method-step"><h3>Impulsionar</h3><p>Usar mídia paga para alcançar públicos com maior intenção.</p></div>
+          <div class="method-step"><h3>Aprender</h3><p>Analisar cliques, interesse e vendas para aprimorar o próximo ciclo.</p></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <p class="section-kicker">Linhas editoriais</p>
+          <h2 class="section-title">Conteúdo de venda, relacionamento e presença local.</h2>
+        </div>
+        <div class="grid two">
+          <div class="card accent"><span class="number">$</span><h3>Produtos e oportunidades</h3><p>Destaques de peças, acessórios, lançamentos e ofertas com link de compra, benefícios claros e chamadas para ação.</p></div>
+          <div class="card"><span class="number">ERBS</span><h3>Parceiros e fornecedores</h3><p>Ações conjuntas com Baterias ERBS e outros fornecedores que desejem ganhar visibilidade e ampliar vendas em Erechim e região.</p></div>
+          <div class="card"><span class="number">CAL</span><h3>Datas comemorativas</h3><p>Campanhas sazonais conectadas ao comportamento de compra, ao calendário comercial e ao universo das motos.</p></div>
+          <div class="card"><span class="number">MOTO</span><h3>Eventos e comunidade</h3><p>Cobertura e divulgação de eventos de motos, cultura motociclística, bastidores da loja e proximidade com o público local.</p></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <p class="section-kicker">Rotina mensal</p>
+          <h2 class="section-title">Um calendário organizado, aprovado e executado.</h2>
+        </div>
+        <table class="calendar-table">
+          <thead><tr><th>Etapa</th><th>Como será realizado</th></tr></thead>
+          <tbody>
+            <tr><td>Alinhamento</td><td>1 reunião presencial mensal na loja para objetivos, campanhas, produtos prioritários, fornecedores e oportunidades do período.</td></tr>
+            <tr><td>Calendário</td><td>Apresentação do calendário mensal com temas, formatos, datas, produtos, links e finalidade de cada conteúdo.</td></tr>
+            <tr><td>Captação</td><td>1 diária específica em loja para produzir o banco mensal de fotos e vídeos necessários às campanhas.</td></tr>
+            <tr><td>Criação</td><td>Roteiro, direção, design, edição, redação das legendas e preparação das chamadas para compra.</td></tr>
+            <tr><td>Publicação</td><td>3 postagens semanais e 5 stories semanais, distribuídos conforme o calendário aprovado.</td></tr>
+            <tr><td>Otimização</td><td>Acompanhamento dos conteúdos e leitura dos sinais de interesse para ajustar produtos, argumentos e campanhas.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <div class="pricing">
+          <div class="pricing-head">
+            <h2>Investimento mensal</h2>
+            <p>Ciclo inicial de 6 meses para implantação, testes, aprendizado e evolução do método Posta e Vende.</p>
+          </div>
+          <div class="price-grid">
+            <div class="price-item featured"><span class="price-label">Social Media</span><span class="price-value">R$ 2.500,00</span><span class="price-detail">Mensais durante o ciclo de 6 meses</span></div>
+            <div class="price-item"><span class="price-label">Frequência</span><span class="price-value">3 + 5</span><span class="price-detail">3 postagens e 5 stories por semana</span></div>
+            <div class="price-item"><span class="price-label">Tráfego pago inicial</span><span class="price-value">R$ 1.500,00</span><span class="price-detail">Verba mensal sugerida, a definir e separada do atendimento</span></div>
+          </div>
+          <p class="pricing-note">A verba de mídia é indispensável para ampliar alcance, acelerar testes e sustentar o volume de oportunidades. O valor será ajustado conforme objetivos, praça, campanhas e resultados, com investimento realizado nas plataformas de anúncios.</p>
+        </div>
+      </section>
+    </article>
+
+    <section class="closing">
+      <h2>Uma operação. Dois atendimentos. O mesmo objetivo: vender.</h2>
+      <p>O E-commerce oferece catálogo, preço, estoque, checkout e dados. O Social Media cria demanda, relacionamento e tráfego qualificado. Separados, cada frente perde potência; integrados, formam um ciclo contínuo de conteúdo, compra, aprendizado e crescimento.</p>
+    </section>
+  </main>
+
+  <footer>
+    Proposta preparada para <strong>Vandana Moto Peças</strong> • Erechim/RS • Agosto de 2026<br>
+    Desenvolvimento e estratégia digital: Delumo
+  </footer>
+
+  <script>
+    (() => {
+      const views = [...document.querySelectorAll('.proposal-view')];
+      const links = [...document.querySelectorAll('[data-target]')];
+      const aliases = { 'social': 'social-media', 'socialmedia': 'social-media' };
+
+      function activate(rawId, scroll = false) {
+        let id = (rawId || 'ecommerce').replace('#', '').toLowerCase();
+        id = aliases[id] || id;
+        if (!views.some(view => view.id === id)) id = 'ecommerce';
+        views.forEach(view => view.classList.toggle('active', view.id === id));
+        links.forEach(link => {
+          if (link.dataset.target === id) link.setAttribute('aria-current', 'page');
+          else link.removeAttribute('aria-current');
+        });
+        document.title = id === 'social-media'
+          ? 'Proposta Social Media | Vandana Moto Peças'
+          : 'Proposta E-commerce | Vandana Moto Peças';
+        if (scroll) document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      document.addEventListener('click', event => {
+        const link = event.target.closest('a[href^="#"]');
+        if (!link) return;
+        const target = link.getAttribute('href').slice(1);
+        if (!['ecommerce', 'social-media'].includes(target)) return;
+        event.preventDefault();
+        history.pushState(null, '', `#${target}`);
+        activate(target, true);
+      });
+      window.addEventListener('popstate', () => activate(location.hash));
+      activate(location.hash);
+    })();
+  </script>
+</body>
+</html>
