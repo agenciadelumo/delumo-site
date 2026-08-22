@@ -48,9 +48,9 @@
       width: min(1180px, calc(100% - 32px));
       min-height: 78px;
       margin: 0 auto;
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      justify-content: space-between;
       gap: 24px;
     }
     .mini-brand {
@@ -64,6 +64,7 @@
       letter-spacing: .12em;
       text-transform: uppercase;
       white-space: nowrap;
+      justify-self: start;
     }
     .mini-brand::before {
       content: "";
@@ -75,12 +76,15 @@
     }
     .proposal-nav {
       display: flex;
+      grid-column: 2;
+      justify-self: center;
       gap: 8px;
       padding: 7px;
       background: rgba(255,255,255,.06);
       border: 1px solid rgba(255,255,255,.08);
       border-radius: 999px;
     }
+    .nav-short { display: none; }
     .proposal-nav a {
       padding: 10px 17px;
       color: #cbd6e2;
@@ -247,6 +251,69 @@
     .card h3 { margin: 0 0 9px; font-size: 1.08rem; line-height: 1.25; }
     .card p { margin: 0; color: var(--muted); font-size: .94rem; }
     .card.dark p { color: #aebdcb; }
+    .diagnostic-card {
+      position: relative;
+      overflow: hidden;
+      padding-top: 72px;
+    }
+    .diagnostic-card::before {
+      content: attr(data-priority);
+      position: absolute;
+      top: 24px;
+      left: 26px;
+      padding: 6px 10px;
+      color: #9b3d00;
+      background: #fff0e5;
+      border-radius: 999px;
+      font-size: .68rem;
+      font-weight: 900;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+    .diagnostic-card.critical::before { color: white; background: #c83d1a; }
+    .diagnostic-card h3 { font-size: 1.18rem; }
+    .diagnostic-card strong { color: var(--ink); }
+    .diagnostic-card .evidence { display: block; margin-top: 15px; color: #168bbd; font-size: .8rem; font-weight: 850; }
+    .price-comparison {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .price-point { padding: 14px; background: #f2f6f9; border-radius: 14px; }
+    .price-point.alert { background: #fff0e5; }
+    .price-point span { display: block; color: var(--muted); font-size: .7rem; font-weight: 850; letter-spacing: .07em; text-transform: uppercase; }
+    .price-point strong { display: block; margin-top: 4px; font-size: 1.14rem; }
+    .focus-box {
+      position: relative;
+      padding: 44px;
+      color: white;
+      background:
+        radial-gradient(circle at 94% 10%, rgba(255,122,26,.32), transparent 28%),
+        linear-gradient(135deg, #07111f, #123a57);
+      border-radius: 28px;
+      box-shadow: 0 26px 70px rgba(7,17,31,.2);
+      overflow: hidden;
+    }
+    .focus-box .section-kicker { color: var(--orange); }
+    .focus-box .section-title { max-width: 920px; }
+    .focus-box > p { max-width: 900px; margin: 0; color: #c4d0dc; }
+    .focus-actions { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 30px; }
+    .focus-action { padding: 18px; background: rgba(255,255,255,.075); border: 1px solid rgba(255,255,255,.09); border-radius: 16px; }
+    .focus-action strong { display: block; margin-bottom: 5px; color: white; font-size: .92rem; }
+    .focus-action span { color: #aebdca; font-size: .81rem; }
+    .solution-panel {
+      padding: 34px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: 0 14px 42px rgba(7,17,31,.07);
+    }
+    .solution-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 28px; list-style: none; margin: 0; padding: 0; }
+    .solution-list li { position: relative; padding: 17px 0 17px 30px; border-bottom: 1px solid var(--line); color: #445668; }
+    .solution-list li::before { content: "✓"; position: absolute; left: 0; color: var(--blue); font-weight: 900; }
+    .solution-list strong { color: var(--ink); }
+    .results-note { margin-top: 22px; padding: 20px 22px; color: #4a5f70; background: #edf7fb; border: 1px solid #cce8f4; border-radius: 16px; font-size: .91rem; }
     .number {
       display: inline-flex;
       width: 40px;
@@ -402,21 +469,26 @@
     footer strong { color: var(--ink); }
 
     @media (max-width: 920px) {
+      .topbar-inner { min-height: auto; padding: 10px 0; display: flex; align-items: stretch; flex-direction: column; gap: 9px; }
+      .mini-brand { justify-content: center; }
+      .proposal-nav { width: 100%; }
+      .proposal-nav a { flex: 1; text-align: center; }
       .hero-inner, .admin-showcase, .closing { grid-template-columns: 1fr; }
       .hero-inner { gap: 42px; }
       .logo-stage { max-width: 570px; }
       .grid.four { grid-template-columns: 1fr 1fr; }
       .grid.three, .price-grid { grid-template-columns: 1fr; }
       .method { grid-template-columns: 1fr 1fr; }
+      .focus-actions { grid-template-columns: 1fr 1fr; }
       .pricing-head { align-items: start; flex-direction: column; }
       .pricing-head p { text-align: left; }
     }
     @media (max-width: 680px) {
       .proposal-view { scroll-margin-top: 126px; }
-      .topbar-inner { min-height: auto; padding: 10px 0; align-items: stretch; flex-direction: column; gap: 9px; }
-      .mini-brand { justify-content: center; }
-      .proposal-nav { width: 100%; }
-      .proposal-nav a { flex: 1; padding: 9px 7px; text-align: center; font-size: .78rem; }
+      .proposal-nav { gap: 4px; padding: 5px; }
+      .proposal-nav a { flex: 1; padding: 9px 4px; text-align: center; font-size: .73rem; }
+      .nav-full { display: none; }
+      .nav-short { display: inline; }
       .hero-inner { min-height: 0; padding: 62px 0 92px; }
       .hero h1 { font-size: clamp(2.55rem, 14vw, 4rem); }
       .hero-actions { flex-direction: column; }
@@ -424,8 +496,9 @@
       .logo-stage { padding: 22px; }
       .integration-strip { grid-template-columns: 1fr; margin-top: -34px; }
       .flow-arrow { transform: rotate(90deg); justify-self: center; }
-      .grid.two, .grid.four, .method { grid-template-columns: 1fr; }
-      .card, .pricing, .differential, .closing, .admin-showcase { padding: 24px; }
+      .grid.two, .grid.four, .method, .focus-actions, .solution-list, .price-comparison { grid-template-columns: 1fr; }
+      .card, .pricing, .differential, .closing, .admin-showcase, .focus-box, .solution-panel { padding: 24px; }
+      .diagnostic-card { padding-top: 68px; }
       .admin-image-wrap { min-height: 380px; padding: 14px; }
       .admin-image-wrap img { height: 440px; max-height: 62vh; }
       .admin-tags { grid-template-columns: 1fr; }
@@ -449,8 +522,9 @@
     <div class="topbar-inner">
       <a class="mini-brand" href="#ecommerce">Vandana Moto Peças</a>
       <nav class="proposal-nav" aria-label="Menu da proposta">
-        <a href="#ecommerce" data-target="ecommerce">Proposta E-commerce</a>
-        <a href="#social-media" data-target="social-media">Proposta Social Media</a>
+        <a href="#ecommerce" data-target="ecommerce"><span class="nav-full">Proposta E-commerce</span><span class="nav-short">E-commerce</span></a>
+        <a href="#diagnostico" data-target="diagnostico">Diagnóstico</a>
+        <a href="#social-media" data-target="social-media"><span class="nav-full">Proposta Social Media</span><span class="nav-short">Social Media</span></a>
       </nav>
     </div>
   </header>
@@ -481,6 +555,76 @@
   </div>
 
   <main>
+    <article id="diagnostico" class="proposal-view" aria-labelledby="diagnostico-title">
+      <section class="section">
+        <div class="section-head">
+          <p class="section-kicker">Diagnóstico • situação atual</p>
+          <h2 class="section-title" id="diagnostico-title">Gargalos que reduzem descoberta, confiança e conversão.</h2>
+          <p class="section-lead">A análise do site atual identificou problemas técnicos, comerciais e de organização do catálogo que podem limitar o alcance no Google e diminuir a eficiência das campanhas de venda.</p>
+        </div>
+        <div class="grid two">
+          <div class="card diagnostic-card critical" data-priority="Crítico">
+            <h3>Sitemap com falha</h3>
+            <p>O sitemap principal retorna erro interno. Sem um mapa confiável, o Google pode demorar mais para descobrir, atualizar ou remover produtos dos resultados de busca.</p>
+            <span class="evidence">Evidência: /sitemap.xml retorna erro HTTP 500</span>
+          </div>
+          <div class="card diagnostic-card" data-priority="Alta prioridade">
+            <h3>Estrutura de categorias desorganizada</h3>
+            <p>O menu reúne cerca de <strong>470 categorias</strong>, com duplicidades como “Fita” e “Vareta de Embreagem”. A ausência de uma hierarquia clara dificulta a navegação e dilui a relevância das páginas para o Google Search.</p>
+            <span class="evidence">Impacto: menor clareza para clientes e mecanismos de busca</span>
+          </div>
+          <div class="card diagnostic-card" data-priority="Alta prioridade">
+            <h3>Categorias fracas ou inconsistentes</h3>
+            <p>A página da categoria “Pneus” exibe somente <strong>1 produto</strong>, embora o catálogo possua outros pneus. Páginas com pouca oferta transmitem uma percepção de loja incompleta e reduzem as oportunidades de navegação e compra.</p>
+            <span class="evidence">Impacto: baixa confiança e menor potencial orgânico</span>
+          </div>
+          <div class="card diagnostic-card" data-priority="Revisão comercial">
+            <h3>Preço e disponibilidade pouco competitivos</h3>
+            <p>O Pneu Borilli B007 100/90-17 aparece por <strong>R$ 533,50 no Pix</strong> e está marcado tecnicamente como indisponível. Em referências concorrentes, o mesmo modelo aparece aproximadamente entre <strong>R$ 379,90 e R$ 480,86</strong>. Outros destaques da página inicial também precisam de comparação comercial.</p>
+            <div class="price-comparison">
+              <div class="price-point alert"><span>Vandana no Pix</span><strong>R$ 533,50</strong></div>
+              <div class="price-point"><span>Faixa observada</span><strong>R$ 379,90–480,86</strong></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="focus-box">
+          <p class="section-kicker">Direção recomendada</p>
+          <h2 class="section-title">Sair do posicionamento genérico e construir autoridade por categorias.</h2>
+          <p>O primeiro movimento deve concentrar esforço nas linhas com demanda, estoque, margem e capacidade de entrega. Antes de ampliar mídia e catálogo, a Vandana precisa garantir que seus produtos prioritários estejam competitivos e prontos para converter.</p>
+          <div class="focus-actions">
+            <div class="focus-action"><strong>Definir categorias prioritárias</strong><span>Selecionar linhas com maior potencial de venda e reconhecimento.</span></div>
+            <div class="focus-action"><strong>Auditar os 100 mais procurados</strong><span>Revisar preço, estoque, frete e destaque comercial.</span></div>
+            <div class="focus-action"><strong>Completar o conteúdo</strong><span>Padronizar fotos, descrição, aplicação e especificações.</span></div>
+            <div class="focus-action"><strong>Escalar com dados</strong><span>Medir procura e vendas antes de ampliar o leque de produtos.</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <p class="section-kicker">Resposta proposta</p>
+          <h2 class="section-title">Uma base tecnológica preparada para vender e crescer.</h2>
+          <p class="section-lead">A nova plataforma em Next.js será rápida, escalável e estruturada segundo práticas de E-commerce de alta performance, corrigindo os principais gargalos identificados no diagnóstico.</p>
+        </div>
+        <div class="solution-panel">
+          <ul class="solution-list">
+            <li><strong>Categorias organizadas</strong> com hierarquia clara e escalável.</li>
+            <li><strong>Busca orientada ao setor</strong> por produto, motocicleta, modelo, ano e medida.</li>
+            <li><strong>SEO técnico automatizado</strong> com páginas otimizadas, sitemap e dados estruturados.</li>
+            <li><strong>Experiência mobile rápida</strong> com imagens otimizadas e melhor desempenho.</li>
+            <li><strong>Operação integrada</strong> ao ERP, estoque, pagamentos, transportadoras e pedidos.</li>
+            <li><strong>Aquisição mensurável</strong> com Google Merchant Center e ferramentas de análise.</li>
+            <li><strong>Checkout simplificado</strong> para reduzir etapas e facilitar a conclusão da compra.</li>
+            <li><strong>Base para campanhas</strong> preparada para mídia, crescimento orgânico e conversão.</li>
+          </ul>
+          <div class="results-note"><strong>Tecnologia cria a base; competitividade gera resultado.</strong> O desempenho comercial também dependerá de preço, frete, disponibilidade, qualidade do cadastro, investimento em mídia e execução da estratégia de vendas.</div>
+        </div>
+      </section>
+    </article>
+
     <article id="ecommerce" class="proposal-view" aria-labelledby="ecommerce-title">
       <section class="section">
         <div class="section-head">
@@ -692,6 +836,11 @@
       const views = [...document.querySelectorAll('.proposal-view')];
       const links = [...document.querySelectorAll('[data-target]')];
       const aliases = { 'social': 'social-media', 'socialmedia': 'social-media' };
+      const viewTitles = {
+        ecommerce: 'Proposta E-commerce | Vandana Moto Peças',
+        diagnostico: 'Diagnóstico | Vandana Moto Peças',
+        'social-media': 'Proposta Social Media | Vandana Moto Peças'
+      };
 
       function activate(rawId, scroll = false) {
         let id = (rawId || 'ecommerce').replace('#', '').toLowerCase();
@@ -702,9 +851,7 @@
           if (link.dataset.target === id) link.setAttribute('aria-current', 'page');
           else link.removeAttribute('aria-current');
         });
-        document.title = id === 'social-media'
-          ? 'Proposta Social Media | Vandana Moto Peças'
-          : 'Proposta E-commerce | Vandana Moto Peças';
+        document.title = viewTitles[id];
         if (scroll) document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
 
@@ -712,7 +859,7 @@
         const link = event.target.closest('a[href^="#"]');
         if (!link) return;
         const target = link.getAttribute('href').slice(1);
-        if (!['ecommerce', 'social-media'].includes(target)) return;
+        if (!['ecommerce', 'diagnostico', 'social-media'].includes(target)) return;
         event.preventDefault();
         history.pushState(null, '', `#${target}`);
         activate(target, true);
