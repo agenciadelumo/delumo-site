@@ -296,12 +296,26 @@
 
     .module-card {
       position: relative;
+      width: 100%;
       min-height: 178px;
       padding: 27px 27px 25px 92px;
       overflow: hidden;
       border: 1px solid var(--line);
       border-radius: 22px;
       background: var(--paper-2);
+      color: var(--ink);
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+      transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+    }
+
+    .module-card:hover,
+    .module-card:focus-visible {
+      transform: translateY(-3px);
+      border-color: rgba(3,148,71,.42);
+      box-shadow: 0 18px 42px rgba(7,37,27,.12);
+      outline: none;
     }
 
     .module-card::after {
@@ -331,7 +345,124 @@
 
     .module-card h3 { max-width: 470px; margin-bottom: 10px; font-size: 19px; line-height: 1.2; }
     .module-card p { position: relative; z-index: 1; margin: 0; color: var(--muted); font-size: 14px; }
-    .module-card:last-child { grid-column: 1 / -1; }
+    .module-link {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      margin-top: 18px;
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 950;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    body.modal-open { overflow: hidden; }
+    .module-modal[hidden] { display: none; }
+    .module-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+    .module-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(2,20,14,.78);
+      backdrop-filter: blur(7px);
+    }
+    .module-modal-panel {
+      position: relative;
+      width: min(980px, 100%);
+      max-height: min(880px, calc(100vh - 48px));
+      overflow: hidden;
+      border: 1px solid rgba(184,255,23,.32);
+      border-radius: 26px;
+      background: var(--paper-2);
+      box-shadow: 0 35px 100px rgba(0,0,0,.38);
+    }
+    .module-modal-header {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      padding: 28px 74px 24px 32px;
+      color: white;
+      background: var(--ink);
+    }
+    .module-modal-header span {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--acid);
+      font-size: 11px;
+      font-weight: 950;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .module-modal-header h2 { margin: 0; font-size: clamp(24px, 3.2vw, 38px); line-height: 1.05; }
+    .module-modal-close {
+      position: absolute;
+      top: 22px;
+      right: 22px;
+      z-index: 3;
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 50%;
+      background: rgba(255,255,255,.08);
+      color: white;
+      font-size: 25px;
+      cursor: pointer;
+    }
+    .module-modal-close:hover,
+    .module-modal-close:focus-visible { border-color: var(--acid); outline: none; }
+    .module-modal-content {
+      max-height: calc(min(880px, 100vh - 48px) - 120px);
+      overflow-y: auto;
+      padding: 32px;
+      overscroll-behavior: contain;
+    }
+    .module-modal-content h3 { margin: 34px 0 12px; color: var(--green); font-size: 24px; }
+    .module-modal-content h3:first-child { margin-top: 0; }
+    .module-modal-content h4 { margin: 28px 0 10px; font-size: 19px; }
+    .module-modal-content h5 { margin: 22px 0 8px; font-size: 16px; }
+    .module-modal-content p { margin: 0 0 14px; color: #3e5049; line-height: 1.68; }
+    .module-modal-content .detail-line {
+      position: relative;
+      padding-left: 18px;
+    }
+    .module-modal-content .detail-line::before {
+      content: "";
+      position: absolute;
+      top: .68em;
+      left: 0;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+    .detail-table-wrap {
+      margin: 20px 0 26px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+    }
+    .module-modal-content table { width: 100%; border-collapse: collapse; min-width: 560px; }
+    .module-modal-content td {
+      padding: 12px 14px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      color: #33473f;
+      font-size: 13px;
+      line-height: 1.45;
+      vertical-align: top;
+    }
+    .module-modal-content tr:first-child td { background: #eaf5ef; color: var(--ink); font-weight: 850; }
+    .module-modal-content td:last-child { border-right: 0; }
+    .module-modal-content tr:last-child td { border-bottom: 0; }
 
     .visual-section { padding: 0; background: var(--paper-2); }
     .visual-grid { display: grid; grid-template-columns: .92fr 1.08fr; min-height: 720px; }
@@ -540,7 +671,11 @@
       section { padding: 64px 0; }
       .track-grid, .modules-grid, .scope-grid, .signature-grid { grid-template-columns: 1fr; }
       .module-card { padding-left: 82px; }
-      .module-card:last-child { grid-column: auto; }
+      .module-modal { padding: 10px; }
+      .module-modal-panel { max-height: calc(100vh - 20px); border-radius: 20px; }
+      .module-modal-header { padding: 24px 62px 20px 20px; }
+      .module-modal-close { top: 16px; right: 14px; }
+      .module-modal-content { max-height: calc(100vh - 116px); padding: 22px 18px 28px; }
       .visual-media { min-height: 520px; }
       .commercial-grid { gap: 22px; }
       .footer-inner { align-items: flex-start; flex-direction: column; }
@@ -566,6 +701,7 @@
       * { print-color-adjust: exact !important; -webkit-print-color-adjust: exact !important; }
       body { background: white; }
       .print-button { display: none !important; }
+      .module-modal { display: none !important; }
       .topbar { position: absolute; }
       .hero { min-height: 255mm; break-after: page; }
       .hero-stats { margin-bottom: 0; }
@@ -651,19 +787,20 @@
         <div class="wrap">
           <p class="section-kicker">Conteúdo</p>
           <h2 class="section-title">Os 11 módulos incluídos.</h2>
-          <p class="section-intro">Cada módulo terá identidade própria e integração visual com a trilha completa.</p>
+          <p class="section-intro">Cada módulo terá identidade própria e integração visual com a trilha completa. Clique em qualquer box para consultar o conteúdo detalhado.</p>
           <div class="modules-grid">
-            <article class="module-card"><span class="module-num">01</span><h3>Como identificar a data de fabricação da bateria</h3><p>Leitura do código, data, serial e fundamentos de rastreabilidade do produto.</p></article>
-            <article class="module-card"><span class="module-num">02</span><h3>Armazenamento do produto</h3><p>Condições ideais, organização, empilhamento, ventilação, segurança e inspeção.</p></article>
-            <article class="module-card"><span class="module-num">03</span><h3>Autodescarga, sulfatação e a importância do FIFO</h3><p>Processos químicos, riscos do tempo em estoque e aplicação técnica do FIFO.</p></article>
-            <article class="module-card"><span class="module-num">04</span><h3>Acompanhamento da voltagem das baterias no estoque</h3><p>Medição, registro e decisão de recarga conforme a linha do produto.</p></article>
-            <article class="module-card"><span class="module-num">05</span><h3>Pré-testes nas baterias antes de instalar o produto</h3><p>Inspeções e testes necessários para uma instalação segura e confiável.</p></article>
-            <article class="module-card"><span class="module-num">06</span><h3>Instalação da bateria e ensaios pós-instalação</h3><p>Instalação correta e validação do sistema elétrico e de partida do veículo.</p></article>
-            <article class="module-card"><span class="module-num">07</span><h3>Como realizar a recarga de uma bateria</h3><p>Preparação, parâmetros de carga, segurança e cuidados após a recarga.</p></article>
-            <article class="module-card"><span class="module-num">08</span><h3>Dicas para aumentar a performance da bateria</h3><p>Boas práticas de uso e manutenção para preservar desempenho e durabilidade.</p></article>
-            <article class="module-card"><span class="module-num">09</span><h3>Analisando a procedência de uma garantia — linha motociclística</h3><p>Inspeção visual, medições, testes e critérios de procedência.</p></article>
-            <article class="module-card"><span class="module-num">10</span><h3>Analisando a procedência de uma garantia — linha automotiva</h3><p>Fluxo técnico de análise, faixas de tensão e interpretação dos resultados.</p></article>
-            <article class="module-card"><span class="module-num">11</span><h3>Como fazer a solicitação de garantia de um produto</h3><p>Documentação, conferência, envio e acompanhamento do processo de garantia.</p></article>
+            <button class="module-card" type="button" data-module-detail="intro" aria-haspopup="dialog"><span class="module-num">IN</span><h3>Introdução</h3><p>Objetivo, especificações do treinamento, mapa dos módulos e abertura do curso.</p><span class="module-link">Ver conteúdo completo →</span></button>
+            <button class="module-card" type="button" data-module-detail="module-1" aria-haspopup="dialog"><span class="module-num">01</span><h3>Módulo 1: Como identificar a data de fabricação da bateria</h3><p>Leitura do código, data, serial e fundamentos de rastreabilidade do produto.</p><span class="module-link">Ver conteúdo completo →</span></button>
+            <button class="module-card" type="button" data-module-detail="module-2" aria-haspopup="dialog"><span class="module-num">02</span><h3>Módulo 2: Armazenamento do produto</h3><p>Condições ideais, organização, empilhamento, ventilação, segurança e inspeção.</p><span class="module-link">Ver conteúdo completo →</span></button>
+            <button class="module-card" type="button" data-module-detail="module-3" aria-haspopup="dialog"><span class="module-num">03</span><h3>Módulo 3: Autodescarga, sulfatação e a importância do FIFO</h3><p>Processos químicos, riscos do tempo em estoque e aplicação técnica do FIFO.</p><span class="module-link">Ver conteúdo completo →</span></button>
+            <button class="module-card" type="button" data-module-detail="module-4" aria-haspopup="dialog"><span class="module-num">04</span><h3>Módulo 4: Acompanhamento da voltagem das baterias no estoque</h3><p>Medição, registro e decisão de recarga conforme a linha do produto.</p><span class="module-link">Ver conteúdo completo →</span></button>
+            <button class="module-card" type="button" data-module-detail="module-5" aria-haspopup="dialog"><span class="module-num">05</span><h3>Módulo 5: Pré-testes nas baterias antes de instalar o produto</h3><p>Inspeções e testes necessários para uma instalação segura e confiável.</p><span class="module-link">Ver conteúdo completo →</span></button>
+            <button class="module-card" type="button" data-module-detail="module-6" aria-haspopup="dialog"><span class="module-num">06</span><h3>Módulo 6: Instalação da bateria e ensaios pós-instalação</h3><p>Instalação correta e validação do sistema elétrico e de partida do veículo.</p><span class="module-link">Ver conteúdo completo →</span></button>
+            <button class="module-card" type="button" data-module-detail="module-7" aria-haspopup="dialog"><span class="module-num">07</span><h3>Módulo 7: Como realizar a recarga de uma bateria</h3><p>Preparação, parâmetros de carga, segurança e cuidados após a recarga.</p><span class="module-link">Ver conteúdo completo →</span></button>
+            <button class="module-card" type="button" data-module-detail="module-8" aria-haspopup="dialog"><span class="module-num">08</span><h3>Módulo 8: Dicas para aumentar a performance da bateria</h3><p>Boas práticas de uso e manutenção para preservar desempenho e durabilidade.</p><span class="module-link">Ver conteúdo completo →</span></button>
+            <button class="module-card" type="button" data-module-detail="module-9" aria-haspopup="dialog"><span class="module-num">09</span><h3>Módulo 9: Analisando a procedência de uma garantia — linha motociclística</h3><p>Inspeção visual, medições, testes e critérios de procedência.</p><span class="module-link">Ver conteúdo completo →</span></button>
+            <button class="module-card" type="button" data-module-detail="module-10" aria-haspopup="dialog"><span class="module-num">10</span><h3>Módulo 10: Analisando a procedência de uma garantia — linha automotiva</h3><p>Fluxo técnico de análise, faixas de tensão e interpretação dos resultados.</p><span class="module-link">Ver conteúdo completo →</span></button>
+            <button class="module-card" type="button" data-module-detail="module-11" aria-haspopup="dialog"><span class="module-num">11</span><h3>Módulo 11: Como fazer a solicitação de garantia de um produto</h3><p>Documentação, conferência, envio e acompanhamento do processo de garantia.</p><span class="module-link">Ver conteúdo completo →</span></button>
           </div>
         </div>
       </section>
@@ -766,6 +903,602 @@
     </footer>
   </div>
 
+  <div class="module-modal" id="module-modal" hidden>
+    <div class="module-modal-backdrop" data-modal-close></div>
+    <section class="module-modal-panel" role="dialog" aria-modal="true" aria-labelledby="module-modal-title">
+      <button class="module-modal-close" type="button" data-modal-close aria-label="Fechar conteúdo">×</button>
+      <header class="module-modal-header">
+        <span>Conteúdo do treinamento</span>
+        <h2 id="module-modal-title"></h2>
+      </header>
+      <div class="module-modal-content" id="module-modal-content"></div>
+    </section>
+  </div>
+
+  <template id="detail-intro" data-title="Introdução do Treinamento">
+<div class="detail-table-wrap"><table><tr><td>Ficha do treinamento</td></tr><tr><td>Campo</td><td>Definição</td></tr><tr><td>Treinamento</td><td>Curso técnico completo sobre baterias chumbo-ácido: identificação da data de fabricação, armazenamento, FIFO, acompanhamento de voltagem, pré-testes, instalação e ensaios pós-instalação, recarga, performance e todo o processo de garantia.</td></tr><tr><td>Público</td><td>Equipes de loja, estoque, assistência técnica, instaladores, atendimento e responsáveis pelo processo de garantia.</td></tr><tr><td>Estrutura</td><td>11 módulos independentes, correspondentes às Comunicações Internas 1 a 11, apresentados em sequência dentro de um único vídeo.</td></tr><tr><td>Duração total aproximada</td><td>Cerca de 60 a 65 minutos, distribuída em 11 módulos contínuos mais abertura e encerramento (≈ 55 minutos de locução).</td></tr><tr><td>Formato de entrega</td><td>1 (um) único arquivo com todo o conteúdo, com os 11 módulos claramente separados por Title Cards numerados — permitindo tanto a exibição contínua quanto a exportação de cada módulo como vídeo individual (2 a 6 minutos cada).</td></tr><tr><td>Ferramenta de produção</td><td>Avatar IV, com motion graphics e animações simulando os procedimentos técnicos.</td></tr><tr><td>Estilo visual</td><td>Avatar narrador + motion graphics 2D simulando as cenas reais: leitura do código de fabricação, estoque e empilhamento, medição com multímetro, teste de estanqueidade, instalação no veículo, recarga e análise de garantia.</td></tr><tr><td>Base de conteúdo</td><td>Comunicações Internas 1 a 11 (conteúdo técnico ERBS), preservadas na íntegra e expandidas didaticamente, sem alteração dos parâmetros técnicos.</td></tr><tr><td>Referências normativas</td><td>Portaria Inmetro nº 299/2012 (atualizada pela Portaria nº 145/2022) e normas ABNT NBR 15745, 15914, 15916, 15940 e 15941. Descarte conforme Resolução CONAMA nº 401/2008.</td></tr><tr><td>Observação</td><td>Prazos de garantia, modelos e parâmetros devem ser confirmados no certificado que acompanha o produto e na política comercial vigente antes da gravação.</td></tr></table></div>
+<h3>Objetivo do treinamento</h3>
+<p>Formar profissionais capazes de dominar todo o ciclo de vida da bateria chumbo-ácido dentro da operação: identificar corretamente a data de fabricação e o serial, armazenar o produto em condições ideais, aplicar o FIFO como controle técnico, acompanhar a voltagem do estoque, executar os pré-testes antes da instalação, instalar a bateria e validar o sistema elétrico do veículo, realizar a recarga com os parâmetros corretos, orientar o cliente sobre performance e conduzir com precisão a análise e a solicitação de garantia.</p>
+<p>Este curso transforma as Comunicações Internas 1 a 11 em um treinamento profissionalizante. Todo o conteúdo técnico original foi preservado — tensões, prazos, procedimentos e critérios — e ampliado com explicações do porquê de cada parâmetro, exemplos práticos do dia a dia, erros comuns a evitar e animações que simulam cada procedimento. O objetivo é que, ao final, o colaborador não apenas saiba o que fazer, mas entenda a razão técnica por trás de cada decisão.</p>
+<h3>Especificações técnicas do padrão</h3>
+<div class="detail-table-wrap"><table><tr><td>Item</td><td>Padrão obrigatório</td></tr><tr><td>Vídeo</td><td>Produzir 1 único vídeo contínuo com os 11 módulos em sequência. Os módulos são separados por Title Cards numerados, permitindo recorte posterior por tema.</td></tr><tr><td>Avatar</td><td>Modelo escolhido pelo usuário, gerado no recurso Avatar IV, em tom técnico-didático, de instrutor especialista.</td></tr><tr><td>Motion graphics</td><td>Animações 2D simulando os procedimentos: leitura do código de fabricação, organização do estoque, medição com multímetro, teste de inclinação a 45°, instalação no veículo, recarga e inspeção de garantia.</td></tr><tr><td>Layout da tela</td><td>1920 x 1080, com avatar em 40% à esquerda e conteúdo/animações em 60% à direita.</td></tr><tr><td>Barra de progresso</td><td>Topo direito, dentro da área de conteúdo, sempre indicando o módulo atual de 11.</td></tr><tr><td>Editabilidade</td><td>Todos os textos, tabelas e valores de tensão devem ser camadas editáveis. Não rasterizar textos no background.</td></tr><tr><td>Dados técnicos na tela</td><td>Todos os valores de tensão, corrente e prazos devem aparecer em destaque numérico na tela enquanto são narrados, reforçando a memorização.</td></tr><tr><td>Marca</td><td>Inserir vinheta e logo na abertura e no encerramento. Exibir o contato do setor técnico e do setor de garantia na tela final.</td></tr></table></div>
+<h4>Paleta e tipografia</h4>
+<div class="detail-table-wrap"><table><tr><td>Uso</td><td>Código / Fonte</td><td>Aplicação</td></tr><tr><td>Estrutura</td><td>#174580 (azul)</td><td>Barras dos blocos, Title Cards e cabeçalhos de tabela.</td></tr><tr><td>Aprovado / correto</td><td>Verde #1F8A3B</td><td>Procedimentos corretos, critérios de aprovação, faixas adequadas.</td></tr><tr><td>Atenção</td><td>Amarelo #E6A200</td><td>Pontos de atenção, faixas de alerta e recomendações.</td></tr><tr><td>Reprovado / risco</td><td>Vermelho #C0392B</td><td>Critérios de reprovação, improcedência de garantia e riscos técnicos.</td></tr><tr><td>Motion graphics</td><td>Roxo #5B2A86</td><td>Blocos de animação e simulação de cenas.</td></tr><tr><td>Títulos</td><td>Montserrat Bold</td><td>Title Cards e nomes de módulos.</td></tr><tr><td>Corpo</td><td>Open Sans Regular</td><td>Textos explicativos.</td></tr><tr><td>Dados técnicos</td><td>Open Sans SemiBold</td><td>Tabelas, tensões, correntes, prazos e códigos.</td></tr></table></div>
+<h3>Elementos visuais do roteiro</h3>
+<p>Cada elemento de tela é identificado por uma sigla entre colchetes e renderizado como uma barra colorida. As cenas de simulação aparecem como [MG] Motion Graphics (barra roxa). Depois dos blocos vem a locução do avatar.</p>
+<div class="detail-table-wrap"><table><tr><td>Sigla</td><td>Elemento</td><td>Uso</td></tr><tr><td>[TC]</td><td>Title Card</td><td>Abertura do módulo: número, título, faixa e duração.</td></tr><tr><td>[BP]</td><td>Barra de Progresso</td><td>Indicação do módulo atual (Módulo X de 11).</td></tr><tr><td>[MG]</td><td>Motion Graphics</td><td>Animação 2D simulando o procedimento técnico passo a passo.</td></tr><tr><td>[IG]</td><td>Infográfico</td><td>Conceitos visuais (reação química, sulfatação, ciclo do FIFO).</td></tr><tr><td>[CO]</td><td>Callout / Frase-chave</td><td>Regras de ouro e conceitos centrais.</td></tr><tr><td>[TB]</td><td>Tabela</td><td>Tensões, estados de carga, correntes de teste, prazos de garantia.</td></tr><tr><td>[DP]</td><td>Diagrama / Fluxo</td><td>Sequências passo a passo e árvores de decisão.</td></tr><tr><td>[GA]</td><td>Indicadores numéricos</td><td>Tensões, correntes, temperaturas e prazos em destaque.</td></tr><tr><td>[AS]</td><td>Alerta técnico</td><td>Riscos, reprovações e situações que geram improcedência.</td></tr><tr><td>[CK]</td><td>Checklist</td><td>Listas de verificação e boas práticas.</td></tr></table></div>
+<h3>Mapa dos módulos</h3>
+<div class="detail-table-wrap"><table><tr><td>Módulo</td><td>Tema (Comunicação Interna correspondente)</td></tr><tr><td>—</td><td>Abertura do curso</td></tr><tr><td>1</td><td>Como identificar a data de fabricação da bateria (CI 1)</td></tr><tr><td>2</td><td>Armazenamento do produto (CI 2)</td></tr><tr><td>3</td><td>Autodescarga, sulfatação e a importância do FIFO (CI 3)</td></tr><tr><td>4</td><td>Acompanhamento da voltagem das baterias no estoque (CI 4)</td></tr><tr><td>5</td><td>Pré-testes nas baterias antes de instalar (CI 5)</td></tr><tr><td>6</td><td>Instalação da bateria e ensaios pós-instalação (CI 6)</td></tr><tr><td>7</td><td>Como realizar a recarga de uma bateria (CI 7)</td></tr><tr><td>8</td><td>Dicas para aumentar a performance da bateria (CI 8)</td></tr><tr><td>9</td><td>Analisando a garantia — linha motociclística (CI 9)</td></tr><tr><td>10</td><td>Analisando a garantia — linha automotiva (CI 10)</td></tr><tr><td>11</td><td>Como abrir a solicitação de garantia (CI 11)</td></tr><tr><td>—</td><td>Encerramento</td></tr></table></div>
+<h3>Abertura do curso</h3>
+<div class="detail-table-wrap"><table><tr><td>[MG] Vinheta e abertura</td></tr></table></div>
+<p class="detail-line">Vinheta animada da marca.</p>
+<p class="detail-line">Animação de título: &quot;Curso Técnico de Baterias Chumbo-Ácido&quot; sobre uma linha do tempo que percorre: fábrica → estoque → balcão → veículo → garantia.</p>
+<p class="detail-line">Faixa inferior: azul #174580 com o texto &quot;11 módulos • do recebimento à garantia&quot;.</p>
+<p class="detail-line">Duração: 8 segundos.</p>
+<div class="detail-table-wrap"><table><tr><td>[DP] Os 11 módulos do curso</td></tr></table></div>
+<p>Exibir os 11 módulos como uma trilha visual, destacando os quatro blocos temáticos:</p>
+<p class="detail-line">Bloco 1 — Conhecendo e conservando o produto: módulos 1 a 4 (identificação, armazenamento, FIFO e voltagem). Ambiente de Logística (estoque)</p>
+<p class="detail-line">Bloco 2 — Entregando com qualidade: módulos 5 e 6 (pré-testes e instalação com ensaios). Oficina Moto</p>
+<p class="detail-line">Bloco 3 — Mantendo a performance: módulos 7 e 8 (recarga e boas práticas de vida útil). Oficina Auto</p>
+<p class="detail-line">Bloco 4 — Processo de garantia: módulos 9, 10 e 11 (análise motociclística, automotiva e abertura da solicitação). Ambiente Loja</p>
+<div class="detail-table-wrap"><table><tr><td>Locução do avatar:</td></tr></table></div>
+<p>Seja muito bem-vindo ao Curso Técnico de Baterias. Este treinamento foi construído para transformar você em uma referência técnica dentro da nossa operação, do momento em que a bateria chega ao estoque até o momento em que, se for necessário, você conduz uma solicitação de garantia com segurança.</p>
+<p>São onze módulos, organizados em quatro grandes blocos. No primeiro bloco, vamos conhecer e conservar o produto: como identificar a data de fabricação, como armazenar corretamente, por que o FIFO é um controle técnico e como acompanhar a voltagem do estoque. No segundo bloco, vamos aprender a entregar com qualidade: os pré-testes obrigatórios e a instalação com todos os ensaios do sistema elétrico. No terceiro bloco, vamos falar de performance: como recarregar corretamente e quais práticas aumentam a vida útil da bateria. E no quarto bloco, vamos dominar o processo de garantia, nas linhas motociclística e automotiva, até a abertura da solicitação.</p>
+<p>Uma orientação importante antes de começar: cada número que você vai ver aqui tem uma razão técnica por trás. Não são valores aleatórios. Quando eu disser que uma bateria automotiva precisa de doze vírgula vinte e cinco volts para ser instalada, você vai entender exatamente o que acontece dentro da bateria abaixo desse valor. É esse entendimento que separa quem apenas segue um procedimento de quem realmente domina o produto. Vamos ao módulo um.</p>
+</template>
+<template id="detail-module-1" data-title="Módulo 1: Como identificar a data de fabricação da bateria">
+<div class="detail-table-wrap"><table><tr><td>[TC] Title Card</td></tr></table></div>
+<p class="detail-line">Texto linha 1: &quot;Módulo 1&quot;.</p>
+<p class="detail-line">Texto linha 2: &quot;Como identificar a data de fabricação da bateria&quot;.</p>
+<p class="detail-line">Faixa inferior: azul #174580 com o texto &quot;Rastreabilidade começa aqui&quot;.</p>
+<p class="detail-line">Duração: 5 segundos.</p>
+<div class="detail-table-wrap"><table><tr><td>[BP] Barra de Progresso</td></tr></table></div>
+<p class="detail-line">Texto: &quot;Módulo 1 de 11 • Data de fabricação&quot;.</p>
+<div class="detail-table-wrap"><table><tr><td>[IG] A exigência legal</td></tr></table></div>
+<p class="detail-line">Desde 2012, o Inmetro exige que todas as baterias produzidas e comercializadas em território brasileiro possuam a data de fabricação gravada no corpo do produto ou impressa por meio de rótulos indeléveis.</p>
+<p class="detail-line">Exibir o selo do Inmetro e a referência: Portaria Inmetro nº 299/2012 (atualizada pela Portaria nº 145/2022).</p>
+<div class="detail-table-wrap"><table><tr><td>[TB] Os dois formatos de identificação</td></tr><tr><td>Formato</td><td>Exemplo</td><td>Como ler</td></tr><tr><td>Formato convencional: dia/mês/ano</td><td>15/04/2026</td><td>Leitura direta: 15 de abril de 2026.</td></tr><tr><td>Formato semana/ano</td><td>16/2026</td><td>16ª semana do ano de 2026.</td></tr><tr><td>[MG] Lendo o código ERBS na bateria</td></tr></table></div>
+<p>Animação: aproximar a câmera da tampa da bateria até o código alfanumérico, decompondo-o em partes coloridas com rótulos.</p>
+<p class="detail-line">A ERBS adota o sistema de identificação semana/ano, associado a um código alfanumérico gravado na bateria.</p>
+<p class="detail-line">O código permite identificar: mês de fabricação (representado por uma letra), semana de produção, ano de fabricação e o número serial da bateria, para fins de rastreabilidade.</p>
+<p class="detail-line">Exemplo destacado na tela — código E 17/26: mês de maio, na semana 17 do ano de 2026.</p>
+<div class="detail-table-wrap"><table><tr><td>[GA] Decompondo o código E 17/26</td></tr><tr><td>Elemento</td><td>Valor no exemplo</td><td>Significado</td></tr><tr><td>Letra</td><td>E</td><td>Mês de fabricação — a letra indica o mês (E = maio).</td></tr><tr><td>Primeiro número</td><td>17</td><td>Semana de produção — 17ª semana do ano.</td></tr><tr><td>Segundo número</td><td>26</td><td>Ano de fabricação — 2026.</td></tr><tr><td>Número serial</td><td>(gravado na tampa)</td><td>Identificação única do produto, para rastreabilidade.</td></tr><tr><td>[CO] Por que isso importa</td></tr><tr><td>A correta identificação do serial do produto, assim como da sua data de fabricação, é fundamental para: rastreabilidade do produto, controle de estoque (FIFO), gestão de garantia, análise de vida útil da bateria e controle de qualidade e processo produtivo.</td></tr><tr><td>[AS] Atenção na prática</td></tr><tr><td>O serial é o documento de identidade da bateria. Ele será exigido na análise de garantia e precisa coincidir com o certificado. Registre a data de fabricação já no recebimento — é ela que define a ordem do FIFO.</td></tr><tr><td>Locução do avatar:</td></tr></table></div>
+<p>Vamos começar pelo documento de identidade da bateria. Desde dois mil e doze, o Inmetro exige que todas as baterias produzidas e comercializadas em território brasileiro possuam a data de fabricação gravada no corpo do produto ou impressa por meio de rótulos indeléveis. Indelével significa que não pode apagar, não pode sair com o tempo, justamente para garantir a rastreabilidade ao longo de toda a vida do produto.</p>
+<p>Essa identificação pode ser apresentada em dois formatos. O primeiro é o formato convencional, dia, mês e ano, por exemplo, quinze de abril de dois mil e vinte e seis. Esse é o mais fácil de ler. O segundo é o formato semana e ano, por exemplo, dezesseis barra dois mil e vinte e seis, que significa a décima sexta semana do ano de dois mil e vinte e seis. Repare que esse formato exige que você saiba interpretar: não é o dia dezesseis, é a semana dezesseis.</p>
+<p>E é justamente esse segundo sistema que a ERBS adota: a identificação semana e ano, associada a um código alfanumérico gravado na bateria. Esse código permite identificar quatro informações: o mês de fabricação, representado por uma letra; a semana de produção; o ano de fabricação; e o número serial da bateria, para fins de rastreabilidade. Vamos a um exemplo prático, que você vai reencontrar nos módulos de garantia. O código E dezessete barra vinte e seis significa: mês de maio, na semana dezessete do ano de dois mil e vinte e seis. A letra E indica o mês, o dezessete indica a semana e o vinte e seis indica o ano.</p>
+<p>Agora, por que dedicamos um módulo inteiro a isso? Porque a correta identificação do serial e da data de fabricação é fundamental para cinco processos da nossa operação. Primeiro, a rastreabilidade do produto, que permite saber exatamente de onde aquela bateria veio. Segundo, o controle de estoque pelo método FIFO, que vamos estudar no módulo três. Terceiro, a gestão de garantia, porque é a data de fabricação que define se o produto está ou não dentro do prazo. Quarto, a análise de vida útil da bateria. E quinto, o controle de qualidade e do processo produtivo. Na prática, isso significa uma coisa simples: registre a data de fabricação já no recebimento do produto. É ela que vai organizar todo o resto do seu estoque.</p>
+</template>
+<template id="detail-module-2" data-title="Módulo 2: Armazenamento do produto">
+<div class="detail-table-wrap"><table><tr><td>[TC] Title Card</td></tr></table></div>
+<p class="detail-line">Texto linha 1: &quot;Módulo 2&quot;.</p>
+<p class="detail-line">Texto linha 2: &quot;Armazenamento de baterias chumbo-ácido&quot;.</p>
+<p class="detail-line">Faixa inferior: azul #174580 com o texto &quot;Vida útil, desempenho e segurança começam no estoque&quot;.</p>
+<p class="detail-line">Duração: 5 segundos.</p>
+<div class="detail-table-wrap"><table><tr><td>[BP] Barra de Progresso</td></tr></table></div>
+<p class="detail-line">Texto: &quot;Módulo 2 de 11 • Armazenamento&quot;.</p>
+<div class="detail-table-wrap"><table><tr><td>[CO] Por que este manual existe</td></tr><tr><td>O não cumprimento destas orientações pode resultar em perda de capacidade, redução da durabilidade e até danos irreversíveis ao produto.</td></tr><tr><td>[MG] O estoque ideal — tour animado</td></tr></table></div>
+<p>Animação: câmera percorre um estoque modelo, acendendo indicadores verdes nos pontos corretos (cobertura, ventilação, termômetro, paletes, sinalização) e vermelhos nos pontos a evitar (sol, forno, goteira, poeira).</p>
+<h4>Local de armazenamento</h4>
+<p class="detail-line">Armazenar as baterias em local coberto, seco e limpo.</p>
+<p class="detail-line">O ambiente deve ser bem arejado, com circulação de ar adequada.</p>
+<p class="detail-line">Evitar locais sujeitos a: umidade excessiva, poeira, vapores químicos, infiltrações ou goteiras.</p>
+<div class="detail-table-wrap"><table><tr><td>[GA] Controle de temperatura do ambiente</td></tr><tr><td>Parâmetro</td><td>Valor</td><td>Motivo técnico</td></tr><tr><td>Temperatura ideal de armazenamento</td><td>Entre 15 °C e 25 °C</td><td>Faixa em que a autodescarga se mantém baixa e controlada.</td></tr><tr><td>Limite máximo absoluto</td><td>Não ultrapassar 35 °C</td><td>Nesse patamar a autodescarga torna-se muito elevada.</td></tr><tr><td>Efeito do calor</td><td>Acelera a autodescarga</td><td>Temperaturas elevadas reduzem a vida útil da bateria.</td></tr></table></div>
+<p class="detail-line">Não armazenar próximo a fornos, motores, caldeiras ou sob incidência direta do sol.</p>
+<h4>Ventilação</h4>
+<p class="detail-line">O local deve possuir ventilação natural ou mecânica suficiente.</p>
+<p class="detail-line">A ventilação adequada auxilia no controle da temperatura e evita o acúmulo de gases (para baterias com acesso).</p>
+<h4>Posicionamento e empilhamento</h4>
+<p class="detail-line">Respeitar o limite máximo de empilhamento indicado na embalagem ou pelo fabricante (não ultrapassar 6 camadas de altura).</p>
+<p class="detail-line">Utilizar paletes em bom estado e adequados ao peso do produto.</p>
+<p class="detail-line">Nunca empilhar baterias sem embalagem ou diretamente umas sobre as outras (o produto pode sofrer avarias como risco ou danos).</p>
+<h4>Organização do estoque</h4>
+<p class="detail-line">Organizar o estoque seguindo o método FIFO (Primeiro que Entra, Primeiro que Sai).</p>
+<p class="detail-line">Identificar claramente datas de fabricação e recebimento.</p>
+<p class="detail-line">Evitar armazenamentos prolongados sem acompanhamento do estado de carga.</p>
+<div class="detail-table-wrap"><table><tr><td>[GA] Estado de carga e manutenção</td></tr><tr><td>Regra</td><td>Parâmetro</td></tr><tr><td>As baterias devem ser armazenadas totalmente carregadas.</td><td>100% de carga na entrada do estoque.</td></tr><tr><td>Tensão que exige recarga em carga lenta — baterias automotivas</td><td>12,25 V</td></tr><tr><td>Tensão que exige recarga em carga lenta — baterias motociclísticas</td><td>12,40 V</td></tr><tr><td>[AS] Alerta técnico</td></tr><tr><td>Nunca armazenar baterias descarregadas, pois isso pode causar sulfatação irreversível.</td></tr></table></div>
+<h4>Manuseio e proteção física</h4>
+<p class="detail-line">Evitar quedas, impactos ou vibrações excessivas.</p>
+<p class="detail-line">Não apoiar objetos ou cargas sobre as baterias.</p>
+<p class="detail-line">Utilizar equipamentos adequados para movimentação, como paleteiras e empilhadeiras.</p>
+<p class="detail-line">O manuseio deve ser feito por pessoas treinadas.</p>
+<h4>Segurança no armazenamento</h4>
+<p class="detail-line">É proibido fumar ou utilizar chamas abertas no local.</p>
+<p class="detail-line">Manter o ambiente sinalizado e com acesso controlado.</p>
+<p class="detail-line">Quando necessário, utilizar Equipamentos de Proteção Individual (EPIs) adequados.</p>
+<div class="detail-table-wrap"><table><tr><td>[CK] Inspeção periódica</td></tr></table></div>
+<p>Recomenda-se realizar inspeções regulares para verificar:</p>
+<p class="detail-line">Integridade das embalagens.</p>
+<p class="detail-line">Ausência de vazamentos.</p>
+<p class="detail-line">Condição dos terminais (sem oxidação ou danos).</p>
+<p class="detail-line">Caso seja identificada qualquer anomalia: suspender o uso e entrar em contato com o fabricante ou assistência técnica autorizada.</p>
+<div class="detail-table-wrap"><table><tr><td>Locução do avatar:</td></tr></table></div>
+<p>O módulo dois trata de um ponto que decide a qualidade do produto que chega ao cliente: o armazenamento. E quero começar com o alerta que abre o nosso manual: o não cumprimento destas orientações pode resultar em perda de capacidade, redução da durabilidade e até danos irreversíveis ao produto. Ou seja, uma bateria nova, perfeita de fábrica, pode ser inutilizada dentro do nosso próprio estoque se for guardada do jeito errado.</p>
+<p>Começando pelo local. As baterias devem ser armazenadas em local coberto, seco e limpo, num ambiente bem arejado, com circulação de ar adequada. E devemos evitar locais sujeitos a umidade excessiva, poeira, vapores químicos, infiltrações ou goteiras. Sobre a temperatura, guarde estes números: a temperatura ideal de armazenamento está entre quinze e vinte e cinco graus Celsius, e não devemos ultrapassar trinta e cinco graus em nenhuma condição, porque nesse patamar de temperatura a autodescarga torna-se muito elevada. Temperaturas elevadas aceleram a autodescarga e reduzem a vida útil da bateria. Por isso, não armazene próximo a fornos, motores, caldeiras ou sob incidência direta do sol. Já a ventilação, natural ou mecânica, cumpre duas funções: auxilia no controle da temperatura e evita o acúmulo de gases nas baterias com acesso.</p>
+<p>Sobre posicionamento e empilhamento, respeite o limite máximo indicado na embalagem ou pelo fabricante, não ultrapassando seis camadas de altura. Utilize paletes em bom estado e adequados ao peso do produto. E nunca empilhe baterias sem embalagem ou diretamente umas sobre as outras, porque o produto pode sofrer avarias, como riscos ou danos. Na organização, o estoque deve seguir o método FIFO, primeiro que entra, primeiro que sai, com as datas de fabricação e de recebimento claramente identificadas, evitando armazenamentos prolongados sem acompanhamento do estado de carga.</p>
+<p>Agora o ponto mais crítico: o estado de carga. As baterias devem ser armazenadas totalmente carregadas. E quando a voltagem estiver em doze vírgula vinte e cinco volts para baterias automotivas, ou doze vírgula quarenta volts para baterias motociclísticas, elas devem ser recarregadas em carga lenta. Nunca armazene baterias descarregadas, pois isso pode causar sulfatação irreversível. Guarde esses dois números, porque eles vão reaparecer em vários módulos deste curso.</p>
+<p>Para fechar, três blocos rápidos. No manuseio e proteção física: evite quedas, impactos ou vibrações excessivas, não apoie objetos ou cargas sobre as baterias, utilize equipamentos adequados de movimentação, como paleteiras e empilhadeiras, e lembre que o manuseio deve ser feito por pessoas treinadas. Na segurança: é proibido fumar ou utilizar chamas abertas no local, o ambiente deve ser sinalizado e com acesso controlado, e quando necessário devem ser utilizados os EPIs adequados. E na inspeção periódica, verifique regularmente a integridade das embalagens, a ausência de vazamentos e a condição dos terminais, sem oxidação ou danos. Caso seja identificada qualquer anomalia, suspenda o uso e entre em contato com o fabricante ou com a assistência técnica autorizada.</p>
+</template>
+<template id="detail-module-3" data-title="Módulo 3: Autodescarga, sulfatação e a importância do FIFO">
+<div class="detail-table-wrap"><table><tr><td>[TC] Title Card</td></tr></table></div>
+<p class="detail-line">Texto linha 1: &quot;Módulo 3&quot;.</p>
+<p class="detail-line">Texto linha 2: &quot;Autodescarga, sulfatação e a importância do FIFO&quot;.</p>
+<p class="detail-line">Faixa inferior: azul #174580 com o texto &quot;FIFO não é organização — é prevenção química&quot;.</p>
+<p class="detail-line">Duração: 5 segundos.</p>
+<div class="detail-table-wrap"><table><tr><td>[BP] Barra de Progresso</td></tr></table></div>
+<p class="detail-line">Texto: &quot;Módulo 3 de 11 • Autodescarga e FIFO&quot;.</p>
+<div class="detail-table-wrap"><table><tr><td>[MG] O que acontece dentro da bateria parada</td></tr></table></div>
+<p>Animação em corte de uma bateria VRLA mostrando, em câmera lenta, a formação dos cristais de sulfato sobre as placas ao longo do tempo — primeiro pequenos e reversíveis (azul), depois grandes e endurecidos (vermelho).</p>
+<h4>O processo de autodescarga em baterias VRLA</h4>
+<p>Assim como qualquer pilha ou bateria eletroquímica, as baterias chumbo-ácido com tecnologia VRLA estão sujeitas a um fenômeno natural chamado autodescarga, que é a perda gradual de carga elétrica ao longo do tempo, mesmo quando a bateria não está conectada a nenhum circuito ou em uso. Esse fenômeno ocorre devido a reações químicas internas serem muito instáveis, devido à composição dos materiais ativos presentes nas placas da bateria.</p>
+<h4>Por que a autodescarga ocorre?</h4>
+<p>Nas baterias chumbo-ácido, pequenas reações parasitas acontecem continuamente entre as placas de chumbo e o eletrólito (ácido sulfúrico).</p>
+<p>Essas reações levam à formação lenta de Sulfato de Chumbo (PbSO₄), que se acumula nas placas das baterias, bloqueando o material ativo e reduzindo a capacidade de carga e descarga. Durante o ciclo normal, o PbSO₄ é um subproduto temporário que se dissolve na recarga. No entanto, em baterias subcarregadas ou armazenadas por longo tempo, esses cristais crescem e endurecem, consequentemente ficam mais difíceis de serem dissolvidos e aderem permanentemente às placas, resultando na perda de carga ao longo do tempo — fenômeno que reduz a vida útil do produto e é denominado Sulfatação.</p>
+<div class="detail-table-wrap"><table><tr><td>[GA] Fatores que aceleram a autodescarga e a sulfatação</td></tr><tr><td>Fator</td><td>Observação</td></tr><tr><td>Temperatura elevada</td><td>Principal fator acelerador. Quanto maior a temperatura, mais intensas são as reações químicas internas.</td></tr><tr><td>Tempo prolongado em estoque</td><td>Quanto mais tempo parada, maior o impacto acumulado.</td></tr><tr><td>Condições inadequadas de armazenamento</td><td>Umidade, sol direto, falta de ventilação.</td></tr><tr><td>Estado de carga inicial baixo</td><td>Bateria que entra no estoque já sem carga plena degrada mais rápido.</td></tr><tr><td>[AS] Impactos no produto (se não houver controle adequado)</td></tr><tr><td></td></tr><tr><td>[CK] Como mitigar a autodescarga</td></tr></table></div>
+<p class="detail-line">Aplicar rigorosamente o sistema FIFO.</p>
+<p class="detail-line">Manter as baterias em temperatura controlada (≤ 32 °C).</p>
+<p class="detail-line">Realizar inspeções periódicas de tensão. Voltagem mínima das baterias em estoque: 12,40 V para motociclísticas e 12,25 V para automotivas.</p>
+<p class="detail-line">Recarregar baterias quando a voltagem do produto for inferior a 12,40 V (motociclísticas) ou 12,25 V (automotivas), em caso de armazenamento prolongado.</p>
+<p class="detail-line">Garantir condições ideais de armazenagem (local fresco, ventilado, isento de raios solares).</p>
+<h4>A importância do FIFO para reduzir a sulfatação</h4>
+<p>A aplicação do sistema FIFO (First In, First Out) não deve ser tratada apenas como uma recomendação operacional, mas sim como um controle técnico fundamental para preservar a integridade das baterias. Não é apenas uma boa prática: é uma medida crítica para evitar perda de produto.</p>
+<p>Em baterias chumbo-ácido, o tempo de armazenamento é um fator crítico. Quanto maior o período em estoque, maior será o impacto combinado da autodescarga e da sulfatação.</p>
+<div class="detail-table-wrap"><table><tr><td>[MG] O efeito dominó da falta de FIFO</td></tr></table></div>
+<p>Animação em cascata mostrando a sequência de degradação, cada etapa acendendo em vermelho progressivo:</p>
+<p class="detail-line">Baterias mais antigas permanecem armazenadas por longos períodos.</p>
+<p class="detail-line">Ocorre perda gradual de carga por autodescarga.</p>
+<p class="detail-line">A bateria entra em estado de baixa carga.</p>
+<p class="detail-line">Inicia-se a formação de cristais de sulfato de chumbo.</p>
+<p class="detail-line">Esses cristais se estabilizam e tornam-se irreversíveis.</p>
+<p class="detail-line">Resultado: perda permanente de capacidade e possível inutilização do produto.</p>
+<div class="detail-table-wrap"><table><tr><td>[CO] Por que o FIFO é decisivo</td></tr><tr><td>FIFO não é apenas organização — é prevenção ativa contra a degradação química.</td></tr><tr><td>Locução do avatar:</td></tr></table></div>
+<p>Neste módulo vamos entender o inimigo silencioso do nosso estoque. Assim como qualquer pilha ou bateria eletroquímica, as baterias chumbo-ácido com tecnologia VRLA estão sujeitas a um fenômeno natural chamado autodescarga, que é a perda gradual de carga elétrica ao longo do tempo, mesmo quando a bateria não está conectada a nenhum circuito ou em uso. Esse fenômeno ocorre porque as reações químicas internas são muito instáveis, devido à composição dos materiais ativos presentes nas placas da bateria.</p>
+<p>Mas por que a autodescarga ocorre? Nas baterias chumbo-ácido, pequenas reações parasitas acontecem continuamente entre as placas de chumbo e o eletrólito, que é o ácido sulfúrico. Essas reações levam à formação lenta de sulfato de chumbo, que se acumula nas placas, bloqueando o material ativo e reduzindo a capacidade de carga e descarga. Preste atenção nesta diferença, porque ela é o coração do assunto: durante o ciclo normal de uso, esse sulfato de chumbo é um subproduto temporário, que se dissolve na recarga. Só que, em baterias subcarregadas ou armazenadas por longo tempo, esses cristais crescem e endurecem. Ficam mais difíceis de serem dissolvidos e aderem permanentemente às placas, resultando na perda de carga ao longo do tempo. Esse fenômeno reduz a vida útil do produto e é denominado sulfatação.</p>
+<p>Quatro fatores aceleram esse processo. O principal é a temperatura elevada, porque quanto maior a temperatura, mais intensas são as reações químicas internas. Os outros três são: o tempo prolongado em estoque, as condições inadequadas de armazenamento e o estado de carga inicial baixo. E se não houver controle adequado, os impactos aparecem em cadeia: aumento da resistência interna, dificultando o carregamento e causando descargas rápidas; desgaste acelerado das placas, com menor vida útil e maior emissão de gases; baterias que chegam ao cliente com carga insuficiente; aumento de falhas prematuras; redução da vida útil percebida pelo consumidor; e crescimento de devoluções e reclamações.</p>
+<p>Como mitigar? Cinco ações. Primeira: aplicar rigorosamente o sistema FIFO. Segunda: manter as baterias em temperatura controlada, igual ou abaixo de trinta e dois graus. Terceira: realizar inspeções periódicas de tensão, lembrando que a voltagem mínima em estoque é de doze vírgula quarenta volts para motociclísticas e doze vírgula vinte e cinco volts para automotivas. Quarta: recarregar as baterias quando a voltagem estiver abaixo desses valores, em caso de armazenamento prolongado. E quinta: garantir condições ideais de armazenagem, em local fresco, ventilado e isento de raios solares.</p>
+<p>Agora, o ponto central deste módulo. A aplicação do sistema FIFO não deve ser tratada apenas como uma recomendação operacional, mas sim como um controle técnico fundamental para preservar a integridade das baterias. Ele não é apenas uma boa prática: é uma medida crítica para evitar perda de produto. Quando o FIFO não é aplicado, cria-se um cenário típico de risco, que funciona como um efeito dominó: as baterias mais antigas permanecem armazenadas por longos períodos; ocorre perda gradual de carga por autodescarga; a bateria entra em estado de baixa carga; inicia-se a formação de cristais de sulfato de chumbo; esses cristais se estabilizam e tornam-se irreversíveis; e o resultado é perda permanente de capacidade e possível inutilização do produto.</p>
+<p>Por que, então, o FIFO é decisivo? Porque ele atua diretamente na causa do problema, que é o tempo parado em estoque. Ao garantir que as baterias mais antigas sejam sempre priorizadas, reduz-se o tempo médio de armazenagem, diminui-se a exposição à autodescarga, minimiza-se a formação de sulfatação irreversível e preserva-se a condição original de fábrica. Em outras palavras, e quero que você leve esta frase deste curso: FIFO não é apenas organização — é prevenção ativa contra a degradação química.</p>
+</template>
+<template id="detail-module-4" data-title="Módulo 4: Acompanhamento da voltagem das baterias no estoque">
+<div class="detail-table-wrap"><table><tr><td>[TC] Title Card</td></tr></table></div>
+<p class="detail-line">Texto linha 1: &quot;Módulo 4&quot;.</p>
+<p class="detail-line">Texto linha 2: &quot;Acompanhamento da voltagem das baterias no estoque&quot;.</p>
+<p class="detail-line">Faixa inferior: azul #174580 com o texto &quot;Medir todo mês é preservar o produto&quot;.</p>
+<p class="detail-line">Duração: 5 segundos.</p>
+<div class="detail-table-wrap"><table><tr><td>[BP] Barra de Progresso</td></tr></table></div>
+<p class="detail-line">Texto: &quot;Módulo 4 de 11 • Voltagem no estoque&quot;.</p>
+<h4>Entendendo a importância do acompanhamento</h4>
+<p>As baterias chumbo-ácido, assim como qualquer pilha ou bateria eletroquímica, apresentam um processo natural de autodescarga, decorrente das reações químicas internas do próprio sistema. Em condições normais de armazenamento, uma bateria nova sai da fábrica com aproximadamente 100% de Estado de Carga (SOC – State of Charge) e pode atingir cerca de 50% de carga após aproximadamente seis meses sem utilização.</p>
+<div class="detail-table-wrap"><table><tr><td>[GA] A regra prática da temperatura</td></tr><tr><td>Para cada aumento de 10 °C na temperatura média de armazenamento, a taxa de autodescarga pode praticamente dobrar, reduzindo em até 50% o tempo de prateleira da bateria.</td></tr></table></div>
+<p>Esse período pode variar significativamente em função das condições de armazenamento, sendo a temperatura ambiente o principal fator de influência. Dessa forma, ambientes quentes aceleram consideravelmente a perda de carga e aumentam o risco de degradação prematura.</p>
+<div class="detail-table-wrap"><table><tr><td>[CO] A regra do módulo</td></tr><tr><td>É fundamental que todas as baterias armazenadas em estoque sejam submetidas a um monitoramento mensal da tensão em circuito aberto (OCV – Open Circuit Voltage). Essa medição permite identificar se a bateria ainda se encontra em condições adequadas de armazenamento ou se já necessita de recarga preventiva.</td></tr></table></div>
+<p>A manutenção do estado de carga em níveis adequados é essencial para evitar a formação de cristais grandes e estáveis de sulfato de chumbo (PbSO₄) nas placas. Quando a bateria permanece descarregada por períodos prolongados, esses cristais tornam-se eletricamente isolantes e de difícil reconversão durante a recarga, causando o fenômeno conhecido como sulfatação. A sulfatação reduz a capacidade da bateria, dificulta sua aceitação de carga, compromete o desempenho e pode, em casos severos, tornar o produto inutilizável.</p>
+<h4>Critério para recarga preventiva</h4>
+<p>Considera-se que o Estado de Carga mínimo recomendado para instalação de uma bateria em um veículo é de 50%. Abaixo desse nível, a bateria já se encontra em uma condição crítica para armazenamento e deve ser recarregada imediatamente.</p>
+<div class="detail-table-wrap"><table><tr><td>[TB] Tensão correspondente a ~50% de SOC</td></tr><tr><td>Tipo de bateria</td><td>Tensão mínima recomendada</td></tr><tr><td>Baterias automotivas</td><td>12,25 V</td></tr><tr><td>Baterias motocicletas</td><td>12,40 V</td></tr></table></div>
+<p>Sempre que, durante o acompanhamento mensal, a tensão medida estiver abaixo desses valores, a bateria deverá ser submetida a uma recarga completa, de acordo com os procedimentos e parâmetros recomendados pelo fabricante, de forma a restabelecer seu Estado de Carga para aproximadamente 100%.</p>
+<div class="detail-table-wrap"><table><tr><td>[MG] Medindo a tensão do jeito certo</td></tr></table></div>
+<p>Animação: colaborador com multímetro digital medindo uma bateria na prateleira; destacar as pontas nos polos corretos, o display marcando o valor e o preenchimento da planilha de controle logo em seguida.</p>
+<div class="detail-table-wrap"><table><tr><td>[CK] Boas práticas para medição da tensão</td></tr></table></div>
+<p class="detail-line">Utilizar um multímetro digital devidamente calibrado.</p>
+<p class="detail-line">Realizar a medição com a bateria em repouso, sem carga ou descarga recente.</p>
+<p class="detail-line">Manter os terminais limpos e livres de oxidação.</p>
+<p class="detail-line">Registrar os valores medidos e a data da inspeção em planilha ou sistema de controle.</p>
+<p class="detail-line">Priorizar a recarga das baterias com menor tensão.</p>
+<p class="detail-line">Adotar o sistema FIFO (First In, First Out), utilizando primeiro as baterias com maior tempo de armazenamento.</p>
+<div class="detail-table-wrap"><table><tr><td>[CK] Recomendações adicionais de armazenamento</td></tr></table></div>
+<p class="detail-line">Armazenar as baterias em local seco, limpo e bem ventilado.</p>
+<p class="detail-line">Evitar exposição direta ao sol.</p>
+<p class="detail-line">Manter a temperatura preferencialmente entre 20 °C e 25 °C.</p>
+<p class="detail-line">Evitar empilhamento inadequado ou impactos mecânicos.</p>
+<p class="detail-line">Não armazenar baterias descarregadas por períodos prolongados.</p>
+<div class="detail-table-wrap"><table><tr><td>Locução do avatar:</td></tr></table></div>
+<p>No módulo anterior entendemos por que a bateria perde carga parada. Agora vamos ao controle prático disso. As baterias chumbo-ácido apresentam um processo natural de autodescarga, decorrente das reações químicas internas do próprio sistema. Em condições normais de armazenamento, uma bateria nova sai da fábrica com aproximadamente cem por cento de estado de carga, o SOC, e pode atingir cerca de cinquenta por cento de carga após aproximadamente seis meses sem utilização. Ou seja: meio ano parada, metade da carga.</p>
+<p>Só que esse período pode variar significativamente conforme as condições de armazenamento, sendo a temperatura ambiente o principal fator de influência. E aqui vai uma regra prática que vale ouro no dia a dia: para cada aumento de dez graus Celsius na temperatura média de armazenamento, a taxa de autodescarga pode praticamente dobrar, reduzindo em até cinquenta por cento o tempo de prateleira da bateria. Traduzindo: um estoque quente pode consumir a vida do seu produto no dobro da velocidade. Ambientes quentes aceleram consideravelmente a perda de carga e aumentam o risco de degradação prematura.</p>
+<p>Por esse motivo, é fundamental que todas as baterias armazenadas em estoque sejam submetidas a um monitoramento mensal da tensão em circuito aberto, o OCV. Essa medição permite identificar se a bateria ainda se encontra em condições adequadas de armazenamento ou se já necessita de recarga preventiva. E a razão é química: manter o estado de carga em níveis adequados é essencial para evitar a formação de cristais grandes e estáveis de sulfato de chumbo nas placas. Quando a bateria permanece descarregada por períodos prolongados, esses cristais tornam-se eletricamente isolantes e de difícil reconversão durante a recarga. Isso é a sulfatação, que reduz a capacidade, dificulta a aceitação de carga, compromete o desempenho e pode, em casos severos, tornar o produto inutilizável.</p>
+<p>Vamos ao critério para recarga preventiva. Considera-se que o estado de carga mínimo recomendado para instalação de uma bateria em um veículo é de cinquenta por cento. Abaixo desse nível, a bateria já se encontra em condição crítica para armazenamento e deve ser recarregada imediatamente. Os valores de tensão em circuito aberto correspondentes a aproximadamente cinquenta por cento de SOC são: doze vírgula vinte e cinco volts para baterias automotivas e doze vírgula quarenta volts para baterias de motocicletas. Sempre que, durante o acompanhamento mensal, a tensão medida estiver abaixo desses valores, a bateria deverá ser submetida a uma recarga completa, de acordo com os procedimentos e parâmetros recomendados pelo fabricante, restabelecendo o estado de carga para aproximadamente cem por cento.</p>
+<p>Para que a medição seja confiável, siga seis boas práticas. Utilize um multímetro digital devidamente calibrado. Realize a medição com a bateria em repouso, sem carga ou descarga recente, porque uma bateria recém-carregada mostra uma tensão de superfície que engana a leitura. Mantenha os terminais limpos e livres de oxidação. Registre os valores medidos e a data da inspeção em planilha ou sistema de controle, porque o que não é registrado não é gerenciado. Priorize a recarga das baterias com menor tensão. E adote o sistema FIFO, utilizando primeiro as baterias com maior tempo de armazenamento. Complementando, mantenha o estoque em local seco, limpo e bem ventilado, evite exposição direta ao sol, mantenha a temperatura preferencialmente entre vinte e vinte e cinco graus, evite empilhamento inadequado ou impactos mecânicos e não armazene baterias descarregadas por períodos prolongados.</p>
+<p>Fechando o módulo: o acompanhamento periódico da voltagem das baterias em estoque é uma prática indispensável para preservar a qualidade do produto e garantir que a bateria seja entregue ao cliente em perfeitas condições de uso. A identificação precoce da necessidade de recarga evita a sulfatação, preserva a capacidade nominal e maximiza a vida útil da bateria, reduzindo perdas e aumentando a satisfação do cliente final.</p>
+</template>
+<template id="detail-module-5" data-title="Módulo 5: Pré-testes nas baterias antes de instalar o produto">
+<div class="detail-table-wrap"><table><tr><td>[TC] Title Card</td></tr></table></div>
+<p class="detail-line">Texto linha 1: &quot;Módulo 5&quot;.</p>
+<p class="detail-line">Texto linha 2: &quot;Pré-testes: o que fazer antes de instalar&quot;.</p>
+<p class="detail-line">Faixa inferior: azul #174580 com o texto &quot;Nenhuma bateria sai sem ser testada&quot;.</p>
+<p class="detail-line">Duração: 5 segundos.</p>
+<div class="detail-table-wrap"><table><tr><td>[BP] Barra de Progresso</td></tr></table></div>
+<p class="detail-line">Texto: &quot;Módulo 5 de 11 • Pré-testes&quot;.</p>
+<h4>Objetivo</h4>
+<p>Estabelecer os procedimentos técnicos recomendados para avaliação de baterias com tecnologia chumbo-ácido antes de sua instalação em veículos automotivos, motocicletas e demais aplicações do produto. A realização desses pré-testes é fundamental para:</p>
+<p class="detail-line">Garantir que o produto esteja em perfeitas condições físicas e elétricas;</p>
+<p class="detail-line">Evitar instalações de baterias com avarias ou vazamentos;</p>
+<p class="detail-line">Assegurar que o estado de carga seja adequado para a entrega ao cliente;</p>
+<p class="detail-line">Reduzir reclamações e devoluções em garantia;</p>
+<p class="detail-line">Preservar a integridade do veículo e seus componentes;</p>
+<p class="detail-line">Aumentar a confiabilidade e a vida útil do produto.</p>
+<div class="detail-table-wrap"><table><tr><td>[AS] Por que testar até uma bateria nova</td></tr><tr><td>Mesmo baterias novas podem apresentar: danos ocasionados durante transporte e armazenagem; perda gradual de carga devido à autodescarga; problemas de vedação; condições inadequadas para instalação imediata.<br>Instalar sem verificar pode resultar em: dificuldade de partida; redução da vida útil; vazamento de eletrólito; danos à pintura, chicotes e componentes do veículo; insatisfação do cliente.</td></tr><tr><td>[DP] Sequência recomendada de pré-testes</td></tr></table></div>
+<p class="detail-line">Inspeção visual;</p>
+<p class="detail-line">Teste de estanqueidade (inclinação a 45°);</p>
+<p class="detail-line">Medição da tensão em circuito aberto;</p>
+<p class="detail-line">Recarga, se necessária;</p>
+<p class="detail-line">Ensaio de simulação de partida (teste de carga);</p>
+<p class="detail-line">Liberação para instalação.</p>
+<div class="detail-table-wrap"><table><tr><td>[MG] Etapa 1 — Inspeção visual</td></tr></table></div>
+<p>Animação: lupa percorrendo a bateria, acendendo marcadores nos pontos de checagem (caixa, tampa, terminais, alças, base).</p>
+<p class="detail-line">Caixa e tampa ausentes de trincas, rachaduras ou deformações;</p>
+<p class="detail-line">Terminais íntegros, limpos e sem oxidação;</p>
+<p class="detail-line">Alças de transporte em boas condições;</p>
+<p class="detail-line">Ausência de umidade ou resíduos de eletrólito.</p>
+<p class="detail-line">Critério de aprovação: a bateria estar livre de qualquer dano estrutural ou indício de vazamento.</p>
+<div class="detail-table-wrap"><table><tr><td>[MG] Etapa 2 — Teste de estanqueidade (inclinação a 45°)</td></tr></table></div>
+<p>Animação: a bateria inclinando 45° nas quatro direções, com cronômetro de 10 segundos em cada uma e um indicador verde de &quot;sem vazamento&quot;.</p>
+<p>Após a inspeção visual, realizar um teste simples para verificar possíveis falhas de selagem no produto (falha na estanqueidade ou excesso de eletrólito).</p>
+<p class="detail-line">Procedimento: inclinar a bateria aproximadamente 45° em cada uma das quatro direções (frente, trás, lado esquerdo e lado direito) pelo tempo mínimo de 10 segundos.</p>
+<p class="detail-line">Critério de aprovação: não deve ocorrer qualquer vazamento de eletrólito.</p>
+<div class="detail-table-wrap"><table><tr><td>[AS] Por que este teste é decisivo</td></tr><tr><td>O eletrólito é altamente corrosivo. Um vazamento pode causar danos à pintura, oxidação de componentes do veículo, corrosão de chicotes elétricos e danos estruturais ao veículo.</td></tr><tr><td>[TB] Etapa 3 — Estado de carga x tensão</td></tr></table></div>
+<p>Após a inspeção visual e o teste de inclinação, medir a tensão utilizando um multímetro digital. O estado de carga mínimo recomendado para instalar a bateria é de 50%, ou seja, 12,25 V para aplicações automotivas e 12,40 V para aplicações motociclísticas.</p>
+<div class="detail-table-wrap"><table><tr><td>Estado de Carga</td><td>Bateria Automotiva (12 V)</td><td>Bateria Motociclística (12 V)</td></tr><tr><td>100%</td><td>12,60 – 12,80 V</td><td>12,80 V</td></tr><tr><td>75%</td><td>12,40 – 12,50 V</td><td>12,60 V</td></tr><tr><td>50%</td><td>12,25 V</td><td>12,40 V</td></tr><tr><td>25%</td><td>12,00 V</td><td>12,20 V</td></tr><tr><td>0%</td><td>&lt; 11,90 V</td><td>&lt; 12,00 V</td></tr><tr><td>[CK] Quando a tensão estiver abaixo do valor mínimo</td></tr></table></div>
+<p class="detail-line">Não instalar a bateria;</p>
+<p class="detail-line">Encaminhar para recarga;</p>
+<p class="detail-line">Seguir rigorosamente as instruções do fabricante;</p>
+<p class="detail-line">Repetir a medição após a carga;</p>
+<p class="detail-line">Somente liberar após atingir a tensão mínima.</p>
+<div class="detail-table-wrap"><table><tr><td>[MG] Etapa 4 — Ensaio de simulação de partida</td></tr></table></div>
+<p>Animação: equipamento de teste conectado à bateria, com a garra girando para romper a oxidação, o cronômetro de 5 segundos e o gráfico de tensão caindo e se mantendo acima do limite (verde) ou abaixo (vermelho).</p>
+<p>Este ensaio verifica a capacidade da bateria de fornecer alta corrente por curto período, simulando a partida do motor.</p>
+<div class="detail-table-wrap"><table><tr><td>[TB] Correntes recomendadas para teste</td></tr><tr><td>Aplicação</td><td>Corrente de teste</td></tr><tr><td>Baterias motociclísticas</td><td>TB 50 A ou 60 A</td></tr><tr><td>Baterias automotivas até 80 Ah</td><td>TB 200 A</td></tr><tr><td>Baterias de 81 Ah a 150 Ah</td><td>TB 300 A</td></tr><tr><td>Baterias acima de 150 Ah</td><td>TB 400 A</td></tr><tr><td>[DP] Procedimento do teste de carga</td></tr></table></div>
+<p class="detail-line">Conectar corretamente o equipamento, girar a garra para romper oxidações;</p>
+<p class="detail-line">Aplicar a corrente adequada;</p>
+<p class="detail-line">Manter a carga pelo tempo especificado pelo fabricante do equipamento;</p>
+<p class="detail-line">Observar a queda de tensão;</p>
+<p class="detail-line">Registrar o resultado.</p>
+<div class="detail-table-wrap"><table><tr><td>[CO] Critério geral de aprovação</td></tr><tr><td>Durante o ensaio, a tensão não deve cair abaixo do valor mínimo especificado pelo fabricante ou pelo equipamento de teste. Em condições normais (25 °C), uma bateria em boas condições deve manter tensão superior a aproximadamente 9,6 V durante 5 segundos.</td></tr><tr><td>[CK] Benefícios da aplicação deste procedimento</td></tr></table></div>
+<p class="detail-line">Redução de falhas em campo;</p>
+<p class="detail-line">Menor índice de garantia;</p>
+<p class="detail-line">Maior satisfação do cliente;</p>
+<p class="detail-line">Padronização dos processos;</p>
+<p class="detail-line">Aumento da confiabilidade do produto.</p>
+<div class="detail-table-wrap"><table><tr><td>Locução do avatar:</td></tr></table></div>
+<p>Chegamos ao módulo que separa a entrega profissional da entrega no improviso: os pré-testes. O objetivo aqui é estabelecer os procedimentos técnicos recomendados para avaliação de baterias chumbo-ácido antes da instalação em veículos automotivos, motocicletas e demais aplicações. Fazer esses testes é fundamental para garantir que o produto esteja em perfeitas condições físicas e elétricas, evitar instalações de baterias com avarias ou vazamentos, assegurar que o estado de carga seja adequado para a entrega ao cliente, reduzir reclamações e devoluções em garantia, preservar a integridade do veículo e seus componentes e aumentar a confiabilidade e a vida útil do produto.</p>
+<p>Talvez você pense: mas a bateria é nova, por que testar? Porque mesmo baterias novas podem apresentar danos ocasionados durante o transporte e a armazenagem, perda gradual de carga devido à autodescarga, problemas de vedação e condições inadequadas para instalação imediata. E a instalação de uma bateria sem a devida verificação pode resultar em dificuldade de partida, redução da vida útil, vazamento de eletrólito, danos à pintura, chicotes e componentes do veículo e, claro, insatisfação do cliente. Testar leva minutos; um vazamento no veículo do cliente custa muito mais.</p>
+<p>A sequência recomendada tem seis etapas: inspeção visual; teste de estanqueidade, com inclinação a quarenta e cinco graus; medição da tensão em circuito aberto; recarga, se necessária; ensaio de simulação de partida, que é o teste de carga; e a liberação para instalação. Vamos passar por cada uma. A inspeção visual é o primeiro passo e deve ser minuciosa: verifique se a caixa e a tampa estão ausentes de trincas, rachaduras ou deformações; se os terminais estão íntegros, limpos e sem oxidação; se as alças de transporte estão em boas condições; e se há ausência de umidade ou resíduos de eletrólito. O critério de aprovação é a bateria estar livre de qualquer dano estrutural ou indício de vazamento.</p>
+<p>A segunda etapa é o teste de estanqueidade. Após a inspeção visual, realizamos um teste simples para verificar possíveis falhas de selagem, seja falha na estanqueidade do produto ou excesso de eletrólito. O procedimento é inclinar a bateria aproximadamente quarenta e cinco graus em cada uma das quatro direções — frente, trás, lado esquerdo e lado direito — pelo tempo mínimo de dez segundos em cada posição. O critério de aprovação é rigoroso: não deve ocorrer qualquer vazamento de eletrólito. Este teste é altamente recomendado porque, caso a bateria apresente algum tipo de vazamento, o eletrólito, por ser altamente corrosivo, pode causar danos à pintura, oxidação de componentes do veículo, corrosão de chicotes elétricos e danos estruturais ao veículo.</p>
+<p>A terceira etapa é a medição da tensão em circuito aberto, com um multímetro digital. O estado de carga mínimo recomendado para instalar a bateria é de cinquenta por cento, ou seja, doze vírgula vinte e cinco volts para aplicações automotivas e doze vírgula quarenta volts para motociclísticas. A tabela na tela mostra a escala completa. Na automotiva: cem por cento entre doze vírgula sessenta e doze vírgula oitenta volts; setenta e cinco por cento entre doze vírgula quarenta e doze vírgula cinquenta; cinquenta por cento em doze vírgula vinte e cinco; vinte e cinco por cento em doze volts; e zero por cento abaixo de onze vírgula noventa. Na motociclística: cem por cento em doze vírgula oitenta; setenta e cinco por cento em doze vírgula sessenta; cinquenta por cento em doze vírgula quarenta; vinte e cinco por cento em doze vírgula vinte; e zero por cento abaixo de doze volts. Quando a tensão estiver abaixo do mínimo, a regra é clara: não instalar a bateria, encaminhar para recarga, seguir rigorosamente as instruções do fabricante, repetir a medição após a carga e somente liberar após atingir a tensão mínima.</p>
+<p>A última etapa é o ensaio de simulação de partida, o teste de carga, que verifica a capacidade da bateria de fornecer alta corrente por curto período, simulando a partida do motor. As correntes recomendadas são: para baterias motociclísticas, cinquenta ou sessenta ampères; para automotivas até oitenta ampère-hora, duzentos ampères; para baterias de oitenta e um a cento e cinquenta ampère-hora, trezentos ampères; e para acima de cento e cinquenta ampère-hora, quatrocentos ampères. O procedimento é: conectar corretamente o equipamento, girando a garra para romper oxidações; aplicar a corrente adequada; manter a carga pelo tempo especificado pelo fabricante do equipamento; observar a queda de tensão; e registrar o resultado. O critério geral de aprovação é que a tensão não deve cair abaixo do valor mínimo especificado pelo fabricante ou pelo equipamento. Em condições normais, a vinte e cinco graus, uma bateria em boas condições deve manter tensão superior a aproximadamente nove vírgula seis volts durante cinco segundos. Aplicando esse procedimento, os benefícios aparecem: redução de falhas em campo, menor índice de garantia, maior satisfação do cliente, padronização dos processos e aumento da confiabilidade do produto.</p>
+</template>
+<template id="detail-module-6" data-title="Módulo 6: Instalação da bateria e ensaios pós-instalação">
+<div class="detail-table-wrap"><table><tr><td>[TC] Title Card</td></tr></table></div>
+<p class="detail-line">Texto linha 1: &quot;Módulo 6&quot;.</p>
+<p class="detail-line">Texto linha 2: &quot;Instalação e ensaios pós-instalação&quot;.</p>
+<p class="detail-line">Faixa inferior: azul #174580 com o texto &quot;Instalar é metade do serviço; validar é a outra metade&quot;.</p>
+<p class="detail-line">Duração: 5 segundos.</p>
+<div class="detail-table-wrap"><table><tr><td>[BP] Barra de Progresso</td></tr></table></div>
+<p class="detail-line">Texto: &quot;Módulo 6 de 11 • Instalação e ensaios&quot;.</p>
+<div class="detail-table-wrap"><table><tr><td>[AS] Importante</td></tr><tr><td>A instalação da bateria deve ser realizada por um profissional capacitado, e este deve estar utilizando os EPIs recomendados pelo fabricante.</td></tr><tr><td>[CK] Preparando o veículo para instalação</td></tr></table></div>
+<p class="detail-line">Desligar ignição;</p>
+<p class="detail-line">Desligar consumidores elétricos;</p>
+<p class="detail-line">Verificar se a bateria aplicada é compatível com o veículo;</p>
+<p class="detail-line">Verificar no manual do veículo se há necessidade de utilização de uma bateria auxiliar durante a substituição, a fim de evitar perda de dados, configurações e parâmetros dos sistemas eletrônicos.</p>
+<div class="detail-table-wrap"><table><tr><td>[MG] Realizando a substituição — passo a passo animado</td></tr></table></div>
+<p>Animação: vista do cofre do motor, destacando cada terminal na ordem correta, com sinal de faísca aparecendo (e sendo evitado) ao remover o negativo primeiro.</p>
+<p class="detail-line">Remover o terminal negativo (–), para reduzir o risco de geração de faíscas e curto-circuito acidental;</p>
+<p class="detail-line">Remover o terminal positivo (+);</p>
+<p class="detail-line">Soltar o sistema de fixação;</p>
+<p class="detail-line">Remover a bateria a ser substituída;</p>
+<p class="detail-line">Preparar a nova bateria para instalação, realizando a limpeza dos polos, conectores e terminais do chicote;</p>
+<p class="detail-line">Remover o plástico de proteção da bateria nova e verificar se os respiros estão livres;</p>
+<p class="detail-line">Instalar a nova bateria, posicionando-a corretamente no suporte do veículo;</p>
+<p class="detail-line">Fixar a bateria no suporte;</p>
+<p class="detail-line">Conectar o terminal positivo (+);</p>
+<p class="detail-line">Conectar o terminal negativo (–).</p>
+<div class="detail-table-wrap"><table><tr><td>[CO] Observações importantes</td></tr><tr><td>Garantir que os terminais estejam: totalmente encaixados; com bom contato elétrico; ausentes de folga.<br>Recomenda-se que, antes da conexão dos terminais, seja instalada nos bornes da bateria uma esponja protetora com abertura central, previamente umedecida com óleo ou vaselina. Essa proteção auxilia na manutenção de uma camada oleosa sobre os terminais, reduzindo a oxidação e contribuindo para melhor conservação das conexões elétricas.</td></tr></table></div>
+<h4>Ensaios pós-instalação</h4>
+<p>Após concluir a instalação, realizar os testes abaixo para validar o funcionamento do sistema elétrico.</p>
+<div class="detail-table-wrap"><table><tr><td>[MG] Ensaio 1 — Sistema de carga (alternador)</td></tr></table></div>
+<p>Animação: multímetro nos polos com o motor ligado; o mostrador percorre a faixa e acende verde entre 13,6 V e 14,5 V, vermelho fora dela.</p>
+<p>Objetivo: verificar se o alternador está fornecendo tensão adequada para carregar a bateria, alimentar os consumidores elétricos e evitar sobrecarga ou subcarga.</p>
+<p class="detail-line">Ligar o veículo;</p>
+<p class="detail-line">Manter o motor em funcionamento;</p>
+<p class="detail-line">Medir tensão diretamente nos polos da bateria;</p>
+<p class="detail-line">Avaliar tensão com e sem consumidores ligados.</p>
+<div class="detail-table-wrap"><table><tr><td>[TB] Interpretação da tensão de carga</td></tr><tr><td>Tensão medida</td><td>Diagnóstico</td><td>Consequência</td></tr><tr><td>13,6 V a 14,5 V</td><td>Sistema elétrico correto.</td><td>Bateria carregando adequadamente.</td></tr><tr><td>Inferior a 13,6 V</td><td>Alternador com baixa eficiência (subcarga).</td><td>A bateria trabalha descarregada, podendo ocasionar falhas na partida e redução da vida útil por sulfatação.</td></tr><tr><td>Acima de 14,5 V</td><td>Sistema elétrico desregulado (sobrecarga).</td><td>Superaquecimento, estufamento do produto por excesso de gaseificação, perda acelerada de água e redução severa da vida útil.</td></tr><tr><td>[MG] Ensaio 2 — Corrente de fuga</td></tr></table></div>
+<p>Animação: veículo desligado, relógio marcando o tempo de &quot;modo sleep&quot; dos módulos, e o amperímetro sendo instalado em série no polo negativo.</p>
+<p>Objetivo: identificar consumos elétricos indevidos com o veículo desligado, identificando descarga anormal da bateria, possíveis acessórios instalados incorretamente ou curto parcial no sistema.</p>
+<p class="detail-line">Desligar o veículo;</p>
+<p class="detail-line">Desligar consumidores;</p>
+<p class="detail-line">Aguardar modo sleep dos módulos;</p>
+<p class="detail-line">Instalar amperímetro em série no polo negativo (multímetro ou alicate amperímetro);</p>
+<p class="detail-line">Medir corrente consumida.</p>
+<div class="detail-table-wrap"><table><tr><td>[TB] Valores padrão de corrente de fuga</td></tr><tr><td>Parecer do teste</td><td>Carros</td><td>Caminhões</td><td>Motocicletas</td></tr><tr><td>Ideal</td><td>30 a 50 mA (0,03–0,05 A)</td><td>Até 50 mA (0,05 A)</td><td>0 a 3 mA (0,00–0,003 A)</td></tr><tr><td>Aceitável</td><td>50 a 85 mA (0,05–0,085 A)</td><td>50 a 100 mA (0,05–0,1 A)</td><td>4 a 10 mA (0,004–0,010 A)</td></tr><tr><td>Alerta / investigar</td><td>Acima de 100 mA (0,1 A)</td><td>Acima de 100 mA (0,1 A)</td><td>Acima de 10 mA</td></tr><tr><td>[CK] Pontos importantes sobre a corrente de fuga</td></tr></table></div>
+<p class="detail-line">Tempo de &quot;sono&quot;: veículos modernos podem levar de 30 a 45 minutos após desligar e fechar as portas para que todos os módulos (BCM, injeção, rádio) entrem em modo de repouso e a medição estabilize.</p>
+<p class="detail-line">Regra geral: o valor de fuga não deve exceder 0,05% da capacidade da bateria.</p>
+<p class="detail-line">Equipamentos: alarmes, som automotivo instalado incorretamente, lâmpadas internas (porta-luvas e porta-malas) que não apagam, módulos eletrônicos que não &quot;dormem&quot;, sistemas de monitoramento, rádios PX e rastreadores são as principais fontes de fuga.</p>
+<p class="detail-line">Método: o teste deve ser realizado com um multímetro na escala de ampères, em série com o borne negativo da bateria.</p>
+<p class="detail-line">Sintoma de fuga alta: bateria nova descarrega após um ou dois dias parado.</p>
+<div class="detail-table-wrap"><table><tr><td>[MG] Ensaio 3 — Balanceamento de carga</td></tr></table></div>
+<p>Animação: painel do veículo com os consumidores sendo acionados um a um (faróis, ar-condicionado, desembaçador, som, ventilação), enquanto o gráfico de tensão permanece estável na faixa verde.</p>
+<p>Objetivo: verificar se o sistema elétrico do veículo consegue manter equilíbrio entre geração do alternador, consumo elétrico e capacidade de carga da bateria.</p>
+<p class="detail-line">Procedimento: com o veículo ligado, acionar consumidores elétricos gradativamente — faróis, ar-condicionado, desembaçador, som, ventilação e acessórios.</p>
+<p class="detail-line">Monitorar: tensão do sistema, estabilidade elétrica e comportamento do alternador.</p>
+<p class="detail-line">Resultado esperado: o sistema deve manter tensão estável e suportar todas as cargas sem quedas excessivas, mantendo o carregamento adequado da bateria (tensão entre 13,6 V e 14,5 V).</p>
+<div class="detail-table-wrap"><table><tr><td>[AS] Sinais de sistema desbalanceado</td></tr><tr><td>Queda excessiva de tensão, oscilação elétrica, luzes variando de intensidade e descarregamento progressivo da bateria indicam que o sistema está desbalanceado, ou seja, há excesso de acessórios ligados no veículo.</td></tr><tr><td>[CK] Recomendações finais</td></tr></table></div>
+<p>Nunca liberar o veículo sem:</p>
+<p class="detail-line">Validar sistema de carga;</p>
+<p class="detail-line">Verificar corrente de fuga;</p>
+<p class="detail-line">Confirmar fixação correta;</p>
+<p class="detail-line">Garantir aperto dos terminais.</p>
+<p>Boas práticas recomendadas:</p>
+<p class="detail-line">Utilizar ferramentas adequadas;</p>
+<p class="detail-line">Evitar impactos na bateria;</p>
+<p class="detail-line">Nunca inverter polaridade;</p>
+<p class="detail-line">Manter terminais limpos;</p>
+<p class="detail-line">Registrar resultados dos testes;</p>
+<p class="detail-line">Orientar o cliente sobre cuidados básicos.</p>
+<div class="detail-table-wrap"><table><tr><td>Locução do avatar:</td></tr></table></div>
+<p>Agora vamos instalar. E começo com o alerta que abre o procedimento: a instalação da bateria deve ser realizada por um profissional capacitado, e este deve estar utilizando os EPIs recomendados pelo fabricante. Antes de iniciar, prepare o veículo: desligue a ignição, desligue os consumidores elétricos, verifique se a bateria aplicada é compatível com o veículo e verifique no manual do veículo se há necessidade de utilização de uma bateria auxiliar durante a substituição, a fim de evitar perda de dados, configurações e parâmetros dos sistemas eletrônicos. Em carros modernos, esquecer esse detalhe pode significar perder configurações do cliente.</p>
+<p>A substituição segue uma ordem que não é opcional. Primeiro, remova o terminal negativo, para reduzir o risco de geração de faíscas e curto-circuito acidental. Depois, remova o terminal positivo. Solte o sistema de fixação e remova a bateria a ser substituída. Prepare a nova bateria realizando a limpeza dos polos, conectores e terminais do chicote. Remova o plástico de proteção da bateria nova e verifique se os respiros estão livres. Instale a nova bateria, posicionando-a corretamente no suporte do veículo, e fixe-a. Então conecte o terminal positivo e, por último, o terminal negativo. Guarde a lógica: na remoção, negativo primeiro; na instalação, negativo por último. Isso existe porque, com o negativo desconectado, uma ferramenta que encoste na lataria não fecha circuito.</p>
+<p>Duas observações importantes. Garanta que os terminais estejam totalmente encaixados, com bom contato elétrico e ausentes de folga. E recomenda-se que, antes da conexão dos terminais, seja instalada nos bornes da bateria uma esponja protetora com abertura central, previamente umedecida com óleo ou vaselina. Essa proteção auxilia na manutenção de uma camada oleosa sobre os terminais, reduzindo a oxidação e contribuindo para melhor conservação das conexões elétricas.</p>
+<p>Instalada a bateria, começa a parte que diferencia o profissional: os ensaios pós-instalação. O primeiro é o teste do sistema de carga, o alternador. O objetivo é verificar se ele está fornecendo tensão adequada para carregar a bateria, alimentar os consumidores elétricos e evitar sobrecarga ou subcarga. Ligue o veículo, mantenha o motor em funcionamento, meça a tensão diretamente nos polos da bateria e avalie com e sem consumidores ligados. Para o correto funcionamento, a voltagem com o veículo ligado deve ficar entre treze vírgula seis e catorze vírgula cinco volts. Abaixo de treze vírgula seis indica alternador com baixa eficiência, ou seja, subcarga, o que fará a bateria trabalhar descarregada, podendo ocasionar falhas na partida e redução da vida útil por sulfatação. Acima de catorze vírgula cinco indica que o sistema elétrico está desregulado, sobrecarregando a bateria, o que pode causar superaquecimento, estufamento do produto devido ao excesso de gaseificação, perda acelerada de água e redução severa da vida útil.</p>
+<p>O segundo ensaio é o teste de corrente de fuga. O objetivo é identificar consumos elétricos indevidos com o veículo desligado, apontando descarga anormal da bateria, possíveis acessórios instalados incorretamente ou curto parcial no sistema. O procedimento: desligue o veículo, desligue os consumidores, aguarde o modo sleep dos módulos, instale um amperímetro em série no polo negativo e meça a corrente consumida. Os valores padrão estão na tabela: em carros, o ideal é de trinta a cinquenta miliampères, aceitável de cinquenta a oitenta e cinco, e acima de cem miliampères é alerta para investigar. Em caminhões, ideal até cinquenta, aceitável de cinquenta a cem, alerta acima de cem. E em motocicletas, ideal de zero a três miliampères, aceitável de quatro a dez, alerta acima de dez.</p>
+<p>Cinco pontos importantes sobre esse teste. O tempo de sono: veículos modernos podem levar de trinta a quarenta e cinco minutos após desligar e fechar as portas para que todos os módulos, como BCM, injeção e rádio, entrem em modo de repouso e a medição estabilize. A regra geral: o valor de fuga não deve exceder zero vírgula zero cinco por cento da capacidade da bateria. Os equipamentos que mais causam fuga: alarmes, som automotivo instalado incorretamente, lâmpadas internas do porta-luvas e do porta-malas que não apagam, módulos eletrônicos que não dormem, sistemas de monitoramento, rádios PX e rastreadores. O método: multímetro na escala de ampères, em série com o borne negativo. E o sintoma clássico de fuga alta: bateria nova que descarrega após um ou dois dias parado.</p>
+<p>O terceiro ensaio é o teste de balanceamento de carga, que verifica se o sistema elétrico consegue manter equilíbrio entre a geração do alternador, o consumo elétrico e a capacidade de carga da bateria. Com o veículo ligado, acione os consumidores gradativamente: faróis, ar-condicionado, desembaçador, som, ventilação e acessórios. Monitore a tensão do sistema, a estabilidade elétrica e o comportamento do alternador. O sistema deve manter tensão estável e suportar todas as cargas sem quedas excessivas, mantendo a tensão entre treze vírgula seis e catorze vírgula cinco volts. Sintomas como queda excessiva de tensão, oscilação elétrica, luzes variando de intensidade e descarregamento progressivo da bateria indicam que o sistema está desbalanceado, ou seja, há excesso de acessórios ligados no veículo.</p>
+<p>Para fechar o módulo, as recomendações finais. Nunca libere o veículo sem validar o sistema de carga, verificar a corrente de fuga, confirmar a fixação correta e garantir o aperto dos terminais. E as boas práticas: utilize ferramentas adequadas, evite impactos na bateria, nunca inverta a polaridade, mantenha os terminais limpos, registre os resultados dos testes e oriente o cliente sobre os cuidados básicos. Esse registro, aliás, é o que protege você e a loja em uma eventual análise de garantia.</p>
+</template>
+<template id="detail-module-7" data-title="Módulo 7: Como realizar a recarga de uma bateria">
+<div class="detail-table-wrap"><table><tr><td>[TC] Title Card</td></tr></table></div>
+<p class="detail-line">Texto linha 1: &quot;Módulo 7&quot;.</p>
+<p class="detail-line">Texto linha 2: &quot;Como realizar a recarga de uma bateria&quot;.</p>
+<p class="detail-line">Faixa inferior: azul #174580 com o texto &quot;Carga lenta preserva; carga rápida cobra o preço&quot;.</p>
+<p class="detail-line">Duração: 5 segundos.</p>
+<div class="detail-table-wrap"><table><tr><td>[BP] Barra de Progresso</td></tr></table></div>
+<p class="detail-line">Texto: &quot;Módulo 7 de 11 • Recarga&quot;.</p>
+<h4>Conceitos fundamentais</h4>
+<p>Antes de abordar os procedimentos de recarga, é necessário compreender alguns conceitos que influenciam diretamente a vida útil, o desempenho e a segurança da bateria durante o carregamento.</p>
+<div class="detail-table-wrap"><table><tr><td>[MG] Perda de água (eletrolítica)</td></tr></table></div>
+<p>Animação em corte: bolhas de hidrogênio e oxigênio se formando no eletrólito durante a recarga, com o nível do eletrólito baixando lentamente.</p>
+<p>Durante o processo de recarga, ocorre a eletrólise da água presente no eletrólito, resultando na formação de gases (hidrogênio e oxigênio). Esse fenômeno pode levar à perda progressiva de água do eletrólito, especialmente em baterias com tecnologia inundada.</p>
+<div class="detail-table-wrap"><table><tr><td>[AS] Atenção especial às baterias VRLA</td></tr><tr><td>Nas baterias VRLA o processo de recombinação de gases é limitado e, como a bateria não permite a reposição de eletrólito, o produto torna-se sensível a condições de recarga, principalmente quando ocorre o sobrecarregamento. Recargas inadequadas podem acelerar a perda de água interna e resultar em redução irreversível da vida útil.</td></tr><tr><td>[TB] Os três regimes de tensão</td></tr><tr><td>Regime</td><td>Faixa de tensão (12 V)</td><td>Característica</td></tr><tr><td>Tensão de flutuação</td><td>13,2 V a 13,4 V</td><td>Mantém a bateria em plena carga com mínima circulação de corrente; mínima geração de gases e perda de água praticamente reduzida ao mínimo. Usado em mantenedores de carga e na fase final de carregadores automáticos.</td></tr><tr><td>Carga lenta (recomendada)</td><td>14,2 V a 14,4 V</td><td>Recarga controlada, menor aquecimento, menor perda de eletrólito e maior preservação da estrutura interna das placas. É o método mais indicado para recarga padrão.</td></tr><tr><td>Carga rápida (emergencial)</td><td>Até 16,0 V</td><td>Alta taxa de recarga, aumento significativo da temperatura, maior geração de gases e maior perda de água. Somente em situações emergenciais.</td></tr><tr><td>[AS] O preço da carga rápida frequente</td></tr><tr><td>Uso frequente de carga rápida pode causar: redução severa da vida útil; deformação das placas; secagem do eletrólito (principalmente em baterias VRLA); falha prematura.</td></tr></table></div>
+<h4>Métodos de recarga</h4>
+<p>Existem basicamente dois métodos principais para recarga de baterias chumbo-ácido.</p>
+<div class="detail-table-wrap"><table><tr><td>[GA] Método 1 — Recarga com corrente constante</td></tr></table></div>
+<p>Neste método, a corrente é fixada e mantida durante todo o processo de recarga.</p>
+<p class="detail-line">Corrente recomendada: até 20% da capacidade nominal (Ah) da bateria. Exemplo: para uma bateria de 60 Ah → corrente máxima recomendada de 12 A.</p>
+<p class="detail-line">Rendimento: a bateria não é um sistema energeticamente 100% eficiente. Parte da energia fornecida é dissipada em calor e em reações químicas paralelas. Por isso, é necessário fornecer entre 130% e 150% da capacidade nominal (Ah).</p>
+<p class="detail-line">Exemplo de cálculo: para recarregar completamente uma bateria de 60 Ah, é necessário fornecer aproximadamente entre 78 Ah e 90 Ah. Dividindo pela corrente máxima (12 A), o tempo de recarga varia de 6,5 a 7,5 horas — considerando bateria totalmente descarregada; o tempo varia conforme o estado inicial.</p>
+<p class="detail-line">Observação: este método exige controle rigoroso, pois não há ajuste automático da tensão final, podendo ocorrer sobrecarga se não houver monitoramento.</p>
+<div class="detail-table-wrap"><table><tr><td>[GA] Método 2 — Recarga com tensão constante (método recomendado)</td></tr></table></div>
+<p>É o mais utilizado em carregadores modernos e sistemas automáticos, pois mantém a tensão constante praticamente em todo o período da recarga, variando a corrente conforme o estado de carga da bateria, reduzindo-a gradativamente até o término do ciclo.</p>
+<div class="detail-table-wrap"><table><tr><td>Modo</td><td>Tensão</td><td>Tempo</td><td>Observação</td></tr><tr><td>Carga lenta</td><td>14,2 V a 14,5 V</td><td>6 a 8 horas</td><td>Maior segurança no processo; menor risco de sobrecarga; melhor preservação da bateria; ideal para uso em campo e manutenção.</td></tr><tr><td>Carga rápida (emergencial)</td><td>Até 16,0 V</td><td>Máximo 4 horas</td><td>Deve ser utilizado apenas quando necessário e sob supervisão.</td></tr><tr><td>[CK] Boas práticas de recarga</td></tr></table></div>
+<p class="detail-line">Preferencialmente utilizar carregadores automáticos ou controlados;</p>
+<p class="detail-line">Garantir ventilação adequada;</p>
+<p class="detail-line">Monitorar a temperatura da bateria durante o processo;</p>
+<p class="detail-line">Evitar interrupções constantes durante o ciclo;</p>
+<p class="detail-line">Priorizar sempre carga lenta ou controlada.</p>
+<div class="detail-table-wrap"><table><tr><td>[AS] Cuidados importantes — interromper imediatamente se observar</td></tr><tr><td>Qualquer anomalia deve interromper o processo imediatamente.</td></tr><tr><td>Locução do avatar:</td></tr></table></div>
+<p>A recarga é um dos procedimentos que mais separa o cuidado do descuido com o produto. Antes dos métodos, precisamos entender alguns conceitos fundamentais, porque eles influenciam diretamente a vida útil, o desempenho e a segurança da bateria. O primeiro conceito é a perda de água. Durante o processo de recarga, ocorre a eletrólise da água presente no eletrólito, resultando na formação de gases, hidrogênio e oxigênio. Esse fenômeno pode levar à perda progressiva de água do eletrólito, especialmente em baterias com tecnologia inundada. E aqui vai um alerta específico: nas baterias VRLA, o processo de recombinação de gases é limitado e, como a bateria não permite a reposição de eletrólito, o produto torna-se sensível às condições de recarga, principalmente quando ocorre sobrecarregamento. Recargas inadequadas podem acelerar a perda de água interna e resultar em redução irreversível da vida útil da bateria.</p>
+<p>Agora os três regimes de tensão que você precisa conhecer. O primeiro é a tensão de flutuação, utilizada para manter a bateria em plena carga com mínima circulação de corrente, permitindo que ela permaneça carregada por longos períodos com mínima geração de gases e perda de água praticamente reduzida ao mínimo. A faixa típica é de treze vírgula dois a treze vírgula quatro volts, e esse modo é amplamente utilizado em aparelhos mantenedores de carga e na fase final da recarga de carregadores mais modernos e automáticos.</p>
+<p>O segundo regime é a carga lenta, que é o método recomendado para recarga segura e eficiente, com faixa típica de tensão de catorze vírgula dois a catorze vírgula quatro volts. Nesta condição, a bateria é recarregada de forma controlada, há menor aquecimento, menor perda de eletrólito e maior preservação da estrutura interna das placas. É o método mais indicado para a recarga padrão de baterias chumbo-ácido. O terceiro é a carga rápida, com tensão típica de até dezesseis volts, que deve ser utilizada somente em situações emergenciais. Ela tem alta taxa de recarga, aumento significativo da temperatura, maior geração de gases e maior perda de água. E atenção: o uso frequente pode causar redução severa da vida útil, deformação das placas, secagem do eletrólito, principalmente em baterias VRLA, e falha prematura.</p>
+<p>Vamos aos dois métodos de recarga. O primeiro é a recarga com corrente constante, em que a corrente é fixada e mantida durante todo o processo. A regra importante é: corrente recomendada de até vinte por cento da capacidade nominal em ampère-hora da bateria. Por exemplo, para uma bateria de sessenta ampère-hora, a corrente máxima recomendada é de doze ampères. E como calcular o tempo? Aqui entra um conceito que muita gente desconhece: a bateria não é um sistema energeticamente cem por cento eficiente. Durante a recarga, parte da energia fornecida é dissipada na forma de calor e em reações químicas paralelas. Por isso, para que a bateria retorne à sua capacidade nominal original, é necessário fornecer entre cento e trinta e cento e cinquenta por cento de sua capacidade nominal.</p>
+<p>Vamos ao exemplo prático: para recarregar completamente uma bateria de sessenta ampère-hora, é necessário fornecer aproximadamente entre setenta e oito e noventa ampère-hora durante o processo de carga. Dividindo esse valor de reposição pela corrente máxima de doze ampères, temos o tempo de recarga variando de seis horas e meia a sete horas e meia. Lembrando que isso é para uma bateria totalmente descarregada e que esse tempo pode variar dependendo do estado inicial. Uma observação sobre esse método: ele exige controle rigoroso, pois não há ajuste automático da tensão final, podendo ocorrer sobrecarga se não houver monitoramento.</p>
+<p>O segundo método é a recarga com tensão constante, e este é o método recomendado. É o mais utilizado em carregadores modernos e sistemas automáticos, pois mantém a tensão constante praticamente em todo o período da recarga, variando a corrente conforme o estado de carga da bateria, reduzindo-a gradativamente até o término do ciclo. No modo de carga lenta, a tensão fica entre catorze vírgula dois e catorze vírgula cinco volts, com tempo médio de recarga de seis a oito horas. Os benefícios são: maior segurança no processo, menor risco de sobrecarga, melhor preservação da bateria e é o ideal para uso em campo e manutenção. Já no modo de carga rápida, emergencial, a tensão vai até dezesseis volts, com tempo máximo recomendado de até quatro horas, e deve ser utilizado apenas quando necessário e sob supervisão.</p>
+<p>Para finalizar, as boas práticas e os cuidados. Nas boas práticas: preferencialmente utilize carregadores automáticos ou controlados, garanta ventilação adequada, monitore a temperatura da bateria durante o processo, evite interrupções constantes durante o ciclo e priorize sempre carga lenta ou controlada. E durante a recarga, fique atento a cinco sinais: aquecimento excessivo, emissão elevada de gases, deformação da carcaça, odor forte de ácido e instabilidade na tensão. Qualquer anomalia deve interromper o processo imediatamente. Lembre-se: a recarga correta é um dos fatores mais críticos para garantir desempenho, segurança e durabilidade. O uso inadequado de tensão ou corrente pode resultar em perda acelerada de vida útil, falhas prematuras, redução de capacidade e danos irreversíveis, especialmente em baterias VRLA.</p>
+</template>
+<template id="detail-module-8" data-title="Módulo 8: Dicas para aumentar a performance da bateria">
+<div class="detail-table-wrap"><table><tr><td>[TC] Title Card</td></tr></table></div>
+<p class="detail-line">Texto linha 1: &quot;Módulo 8&quot;.</p>
+<p class="detail-line">Texto linha 2: &quot;10 práticas que aumentam a vida útil da bateria&quot;.</p>
+<p class="detail-line">Faixa inferior: azul #174580 com o texto &quot;O que você orienta ao cliente vale anos de bateria&quot;.</p>
+<p class="detail-line">Duração: 5 segundos.</p>
+<div class="detail-table-wrap"><table><tr><td>[BP] Barra de Progresso</td></tr></table></div>
+<p class="detail-line">Texto: &quot;Módulo 8 de 11 • Performance e vida útil&quot;.</p>
+<h4>Objetivo</h4>
+<p>Apresentar recomendações técnicas e boas práticas para maximizar a performance, confiabilidade e vida útil das baterias chumbo-ácido. A aplicação correta desses cuidados reduz falhas prematuras, sulfatação, perda de capacidade, reclamações em garantia e custos de manutenção. Além disso, contribui para melhor desempenho do sistema elétrico e maior durabilidade da bateria em campo.</p>
+<div class="detail-table-wrap"><table><tr><td>[MG] As 10 práticas — abertura animada</td></tr></table></div>
+<p>Animação: dez ícones numerados surgindo em grade (carga plena, descarga profunda, tempo parado, calor, carregador, água, rodízio, terminais, fixação, sistema elétrico). Cada um se destaca quando for narrado.</p>
+<h4>1. Manter a bateria sempre em plena carga</h4>
+<p>A bateria chumbo-ácido foi projetada para operar preferencialmente em elevados estados de carga (SoC), ou seja, sempre próxima da condição de carga completa. Manter a bateria constantemente descarregada ou parcialmente carregada favorece o crescimento e o endurecimento dos cristais de sulfato de chumbo formados durante o processo de descarga.</p>
+<p>Com o tempo, esses cristais tornam-se cada vez mais difíceis de serem reconvertidos durante a recarga, aderindo permanentemente às placas. Esse fenômeno, conhecido como sulfatação, provoca perda gradual da capacidade de carga, redução da eficiência eletroquímica, degradação das placas internas e diminuição significativa da vida útil da bateria, podendo inclusive resultar em perda parcial ou total de sua capacidade operacional.</p>
+<p class="detail-line">Recomendação: evitar que a tensão permaneça abaixo de 12,4 V por longos períodos; recarregar a bateria o mais rápido possível após descargas; priorizar sempre carga lenta e controlada; não manter a bateria sem uso por longos períodos.</p>
+<h4>2. Evitar descargas profundas</h4>
+<p>Baterias chumbo-ácido não são projetadas para operar frequentemente em baixos estados de carga (SoC). Descargas profundas repetitivas aumentam a formação de sulfato de chumbo cristalizado, dificultando a recuperação da bateria, o que reduz drasticamente sua vida útil.</p>
+<p class="detail-line">Recomendação: manter a bateria sempre acima de 80% de SoC; evitar descarregamentos severos; evitar deixar som ligado por muito tempo com o veículo desligado; realizar a recarga completa da bateria após sua utilização.</p>
+<h4>3. Não deixar a bateria parada por longos períodos</h4>
+<p>Mesmo sem utilização, a bateria sofre autodescarga natural. Quando armazenada por longos períodos, ocorre sulfatação irreversível, perda permanente de capacidade e dificuldade de aceitação de carga.</p>
+<p class="detail-line">Recomendação: armazenar a bateria totalmente carregada; evitar armazenamento em descarga profunda; realizar recarga periódica; monitorar a voltagem regularmente; caso o veículo fique um longo período sem uso, desconectar o cabo negativo e, se possível, ligar o veículo semanalmente para repor o estado de carga.</p>
+<h4>4. Evitar temperaturas elevadas</h4>
+<p>O calor é um dos principais fatores de degradação das baterias chumbo-ácido. Baterias que operam em temperaturas elevadas aceleram a corrosão das placas, a perda de água e o envelhecimento químico.</p>
+<p class="detail-line">Recomendação: evitar proximidade com fontes de calor; garantir ventilação adequada; se possível, utilizar mantas térmicas, defletores, escudo de calor ou caixas de proteção para reduzir a transferência de calor do motor para a bateria; evitar usar baterias VRLA em locais onde a temperatura de operação supera os 60 °C.</p>
+<h4>5. Utilizar carregadores corretos no momento da recarga</h4>
+<p>A utilização de carregadores inadequados pode causar sobrecarga ou subcarga nas baterias, aquecimento excessivo, perda acelerada de água e redução da vida útil.</p>
+<p class="detail-line">Recomendação: utilizar preferencialmente carregadores automáticos e inteligentes, que vão evitar que as baterias sofram sobrecargas no processo de recarga.</p>
+<h4>6. Realizar as manutenções periódicas de reposição de água</h4>
+<p>Em baterias com tecnologia de baixa manutenção ou livre de manutenção com acesso, recomenda-se realizar inspeções periódicas do nível de eletrólito, especialmente em aplicações severas ou submetidas a elevadas temperaturas de operação.</p>
+<p>Quando aplicável ao modelo da bateria, a reposição do nível de eletrólito deve ser realizada utilizando exclusivamente água desmineralizada ou deionizada. A manutenção correta do nível de eletrólito evita o aumento excessivo da concentração ácida, reduzindo a intensidade das reações químicas paralelas internas.</p>
+<div class="detail-table-wrap"><table><tr><td>[TB] Frequência de inspeção do nível de eletrólito</td></tr><tr><td>Aplicação</td><td>Frequência recomendada</td></tr><tr><td>Aplicações automotivas leves</td><td>Intervalos de 3 a 6 meses.</td></tr><tr><td>Aplicações severas (caminhões, ônibus e frotas)</td><td>Frequência mensal ou bimestral, devido às maiores solicitações elétricas e condições operacionais mais críticas.</td></tr></table></div>
+<p class="detail-line">Esse controle contribui para: minimizar a perda acelerada de água; reduzir processos de corrosão das grades; controlar o aquecimento interno; preservar a capacidade da bateria; aumentar a vida útil do produto.</p>
+<h4>7. Realizar rodízio em bancos de baterias pesadas</h4>
+<p>Em aplicações automotivas pesadas com múltiplas baterias, recomenda-se realizar o rodízio periódico das baterias, para equalizar os desgastes e garantir homogeneidade na distribuição de corrente entre elas. Sempre a bateria que estiver conectada no terminal positivo do veículo sofrerá mais desgaste; por isso é preciso realizar o rodízio entre elas para que o desgaste seja uniforme no banco.</p>
+<p class="detail-line">Recomendação: realizar rodízio aproximadamente a cada 2 meses.</p>
+<p class="detail-line">Benefícios: aumento da vida útil do banco; redução de desequilíbrio elétrico; menor risco de falha prematura individual; menor risco de sobrecarga e sulfatação das baterias por desbalanceamento no processo de recarga.</p>
+<h4>8. Manter terminais limpos e protegidos</h4>
+<p>Oxidação nos terminais aumenta a resistência elétrica, proporcionando aquecimento nos terminais do produto e do veículo, queda de tensão e possibilidade de dificuldades no momento da partida.</p>
+<p class="detail-line">Recomendação: manter bornes limpos; eliminar oxidação periodicamente; utilizar proteção anticorrosiva; aplicar esponja protetora umedecida com óleo nos terminais.</p>
+<h4>9. Garantir fixação adequada</h4>
+<p>Baterias submetidas a vibração excessiva podem sofrer quebra de componentes internos e desprendimento de material ativo, o que pode resultar em falhas prematuras do produto.</p>
+<p class="detail-line">Recomendação: verificar regularmente o aperto dos suportes, a ausência de folgas e a estabilidade da bateria.</p>
+<h4>10. Verificar periodicamente o sistema elétrico do veículo</h4>
+<p>Mesmo uma bateria nova pode apresentar falhas prematuras se o sistema elétrico estiver inadequado. Um sistema de carga inadequado pode causar subcarga ou sobrecarga, que certamente irá acarretar redução de vida útil.</p>
+<p class="detail-line">Recomendação: periodicamente verificar a tensão de carga do alternador (entre 13,6 V e 14,5 V); periodicamente realizar os testes de fuga de corrente e balanceamento elétrico; observar que sinais de vazamento e deformações na bateria podem indicar sobrecarga.</p>
+<div class="detail-table-wrap"><table><tr><td>[CO] Os principais fatores para maximizar a vida útil</td></tr><tr><td></td></tr><tr><td>Locução do avatar:</td></tr></table></div>
+<p>Este módulo é o que você vai usar todos os dias na conversa com o cliente. São dez práticas que aumentam a performance, a confiabilidade e a vida útil da bateria, reduzindo falhas prematuras, sulfatação, perda de capacidade, reclamações em garantia e custos de manutenção. A primeira é manter a bateria sempre em plena carga. A bateria chumbo-ácido foi projetada para operar preferencialmente em elevados estados de carga, sempre próxima da condição completa. Mantê-la constantemente descarregada ou parcialmente carregada favorece o crescimento e o endurecimento dos cristais de sulfato de chumbo. Com o tempo, esses cristais tornam-se cada vez mais difíceis de serem reconvertidos na recarga, aderindo permanentemente às placas. A recomendação é: evitar que a tensão permaneça abaixo de doze vírgula quatro volts por longos períodos, recarregar o mais rápido possível após descargas, priorizar sempre carga lenta e controlada e não manter a bateria sem uso por longos períodos.</p>
+<p>A segunda prática é evitar descargas profundas. Baterias chumbo-ácido não são projetadas para operar frequentemente em baixos estados de carga. Descargas profundas repetitivas aumentam a formação de sulfato de chumbo cristalizado, dificultando a recuperação e reduzindo drasticamente a vida útil. A recomendação: manter a bateria sempre acima de oitenta por cento de estado de carga, evitar descarregamentos severos, evitar deixar som ligado por muito tempo com o veículo desligado e realizar a recarga completa após a utilização. A terceira é não deixar a bateria parada por longos períodos, porque mesmo sem uso ela sofre autodescarga natural, o que leva a sulfatação irreversível, perda permanente de capacidade e dificuldade de aceitação de carga. Nesse caso, oriente o cliente a armazenar a bateria totalmente carregada, evitar armazenamento em descarga profunda, realizar recarga periódica, monitorar a voltagem e, se o veículo for ficar muito tempo parado, desconectar o cabo negativo e, se possível, ligar o veículo semanalmente para repor o estado de carga.</p>
+<p>A quarta prática é evitar temperaturas elevadas. O calor é um dos principais fatores de degradação: acelera a corrosão das placas, a perda de água e o envelhecimento químico. Recomende evitar proximidade com fontes de calor, garantir ventilação adequada e, se possível, utilizar mantas térmicas, defletores, escudo de calor ou caixas de proteção para reduzir a transferência de calor do motor para a bateria. E evite usar baterias VRLA em locais onde a temperatura de operação supera os sessenta graus. A quinta é utilizar carregadores corretos, porque carregadores inadequados podem causar sobrecarga ou subcarga, aquecimento excessivo, perda acelerada de água e redução da vida útil. Prefira sempre carregadores automáticos e inteligentes.</p>
+<p>A sexta prática é a reposição periódica de água. Em baterias de baixa manutenção ou livres de manutenção com acesso, recomenda-se inspecionar periodicamente o nível de eletrólito, especialmente em aplicações severas ou com altas temperaturas de operação. Quando aplicável ao modelo, a reposição deve ser feita utilizando exclusivamente água desmineralizada ou deionizada. Isso evita o aumento excessivo da concentração ácida e reduz a intensidade das reações químicas paralelas internas. Sobre a frequência: em aplicações automotivas leves, recomenda-se verificar em intervalos de três a seis meses; já em aplicações severas, como caminhões, ônibus e frotas, devido às maiores solicitações elétricas e condições mais críticas, as inspeções devem ocorrer com frequência mensal ou bimestral. Esse controle minimiza a perda acelerada de água, reduz a corrosão das grades, controla o aquecimento interno, preserva a capacidade e aumenta a vida útil.</p>
+<p>A sétima prática vale para o cliente de linha pesada: realizar rodízio em bancos de baterias. Em aplicações com múltiplas baterias, recomenda-se o rodízio periódico para equalizar os desgastes e garantir homogeneidade na distribuição de corrente. Isso acontece porque a bateria conectada no terminal positivo do veículo sempre sofrerá mais desgaste. Por isso, faça o rodízio aproximadamente a cada dois meses. Os benefícios são: aumento da vida útil do banco, redução de desequilíbrio elétrico, menor risco de falha prematura individual e menor risco de sobrecarga e sulfatação por desbalanceamento no processo de recarga.</p>
+<p>As três últimas são simples e muito eficazes. A oitava: manter terminais limpos e protegidos, porque a oxidação aumenta a resistência elétrica, gera aquecimento nos terminais do produto e do veículo, queda de tensão e dificuldade na partida. Mantenha os bornes limpos, elimine a oxidação periodicamente, utilize proteção anticorrosiva e aplique a esponja protetora umedecida com óleo. A nona: garantir fixação adequada, porque baterias submetidas a vibração excessiva podem sofrer quebra de componentes internos e desprendimento de material ativo, resultando em falhas prematuras. Verifique regularmente o aperto dos suportes, a ausência de folgas e a estabilidade. E a décima: verificar periodicamente o sistema elétrico do veículo, porque mesmo uma bateria nova pode falhar prematuramente se o sistema estiver inadequado. Verifique a tensão de carga do alternador, entre treze vírgula seis e catorze vírgula cinco volts, realize os testes de fuga de corrente e balanceamento e lembre que sinais de vazamento e deformações na bateria podem indicar sobrecarga.</p>
+<p>Resumindo o módulo: a vida útil de uma bateria chumbo-ácido está diretamente relacionada às condições de uso, armazenamento e recarga. Os principais fatores para maximizar essa vida útil são manter a bateria carregada, evitar descarga profunda, utilizar carregamento adequado, evitar temperaturas elevadas, realizar inspeções periódicas, garantir boas conexões elétricas e preservar o sistema de carga do veículo. Quando você repassa essas orientações ao cliente, você não está apenas prestando um bom atendimento: está reduzindo a chance de aquele produto voltar como reclamação.</p>
+</template>
+<template id="detail-module-9" data-title="Módulo 9: Analisando a procedência de uma garantia — linha motociclística">
+<div class="detail-table-wrap"><table><tr><td>[TC] Title Card</td></tr></table></div>
+<p class="detail-line">Texto linha 1: &quot;Módulo 9&quot;.</p>
+<p class="detail-line">Texto linha 2: &quot;Análise de garantia — linha motociclística&quot;.</p>
+<p class="detail-line">Faixa inferior: azul #174580 com o texto &quot;Três etapas: certificado, visual e elétrico&quot;.</p>
+<p class="detail-line">Duração: 5 segundos.</p>
+<div class="detail-table-wrap"><table><tr><td>[BP] Barra de Progresso</td></tr></table></div>
+<p class="detail-line">Texto: &quot;Módulo 9 de 11 • Garantia motociclística&quot;.</p>
+<h4>Objetivo</h4>
+<p>Padronizar a análise técnica de baterias motociclísticas com solicitação de garantia, permitindo identificar possíveis falhas de fabricação, problemas de aplicação, armazenamento inadequado ou falhas decorrentes das condições de uso do produto. A análise correta reduz as trocas indevidas, custos operacionais e divergências no processo de garantia, além de garantir maior confiabilidade e rastreabilidade nas avaliações técnicas.</p>
+<div class="detail-table-wrap"><table><tr><td>[DP] As três etapas da análise</td></tr></table></div>
+<p class="detail-line">Análise do Certificado de Garantia;</p>
+<p class="detail-line">Análise Visual Externa;</p>
+<p class="detail-line">Testes Elétricos.</p>
+<div class="detail-table-wrap"><table><tr><td>[MG] Etapa 1 — Conferindo o certificado e o serial</td></tr></table></div>
+<p>Animação: lado a lado, o certificado de garantia e a marcação a laser atrás da tampa da bateria; os dois seriais se destacam e a animação confirma (verde) ou aponta divergência (vermelho).</p>
+<p>Nesta etapa deve-se verificar se o serial informado no certificado de garantia corresponde ao serial marcado a laser atrás da tampa do produto.</p>
+<div class="detail-table-wrap"><table><tr><td>[AS] Divergência de serial</td></tr><tr><td>Divergências entre o certificado de garantia e a codificação a laser contida na tampa do produto podem impedir a substituição do produto.</td></tr></table></div>
+<h4>Verificação da data de fabricação</h4>
+<p>A data de fabricação deve ser identificada através do código presente atrás da tampa da bateria. Os números correspondem à semana e ao ano de produção.</p>
+<p class="detail-line">Exemplo: o código E 17/26 significa mês de maio, na semana 17 do ano de 2026.</p>
+<div class="detail-table-wrap"><table><tr><td>[TB] Prazos de garantia — linha motociclística</td></tr><tr><td>Modelos</td><td>Garantia ao consumidor final</td></tr><tr><td>ERX 4BS, ERX 5BS, ERX 6BS, ETX 7BS, ERX 5,5BS, ETX 6LBS e ERX 8BS</td><td>12 meses</td></tr><tr><td>ETX 7HBS, ETX 9BS, ETX 10BS, ETX 8ABS, ETX 10ABS, ERX 12ABS, ERX 14BS e ERX 16BS</td><td>9 meses</td></tr><tr><td>[CO] Prazo de prateleira</td></tr><tr><td>Além do período destinado ao consumidor final, o distribuidor possui um prazo adicional de 6 meses destinado aos processos de logística, armazenagem e comercialização do produto. Internamente, esse período é denominado &quot;prazo de prateleira&quot;.</td></tr><tr><td>[MG] Etapa 2 — Análise visual externa</td></tr></table></div>
+<p>Animação: a bateria girando 360°, com marcadores vermelhos acendendo em cada tipo de não conformidade (trinca, amassamento, deformação, rolha violada, perfuração, derretimento, terminal danificado).</p>
+<p>A inspeção visual tem como objetivo identificar: danos por mau uso; falhas de instalação; aplicação incorreta; danos mecânicos; sinais de sobrecarga ou superaquecimento; violação das rolhas acessando o interior do produto.</p>
+<p>Nesta inspeção devem ser verificados possíveis danos físicos e indícios de mau uso da bateria, tais como:</p>
+<p class="detail-line">trincas;</p>
+<p class="detail-line">amassamentos;</p>
+<p class="detail-line">deformações;</p>
+<p class="detail-line">violação das rolhas;</p>
+<p class="detail-line">perfurações;</p>
+<p class="detail-line">derretimento da caixa (monobloco) e/ou tampa.</p>
+<p>Também devem ser avaliadas:</p>
+<p class="detail-line">condições dos terminais, verificando a existência de quebras, derretimentos ou sinais de superaquecimento;</p>
+<p class="detail-line">possíveis falhas de selagem entre a caixa e a tampa da bateria.</p>
+<div class="detail-table-wrap"><table><tr><td>[AS] Importante</td></tr><tr><td>A identificação de qualquer uma das não conformidades citadas acima caracteriza indício de dano externo, mau uso, instalação inadequada ou avaria mecânica, resultando na improcedência da solicitação de garantia do produto.</td></tr></table></div>
+<h4>Etapa 3 — Testes elétricos</h4>
+<p>Após aprovação nas análises anteriores, realizar os testes elétricos da bateria. Medir a tensão da bateria em circuito aberto (OCV) utilizando multímetro. Para comparação com a tabela, a bateria deve ter um período mínimo de repouso (circuito aberto) de 6 horas.</p>
+<div class="detail-table-wrap"><table><tr><td>[TB] Interpretação da OCV — linha motociclística</td></tr><tr><td>Voltagem obtida</td><td>Constatação</td><td>Procedimento</td></tr><tr><td>Acima de 13,50 V</td><td>Bateria pode estar seca</td><td>Testar no simulador de partida</td></tr><tr><td>Entre 12,50 V e 13,50 V</td><td>Faixa adequada para instalação</td><td>Testar no simulador de partida</td></tr><tr><td>Entre 12,00 V e 12,50 V</td><td>Bateria descarregada</td><td>Recarregar, aguardar 10 h em repouso e re-testar no simulador de partida</td></tr><tr><td>Entre 11,50 V e 12,00 V</td><td>Possível descarga severa ou micro-curto</td><td>Recarregar, aguardar 24 h em repouso e re-testar no simulador de partida</td></tr><tr><td>Abaixo de 11,50 V</td><td>Forte indício de sulfatação ou micro-curto</td><td>Encaminhar para análise de garantia</td></tr><tr><td>[CO] Observação técnica sobre sulfatação</td></tr><tr><td>Apesar de a sulfatação geralmente não caracterizar falha de fabricação, a política da empresa poderá prever cobertura para este tipo de ocorrência.</td></tr><tr><td>[MG] Teste no simulador de partida</td></tr></table></div>
+<p>Animação: simulador conectado, cronômetro de 5 segundos e o valor final de tensão comparado com o limite de 9 V (verde = apto; vermelho = garantia).</p>
+<p>O teste de simulação de partida permite avaliar a capacidade da bateria em fornecer corrente sob carga. Para maior precisão do teste: a bateria deve estar entre 12,50 V e 13,50 V; a bateria deve estar estabilizada; os terminais devem estar limpos.</p>
+<p class="detail-line">Conectar corretamente o simulador;</p>
+<p class="detail-line">Aplicar a carga de teste, caso o aparelho tenha essa opção;</p>
+<p class="detail-line">Manter o teste por aproximadamente 5 segundos;</p>
+<p class="detail-line">Observar a tensão durante o ensaio.</p>
+<div class="detail-table-wrap"><table><tr><td>[CO] Interpretação do resultado</td></tr><tr><td>A bateria estará apta a ser instalada no veículo se a tensão final obtida após 5 segundos de teste for superior a 9 V ou atender aos requisitos previamente descritos pelo fabricante do equipamento. Caso contrário, a bateria deve ser enviada como solicitação de garantia.<br>Observação: alguns aparelhos apresentam a indicação &quot;C.A.&quot; (Circuito Aberto) no momento do teste. Neste caso deve-se lixar os terminais e repetir o teste. Em caso de recorrência da indicação de &quot;C.A.&quot;, a bateria deve ser enviada como solicitação de garantia.</td></tr><tr><td>Locução do avatar:</td></tr></table></div>
+<p>Entramos no bloco de garantia, e este módulo trata da linha motociclística. O objetivo é padronizar a análise técnica das baterias com solicitação de garantia, permitindo identificar possíveis falhas de fabricação, problemas de aplicação, armazenamento inadequado ou falhas decorrentes das condições de uso. Uma análise correta reduz as trocas indevidas, os custos operacionais e as divergências no processo, além de garantir maior confiabilidade e rastreabilidade. A análise se divide em três etapas principais: análise do certificado de garantia, análise visual externa e testes elétricos. E a ordem importa: só passamos para a etapa seguinte se a anterior for aprovada.</p>
+<p>A primeira etapa é a análise do certificado. Nela, deve-se verificar se o serial informado no certificado de garantia corresponde ao serial marcado a laser atrás da tampa do produto. E atenção: divergências entre o certificado e a codificação a laser contida na tampa podem impedir a substituição do produto. Em seguida, verificamos a data de fabricação, identificada através do código presente atrás da tampa, em que os números correspondem à semana e ao ano de produção. Lembrando o exemplo do módulo um: o código E dezessete barra vinte e seis significa mês de maio, na semana dezessete do ano de dois mil e vinte e seis.</p>
+<p>Com a data de fabricação em mãos, verificamos se o produto está dentro do período de cobertura. O prazo de garantia de cada produto está especificado no certificado que acompanha a bateria. Na linha motociclística, os modelos ERX quatro BS, ERX cinco BS, ERX seis BS, ETX sete BS, ERX cinco vírgula cinco BS, ETX seis LBS e ERX oito BS possuem doze meses de garantia destinados ao consumidor final. Já os modelos ETX sete HBS, ETX nove BS, ETX dez BS, ETX oito ABS, ETX dez ABS, ERX doze ABS, ERX catorze BS e ERX dezesseis BS possuem nove meses destinados ao consumidor final. E há um ponto que você precisa conhecer: além do período destinado ao consumidor final, o distribuidor possui um prazo adicional de seis meses destinado aos processos de logística, armazenagem e comercialização do produto. Internamente, esse período é denominado prazo de prateleira.</p>
+<p>A segunda etapa é a análise visual externa, e ela tem como objetivo identificar danos por mau uso, falhas de instalação, aplicação incorreta, danos mecânicos, sinais de sobrecarga ou superaquecimento e violação das rolhas acessando o interior do produto. Nesta inspeção, devem ser verificados possíveis danos físicos e indícios de mau uso, tais como trincas, amassamentos, deformações, violação das rolhas, perfurações e derretimento da caixa, o monobloco, e da tampa. Também devem ser avaliadas as condições dos terminais, verificando a existência de quebras, derretimentos ou sinais de superaquecimento, e possíveis falhas de selagem entre a caixa e a tampa. E aqui está o critério decisivo: a identificação de qualquer uma dessas não conformidades caracteriza indício de dano externo, mau uso, instalação inadequada ou avaria mecânica, resultando na improcedência da solicitação de garantia.</p>
+<p>A terceira etapa são os testes elétricos, realizados após a aprovação nas análises anteriores. Começamos medindo a tensão em circuito aberto com o multímetro, e um detalhe é fundamental: para comparar com a tabela, a bateria deve ter um período mínimo de repouso, em circuito aberto, de seis horas. Vamos à interpretação na linha motociclística. Acima de treze vírgula cinquenta volts, a constatação é que a bateria pode estar seca, e o procedimento é testar no simulador de partida. Entre doze vírgula cinquenta e treze vírgula cinquenta volts, temos a faixa adequada para instalação, e também seguimos para o simulador. Entre doze e doze vírgula cinquenta volts, a bateria está descarregada: deve-se recarregar, aguardar dez horas em repouso e re-testar no simulador. Entre onze vírgula cinquenta e doze volts, há possível descarga severa ou micro-curto: recarregar, aguardar vinte e quatro horas em repouso e re-testar. E abaixo de onze vírgula cinquenta volts, há forte indício de sulfatação ou micro-curto, e a bateria deve ser encaminhada para análise de garantia.</p>
+<p>Uma observação técnica importante sobre a sulfatação: baterias sulfatadas normalmente indicam armazenamento prolongado descarregado, baixa eficiência do sistema de carga do veículo ou longos períodos sem utilização. Apesar de a sulfatação geralmente não caracterizar falha de fabricação, a política da empresa poderá prever cobertura para este tipo de ocorrência. Por isso, não descarte de imediato: siga o procedimento e deixe a política decidir.</p>
+<p>Por fim, o teste no simulador de partida, que permite avaliar a capacidade da bateria de fornecer corrente sob carga. Para maior precisão, a bateria deve estar entre doze vírgula cinquenta e treze vírgula cinquenta volts, deve estar estabilizada e os terminais devem estar limpos. O procedimento é: conectar corretamente o simulador, aplicar a carga de teste caso o aparelho tenha essa opção, manter o teste por aproximadamente cinco segundos e observar a tensão durante o ensaio. A interpretação: a bateria estará apta a ser instalada no veículo se a tensão final obtida após cinco segundos for superior a nove volts, ou se atender aos requisitos previamente descritos pelo fabricante do equipamento. Caso contrário, a bateria deve ser enviada como solicitação de garantia. E uma observação prática: alguns aparelhos apresentam a indicação C.A., de circuito aberto, no momento do teste. Neste caso, deve-se lixar os terminais e repetir o teste. Em caso de recorrência da indicação de C.A., a bateria deve ser enviada como solicitação de garantia.</p>
+</template>
+<template id="detail-module-10" data-title="Módulo 10: Analisando a procedência de uma garantia — linha automotiva">
+<div class="detail-table-wrap"><table><tr><td>[TC] Title Card</td></tr></table></div>
+<p class="detail-line">Texto linha 1: &quot;Módulo 10&quot;.</p>
+<p class="detail-line">Texto linha 2: &quot;Análise de garantia — linha automotiva&quot;.</p>
+<p class="detail-line">Faixa inferior: azul #174580 com o texto &quot;Cada linha tem o seu prazo&quot;.</p>
+<p class="detail-line">Duração: 5 segundos.</p>
+<div class="detail-table-wrap"><table><tr><td>[BP] Barra de Progresso</td></tr></table></div>
+<p class="detail-line">Texto: &quot;Módulo 10 de 11 • Garantia automotiva&quot;.</p>
+<h4>Objetivo e etapas</h4>
+<p>Padronizar a análise técnica de baterias automotivas com solicitação de garantia, permitindo identificar possíveis falhas de fabricação, problemas de aplicação, armazenamento inadequado ou falhas decorrentes das condições de uso do produto. A análise correta reduz as trocas indevidas, custos operacionais e divergências no processo de garantia, além de garantir maior confiabilidade e rastreabilidade nas avaliações técnicas.</p>
+<p class="detail-line">Verificação do certificado de garantia e confirmação de que o produto encontra-se dentro do período de cobertura;</p>
+<p class="detail-line">Análise Visual Externa;</p>
+<p class="detail-line">Testes Elétricos.</p>
+<p>Nesta etapa deve-se verificar se o serial informado no certificado de garantia corresponde ao serial marcado a laser na tampa do produto. Divergências entre o certificado e a codificação a laser podem impedir a substituição do produto.</p>
+<p class="detail-line">Data de fabricação: identificada através do código presente atrás da tampa. O código E 17/26 significa mês de produção maio, na semana 17 do ano de 2026.</p>
+<p class="detail-line">Base da contagem: a análise da garantia é feita a partir da data de compra, conforme nota fiscal emitida pela ERBS.</p>
+<div class="detail-table-wrap"><table><tr><td>[TB] Prazos de garantia por linha de produto</td></tr><tr><td>Linha</td><td>Garantia total</td><td>Composição</td></tr><tr><td>PREMIUM</td><td>22 meses</td><td>18 meses ao consumidor final (certificado) + 4 meses de estoque, transporte e comercialização.</td></tr><tr><td>EFB (START STOP)</td><td>22 meses</td><td>18 meses ao consumidor final (certificado) + 4 meses de estoque, transporte e comercialização.</td></tr><tr><td>ADVANCE (FREE)</td><td>16 meses</td><td>12 meses ao consumidor final + 4 meses de prateleira, transporte e comercialização.</td></tr><tr><td>UFF FREE</td><td>16 meses</td><td>12 meses ao consumidor final + 4 meses de prateleira, transporte e comercialização.</td></tr><tr><td>CARBON</td><td>16 meses</td><td>12 meses ao consumidor final + 4 meses de prateleira, transporte e comercialização.</td></tr><tr><td>TUNING</td><td>16 meses</td><td>12 meses ao consumidor final + 4 meses de prateleira, transporte e comercialização.</td></tr><tr><td>NÁUTICA</td><td>16 meses</td><td>12 meses ao consumidor final + 4 meses de prateleira, transporte e comercialização.</td></tr><tr><td>ESTACIONÁRIA</td><td>28 meses</td><td>24 meses ao consumidor final + 4 meses de prateleira, transporte e comercialização.</td></tr><tr><td>[AS] Exceções da linha ADVANCE (FREE)</td></tr><tr><td>Modelos</td><td>Garantia total</td><td>Composição</td></tr><tr><td>ERFFT 40D/E, ERF0I 45D/E, ERFCV 48D/E, ERFLB 50D/E, ERFLB 60D/E, ERFCA 90D/E, ERFGA 100D/E</td><td>19 meses</td><td>15 meses ao consumidor final + 4 meses de estoque/transporte/comercialização.</td></tr><tr><td>ERFMB 150D/E, ERFMB 170D/E, ERFMB 180D/E, ERFON 205D/E e ERFON 220D/E</td><td>10 meses</td><td>6 meses ao consumidor final + 4 meses de estoque/transporte/comercialização.</td></tr><tr><td>[AS] Exceções da linha UFF FREE</td></tr><tr><td>Modelos</td><td>Garantia total</td><td>Composição</td></tr><tr><td>UFC0I 45D/E, UFCLB 50D/E, UFCLB 60D/E e UFCGA 100D/E</td><td>19 meses</td><td>15 meses ao consumidor final + 4 meses de estoque/transporte/comercialização.</td></tr><tr><td>UFCMB 150D/E, UFCMB 170D/E, UFCMB 180D/E, UFCON 205D/E e UFFCON 220D/E</td><td>10 meses</td><td>6 meses ao consumidor final + 4 meses de estoque/transporte/comercialização.</td></tr></table></div>
+<p>* D/E = Bateria Direita e Bateria Esquerda.</p>
+<div class="detail-table-wrap"><table><tr><td>[MG] Análise visual externa — linha automotiva</td></tr></table></div>
+<p>Animação: bateria automotiva girando, com destaque especial para o abaloamento do monobloco (sinal de sobrecarga) e para os bornes derretidos (falha de instalação).</p>
+<p>A inspeção visual tem como objetivo identificar: danos por mau uso; ausência de reposição de água (baterias com acesso); falhas de instalação (bornes danificados e derretidos); aplicação incorreta; danos mecânicos; sinais de sobrecarga ou superaquecimento; violação das rolhas acessando o interior do produto, para baterias seladas.</p>
+<p>Devem ser verificados possíveis danos físicos e indícios de mau uso, tais como:</p>
+<p class="detail-line">trincas e deformações do monobloco;</p>
+<p class="detail-line">abaloamento do monobloco (sinais de sobrecarga);</p>
+<p class="detail-line">violação das rolhas (para baterias seladas);</p>
+<p class="detail-line">perfurações (vazamentos);</p>
+<p class="detail-line">derretimento da caixa (monobloco) e/ou tampa.</p>
+<p>Também devem ser avaliadas as condições dos terminais (quebras, derretimentos ou sinais de superaquecimento) e possíveis falhas de selagem entre a caixa e a tampa.</p>
+<div class="detail-table-wrap"><table><tr><td>[AS] Importante</td></tr><tr><td>A identificação de qualquer uma das não conformidades citadas acima caracteriza indício de dano externo, mau uso, instalação inadequada ou avaria mecânica, resultando na improcedência da solicitação de garantia do produto.</td></tr><tr><td>[TB] Interpretação da OCV — linha automotiva</td></tr></table></div>
+<p>Medir a tensão em circuito aberto com multímetro, após repouso mínimo de 6 horas.</p>
+<div class="detail-table-wrap"><table><tr><td>Voltagem obtida</td><td>Constatação</td><td>Procedimento</td></tr><tr><td>Acima de 12,80 V</td><td>Bateria pode estar seca</td><td>Testar no simulador de partida</td></tr><tr><td>Entre 12,25 V e 12,80 V</td><td>Faixa adequada para instalação</td><td>Testar no simulador de partida</td></tr><tr><td>Entre 12,00 V e 12,25 V</td><td>Bateria descarregada</td><td>Recarregar, aguardar 10 h em repouso e re-testar no simulador de partida</td></tr><tr><td>Entre 11,50 V e 12,00 V</td><td>Possível descarga severa ou micro-curto</td><td>Recarregar, aguardar 24 h em repouso e re-testar no simulador de partida</td></tr><tr><td>Abaixo de 11,50 V</td><td>Forte indício de sulfatação ou micro-curto</td><td>Encaminhar para análise de garantia</td></tr><tr><td>[CO] Teste no simulador de partida</td></tr><tr><td>Para maior precisão: a bateria deve estar entre 12,40 V e 12,80 V; estabilizada; com os terminais limpos.<br>Procedimento: conectar corretamente o simulador; aplicar a carga de teste, caso o aparelho tenha essa opção; manter o teste por aproximadamente 5 segundos; observar a tensão durante o ensaio.<br>Resultado: apta se a tensão final após 5 segundos for superior a 9 V ou atender aos requisitos do fabricante do equipamento. Caso contrário, enviar como solicitação de garantia. Se aparecer &quot;C.A.&quot; (Circuito Aberto), lixar os terminais e repetir; em caso de recorrência, enviar como garantia.</td></tr><tr><td>Locução do avatar:</td></tr></table></div>
+<p>Agora a análise de garantia na linha automotiva. O objetivo é o mesmo do módulo anterior: padronizar a análise técnica, identificando possíveis falhas de fabricação, problemas de aplicação, armazenamento inadequado ou falhas decorrentes das condições de uso, reduzindo trocas indevidas, custos operacionais e divergências. E a estrutura também se mantém em três etapas: verificação do certificado de garantia e confirmação de que o produto está dentro do período de cobertura; análise visual externa; e testes elétricos. Na primeira etapa, verifique se o serial informado no certificado corresponde ao serial marcado a laser na tampa do produto, lembrando que divergências podem impedir a substituição. A data de fabricação é identificada pelo código atrás da tampa, e o código E dezessete barra vinte e seis significa mês de produção maio, na semana dezessete de dois mil e vinte e seis. Um ponto específico da linha automotiva: a análise da garantia é feita a partir da data de compra, conforme nota fiscal emitida pela ERBS.</p>
+<p>Aqui está a maior diferença em relação à linha motociclística: cada família de produtos tem o seu prazo. Vamos por partes. A linha PREMIUM possui prazo de garantia total de vinte e dois meses, sendo dezoito meses destinados ao consumidor final, conforme certificado que acompanha o produto, e quatro meses adicionais destinados a estoque, transporte e comercialização. A linha EFB, que é a start stop, tem o mesmo prazo: vinte e dois meses no total, sendo dezoito para o consumidor final e quatro de estoque, transporte e comercialização.</p>
+<p>A linha ADVANCE, também chamada FREE, possui dezesseis meses de garantia total, sendo doze meses para o consumidor final e quatro meses de prateleira, transporte e comercialização. Mas essa linha tem exceções que você precisa memorizar ou consultar. Para as baterias ERFFT quarenta, ERF zero I quarenta e cinco, ERFCV quarenta e oito, ERFLB cinquenta, ERFLB sessenta, ERFCA noventa e ERFGA cem, nas versões direita e esquerda, o prazo é de dezenove meses, sendo quinze para o consumidor final e quatro de estoque. E para as baterias ERFMB cento e cinquenta, ERFMB cento e setenta, ERFMB cento e oitenta, ERFON duzentos e cinco e ERFON duzentos e vinte, o prazo é de dez meses, sendo seis para o consumidor final e quatro de estoque.</p>
+<p>A linha UFF FREE segue a mesma lógica: dezesseis meses no total, doze para o consumidor final e quatro de prateleira. Com exceção das baterias UFC zero I quarenta e cinco, UFCLB cinquenta, UFCLB sessenta e UFCGA cem, que têm dezenove meses, sendo quinze para o consumidor final; e das baterias UFCMB cento e cinquenta, UFCMB cento e setenta, UFCMB cento e oitenta, UFCON duzentos e cinco e UFFCON duzentos e vinte, que têm dez meses, sendo seis para o consumidor final. As linhas CARBON, TUNING e NÁUTICA possuem, cada uma, dezesseis meses no total, sendo doze para o consumidor final e quatro de prateleira. E a linha ESTACIONÁRIA é a de maior prazo: vinte e oito meses no total, sendo vinte e quatro meses para o consumidor final e quatro de prateleira. Lembrando que D e E, nos códigos, significam bateria direita e bateria esquerda.</p>
+<p>Na análise visual externa da linha automotiva, o objetivo é identificar danos por mau uso, ausência de reposição de água em baterias com acesso, falhas de instalação com bornes danificados e derretidos, aplicação incorreta, danos mecânicos, sinais de sobrecarga ou superaquecimento e violação das rolhas em baterias seladas. Verifique trincas e deformações do monobloco, abaloamento do monobloco, que é sinal de sobrecarga, violação das rolhas nas seladas, perfurações com vazamentos e derretimento da caixa e da tampa. Avalie também as condições dos terminais, procurando quebras, derretimentos ou sinais de superaquecimento, e possíveis falhas de selagem entre caixa e tampa. E o critério é o mesmo: qualquer uma dessas não conformidades caracteriza indício de dano externo, mau uso, instalação inadequada ou avaria mecânica, resultando na improcedência da solicitação de garantia.</p>
+<p>Nos testes elétricos, medimos a tensão em circuito aberto com multímetro, sempre após repouso mínimo de seis horas. E aqui os valores mudam em relação à moto, então preste atenção. Acima de doze vírgula oitenta volts, a bateria pode estar seca, e o procedimento é testar no simulador. Entre doze vírgula vinte e cinco e doze vírgula oitenta volts, temos a faixa adequada para instalação, e seguimos para o simulador. Entre doze e doze vírgula vinte e cinco volts, a bateria está descarregada: recarregar, aguardar dez horas em repouso e re-testar. Entre onze vírgula cinquenta e doze volts, possível descarga severa ou micro-curto: recarregar, aguardar vinte e quatro horas e re-testar. E abaixo de onze vírgula cinquenta volts, forte indício de sulfatação ou micro-curto, encaminhando para análise de garantia.</p>
+<p>Por fim, o teste no simulador de partida. Para maior precisão, a bateria automotiva deve estar entre doze vírgula quarenta e doze vírgula oitenta volts, estabilizada e com os terminais limpos. Conecte corretamente o simulador, aplique a carga de teste caso o aparelho tenha essa opção, mantenha por aproximadamente cinco segundos e observe a tensão. A bateria estará apta a ser instalada se a tensão final após cinco segundos for superior a nove volts, ou se atender aos requisitos descritos pelo fabricante do equipamento. Caso contrário, deve ser enviada como solicitação de garantia. E vale a mesma observação: se o aparelho indicar C.A., circuito aberto, lixe os terminais e repita o teste; se a indicação persistir, envie como solicitação de garantia.</p>
+</template>
+<template id="detail-module-11" data-title="Módulo 11: Como fazer a solicitação de garantia de um produto">
+<div class="detail-table-wrap"><table><tr><td>[TC] Title Card</td></tr></table></div>
+<p class="detail-line">Texto linha 1: &quot;Módulo 11&quot;.</p>
+<p class="detail-line">Texto linha 2: &quot;Abrindo a solicitação de garantia&quot;.</p>
+<p class="detail-line">Faixa inferior: azul #174580 com o texto &quot;Do e-mail à nota fiscal, sem retrabalho&quot;.</p>
+<p class="detail-line">Duração: 5 segundos.</p>
+<div class="detail-table-wrap"><table><tr><td>[BP] Barra de Progresso</td></tr></table></div>
+<p class="detail-line">Texto: &quot;Módulo 11 de 11 • Solicitação de garantia&quot;.</p>
+<div class="detail-table-wrap"><table><tr><td>[AS] Observações importantes — antes de solicitar</td></tr><tr><td>Na dúvida, a recomendação da empresa é colocar a bateria para recarregar conforme orientação do fabricante, deixar a bateria em repouso pelo período mínimo de 6 horas e refazer os testes de estado de carga (voltagem do produto) e de simulação de partida.</td></tr><tr><td>[MG] O fluxo completo da solicitação</td></tr></table></div>
+<p>Animação: linha do tempo horizontal com seis marcos — e-mail enviado, formulário preenchido, espelho da NF recebido, NF confeccionada, NF conferida, produtos enviados — cada um acendendo conforme narrado.</p>
+<div class="detail-table-wrap"><table><tr><td>[DP] Procedimento passo a passo</td></tr></table></div>
+<p class="detail-line">Enviar um e-mail registrando a solicitação de garantia para a ERBS, através do e-mail setor.garantia@erbs.com.br, ou para o representante da empresa;</p>
+<p class="detail-line">Preencher o formulário padrão com o(s) serial(is) da(s) bateria(s);</p>
+<p class="detail-line">Aguardar o setor de garantia da empresa analisar a solicitação e devolver um espelho da Nota Fiscal a ser confeccionada;</p>
+<p class="detail-line">Confeccionar a NF seguindo passo a passo as indicações contidas no e-mail recebido;</p>
+<p class="detail-line">Enviar a NF para o setor de garantia da ERBS através do e-mail setor.garantia@erbs.com.br para checagem da NF confeccionada;</p>
+<p class="detail-line">Aguardar a conferência da NF para realizar o envio dos produtos para a empresa.</p>
+<div class="detail-table-wrap"><table><tr><td>[CK] Ao confeccionar a Nota Fiscal, observar</td></tr></table></div>
+<p class="detail-line">CNPJ da empresa;</p>
+<p class="detail-line">Natureza da operação;</p>
+<p class="detail-line">CFOP;</p>
+<p class="detail-line">NCM;</p>
+<p class="detail-line">Produtos e quantidades descritos no espelho da NF;</p>
+<p class="detail-line">Observações referenciando a NF de origem.</p>
+<div class="detail-table-wrap"><table><tr><td>[GA] Prazo de análise</td></tr><tr><td>A ERBS tem 10 dias úteis para realizar a análise das baterias após o recebimento pelo setor de garantia.</td></tr><tr><td>Locução do avatar:</td></tr></table></div>
+<p>Chegamos ao último módulo, que fecha o ciclo: como abrir corretamente uma solicitação de garantia. E começo com a observação mais importante: antes de solicitar a garantia da bateria, certifique-se de que foram realizadas as inspeções visuais e os ensaios elétricos necessários para comprovar o vício do produto e confirmar a existência de defeito de fabricação. Ou seja, tudo o que aprendemos nos módulos nove e dez precisa ter sido feito antes deste passo. E na dúvida, a recomendação da empresa é clara: coloque a bateria para recarregar conforme orientação do fabricante, deixe a bateria em repouso pelo período mínimo de seis horas e refaça os testes de estado de carga, que é a voltagem do produto, e de simulação de partida. Muitas solicitações são evitadas simplesmente com uma recarga bem feita.</p>
+<p>Confirmado o defeito, o procedimento tem seis passos. O primeiro é enviar um e-mail registrando a solicitação de garantia para a ERBS, através do e-mail setor ponto garantia arroba erbs ponto com ponto br, ou para o representante da empresa. O segundo é preencher o formulário padrão com o serial ou os seriais das baterias. Repare como o serial volta a aparecer: é por isso que o módulo um deste curso é tão importante. O terceiro passo é aguardar o setor de garantia analisar a solicitação e devolver um espelho da nota fiscal a ser confeccionada.</p>
+<p>O quarto passo é confeccionar a nota fiscal, seguindo passo a passo as indicações contidas no e-mail recebido, e observando seis pontos: o CNPJ da empresa, a natureza da operação, o CFOP, o NCM, os produtos e quantidades descritos no espelho da NF e as observações referenciando a nota fiscal de origem. Esse é o ponto onde mais acontece retrabalho, então confira cada campo com calma. O quinto passo é enviar a NF para o setor de garantia da ERBS, no mesmo e-mail, para checagem da nota confeccionada. E o sexto é aguardar a conferência da NF para realizar o envio dos produtos para a empresa. Nunca envie os produtos antes dessa conferência.</p>
+<p>Sobre os prazos: a ERBS tem dez dias úteis para realizar a análise das baterias após o recebimento pelo setor de garantia. Saber esse prazo ajuda você a dar uma resposta precisa ao cliente e a acompanhar o processo com segurança. E assim fechamos o ciclo completo do produto: da identificação da data de fabricação, no módulo um, até a solicitação de garantia, aqui no módulo onze.</p>
+</template>
+
+
   <button class="print-button" type="button" onclick="window.print()" aria-label="Imprimir ou salvar proposta em PDF">↗ Imprimir / salvar PDF</button>
+  <script>
+    (() => {
+      const modal = document.getElementById('module-modal');
+      const title = document.getElementById('module-modal-title');
+      const content = document.getElementById('module-modal-content');
+      const closeButton = modal.querySelector('.module-modal-close');
+      let trigger = null;
+
+      const closeModal = () => {
+        modal.hidden = true;
+        document.body.classList.remove('modal-open');
+        content.replaceChildren();
+        if (trigger) trigger.focus();
+      };
+
+      document.querySelectorAll('[data-module-detail]').forEach((card) => {
+        card.addEventListener('click', () => {
+          const template = document.getElementById(`detail-${card.dataset.moduleDetail}`);
+          if (!template) return;
+          trigger = card;
+          title.textContent = template.dataset.title;
+          content.replaceChildren(template.content.cloneNode(true));
+          content.scrollTop = 0;
+          modal.hidden = false;
+          document.body.classList.add('modal-open');
+          closeButton.focus();
+        });
+      });
+
+      modal.querySelectorAll('[data-modal-close]').forEach((element) => {
+        element.addEventListener('click', closeModal);
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !modal.hidden) closeModal();
+      });
+    })();
+  </script>
 </body>
 </html>
