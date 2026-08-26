@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="/aratiba_taverna/">
   <meta name="theme-color" content="#5b1118">
   <title>Projeto Taverna Pub Burguer | Bebidas Aratiba</title>
   <style>
@@ -403,26 +404,85 @@
 
     .controls button:hover { background: var(--bordo); }
 
+    .visual-panel {
+      cursor: zoom-in;
+    }
+
+    .visual-panel:focus-visible {
+      outline: 3px solid #fff;
+      outline-offset: 3px;
+    }
+
+    .image-modal {
+      width: 100vw;
+      max-width: none;
+      height: 100vh;
+      max-height: none;
+      margin: 0;
+      padding: 58px 24px 24px;
+      border: 0;
+      color: #fff;
+      background: rgba(8, 9, 10, .97);
+      overflow: hidden;
+    }
+
+    .image-modal::backdrop { background: rgba(0, 0, 0, .92); }
+
+    .image-modal img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .modal-close {
+      position: fixed;
+      z-index: 2;
+      top: 12px;
+      right: 16px;
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 50%;
+      color: #fff;
+      background: rgba(23,25,28,.82);
+      font-size: 1.55rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    body.modal-open { overflow: hidden; }
+
     @media (max-width: 820px) {
-      :root { --header: 62px; }
+      :root { --header: 56px; }
       html { scroll-snap-type: none; }
-      .topbar { padding-inline: 14px; }
-      .brand img { width: 66px; height: 42px; }
+      .topbar { gap: 10px; padding: 7px 12px; }
+      .brand { gap: 9px; }
+      .brand img { width: 58px; height: 38px; }
+      .brand-copy strong { font-size: .72rem; letter-spacing: .055em; }
       .brand-copy small, .progress { display: none; }
+      .counter { min-width: 52px; font-size: .7rem; }
       .counter { margin-left: auto; }
-      .slide { min-height: 100svh; padding: calc(var(--header) + 14px) 14px 72px; overflow: visible; }
-      .area-layout { height: auto; min-height: calc(100svh - var(--header) - 86px); grid-template-rows: minmax(370px, 58vh) auto; }
+      .slide { min-height: auto; padding: calc(var(--header) + 12px) 10px 28px; overflow: visible; scroll-snap-align: none; }
+      .slide::after { display: none; }
+      .cover { min-height: 100svh; padding-inline: 18px; }
+      .cover .eyebrow { margin-top: 22px; }
+      .cover-subtitle { margin-top: 18px; font-size: .98rem; }
+      .area-layout { height: auto; min-height: 0; grid-template-rows: minmax(280px, 52svh) auto; gap: 10px; }
+      .visual-panel { min-height: 280px; border-radius: 13px; }
       .details-panel { grid-template-columns: 1fr; }
-      .area-heading { padding: 18px 22px; }
-      .area-heading h2 { font-size: 2.25rem; }
+      .area-heading { padding: 16px 18px; }
+      .area-heading h2 { font-size: 2rem; }
       .area-heading small { display: none; }
-      .investments { padding: 20px 22px 24px; }
+      .investments { padding: 18px 18px 22px; }
       .investments ul { grid-template-columns: 1fr; gap: 9px; }
-      .investments li { font-size: .9rem; }
+      .investments li { font-size: .92rem; line-height: 1.42; }
       .nav-dots { display: none; }
-      .controls { right: 14px; bottom: 14px; }
+      .controls { display: none; }
       .visual-panel::before { font-size: .59rem; }
       .cover-logo { width: min(280px, 72vw); }
+      .image-modal { padding: 52px 8px 8px; }
+      .modal-close { top: 8px; right: 10px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -468,7 +528,7 @@
       </span>
     </a>
     <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
-    <div class="counter" id="counter" aria-live="polite">01 / 10</div>
+    <div class="counter" id="counter" aria-live="polite">01 / 11</div>
   </header>
 
   <nav class="nav-dots" aria-label="Navegação entre páginas">
@@ -482,6 +542,7 @@
     <a href="#area-7" aria-label="Área 7"></a>
     <a href="#area-8" aria-label="Área 8"></a>
     <a href="#area-9" aria-label="Área 9"></a>
+    <a href="#area-10" aria-label="Área 10"></a>
   </nav>
 
   <main class="deck">
@@ -491,7 +552,7 @@
         <p class="eyebrow">Apresentação do projeto</p>
         <h1 id="titulo-capa">Taverna<br>Pub Burguer</h1>
         <div class="cover-rule"></div>
-        <p class="cover-subtitle">Proposta de ambientação e comunicação visual — detalhamento dos investimentos das Áreas 1 a 9.</p>
+        <p class="cover-subtitle">Proposta de ambientação e comunicação visual — detalhamento dos investimentos das Áreas 1 a 10.</p>
         <a class="start-link" href="#area-1">Ver projeto <span aria-hidden="true">↓</span></a>
       </div>
     </section>
@@ -502,7 +563,7 @@
           <img src="assets/area1.png" alt="Fotografia original da Área 1" loading="eager">
         </figure>
         <div class="details-panel">
-          <div class="area-heading"><span>Intervenções</span><h2 id="titulo-area-1">Área 1</h2><small>01 / 09</small></div>
+          <div class="area-heading"><span>Intervenções</span><h2 id="titulo-area-1">Área 1</h2><small>01 / 10</small></div>
           <div class="investments"><h3>Detalhamento dos investimentos</h3><ul>
             <li>Pintura das luminárias atuais de vermelho</li>
             <li>Substituição dos jogos de mesa</li>
@@ -516,7 +577,7 @@
       <div class="area-layout">
         <figure class="visual-panel"><img src="assets/area2.png" alt="Fotografia original da Área 2" loading="lazy"></figure>
         <div class="details-panel">
-          <div class="area-heading"><span>Intervenções</span><h2 id="titulo-area-2">Área 2</h2><small>02 / 09</small></div>
+          <div class="area-heading"><span>Intervenções</span><h2 id="titulo-area-2">Área 2</h2><small>02 / 10</small></div>
           <div class="investments"><h3>Detalhamento dos investimentos</h3><ul>
             <li>Substituição das mesas</li>
             <li>Aplicação da flange da Amstel</li>
@@ -532,12 +593,11 @@
       <div class="area-layout">
         <figure class="visual-panel"><img src="assets/area3.png" alt="Fotografia original da Área 3" loading="lazy"></figure>
         <div class="details-panel">
-          <div class="area-heading"><span>Intervenções</span><h2 id="titulo-area-3">Área 3</h2><small>03 / 09</small></div>
+          <div class="area-heading"><span>Intervenções</span><h2 id="titulo-area-3">Área 3</h2><small>03 / 10</small></div>
           <div class="investments"><h3>Detalhamento dos investimentos</h3><ul>
             <li>Fita LED vermelha na parte de baixo do balcão de atendimento</li>
             <li>Substituição da geladeira EISENBAHN pela AMSTEL</li>
-            <li>Fechamento superior da viga de madeira com chapa de ACM preto fosco</li>
-            <li>Aplicação de adesivo branco refletivo com os logotipos da AMSTEL e TAVERNA</li>
+            <li>Aplicação de adesivo impresso em transparente com o tema: AMSTEL_PATTERN.</li>
             <li>Remover flange antiga AMSTEL</li>
           </ul></div>
         </div>
@@ -548,11 +608,12 @@
       <div class="area-layout">
         <figure class="visual-panel"><img src="assets/area4.png" alt="Fotografia original da Área 4" loading="lazy"></figure>
         <div class="details-panel">
-          <div class="area-heading"><span>Intervenções</span><h2 id="titulo-area-4">Área 4</h2><small>04 / 09</small></div>
+          <div class="area-heading"><span>Intervenções</span><h2 id="titulo-area-4">Área 4</h2><small>04 / 10</small></div>
           <div class="investments"><h3>Detalhamento dos investimentos</h3><ul>
             <li>Remover os quadros, deixando somente a guitarra</li>
             <li>Pintar as luminárias de vermelho</li>
             <li>Produzir um quadro triplo — modelo novo Amstel em PVC expandido adesivado</li>
+            <li>Produzir um quadro com símbolo da marca em pvc expandido</li>
           </ul></div>
         </div>
       </div>
@@ -562,7 +623,7 @@
       <div class="area-layout">
         <figure class="visual-panel"><img src="assets/area5.png" alt="Fotografia original da Área 5" loading="lazy"></figure>
         <div class="details-panel">
-          <div class="area-heading"><span>Intervenções</span><h2 id="titulo-area-5">Área 5</h2><small>05 / 09</small></div>
+          <div class="area-heading"><span>Intervenções</span><h2 id="titulo-area-5">Área 5</h2><small>05 / 10</small></div>
           <div class="investments"><h3>Detalhamento dos investimentos</h3><ul>
             <li>Inserir uma fita neon vermelha no topo, colada na viga de madeira</li>
             <li>Logo Amstel em PVC expandido com LED vermelho atrás</li>
@@ -576,7 +637,7 @@
       <div class="area-layout">
         <figure class="visual-panel"><img src="assets/area6.png" alt="Fotografia original da Área 6" loading="lazy"></figure>
         <div class="details-panel">
-          <div class="area-heading"><span>Intervenções</span><h2 id="titulo-area-6">Área 6</h2><small>06 / 09</small></div>
+          <div class="area-heading"><span>Intervenções</span><h2 id="titulo-area-6">Área 6</h2><small>06 / 10</small></div>
           <div class="investments"><h3>Detalhamento dos investimentos</h3><ul>
             <li>Troca do tecido das almofadas</li>
             <li>Fita LED neon com a escrita Amstel L Bier</li>
@@ -590,7 +651,7 @@
       <div class="area-layout">
         <figure class="visual-panel"><img src="assets/area7.png" alt="Fotografia vertical original da Área 7" loading="lazy"></figure>
         <div class="details-panel">
-          <div class="area-heading"><span>Intervenções</span><h2 id="titulo-area-7">Área 7</h2><small>07 / 09 • imagem vertical</small></div>
+          <div class="area-heading"><span>Intervenções</span><h2 id="titulo-area-7">Área 7</h2><small>07 / 10 • imagem vertical</small></div>
           <div class="investments"><h3>Detalhamento dos investimentos</h3><ul>
             <li>Remover placas verdes</li>
             <li>Aplicar um ripado preto na parede</li>
@@ -605,7 +666,7 @@
       <div class="area-layout">
         <figure class="visual-panel"><img src="assets/area8.png" alt="Fotografia original da Área 8" loading="lazy"></figure>
         <div class="details-panel">
-          <div class="area-heading"><span>Intervenções</span><h2 id="titulo-area-8">Área 8</h2><small>08 / 09</small></div>
+          <div class="area-heading"><span>Intervenções</span><h2 id="titulo-area-8">Área 8</h2><small>08 / 10</small></div>
           <div class="investments"><h3>Detalhamento dos investimentos</h3><ul>
             <li>Aplicar uma chapa galvanizada ondulada vermelha em cima da fachada</li>
             <li>Produzir o logotipo da Amstel em PVC 3 mm</li>
@@ -619,7 +680,7 @@
       <div class="area-layout">
         <figure class="visual-panel"><img src="assets/area9.png" alt="Fotografia vertical original da Área 9" loading="lazy"></figure>
         <div class="details-panel">
-          <div class="area-heading"><span>Intervenções</span><h2 id="titulo-area-9">Área 9</h2><small>09 / 09 • imagem vertical</small></div>
+          <div class="area-heading"><span>Intervenções</span><h2 id="titulo-area-9">Área 9</h2><small>09 / 10 • imagem vertical</small></div>
           <div class="investments"><h3>Detalhamento dos investimentos</h3><ul>
             <li>Pintar o poste de vermelho</li>
             <li>Fixar uma chapa redonda com o logotipo frente e verso</li>
@@ -627,7 +688,25 @@
         </div>
       </div>
     </section>
+
+    <section class="slide" id="area-10" aria-labelledby="titulo-area-10">
+      <div class="area-layout">
+        <figure class="visual-panel"><img src="assets/area10.png" alt="Fotografia vertical original da Área 10" loading="lazy"></figure>
+        <div class="details-panel">
+          <div class="area-heading"><span>Intervenções</span><h2 id="titulo-area-10">Área 10</h2><small>10 / 10 • imagem vertical</small></div>
+          <div class="investments"><h3>Detalhamento dos investimentos</h3><ul>
+            <li>Mangueira LED vermelho na parte superior da parede do lado esquerda e frente.</li>
+            <li>Aplicação de Luminoso Amstel na parede lateral esquerda.</li>
+          </ul></div>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <dialog class="image-modal" id="imageModal" aria-label="Visualização ampliada da fotografia">
+    <button class="modal-close" type="button" aria-label="Fechar imagem ampliada">×</button>
+    <img id="modalImage" src="" alt="">
+  </dialog>
 
   <div class="controls" aria-label="Controles da apresentação">
     <button type="button" id="previous" title="Página anterior" aria-label="Página anterior">↑</button>
@@ -639,6 +718,8 @@
     const dots = [...document.querySelectorAll('.nav-dots a')];
     const counter = document.getElementById('counter');
     const progressBar = document.getElementById('progressBar');
+    const imageModal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
     let current = 0;
 
     function update(index) {
@@ -667,6 +748,40 @@
       if (event.key === 'Home') { event.preventDefault(); slides[0].scrollIntoView({ behavior: 'smooth' }); }
       if (event.key === 'End') { event.preventDefault(); slides.at(-1).scrollIntoView({ behavior: 'smooth' }); }
     });
+
+    document.querySelectorAll('.visual-panel').forEach((panel) => {
+      const image = panel.querySelector('img');
+      panel.setAttribute('role', 'button');
+      panel.setAttribute('tabindex', '0');
+      panel.setAttribute('aria-label', `Ampliar ${image.alt}`);
+
+      const openImage = () => {
+        modalImage.src = image.currentSrc || image.src;
+        modalImage.alt = image.alt;
+        imageModal.showModal();
+        document.body.classList.add('modal-open');
+      };
+
+      panel.addEventListener('click', openImage);
+      panel.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openImage();
+        }
+      });
+    });
+
+    function closeImage() {
+      imageModal.close();
+      modalImage.removeAttribute('src');
+      document.body.classList.remove('modal-open');
+    }
+
+    imageModal.querySelector('.modal-close').addEventListener('click', closeImage);
+    imageModal.addEventListener('click', (event) => {
+      if (event.target === imageModal) closeImage();
+    });
+    imageModal.addEventListener('close', () => document.body.classList.remove('modal-open'));
     update(0);
   </script>
 </body>
