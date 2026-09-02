@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Proposta comercial para o desenvolvimento da identidade visual e do site institucional da V3T Incorporações.">
+  <meta name="theme-color" content="#0a0a0a">
+  <title>Proposta V3T Incorporações | Delumo</title>
+  <style>
+    :root {
+      --ink: #0a0a0a;
+      --ink-soft: #171717;
+      --orange: #ed4818;
+      --orange-light: #ff6a38;
+      --paper: #f4f2ef;
+      --white: #ffffff;
+      --muted: #69645f;
+      --line: #ded9d4;
+      --shadow: 0 24px 70px rgba(10, 10, 10, .12);
+      --radius: 26px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: inherit; }
+    img { display: block; max-width: 100%; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    .topbar {
+      position: sticky;
+      z-index: 30;
+      top: 0;
+      color: var(--white);
+      background: rgba(6, 6, 6, .94);
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      backdrop-filter: blur(18px);
+    }
+    .topbar-inner {
+      width: min(1180px, calc(100% - 32px));
+      min-height: 78px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 24px;
+    }
+    .mini-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      justify-self: start;
+      color: var(--white);
+      text-decoration: none;
+      font-size: .8rem;
+      font-weight: 850;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .mini-brand::before {
+      content: "";
+      width: 11px;
+      height: 11px;
+      background: var(--orange);
+      transform: rotate(45deg);
+      box-shadow: 0 0 0 7px rgba(237,72,24,.15);
+    }
+    .proposal-nav {
+      grid-column: 2;
+      justify-self: center;
+      display: flex;
+      gap: 8px;
+      padding: 7px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 999px;
+    }
+    .nav-short { display: none; }
+    .proposal-nav a {
+      padding: 10px 18px;
+      color: #cfcfcf;
+      text-decoration: none;
+      border-radius: 999px;
+      font-size: .87rem;
+      font-weight: 780;
+      transition: .2s ease;
+    }
+    .proposal-nav a:hover,
+    .proposal-nav a[aria-current="page"] {
+      color: var(--ink);
+      background: var(--white);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 640px;
+      color: var(--white);
+      background:
+        radial-gradient(circle at 83% 34%, rgba(237,72,24,.25), transparent 30%),
+        radial-gradient(circle at 12% 88%, rgba(237,72,24,.12), transparent 28%),
+        linear-gradient(135deg, #050505 0%, #0b0b0b 58%, #18100d 100%);
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .13;
+      background-image: linear-gradient(rgba(255,255,255,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.12) 1px, transparent 1px);
+      background-size: 58px 58px;
+      mask-image: linear-gradient(to right, black, transparent 78%);
+    }
+    .hero-inner {
+      position: relative;
+      width: min(1180px, calc(100% - 40px));
+      min-height: 640px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.08fr .92fr;
+      align-items: center;
+      gap: 72px;
+      padding: 76px 0 90px;
+    }
+    .eyebrow, .section-kicker {
+      margin: 0 0 14px;
+      color: var(--orange);
+      font-size: .76rem;
+      font-weight: 900;
+      letter-spacing: .17em;
+      text-transform: uppercase;
+    }
+    .hero h1 {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(2.8rem, 6.3vw, 5.7rem);
+      line-height: .98;
+      letter-spacing: -.055em;
+    }
+    .hero h1 span { color: var(--orange-light); }
+    .hero-copy {
+      max-width: 680px;
+      margin: 26px 0 0;
+      color: #c9c6c3;
+      font-size: clamp(1.02rem, 1.8vw, 1.22rem);
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 49px;
+      padding: 0 22px;
+      color: var(--white);
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: .92rem;
+      font-weight: 820;
+      transition: .2s ease;
+    }
+    .button.primary { color: var(--white); background: var(--orange); border-color: var(--orange); }
+    .button:hover { transform: translateY(-2px); }
+    .logo-stage {
+      position: relative;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      padding: 34px;
+      background: #000;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 32px;
+      box-shadow: 0 30px 100px rgba(0,0,0,.4);
+      overflow: hidden;
+    }
+    .logo-stage::after {
+      content: "Identidade em evolução";
+      position: absolute;
+      right: 20px;
+      bottom: 17px;
+      color: #777;
+      font-size: .67rem;
+      font-weight: 850;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .logo-stage img { width: 100%; height: 100%; object-fit: contain; }
+
+    .strategy-strip {
+      position: relative;
+      z-index: 2;
+      width: min(1120px, calc(100% - 40px));
+      margin: -44px auto 76px;
+      padding: 26px 30px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      align-items: center;
+      gap: 20px;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .flow-step { text-align: center; }
+    .flow-step strong { display: block; margin-bottom: 3px; font-size: 1rem; }
+    .flow-step span { color: var(--muted); font-size: .86rem; }
+    .flow-arrow { color: var(--orange); font-size: 1.5rem; font-weight: 900; }
+
+    main { padding-bottom: 84px; }
+    .proposal-view { display: none; scroll-margin-top: 112px; }
+    .proposal-view.active { display: block; animation: reveal .35s ease both; }
+    @keyframes reveal { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    .section {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto 76px;
+    }
+    .section-head { max-width: 830px; margin-bottom: 32px; }
+    .section-title {
+      margin: 0;
+      max-width: 900px;
+      font-size: clamp(2rem, 4.7vw, 4.15rem);
+      line-height: 1.04;
+      letter-spacing: -.045em;
+    }
+    .section-lead {
+      max-width: 790px;
+      margin: 20px 0 0;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+    .grid { display: grid; gap: 18px; }
+    .grid.two { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .grid.three { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    .grid.four { grid-template-columns: repeat(4, minmax(0,1fr)); }
+    .card {
+      min-height: 100%;
+      padding: 28px;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+    }
+    .card.dark { color: var(--white); background: var(--ink-soft); border-color: var(--ink-soft); }
+    .card.accent { border-top: 5px solid var(--orange); }
+    .card h3 { margin: 14px 0 9px; font-size: 1.17rem; line-height: 1.25; }
+    .card p { margin: 0; color: var(--muted); }
+    .card.dark p { color: #bdb9b5; }
+    .number {
+      display: inline-grid;
+      min-width: 38px;
+      height: 38px;
+      padding: 0 10px;
+      place-items: center;
+      color: var(--white);
+      background: var(--orange);
+      border-radius: 10px;
+      font-size: .73rem;
+      font-weight: 900;
+      letter-spacing: .04em;
+    }
+    .feature-list {
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .feature-list li {
+      position: relative;
+      padding: 12px 0 12px 24px;
+      border-top: 1px solid var(--line);
+      color: #3f3b38;
+    }
+    .feature-list li::before {
+      content: "";
+      position: absolute;
+      left: 2px;
+      top: 21px;
+      width: 8px;
+      height: 8px;
+      background: var(--orange);
+      transform: rotate(45deg);
+    }
+    .deliverables {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 0;
+      overflow: hidden;
+      color: var(--white);
+      background: var(--ink);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .deliverables-intro { padding: 42px; background: linear-gradient(145deg, #070707, #24120c); }
+    .deliverables-intro h2 { margin: 0; font-size: clamp(2rem, 4vw, 3.6rem); line-height: 1.02; letter-spacing: -.04em; }
+    .deliverables-intro p { margin: 18px 0 0; color: #bbb6b2; }
+    .deliverables-list { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .deliverable-item { padding: 28px; border-left: 1px solid rgba(255,255,255,.09); border-bottom: 1px solid rgba(255,255,255,.09); }
+    .deliverable-item span { color: var(--orange-light); font-size: .71rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
+    .deliverable-item strong { display: block; margin-top: 8px; font-size: 1.03rem; }
+    .deliverable-item p { margin: 7px 0 0; color: #aaa5a1; font-size: .9rem; }
+
+    .process { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; }
+    .process-step { position: relative; padding: 28px; background: var(--white); }
+    .process-step span { color: var(--orange); font-size: .72rem; font-weight: 900; letter-spacing: .14em; }
+    .process-step h3 { margin: 12px 0 8px; font-size: 1.08rem; }
+    .process-step p { margin: 0; color: var(--muted); font-size: .91rem; }
+
+    .pricing {
+      padding: 42px;
+      color: var(--white);
+      background: linear-gradient(135deg, #090909, #21110c);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .pricing-head { display: flex; justify-content: space-between; gap: 36px; align-items: end; margin-bottom: 28px; }
+    .pricing h2 { margin: 0; font-size: clamp(2rem, 4vw, 3.4rem); line-height: 1.03; letter-spacing: -.04em; }
+    .pricing-head p { max-width: 430px; margin: 0; color: #b8b3af; }
+    .price-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 14px; }
+    .price-item { padding: 28px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 18px; }
+    .price-item.featured { background: var(--orange); border-color: var(--orange); }
+    .price-label, .price-detail { display: block; }
+    .price-label { color: #cbc5c1; font-size: .72rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
+    .featured .price-label { color: rgba(255,255,255,.8); }
+    .price-value { display: block; margin: 8px 0 4px; font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 900; line-height: 1; letter-spacing: -.05em; }
+    .price-detail { color: #bbb5b1; font-size: .88rem; }
+    .featured .price-detail { color: rgba(255,255,255,.82); }
+    .pricing-note { margin: 22px 0 0; color: #aaa5a1; font-size: .9rem; }
+
+    .next-step {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+      min-height: 220px;
+      padding: 42px;
+      color: var(--white);
+      background: var(--orange);
+      border-radius: var(--radius);
+      text-decoration: none;
+      box-shadow: 0 24px 60px rgba(237,72,24,.25);
+      transition: .22s ease;
+    }
+    .next-step:hover { transform: translateY(-3px); }
+    .next-copy > span { display: block; color: rgba(255,255,255,.76); font-size: .72rem; font-weight: 900; letter-spacing: .17em; text-transform: uppercase; }
+    .next-copy strong { display: block; margin-top: 7px; font-size: clamp(2rem, 4.8vw, 4.6rem); line-height: 1; letter-spacing: -.05em; }
+    .next-copy p { max-width: 600px; margin: 12px 0 0; color: rgba(255,255,255,.82); }
+    .next-arrow { font-size: clamp(5rem, 12vw, 10rem); line-height: .8; font-weight: 200; }
+
+    .site-showcase {
+      display: grid;
+      grid-template-columns: .85fr 1.15fr;
+      gap: 0;
+      overflow: hidden;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .site-copy { padding: 42px; }
+    .site-copy h2 { margin: 0; font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.04; letter-spacing: -.045em; }
+    .site-copy p { color: var(--muted); }
+    .site-mockup { min-height: 520px; padding: 38px; display: grid; place-items: center; background: #111; }
+    .browser-frame { width: 100%; overflow: hidden; background: #f6f3ef; border: 1px solid #333; border-radius: 18px; box-shadow: 0 26px 70px rgba(0,0,0,.35); }
+    .browser-bar { height: 36px; display: flex; align-items: center; gap: 6px; padding: 0 14px; background: #252525; }
+    .browser-bar i { width: 8px; height: 8px; border-radius: 50%; background: #5c5c5c; }
+    .browser-bar i:first-child { background: var(--orange); }
+    .mock-hero { min-height: 210px; padding: 32px; display: flex; align-items: end; color: white; background: linear-gradient(135deg, rgba(0,0,0,.35), rgba(0,0,0,.8)), linear-gradient(145deg, #71301f, #161616); }
+    .mock-hero small { display: block; color: #ff9b77; letter-spacing: .14em; text-transform: uppercase; }
+    .mock-hero strong { display: block; max-width: 390px; margin-top: 8px; font-size: clamp(1.7rem, 3vw, 2.7rem); line-height: 1; }
+    .mock-projects { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 18px; }
+    .mock-project { min-height: 112px; padding: 14px; display: flex; align-items: end; color: white; background: linear-gradient(145deg, #333, #121212); border-radius: 9px; font-size: .72rem; font-weight: 800; }
+    .mock-project:nth-child(2) { background: linear-gradient(145deg, #a23d1d, #23120c); }
+
+    .autonomy {
+      padding: 38px;
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 42px;
+      color: var(--white);
+      background: var(--ink-soft);
+      border-radius: var(--radius);
+    }
+    .autonomy h2 { margin: 0; font-size: clamp(2rem, 4vw, 3.7rem); line-height: 1.02; letter-spacing: -.045em; }
+    .autonomy p { margin: 0; color: #bbb6b2; }
+    .pill-list { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 22px; }
+    .pill { padding: 8px 12px; color: #dfd9d4; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1); border-radius: 999px; font-size: .8rem; font-weight: 750; }
+
+    .reference-box {
+      padding: 32px;
+      background: #fff7f3;
+      border: 1px solid #f2c9ba;
+      border-left: 6px solid var(--orange);
+      border-radius: 18px;
+    }
+    .reference-box h3 { margin: 0 0 9px; font-size: 1.25rem; }
+    .reference-box p { margin: 0; color: #64554f; }
+    .reference-box a { color: #a92d0b; font-weight: 800; text-underline-offset: 3px; }
+
+    .closing {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto 76px;
+      padding: 60px;
+      text-align: center;
+      color: var(--white);
+      background: var(--orange);
+      border-radius: var(--radius);
+    }
+    .closing h2 { max-width: 850px; margin: 0 auto; font-size: clamp(2.2rem, 5vw, 4.8rem); line-height: 1; letter-spacing: -.055em; }
+    .closing p { max-width: 720px; margin: 20px auto 0; color: rgba(255,255,255,.82); font-size: 1.04rem; }
+
+    footer {
+      padding: 34px 20px;
+      color: #aaa4a0;
+      background: var(--ink);
+      text-align: center;
+      font-size: .84rem;
+    }
+    footer strong { color: var(--white); }
+
+    @media (max-width: 900px) {
+      .topbar-inner { grid-template-columns: auto 1fr; }
+      .proposal-nav { grid-column: 2; justify-self: end; }
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .logo-stage { width: min(520px, 100%); }
+      .grid.four { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .grid.three { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .deliverables, .site-showcase, .autonomy { grid-template-columns: 1fr; }
+      .process { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .site-mockup { min-height: 430px; }
+    }
+
+    @media (max-width: 680px) {
+      .topbar-inner { width: calc(100% - 20px); min-height: 104px; grid-template-columns: 1fr; gap: 9px; padding: 10px 0; }
+      .mini-brand { justify-self: center; }
+      .proposal-nav { grid-column: 1; justify-self: stretch; width: 100%; gap: 4px; padding: 5px; }
+      .proposal-nav a { flex: 1; padding: 9px 5px; text-align: center; font-size: .75rem; }
+      .nav-full { display: none; }
+      .nav-short { display: inline; }
+      .hero-inner { width: calc(100% - 28px); min-height: auto; padding: 58px 0 90px; }
+      .hero { min-height: auto; }
+      .logo-stage { padding: 22px; border-radius: 22px; }
+      .strategy-strip { width: calc(100% - 28px); margin-bottom: 58px; padding: 22px; grid-template-columns: 1fr; }
+      .flow-arrow { transform: rotate(90deg); justify-self: center; line-height: 1; }
+      .section, .closing { width: calc(100% - 28px); margin-bottom: 58px; }
+      .grid.two, .grid.three, .grid.four, .price-grid { grid-template-columns: 1fr; }
+      .card, .pricing, .site-copy, .autonomy { padding: 25px; }
+      .deliverables-intro { padding: 28px; }
+      .deliverables-list { grid-template-columns: 1fr; }
+      .deliverable-item { border-left: 0; }
+      .process { grid-template-columns: 1fr; }
+      .pricing-head { display: block; }
+      .pricing-head p { margin-top: 14px; }
+      .next-step { min-height: 190px; padding: 28px; }
+      .next-copy p { display: none; }
+      .next-arrow { font-size: 5rem; }
+      .site-mockup { min-height: 360px; padding: 18px; }
+      .mock-projects { grid-template-columns: 1fr; }
+      .mock-project { min-height: 74px; }
+      .autonomy { gap: 22px; }
+      .closing { padding: 44px 24px; }
+      .proposal-view { scroll-margin-top: 122px; }
+    }
+
+    @media print {
+      .topbar { position: static; }
+      .proposal-view { display: block !important; page-break-before: always; }
+      .hero, .hero-inner { min-height: auto; }
+      .card, .pricing, .deliverables, .site-showcase, .autonomy { break-inside: avoid; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="mini-brand" href="#identidade">V3T Incorporações</a>
+      <nav class="proposal-nav" aria-label="Menu da proposta">
+        <a href="#identidade" data-target="identidade"><span class="nav-full">Identidade Visual</span><span class="nav-short">Identidade</span></a>
+        <a href="#site" data-target="site"><span class="nav-full">Site Institucional</span><span class="nav-short">Site</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <p class="eyebrow">Proposta comercial • V3T Incorporações</p>
+        <h1>Uma marca sólida para <span>construir o próximo nível.</span></h1>
+        <p class="hero-copy">Refinamento da identidade atual e criação de uma presença digital proprietária, coerente e preparada para apresentar empreendimentos com clareza, credibilidade e alto padrão.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#identidade">Ver identidade visual</a>
+          <a class="button" href="#site">Conhecer o site institucional</a>
+        </div>
+      </div>
+      <div class="logo-stage">
+        <img src="/propostav3t/v3t-simbolo.png" alt="Símbolo atual da V3T Incorporações" width="590" height="590">
+      </div>
+    </div>
+  </section>
+
+  <div class="strategy-strip" aria-label="Evolução da marca V3T">
+    <div class="flow-step"><strong>Direção de marca</strong><span>Significado e posicionamento</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><strong>Sistema visual</strong><span>Consistência em cada aplicação</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><strong>Presença digital</strong><span>Autonomia e geração de oportunidades</span></div>
+  </div>
+
+  <main>
+    <article id="identidade" class="proposal-view" aria-labelledby="identidade-title">
+      <section class="section">
+        <div class="section-head">
+          <p class="section-kicker">Proposta 01 • Identidade visual</p>
+          <h2 class="section-title" id="identidade-title">Transformar o símbolo atual em um sistema de marca completo.</h2>
+          <p class="section-lead">O trabalho vai além de redesenhar a logo. A proposta organiza os fundamentos, as versões, as regras e os arquivos necessários para que a V3T se apresente com unidade em materiais comerciais, digitais, técnicos e institucionais.</p>
+        </div>
+        <div class="grid three">
+          <div class="card accent"><span class="number">01</span><h3>Diagnóstico e direção</h3><p>Leitura do momento da marca, do segmento e dos públicos para orientar personalidade, percepção desejada e linguagem visual.</p></div>
+          <div class="card"><span class="number">02</span><h3>Refinamento e vetorização</h3><p>Aprimoramento da logo atual, com correções de desenho, proporção, equilíbrio e legibilidade em diferentes escalas.</p></div>
+          <div class="card"><span class="number">03</span><h3>Sistema de assinaturas</h3><p>Construção das versões principal, horizontal, vertical, reduzida e símbolo isolado para usos variados.</p></div>
+          <div class="card"><span class="number">04</span><h3>Cor e tipografia</h3><p>Definição da paleta institucional e das famílias tipográficas, com hierarquia e códigos para impressão e tela.</p></div>
+          <div class="card"><span class="number">05</span><h3>Elementos de apoio</h3><p>Grafismos, padrões, formas e critérios visuais que ampliam o reconhecimento da marca sem depender apenas da logo.</p></div>
+          <div class="card"><span class="number">06</span><h3>Manual de aplicação</h3><p>Mini manual com orientações objetivas para uso consistente, proteção, redução, fundos e situações incorretas.</p></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="deliverables">
+          <div class="deliverables-intro">
+            <p class="section-kicker">Entregáveis</p>
+            <h2>Uma identidade pronta para ser usada.</h2>
+            <p>Arquivos organizados e regras claras reduzem improvisos, preservam a qualidade e tornam a marca replicável por fornecedores e equipes.</p>
+          </div>
+          <div class="deliverables-list">
+            <div class="deliverable-item"><span>Assinaturas</span><strong>Principal, horizontal e vertical</strong><p>Composições adequadas a espaços e formatos diferentes.</p></div>
+            <div class="deliverable-item"><span>Versatilidade</span><strong>Reduzida e símbolo isolado</strong><p>Soluções para avatar, ícone, selo e aplicações compactas.</p></div>
+            <div class="deliverable-item"><span>Contraste</span><strong>Positiva, negativa e monocromática</strong><p>Versões para fundos claros, escuros e produção em uma cor.</p></div>
+            <div class="deliverable-item"><span>Especificação</span><strong>Paleta e fontes institucionais</strong><p>Códigos de cor e critérios para hierarquia tipográfica.</p></div>
+            <div class="deliverable-item"><span>Sistema</span><strong>Grafismos e elementos auxiliares</strong><p>Recursos para criar materiais reconhecíveis e consistentes.</p></div>
+            <div class="deliverable-item"><span>Arquivos finais</span><strong>AI, EPS, SVG, PDF, PNG e JPG</strong><p>Pacote organizado para gráfica, impressão e uso digital.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <p class="section-kicker">Método de desenvolvimento</p>
+          <h2 class="section-title">Construção com fundamento, aplicação e consistência.</h2>
+        </div>
+        <div class="process">
+          <div class="process-step"><span>ETAPA 01</span><h3>Imersão</h3><p>Alinhamento do negócio, público, diferenciais e expectativa de posicionamento da V3T.</p></div>
+          <div class="process-step"><span>ETAPA 02</span><h3>Construção</h3><p>Refinamento do símbolo, assinaturas, cores, tipografia e linguagem gráfica.</p></div>
+          <div class="process-step"><span>ETAPA 03</span><h3>Validação</h3><p>Apresentação do sistema, análise de aplicações e consolidação dos ajustes aprovados.</p></div>
+          <div class="process-step"><span>ETAPA 04</span><h3>Organização</h3><p>Preparação do manual e do pacote final de arquivos por formato e finalidade.</p></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="pricing">
+          <div class="pricing-head">
+            <h2>Investimento</h2>
+            <p>Pacote completo de refinamento, padronização e documentação da identidade visual descrito nesta proposta.</p>
+          </div>
+          <div class="price-grid">
+            <div class="price-item featured"><span class="price-label">Identidade visual V3T</span><span class="price-value">R$ 1.200,00</span><span class="price-detail">Investimento único</span></div>
+            <div class="price-item"><span class="price-label">Entrega</span><span class="price-value">Kit completo</span><span class="price-detail">Manual, versões e arquivos finais organizados</span></div>
+          </div>
+          <p class="pricing-note">O cronograma começa após aprovação da proposta, reunião de alinhamento e disponibilização das informações necessárias pela V3T. Condições comerciais e datas serão formalizadas no aceite.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <a class="next-step" href="#site" aria-label="Avançar para a proposta do site institucional">
+          <span class="next-copy"><span>Próxima etapa</span><strong>Site institucional</strong><p>Conheça a plataforma que transforma a nova identidade em presença digital e canal de oportunidades.</p></span>
+          <span class="next-arrow" aria-hidden="true">→</span>
+        </a>
+      </section>
+    </article>
+
+    <article id="site" class="proposal-view" aria-labelledby="site-title">
+      <section class="section">
+        <div class="section-head">
+          <p class="section-kicker">Proposta 02 • Site institucional</p>
+          <h2 class="section-title" id="site-title">Um site proprietário, rápido e totalmente alinhado à V3T.</h2>
+          <p class="section-lead">Desenvolvimento personalizado em Next.js para apresentar a incorporadora, seus empreendimentos e diferenciais com alto padrão visual. O conteúdo poderá ser editado e atualizado pela equipe da V3T por meio de um painel administrativo simples.</p>
+        </div>
+        <div class="grid three">
+          <div class="card accent"><span class="number">UX</span><h3>Design exclusivo</h3><p>Interface construída para a V3T, aplicando o novo sistema visual sem limitações de temas prontos.</p></div>
+          <div class="card"><span class="number">CMS</span><h3>Conteúdo autogerenciável</h3><p>Painel para atualizar textos, imagens, contatos, páginas e empreendimentos sem depender de alterações no código.</p></div>
+          <div class="card"><span class="number">SEO</span><h3>Estrutura para o Google</h3><p>Páginas semânticas, metadados, sitemap, URLs claras e dados preparados para mecanismos de busca.</p></div>
+          <div class="card"><span class="number">WEB</span><h3>Responsivo e acessível</h3><p>Experiência otimizada para celular, tablet e computador, com navegação clara e atenção à legibilidade.</p></div>
+          <div class="card"><span class="number">LEAD</span><h3>Geração de oportunidades</h3><p>Formulários, chamadas para ação, WhatsApp e rotas de contato pensadas para captar interessados.</p></div>
+          <div class="card"><span class="number">DATA</span><h3>Medição e evolução</h3><p>Estrutura pronta para ferramentas de análise, acompanhamento de desempenho e futuras campanhas.</p></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="site-showcase">
+          <div class="site-copy">
+            <p class="section-kicker">Estrutura sugerida</p>
+            <h2>O empreendimento certo, com a apresentação que ele merece.</h2>
+            <p>O projeto pode reunir a história da V3T, diferenciais, portfólio e páginas individuais para cada empreendimento, com conteúdo visual e comercial organizado para facilitar a decisão do visitante.</p>
+            <ul class="feature-list">
+              <li>Home com posicionamento e destaques</li>
+              <li>Quem somos e diferenciais da incorporadora</li>
+              <li>Portfólio de empreendimentos</li>
+              <li>Página completa de cada projeto</li>
+              <li>Galeria, localização, estágio e informações</li>
+              <li>Contato, formulários e integração com WhatsApp</li>
+              <li>Política de privacidade e adequações básicas à LGPD</li>
+            </ul>
+          </div>
+          <div class="site-mockup" aria-label="Representação visual do futuro site da V3T">
+            <div class="browser-frame">
+              <div class="browser-bar"><i></i><i></i><i></i></div>
+              <div class="mock-hero"><div><small>V3T Incorporações</small><strong>Projetos que valorizam o jeito de viver.</strong></div></div>
+              <div class="mock-projects"><div class="mock-project">Empreendimento 01</div><div class="mock-project">Empreendimento 02</div><div class="mock-project">Empreendimento 03</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="autonomy">
+          <div><p class="section-kicker">Autonomia da equipe</p><h2>Atualizar sem refazer o site.</h2></div>
+          <div>
+            <p>O painel administrativo separa conteúdo e tecnologia. Assim, a V3T poderá manter informações atuais, publicar novos empreendimentos, trocar imagens e ajustar textos sem comprometer o design ou a estrutura do projeto.</p>
+            <div class="pill-list"><span class="pill">Textos</span><span class="pill">Imagens</span><span class="pill">Empreendimentos</span><span class="pill">Galerias</span><span class="pill">Status</span><span class="pill">Contatos</span><span class="pill">SEO básico</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <p class="section-kicker">Stack tecnológica</p>
+          <h2 class="section-title">Uma base moderna para desempenho, segurança e continuidade.</h2>
+        </div>
+        <div class="grid four">
+          <div class="card dark"><span class="number">N</span><h3>Next.js</h3><p>Carregamento rápido, excelente experiência mobile, arquitetura escalável e recursos avançados de SEO.</p></div>
+          <div class="card dark"><span class="number">V</span><h3>Vercel</h3><p>Infraestrutura global, publicação automatizada, desempenho consistente e expansão sob demanda.</p></div>
+          <div class="card dark"><span class="number">G</span><h3>GitHub</h3><p>Histórico completo do projeto, controle de versões, colaboração e segurança no processo de atualização.</p></div>
+          <div class="card dark"><span class="number">C</span><h3>Cloudflare</h3><p>DNS, SSL, cache e camadas adicionais de proteção para mais velocidade, disponibilidade e segurança.</p></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="reference-box">
+          <h3>Padrão de desenvolvimento</h3>
+          <p>O site seguirá o mesmo nível de personalização, organização técnica e cuidado com performance aplicado em projetos como <a href="https://www.esblight.com.br/" target="_blank" rel="noopener">esblight.com.br</a> e <a href="https://www.supremelub.com.br/" target="_blank" rel="noopener">supremelub.com.br</a>, com linguagem visual criada especificamente para a V3T.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="pricing">
+          <div class="pricing-head">
+            <h2>Orçamento do site</h2>
+            <p>Projeto complementar à identidade visual, dimensionado conforme a estrutura final de conteúdo e operação da V3T.</p>
+          </div>
+          <div class="price-grid">
+            <div class="price-item featured"><span class="price-label">Site institucional Next.js</span><span class="price-value">A definir</span><span class="price-detail">Após levantamento de páginas, empreendimentos, painel e integrações</span></div>
+            <div class="price-item"><span class="price-label">Investimento confirmado</span><span class="price-value">R$ 1.200,00</span><span class="price-detail">Referente ao pacote de identidade visual</span></div>
+          </div>
+          <p class="pricing-note">Custos recorrentes de domínio, serviços de terceiros, ferramentas de conteúdo ou planos pagos de infraestrutura não estão incluídos até a definição do escopo. A V3T fornecerá textos, imagens, dados técnicos e informações legais aprovadas para publicação.</p>
+        </div>
+      </section>
+
+      <section class="closing">
+        <h2>Marca consistente. Site proprietário. Presença preparada para crescer.</h2>
+        <p>A identidade cria reconhecimento e confiança; o site transforma essa percepção em informação, relacionamento e oportunidades comerciais. Juntos, os dois projetos constroem uma base digital coerente para a próxima fase da V3T.</p>
+      </section>
+    </article>
+  </main>
+
+  <footer>
+    Proposta preparada para <strong>V3T Incorporações</strong> • Setembro de 2026<br>
+    Identidade, desenvolvimento e estratégia digital: Delumo
+  </footer>
+
+  <script>
+    (() => {
+      const views = [...document.querySelectorAll('.proposal-view')];
+      const links = [...document.querySelectorAll('[data-target]')];
+      const aliases = { 'identidade-visual': 'identidade', 'site-institucional': 'site' };
+      const titles = {
+        identidade: 'Identidade Visual | V3T Incorporações',
+        site: 'Site Institucional | V3T Incorporações'
+      };
+
+      function activate(rawId, scroll = false) {
+        let id = (rawId || 'identidade').replace('#', '').toLowerCase();
+        id = aliases[id] || id;
+        if (!views.some(view => view.id === id)) id = 'identidade';
+
+        views.forEach(view => view.classList.toggle('active', view.id === id));
+        links.forEach(link => {
+          if (link.dataset.target === id) link.setAttribute('aria-current', 'page');
+          else link.removeAttribute('aria-current');
+        });
+        document.title = titles[id];
+        if (scroll) document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      document.addEventListener('click', event => {
+        const anchor = event.target.closest('a[href^="#"]');
+        if (!anchor) return;
+        const id = anchor.getAttribute('href').slice(1);
+        if (!views.some(view => view.id === (aliases[id] || id))) return;
+        event.preventDefault();
+        history.pushState(null, '', `#${id}`);
+        activate(id, true);
+      });
+
+      window.addEventListener('popstate', () => activate(location.hash, true));
+      window.addEventListener('hashchange', () => activate(location.hash, false));
+      activate(location.hash, false);
+    })();
+  </script>
+</body>
+</html>
