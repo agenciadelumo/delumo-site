@@ -402,6 +402,33 @@
     .reference-box p { margin: 0; color: #64554f; }
     .reference-box a { color: #a92d0b; font-weight: 800; text-underline-offset: 3px; }
 
+    .performance-box {
+      padding: 42px;
+      display: grid;
+      grid-template-columns: .78fr 1.22fr;
+      gap: 44px;
+      align-items: center;
+      color: var(--white);
+      background: linear-gradient(135deg, #090909, #2a130b);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .performance-box h2 { margin: 0; font-size: clamp(2rem, 4vw, 3.7rem); line-height: 1.02; letter-spacing: -.045em; }
+    .performance-box p { margin: 0; color: #c4bdb8; font-size: 1.03rem; }
+    .performance-points { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; margin-top: 22px; }
+    .performance-point { padding: 16px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 13px; }
+    .performance-point strong { display: block; color: var(--orange-light); font-size: .82rem; }
+    .performance-point span { display: block; margin-top: 4px; color: #aaa39e; font-size: .78rem; }
+
+    .commercial-summary { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; margin-top: 22px; }
+    .commercial-item { padding: 24px; background: var(--white); border: 1px solid var(--line); border-radius: 18px; }
+    .commercial-item.highlight { color: var(--white); background: var(--orange); border-color: var(--orange); }
+    .commercial-item span { display: block; color: var(--muted); font-size: .72rem; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; }
+    .commercial-item.highlight span { color: rgba(255,255,255,.75); }
+    .commercial-item strong { display: block; margin: 7px 0 4px; font-size: clamp(1.6rem, 3vw, 2.6rem); line-height: 1; letter-spacing: -.04em; }
+    .commercial-item small { color: var(--muted); }
+    .commercial-item.highlight small { color: rgba(255,255,255,.82); }
+
     .closing {
       width: min(1120px, calc(100% - 40px));
       margin: 0 auto 76px;
@@ -430,8 +457,9 @@
       .logo-stage { width: min(520px, 100%); }
       .grid.four { grid-template-columns: repeat(2, minmax(0,1fr)); }
       .grid.three { grid-template-columns: repeat(2, minmax(0,1fr)); }
-      .deliverables, .site-showcase, .autonomy { grid-template-columns: 1fr; }
+      .deliverables, .site-showcase, .autonomy, .performance-box { grid-template-columns: 1fr; }
       .process { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .performance-points { grid-template-columns: repeat(3, minmax(0,1fr)); }
       .site-mockup { min-height: 430px; }
     }
 
@@ -449,7 +477,7 @@
       .flow-arrow { transform: rotate(90deg); justify-self: center; line-height: 1; }
       .section, .closing { width: calc(100% - 28px); margin-bottom: 58px; }
       .grid.two, .grid.three, .grid.four, .price-grid { grid-template-columns: 1fr; }
-      .card, .pricing, .site-copy, .autonomy { padding: 25px; }
+      .card, .pricing, .site-copy, .autonomy, .performance-box { padding: 25px; }
       .deliverables-intro { padding: 28px; }
       .deliverables-list { grid-template-columns: 1fr; }
       .deliverable-item { border-left: 0; }
@@ -463,6 +491,8 @@
       .mock-projects { grid-template-columns: 1fr; }
       .mock-project { min-height: 74px; }
       .autonomy { gap: 22px; }
+      .performance-box { gap: 22px; }
+      .performance-points, .commercial-summary { grid-template-columns: 1fr; }
       .closing { padding: 44px 24px; }
       .proposal-view { scroll-margin-top: 122px; }
     }
@@ -481,6 +511,7 @@
       <a class="mini-brand" href="#identidade">V3T Incorporações</a>
       <nav class="proposal-nav" aria-label="Menu da proposta">
         <a href="#identidade" data-target="identidade"><span class="nav-full">Identidade Visual</span><span class="nav-short">Identidade</span></a>
+        <a href="#presenca" data-target="presenca"><span class="nav-full">Presença Online</span><span class="nav-short">Presença</span></a>
         <a href="#site" data-target="site"><span class="nav-full">Site Institucional</span><span class="nav-short">Site</span></a>
       </nav>
     </div>
@@ -491,10 +522,10 @@
       <div>
         <p class="eyebrow">Proposta comercial • V3T Incorporações</p>
         <h1>Uma marca sólida para <span>construir o próximo nível.</span></h1>
-        <p class="hero-copy">Refinamento da identidade atual e criação de uma presença digital proprietária, coerente e preparada para apresentar empreendimentos com clareza, credibilidade e alto padrão.</p>
+        <p class="hero-copy">Identidade visual, presença online e uma plataforma digital proprietária para apresentar a V3T e seus empreendimentos com clareza, credibilidade e alto padrão.</p>
         <div class="hero-actions">
           <a class="button primary" href="#identidade">Ver identidade visual</a>
-          <a class="button" href="#site">Conhecer o site institucional</a>
+          <a class="button" href="#presenca">Conhecer a presença online</a>
         </div>
       </div>
       <div class="logo-stage">
@@ -504,11 +535,11 @@
   </section>
 
   <div class="strategy-strip" aria-label="Evolução da marca V3T">
-    <div class="flow-step"><strong>Direção de marca</strong><span>Significado e posicionamento</span></div>
+    <div class="flow-step"><strong>Identidade visual</strong><span>Consistência e reconhecimento</span></div>
     <div class="flow-arrow">→</div>
-    <div class="flow-step"><strong>Sistema visual</strong><span>Consistência em cada aplicação</span></div>
+    <div class="flow-step"><strong>Presença online</strong><span>Canais configurados e integrados</span></div>
     <div class="flow-arrow">→</div>
-    <div class="flow-step"><strong>Presença digital</strong><span>Autonomia e geração de oportunidades</span></div>
+    <div class="flow-step"><strong>Site institucional</strong><span>Autonomia e geração de oportunidades</span></div>
   </div>
 
   <main>
@@ -568,15 +599,50 @@
           </div>
           <div class="price-grid">
             <div class="price-item featured"><span class="price-label">Identidade visual V3T</span><span class="price-value">R$ 1.200,00</span><span class="price-detail">Investimento único</span></div>
-            <div class="price-item"><span class="price-label">Entrega</span><span class="price-value">Kit completo</span><span class="price-detail">Manual, versões e arquivos finais organizados</span></div>
+            <div class="price-item"><span class="price-label">Prazo exclusivo</span><span class="price-value">10 dias</span><span class="price-detail">Quando contratada somente a identidade visual</span></div>
           </div>
-          <p class="pricing-note">O cronograma começa após aprovação da proposta, reunião de alinhamento e disponibilização das informações necessárias pela V3T. Condições comerciais e datas serão formalizadas no aceite.</p>
+          <p class="pricing-note">Pagamento de 50% no início do projeto e 50% na entrega. O cronograma começa após aprovação, pagamento inicial, reunião de alinhamento e disponibilização das informações necessárias pela V3T.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <a class="next-step" href="#presenca" aria-label="Avançar para a proposta de presença online">
+          <span class="next-copy"><span>Próxima etapa</span><strong>Presença online</strong><p>Veja como a V3T será organizada e encontrada nos principais canais digitais.</p></span>
+          <span class="next-arrow" aria-hidden="true">→</span>
+        </a>
+      </section>
+    </article>
+
+    <article id="presenca" class="proposal-view" aria-labelledby="presenca-title">
+      <section class="section">
+        <div class="section-head">
+          <p class="section-kicker">Proposta 02 • Presença online</p>
+          <h2 class="section-title" id="presenca-title">Canais organizados para fortalecer a marca e gerar oportunidades.</h2>
+          <p class="section-lead">A presença digital da V3T será estruturada de forma integrada, garantindo consistência visual, informações confiáveis e uma base correta para campanhas, relacionamento e captação de interessados.</p>
+        </div>
+        <div class="grid three">
+          <div class="card accent"><span class="number">GMB</span><h3>Google Meu Negócio</h3><p>Configuração e padronização do perfil da empresa, com informações, contatos, categoria, localização, imagens e direcionamento para o site.</p></div>
+          <div class="card"><span class="number">TAG</span><h3>Tag do Google no site</h3><p>Instalação e configuração da tag para criar uma base de mensuração de acessos, ações e desempenho das futuras campanhas.</p></div>
+          <div class="card"><span class="number">IG</span><h3>Padrões para Instagram</h3><p>Definição de uma linha visual replicável para publicações, mantendo unidade entre marca, empreendimentos e comunicação comercial.</p></div>
+          <div class="card"><span class="number">IN</span><h3>LinkedIn</h3><p>Configuração e organização da página empresarial, com padrões de postagem adequados ao posicionamento institucional da V3T.</p></div>
+          <div class="card"><span class="number">ADS</span><h3>Apoio em Google Ads</h3><p>Auxílio na estruturação das campanhas, definição de destinos, organização dos ativos e leitura inicial dos resultados.</p></div>
+          <div class="card"><span class="number">360</span><h3>Coerência entre canais</h3><p>Padronização dos pontos de contato para que o público reconheça a mesma V3T no Google, nas redes sociais e no site.</p></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="autonomy">
+          <div><p class="section-kicker">Base digital</p><h2>Ser encontrado, reconhecido e lembrado.</h2></div>
+          <div>
+            <p>A configuração técnica cria uma presença confiável; os padrões visuais sustentam a consistência; e a mensuração permite entender quais canais e campanhas geram mais interesse. Essa base conecta a marca ao futuro site e reduz a dispersão da comunicação.</p>
+            <div class="pill-list"><span class="pill">Busca local</span><span class="pill">Mensuração</span><span class="pill">Instagram</span><span class="pill">LinkedIn</span><span class="pill">Google Ads</span><span class="pill">Site</span></div>
+          </div>
         </div>
       </section>
 
       <section class="section">
         <a class="next-step" href="#site" aria-label="Avançar para a proposta do site institucional">
-          <span class="next-copy"><span>Próxima etapa</span><strong>Site institucional</strong><p>Conheça a plataforma que transforma a nova identidade em presença digital e canal de oportunidades.</p></span>
+          <span class="next-copy"><span>Próxima etapa</span><strong>Site institucional</strong><p>Conheça a plataforma Next.js que será o centro da presença digital da V3T.</p></span>
           <span class="next-arrow" aria-hidden="true">→</span>
         </a>
       </section>
@@ -585,7 +651,7 @@
     <article id="site" class="proposal-view" aria-labelledby="site-title">
       <section class="section">
         <div class="section-head">
-          <p class="section-kicker">Proposta 02 • Site institucional</p>
+          <p class="section-kicker">Proposta 03 • Site institucional</p>
           <h2 class="section-title" id="site-title">Um site proprietário, rápido e totalmente alinhado à V3T.</h2>
           <p class="section-lead">Desenvolvimento personalizado em Next.js para apresentar a incorporadora, seus empreendimentos e diferenciais com alto padrão visual. O conteúdo poderá ser editado e atualizado pela equipe da V3T por meio de um painel administrativo simples.</p>
         </div>
@@ -596,6 +662,20 @@
           <div class="card"><span class="number">WEB</span><h3>Responsivo e acessível</h3><p>Experiência otimizada para celular, tablet e computador, com navegação clara e atenção à legibilidade.</p></div>
           <div class="card"><span class="number">LEAD</span><h3>Geração de oportunidades</h3><p>Formulários, chamadas para ação, WhatsApp e rotas de contato pensadas para captar interessados.</p></div>
           <div class="card"><span class="number">DATA</span><h3>Medição e evolução</h3><p>Estrutura pronta para ferramentas de análise, acompanhamento de desempenho e futuras campanhas.</p></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="performance-box">
+          <div><p class="section-kicker">Performance de alto nível</p><h2>Mais velocidade para atrair e converter.</h2></div>
+          <div>
+            <p>O Next.js oferece uma das arquiteturas de maior desempenho do mercado para tráfego orgânico e pago. As páginas podem ser pré-renderizadas e entregues por uma rede global, reduzindo o tempo de abertura. A navegação interna ocorre de forma fluida, com resposta quase imediata e sem recarregar toda a página a cada clique — uma experiência superior para o visitante e mais eficiente para campanhas.</p>
+            <div class="performance-points">
+              <div class="performance-point"><strong>SEO técnico</strong><span>Conteúdo rápido e bem estruturado para busca.</span></div>
+              <div class="performance-point"><strong>Mídia paga</strong><span>Menos espera entre o anúncio e a conversão.</span></div>
+              <div class="performance-point"><strong>Navegação fluida</strong><span>Transições rápidas sem recarga completa.</span></div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -658,14 +738,26 @@
       <section class="section">
         <div class="pricing">
           <div class="pricing-head">
-            <h2>Orçamento do site</h2>
-            <p>Projeto complementar à identidade visual, dimensionado conforme a estrutura final de conteúdo e operação da V3T.</p>
+            <h2>Investimento digital</h2>
+            <p>Presença online e site institucional desenvolvidos como uma frente integrada para a V3T.</p>
           </div>
           <div class="price-grid">
-            <div class="price-item featured"><span class="price-label">Site institucional Next.js</span><span class="price-value">A definir</span><span class="price-detail">Após levantamento de páginas, empreendimentos, painel e integrações</span></div>
-            <div class="price-item"><span class="price-label">Investimento confirmado</span><span class="price-value">R$ 1.200,00</span><span class="price-detail">Referente ao pacote de identidade visual</span></div>
+            <div class="price-item featured"><span class="price-label">Site institucional Next.js</span><span class="price-value">R$ 2.000,00</span><span class="price-detail">Inclui a estruturação da presença online descrita na proposta</span></div>
+            <div class="price-item"><span class="price-label">Prazo integrado</span><span class="price-value">21 dias</span><span class="price-detail">Identidade visual, presença online e site</span></div>
           </div>
-          <p class="pricing-note">Custos recorrentes de domínio, serviços de terceiros, ferramentas de conteúdo ou planos pagos de infraestrutura não estão incluídos até a definição do escopo. A V3T fornecerá textos, imagens, dados técnicos e informações legais aprovadas para publicação.</p>
+          <p class="pricing-note">Pagamento de 50% no início do projeto e 50% na entrega. Custos recorrentes de domínio, mídia, serviços de terceiros, ferramentas de conteúdo ou planos pagos de infraestrutura não estão incluídos. A V3T fornecerá textos, imagens, dados técnicos e informações legais aprovadas para publicação.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <p class="section-kicker">Resumo comercial</p>
+          <h2 class="section-title">Investimento total dos projetos.</h2>
+        </div>
+        <div class="commercial-summary">
+          <div class="commercial-item highlight"><span>Total</span><strong>R$ 3.200,00</strong><small>Identidade visual + pacote digital</small></div>
+          <div class="commercial-item"><span>50% no início</span><strong>R$ 1.600,00</strong><small>Para início do cronograma</small></div>
+          <div class="commercial-item"><span>50% na entrega</span><strong>R$ 1.600,00</strong><small>Na conclusão dos projetos</small></div>
         </div>
       </section>
 
@@ -685,9 +777,10 @@
     (() => {
       const views = [...document.querySelectorAll('.proposal-view')];
       const links = [...document.querySelectorAll('[data-target]')];
-      const aliases = { 'identidade-visual': 'identidade', 'site-institucional': 'site' };
+      const aliases = { 'identidade-visual': 'identidade', 'presenca-online': 'presenca', 'site-institucional': 'site' };
       const titles = {
         identidade: 'Identidade Visual | V3T Incorporações',
+        presenca: 'Presença Online | V3T Incorporações',
         site: 'Site Institucional | V3T Incorporações'
       };
 
