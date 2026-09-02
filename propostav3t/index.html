@@ -376,6 +376,10 @@
     .mock-projects { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 18px; }
     .mock-project { min-height: 112px; padding: 14px; display: flex; align-items: end; color: white; background: linear-gradient(145deg, #333, #121212); border-radius: 9px; font-size: .72rem; font-weight: 800; }
     .mock-project:nth-child(2) { background: linear-gradient(145deg, #a23d1d, #23120c); }
+    .mock-immersive { margin: 0 18px 18px; padding: 22px; color: var(--white); background: var(--orange); border-radius: 12px; }
+    .mock-immersive span { display: block; color: rgba(255,255,255,.74); font-size: .62rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
+    .mock-immersive strong { display: block; margin-top: 6px; font-size: 1.05rem; line-height: 1.15; }
+    .mock-immersive p { margin: 8px 0 0; color: rgba(255,255,255,.82); font-size: .75rem; line-height: 1.45; }
 
     .autonomy {
       padding: 38px;
@@ -598,7 +602,7 @@
             <p>Pacote completo de refinamento, padronização e documentação da identidade visual descrito nesta proposta.</p>
           </div>
           <div class="price-grid">
-            <div class="price-item featured"><span class="price-label">Identidade visual V3T</span><span class="price-value">R$ 1.200,00</span><span class="price-detail">Investimento único</span></div>
+            <div class="price-item featured"><span class="price-label">Identidade visual V3T</span><span class="price-value">R$ 1.600,00</span><span class="price-detail">Investimento único</span></div>
             <div class="price-item"><span class="price-label">Prazo exclusivo</span><span class="price-value">10 dias</span><span class="price-detail">Quando contratada somente a identidade visual</span></div>
           </div>
           <p class="pricing-note">Pagamento de 50% no início do projeto e 50% na entrega. O cronograma começa após aprovação, pagamento inicial, reunião de alinhamento e disponibilização das informações necessárias pela V3T.</p>
@@ -637,6 +641,20 @@
             <p>A configuração técnica cria uma presença confiável; os padrões visuais sustentam a consistência; e a mensuração permite entender quais canais e campanhas geram mais interesse. Essa base conecta a marca ao futuro site e reduz a dispersão da comunicação.</p>
             <div class="pill-list"><span class="pill">Busca local</span><span class="pill">Mensuração</span><span class="pill">Instagram</span><span class="pill">LinkedIn</span><span class="pill">Google Ads</span><span class="pill">Site</span></div>
           </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="pricing">
+          <div class="pricing-head">
+            <h2>Investimento</h2>
+            <p>Estruturação dos canais e padrões digitais descritos nesta etapa da proposta.</p>
+          </div>
+          <div class="price-grid">
+            <div class="price-item featured"><span class="price-label">Presença online V3T</span><span class="price-value">R$ 1.200,00</span><span class="price-detail">Investimento único</span></div>
+            <div class="price-item"><span class="price-label">Entrega</span><span class="price-value">5 frentes</span><span class="price-detail">Google, mensuração, Instagram, LinkedIn e apoio em Ads</span></div>
+          </div>
+          <p class="pricing-note">Pagamento de 50% no início do projeto e 50% na entrega. Verba de mídia para Google Ads não está incluída neste investimento.</p>
         </div>
       </section>
 
@@ -691,6 +709,7 @@
               <li>Portfólio de empreendimentos</li>
               <li>Página completa de cada projeto</li>
               <li>Galeria, localização, estágio e informações</li>
+              <li>Experiências imersivas executadas diretamente no site</li>
               <li>Contato, formulários e integração com WhatsApp</li>
               <li>Política de privacidade e adequações básicas à LGPD</li>
             </ul>
@@ -700,6 +719,7 @@
               <div class="browser-bar"><i></i><i></i><i></i></div>
               <div class="mock-hero"><div><small>V3T Incorporações</small><strong>Projetos que valorizam o jeito de viver.</strong></div></div>
               <div class="mock-projects"><div class="mock-project">Empreendimento 01</div><div class="mock-project">Empreendimento 02</div><div class="mock-project">Empreendimento 03</div></div>
+              <div class="mock-immersive"><span>Experiência proprietária</span><strong>Navegação imersiva e interativa dentro do site.</strong><p>Projetos imersivos rodando diretamente no site, sem necessidade de contratar plataformas terceiras específicas para essa experiência.</p></div>
             </div>
           </div>
         </div>
@@ -709,7 +729,7 @@
         <div class="autonomy">
           <div><p class="section-kicker">Autonomia da equipe</p><h2>Atualizar sem refazer o site.</h2></div>
           <div>
-            <p>O painel administrativo separa conteúdo e tecnologia. Assim, a V3T poderá manter informações atuais, publicar novos empreendimentos, trocar imagens e ajustar textos sem comprometer o design ou a estrutura do projeto.</p>
+            <p>O painel administrativo separa conteúdo e tecnologia. Assim, a V3T poderá manter informações atuais, publicar novos empreendimentos, trocar imagens e ajustar textos sem comprometer o design ou a estrutura do projeto. Na entrega, será realizado um treinamento prático para que a própria equipe aprenda a atualizar, de forma simples e segura, qualquer parte do site.</p>
             <div class="pill-list"><span class="pill">Textos</span><span class="pill">Imagens</span><span class="pill">Empreendimentos</span><span class="pill">Galerias</span><span class="pill">Status</span><span class="pill">Contatos</span><span class="pill">SEO básico</span></div>
           </div>
         </div>
@@ -739,11 +759,11 @@
         <div class="pricing">
           <div class="pricing-head">
             <h2>Investimento digital</h2>
-            <p>Presença online e site institucional desenvolvidos como uma frente integrada para a V3T.</p>
+            <p>Site institucional desenvolvido integralmente em Next.js, com gestão de conteúdo e experiência personalizada para a V3T.</p>
           </div>
           <div class="price-grid">
-            <div class="price-item featured"><span class="price-label">Site institucional Next.js</span><span class="price-value">R$ 2.000,00</span><span class="price-detail">Inclui a estruturação da presença online descrita na proposta</span></div>
-            <div class="price-item"><span class="price-label">Prazo integrado</span><span class="price-value">21 dias</span><span class="price-detail">Identidade visual, presença online e site</span></div>
+            <div class="price-item featured"><span class="price-label">Site institucional Next.js</span><span class="price-value">R$ 2.000,00</span><span class="price-detail">Investimento único</span></div>
+            <div class="price-item"><span class="price-label">Desenvolvimento</span><span class="price-value">100% Next.js</span><span class="price-detail">Site personalizado, painel e treinamento da equipe</span></div>
           </div>
           <p class="pricing-note">Pagamento de 50% no início do projeto e 50% na entrega. Custos recorrentes de domínio, mídia, serviços de terceiros, ferramentas de conteúdo ou planos pagos de infraestrutura não estão incluídos. A V3T fornecerá textos, imagens, dados técnicos e informações legais aprovadas para publicação.</p>
         </div>
@@ -751,19 +771,23 @@
 
       <section class="section">
         <div class="section-head">
-          <p class="section-kicker">Resumo comercial</p>
-          <h2 class="section-title">Investimento total dos projetos.</h2>
+          <p class="section-kicker">Promoção combo</p>
+          <h2 class="section-title">As três propostas em uma contratação integrada.</h2>
+          <p class="section-lead">Contratando Identidade Visual, Presença Online e Site Institucional em conjunto, a V3T recebe uma condição especial e todas as entregas são conduzidas em um único cronograma.</p>
         </div>
         <div class="commercial-summary">
-          <div class="commercial-item highlight"><span>Total</span><strong>R$ 3.200,00</strong><small>Identidade visual + pacote digital</small></div>
-          <div class="commercial-item"><span>50% no início</span><strong>R$ 1.600,00</strong><small>Para início do cronograma</small></div>
-          <div class="commercial-item"><span>50% na entrega</span><strong>R$ 1.600,00</strong><small>Na conclusão dos projetos</small></div>
+          <div class="commercial-item"><span>Valor avulso</span><strong>R$ 4.800,00</strong><small>Soma das três propostas</small></div>
+          <div class="commercial-item highlight"><span>Combo promocional</span><strong>R$ 4.400,00</strong><small>Identidade + presença online + site</small></div>
+          <div class="commercial-item"><span>Economia</span><strong>R$ 400,00</strong><small>Condição para contratação conjunta</small></div>
+          <div class="commercial-item"><span>50% no início</span><strong>R$ 2.200,00</strong><small>Para início do cronograma</small></div>
+          <div class="commercial-item"><span>50% na entrega final</span><strong>R$ 2.200,00</strong><small>Após a conclusão de todas as entregas</small></div>
+          <div class="commercial-item"><span>Prazo do combo</span><strong>30 dias</strong><small>Para todas as entregas</small></div>
         </div>
       </section>
 
       <section class="closing">
         <h2>Marca consistente. Site proprietário. Presença preparada para crescer.</h2>
-        <p>A identidade cria reconhecimento e confiança; o site transforma essa percepção em informação, relacionamento e oportunidades comerciais. Juntos, os dois projetos constroem uma base digital coerente para a próxima fase da V3T.</p>
+        <p>A identidade cria reconhecimento, a presença online amplia o alcance e o site transforma interesse em informação, relacionamento e oportunidades comerciais. Integradas, as três frentes constroem uma base digital coerente para a próxima fase da V3T.</p>
       </section>
     </article>
   </main>
