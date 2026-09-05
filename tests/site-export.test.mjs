@@ -1,11 +1,27 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile, stat } from 'node:fs/promises';
-import { primarySolutions, solutions } from '../web/src/data/content.ts';
+import { clientBrands, primarySolutions, solutions } from '../web/src/data/content.ts';
 import { academyCourses, trainingSectors, demoQuestions } from '../web/src/data/learning.ts';
 
 const exported = new URL('../dist/', import.meta.url);
 const html = path => readFile(new URL(path, exported), 'utf8');
+
+test('all ten client logos retain their assets and open the requested destinations', async () => {
+  const page = await html('index.html');
+  assert.equal(clientBrands.length, 10);
+  assert.deepEqual(clientBrands.map(({ href }) => href), [
+    'https://avantehotzone.com.br', 'https://conquistahnk.com.br',
+    'https://www.comercialincerti.com.br', 'https://www.comercialincerti.com.br',
+    'https://www.comercialincerti.com.br', 'https://meutour360.com/tour-360/bar-ab-correto',
+    'https://supremelub.com.br', 'https://allmac360.com', 'https://esblight.com.br', 'https://erbs.com.br',
+  ]);
+  for (const brand of clientBrands) {
+    assert.ok(page.includes(`href="${brand.href}" target="_blank" rel="noopener noreferrer" aria-label="${brand.name}: abrir site em nova aba"`));
+    assert.ok(page.includes(`src="/assets/img/logos/${brand.file}.png"`));
+    assert.ok((await stat(new URL(`assets/img/logos/${brand.file}.png`, exported))).size > 0);
+  }
+});
 
 test('all six solutions have detail pages and a contextual contact path', async () => {
   assert.equal(solutions.length, 6);

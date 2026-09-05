@@ -1,10 +1,10 @@
 import { ArrowDown, ArrowUpRight, Check, Plus } from 'lucide-react';
 import { Action, Icon, Logo, SectionHeading } from './brand';
 import { DemoGate, LearningPaths, VideoPlayer } from './interactive';
-import { contact, faq, methods, process, primarySolutions, websiteCases } from '@/data/content';
+import { clientBrands, contact, faq, methods, process, primarySolutions, websiteCases } from '@/data/content';
 
 export function ClientLogos() {
-  return <section className="client-band" aria-label="Marcas e projetos"><div className="container"><p>Marcas que transformaram<br/><strong>conhecimento em experiência.</strong></p><div className="client-logos">{[['heineken','Heineken'],['spsul','SPSul'],['incerti','Incerti Automotivos'],['atacadao','Atacadão das Baterias'],['brutus','Brutus'],['metatrade','MetaTrade']].map(([file,name]) => <img key={file} src={`/assets/img/logos/${file}.png`} alt={name} width="200" height="66" loading="lazy"/>)}</div></div></section>;
+  return <section className="client-band" aria-label="Marcas e projetos"><div className="container"><p>Marcas que transformaram<br/><strong>conhecimento em experiência.</strong></p><div className="client-logos">{clientBrands.map(({ file, name, href }) => <a key={file} href={href} target="_blank" rel="noopener noreferrer" aria-label={`${name}: abrir site em nova aba`}><img src={`/assets/img/logos/${file}.png`} alt={name} width="200" height="66" loading="lazy"/></a>)}</div></div></section>;
 }
 
 export function Services() {

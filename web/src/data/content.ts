@@ -6,6 +6,19 @@ export const contact = {
   address: 'Rua Anita Garibaldi, 1473, Bela Vista, Erechim, RS',
 };
 
+export const clientBrands = [
+  { file: 'heineken', name: 'Heineken', href: 'https://avantehotzone.com.br' },
+  { file: 'spsul', name: 'SPSul', href: 'https://conquistahnk.com.br' },
+  { file: 'incerti', name: 'Incerti Automotivos', href: 'https://www.comercialincerti.com.br' },
+  { file: 'atacadao', name: 'Atacadão das Baterias', href: 'https://www.comercialincerti.com.br' },
+  { file: 'brutus', name: 'Brutus', href: 'https://www.comercialincerti.com.br' },
+  { file: 'metatrade', name: 'MetaTrade', href: 'https://meutour360.com/tour-360/bar-ab-correto' },
+  { file: 'supreme', name: 'Supreme Lubrificantes', href: 'https://supremelub.com.br' },
+  { file: 'allmac', name: 'Allmac360', href: 'https://allmac360.com' },
+  { file: 'esblight', name: 'ESB Light', href: 'https://esblight.com.br' },
+  { file: 'erbs', name: 'ERBS', href: 'https://erbs.com.br' },
+];
+
 export type Solution = {
   slug: string; number: string; name: string; short: string; icon: string;
   intro: string; description: string; image: string; imageAlt: string;

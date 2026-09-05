@@ -36,7 +36,11 @@ section[id], details[id], .solution-list[id] { scroll-margin-top: 0; }
 .solution-help a { display: inline-flex; align-items: center; gap: 6px; text-decoration: underline; font-weight: 750; color: var(--ink); }
 .client-band { padding: 38px 0; }
 .client-band .container { gap: 25px; }
-.client-logos { gap: 20px; }
+.client-logos { grid-template-columns: repeat(5,minmax(0,1fr)); gap: 20px; }
+.client-logos a { display: flex; align-items: center; justify-content: center; min-width: 0; min-height: 66px; border-radius: 4px; }
+.client-logos img { height: 56px; opacity: .9; }
+.client-logos a:hover img,.client-logos a:focus-visible img { opacity: 1; }
+.client-logos a:focus-visible { outline-color: var(--green); }
 .learning-paths { grid-template-columns: 280px minmax(0,1fr); }
 .training-panel { padding: 32px; gap: 32px; }
 .training-panel h3 { font-size: 1.9rem; line-height: 1.12; }
@@ -208,8 +212,8 @@ section[id], details[id], .solution-list[id] { scroll-margin-top: 0; }
   .client-band { padding: 30px 0; }
   .client-band .container { gap: 22px; }
   .client-band p { font-size: .92rem; }
-  .client-logos { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 20px 14px; }
-  .client-logos img { height: 35px; opacity: .9; }
+  .client-logos { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px 14px; }
+  .client-logos img { height: 48px; }
   .learning-paths { grid-template-columns: minmax(0,1fr); }
   .training-tabs { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .training-tabs button { min-height: 82px; grid-template-columns: 22px minmax(0,1fr); font-size: .88rem; padding: 13px 12px; }
