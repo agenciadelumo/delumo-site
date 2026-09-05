@@ -1,14 +1,14 @@
 import { ArrowDown, ArrowUpRight, Check, Plus } from 'lucide-react';
 import { Action, Icon, Logo, SectionHeading } from './brand';
 import { DemoGate, LearningPaths, VideoPlayer } from './interactive';
-import { contact, faq, methods, process, solutions, websiteCases } from '@/data/content';
+import { contact, faq, methods, process, primarySolutions, websiteCases } from '@/data/content';
 
 export function ClientLogos() {
   return <section className="client-band" aria-label="Marcas e projetos"><div className="container"><p>Marcas que transformaram<br/><strong>conhecimento em experiência.</strong></p><div className="client-logos">{[['heineken','Heineken'],['spsul','SPSul'],['incerti','Incerti Automotivos'],['atacadao','Atacadão das Baterias'],['brutus','Brutus'],['metatrade','MetaTrade']].map(([file,name]) => <img key={file} src={`/assets/img/logos/${file}.png`} alt={name} width="200" height="66" loading="lazy"/>)}</div></div></section>;
 }
 
 export function Services() {
-  return <section className="section services" id="solucoes"><div className="container"><SectionHeading label="O QUE A DELUMO FAZ" title={<>Soluções para<br/><em>sua empresa.</em></>}><p>Desenvolvemos o conteúdo, a experiência e a plataforma. Cada solução pode funcionar sozinha ou fazer parte do mesmo projeto.</p></SectionHeading><div className="ds-service-grid">{solutions.map(item => <a href={`/solucoes/${item.slug}`} className="ds-service-item tp_fade_anim" key={item.slug}><div className="ds-service-item-box"><div className="ds-service-item-icon"><Icon name={item.icon} size={34}/><span>{item.number}</span></div><h3>{item.name}</h3><p>{item.short}</p><div className="ds-service-item-bottom"><span>Ver aplicações e entregas</span><span className="ds-service-item-btn"><ArrowUpRight size={22}/></span></div></div></a>)}</div><p className="solution-help">Não sabe por onde começar? <a href="/contato">Converse com Guto Luz <ArrowUpRight size={16}/></a></p></div></section>;
+  return <section className="section services" id="solucoes"><div className="container"><SectionHeading label="O QUE A DELUMO FAZ" title={<>Soluções para<br/><em>sua empresa.</em></>}><p>Desenvolvemos o conteúdo, a experiência e a plataforma. Cada solução pode funcionar sozinha ou fazer parte do mesmo projeto.</p></SectionHeading><div className="ds-service-grid">{primarySolutions.map(item => <a href={`/solucoes/${item.slug}`} className="ds-service-item tp_fade_anim" key={item.slug}><div className="ds-service-item-box"><div className="ds-service-item-icon"><Icon name={item.icon} size={34}/><span>{item.number}</span></div><h3>{item.name}</h3><p>{item.short}</p><div className="ds-service-item-bottom"><span>Ver aplicações e entregas</span><span className="ds-service-item-btn"><ArrowUpRight size={22}/></span></div></div></a>)}</div><p className="solution-help">Não sabe por onde começar? <a href="/contato">Converse com Guto da Luz <ArrowUpRight size={16}/></a></p></div></section>;
 }
 
 export function TrainingSection() {
@@ -18,6 +18,10 @@ export function TrainingSection() {
     <details className="content-disclosure" id="metodo"><summary><span>Metodologias de aprendizagem</span><Plus size={20}/></summary><div className="disclosure-body"><p>Escolhemos os métodos conforme o público e o que ele precisa aprender e aplicar.</p><div className="methods-grid">{methods.map(method => <article key={method.title} className="method-item"><Icon name={method.icon}/><div><h4>{method.title}</h4><p>{method.text}</p></div></article>)}</div></div></details>
     <details className="content-disclosure"><summary><span>Exemplos de treinamentos com avatares</span><Plus size={20}/></summary><div className="disclosure-body"><TrainingVideos embedded/></div></details>
   </div></section>;
+}
+
+export function HRBanner() {
+  return <section className="rh-banner" aria-labelledby="rh-banner-title"><img src="/media/rh-equipe.webp" alt="Imagem ilustrativa de uma equipe brasileira em uma atividade de integração" width="1200" height="800" loading="lazy"/><div className="rh-banner-film"/><div className="container"><div className="rh-banner-copy"><p className="eyebrow">DO PRIMEIRO DIA AOS PRÓXIMOS DESAFIOS</p><h2 id="rh-banner-title">Soluções para RH</h2><p>Integração, conduta, qualidade, 5S e segurança em trilhas que aproximam o conteúdo da rotina. Transforme os materiais que sua empresa já tem em novas formas de aprender.</p><Action href="/solucoes/treinamentos#rh">Desenvolva sua equipe</Action></div></div></section>;
 }
 
 export function PlatformsSection() {
@@ -70,11 +74,11 @@ export function FAQ() {
 }
 
 export function ContactCTA() {
-  return <section className="contact-cta"><div className="container"><p className="eyebrow">SEU PRÓXIMO PROJETO COMEÇA AQUI</p><h2>Vamos conversar<br/><em>sobre seu projeto?</em></h2><Action href={contact.whatsapp} external>Converse com Guto Luz</Action><p className="cta-contact"><a href="tel:+5554981302517">{contact.phone}</a><a href={`mailto:${contact.email}`}>{contact.email}</a></p><div className="cta-down"><ArrowDown size={24}/></div></div></section>;
+  return <section className="contact-cta"><div className="container"><p className="eyebrow">SEU PRÓXIMO PROJETO COMEÇA AQUI</p><h2>Vamos conversar<br/><em>sobre seu projeto?</em></h2><Action href={contact.whatsapp} external>Converse com Guto da Luz</Action><p className="cta-contact"><a href="tel:+5554981302517">{contact.phone}</a><a href={`mailto:${contact.email}`}>{contact.email}</a></p><div className="cta-down"><ArrowDown size={24}/></div></div></section>;
 }
 
 export function Footer() {
-  return <footer className="site-footer"><div className="container"><div className="footer-top"><div><a href="/" aria-label="Delumo, início"><Logo/></a><p>Conhecimento, tecnologia<br/>e experiências para evoluir.</p></div><nav aria-label="Soluções no rodapé"><h3>Soluções</h3>{solutions.map(item=><a href={`/solucoes/${item.slug}`} key={item.slug}>{item.name}</a>)}</nav><nav aria-label="Empresa no rodapé"><h3>Delumo</h3><a href="/sobre">Quem somos</a><a href="/projetos">Projetos</a><a href="/contato">Contato</a><a href="/privacidade">Privacidade</a></nav><div className="footer-contact"><h3>Vamos conversar</h3><a href={contact.whatsapp} target="_blank" rel="noopener noreferrer">{contact.name}<br/>{contact.phone}<ArrowUpRight size={18}/></a><a href={`mailto:${contact.email}`}>{contact.email}</a><p>Rua Anita Garibaldi, 1473<br/>Bela Vista, Erechim, RS</p></div></div>
+  return <footer className="site-footer"><div className="container"><div className="footer-top"><div><a href="/" aria-label="Delumo, início"><Logo/></a><p>Conhecimento, tecnologia<br/>e experiências para evoluir.</p></div><nav aria-label="Soluções no rodapé"><h3>Soluções</h3>{primarySolutions.map(item=><a href={`/solucoes/${item.slug}`} key={item.slug}>{item.name}</a>)}</nav><nav aria-label="Empresa no rodapé"><h3>Delumo</h3><a href="/sobre">Quem somos</a><a href="/projetos">Projetos</a><a href="/contato">Contato</a><a href="/privacidade">Privacidade</a></nav><div className="footer-contact"><h3>Vamos conversar</h3><a href={contact.whatsapp} target="_blank" rel="noopener noreferrer">{contact.name}<br/>{contact.phone}<ArrowUpRight size={18}/></a><a href={`mailto:${contact.email}`}>{contact.email}</a><p>Rua Anita Garibaldi, 1473<br/>Bela Vista, Erechim, RS</p></div></div>
     <div className="powered"><span>POWERED</span><div className="powered-logo"><Logo/><div className="powered-logo-fill" aria-hidden="true"><Logo/></div></div></div>
     <div className="footer-bottom"><span>© {new Date().getFullYear()} Delumo. Todos os direitos reservados.</span><span>Treinar. Jogar. Evoluir.</span><a href="#top">Voltar ao topo <ArrowUpRight size={16}/></a></div></div></footer>;
 }

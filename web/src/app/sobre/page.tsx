@@ -1,6 +1,31 @@
 import type { Metadata } from 'next';
-import { ContactCTA, ProcessSection } from '@/components/sections';
-export const metadata:Metadata={title:'A Delumo',description:'A Delumo conecta conhecimento, design e tecnologia para desenvolver pessoas, experiências e soluções digitais.',alternates:{canonical:'/sobre'}};
-export default function AboutPage(){return <main id="main"><section className="inner-hero"><div className="container"><p className="eyebrow">A DELUMO</p><h1>Conheça a Delumo.</h1><p>Uma empresa de soluções digitais que transforma conhecimento em experiências e tecnologia em ferramentas úteis para pessoas e negócios.</p></div></section><section className="section page-simple"><div className="container"><div className="about-layout"><div><p className="eyebrow">CONHECIMENTO EM MOVIMENTO</p><h2>Soluções que começam pelas pessoas.</h2><p>A Delumo nasceu da vontade de tornar o desenvolvimento mais claro, envolvente e próximo da realidade. Por isso, cada projeto começa pelo contexto: quem precisa aprender, qual desafio precisa ser resolvido e como a solução fará parte da rotina.</p><p>Podemos organizar uma trilha de conhecimento, transformar metas em game, criar um ambiente 3D, desenvolver uma plataforma ou combinar diferentes formatos. O conteúdo, o design e a tecnologia trabalham juntos, com revisão e validação da empresa em cada etapa.</p><p>Atuamos com projetos sob medida para integração, vendas, produtos, liderança, processos, experiências comerciais e comunicação. O formato muda. O compromisso com clareza e utilidade permanece.</p></div>
-  <figure className="about-image about-portrait"><img src="/media/antonio-augusto-da-luz.png" alt="Antônio Augusto da Luz, Guto Luz, da Delumo" width="640" height="640"/><figcaption><strong>Antônio Augusto da Luz</strong><span>Guto Luz · Delumo</span></figcaption></figure>
-  </div><div className="about-values"><article><span>01</span><h3>Entender antes de criar</h3><p>O contexto da empresa orienta as decisões de conteúdo, formato e tecnologia.</p></article><article><span>02</span><h3>Fazer junto</h3><p>Especialistas, gestores e equipes participam da construção e da validação.</p></article><article><span>03</span><h3>Evoluir com propósito</h3><p>Cada entrega deve ser compreensível, utilizável e preparada para novos passos.</p></article></div></div></section><ProcessSection/><ContactCTA/></main>}
+import { ArrowUpRight } from 'lucide-react';
+import { Action, Icon } from '@/components/brand';
+import { ContactCTA } from '@/components/sections';
+
+export const metadata: Metadata = { title: 'A Delumo', description: 'Guto da Luz e Time Delumo: experiência em marketing, vendas, tecnologia e criação de treinamentos, games e ambientes imersivos.', alternates: { canonical: '/sobre' } };
+
+export default function AboutPage() {
+  return <main id="main" className="delumo-about-page">
+    <section className="inner-hero"><div className="container"><p className="eyebrow">A DELUMO</p><h1>Pessoas que conectam<br/>conhecimento e tecnologia.</h1><p>Guto da Luz e Time Delumo. Estratégia, criação e desenvolvimento para transformar desafios reais em soluções digitais.</p></div></section>
+    <section className="section sa-about-section"><div className="container">
+      <div className="sa-about-heading"><p className="eyebrow">QUEM SOU</p><h2>Guto da Luz.<br/><em>Visão de negócio.<br/>Vontade de construir.</em></h2></div>
+      <div className="sa-about-layout">
+        <figure className="about-image about-portrait founder-portrait"><div className="portrait-frame" tabIndex={0} aria-label="Retrato de Guto da Luz"><img src="/media/antonio-augusto-da-luz.png" alt="Guto da Luz, da Delumo" width="640" height="640"/></div><figcaption><strong>Guto da Luz</strong><span>Estratégia e desenvolvimento de soluções digitais</span></figcaption></figure>
+        <div className="founder-copy"><p className="founder-lead">Minha experiência nasceu perto de quem vende, atende e faz a operação acontecer.</p><p>Desde 2008, atuo em vendas e marketing, com experiência em gestão comercial, estratégias B2B e B2C, trade marketing, liderança de equipes e projetos digitais. Essa vivência ajuda a conectar o que uma empresa precisa comunicar ao que suas pessoas precisam aprender e executar.</p><p>Na Delumo, reúno essa visão de negócio ao desenvolvimento de treinamentos, plataformas, gamificação e experiências imersivas. Participo da concepção e condução dos projetos, conectando especialistas de diferentes áreas para construir a solução adequada a cada desafio.</p>
+          <div className="founder-education"><h3>Formação e desenvolvimento</h3><p>Formação superior em Marketing Digital e especialização em desenvolvimento front-end. Capacitações em Empretec, atendimento ao cliente, marketing de serviços, implantação de CRM e gestão de vendas e pós-venda.</p></div>
+          <Action href="/contato">Converse com Guto da Luz</Action>
+        </div>
+      </div>
+    </div></section>
+    <section className="section delumo-team"><div className="container"><div className="team-heading"><p className="eyebrow">TIME DELUMO</p><h2>Diferentes especialidades.<br/><em>Um projeto construído junto.</em></h2><p>Nossa equipe reúne profissionais de áreas complementares. Guto da Luz conecta a estratégia às entregas, e o time combina conhecimento técnico e criação conforme as necessidades de cada projeto.</p></div>
+      <div className="team-disciplines">{[
+        ['Code2', 'Engenharia de software', 'Sites, plataformas, integrações via API e soluções digitais com arquitetura e recursos definidos para a operação.'],
+        ['Box', 'Design 3D', 'Modelagem, materiais, iluminação e visualização de produtos e ambientes para explicar e explorar.'],
+        ['Building2', 'Arquitetura e espaços', 'Leitura espacial, organização dos ambientes e representação dos contextos em que a experiência acontece.'],
+        ['Gamepad2', 'Desenvolvimento de games', 'Mecânicas, interações e experiências em Unity e outras ferramentas escolhidas para o objetivo e os dispositivos do projeto.'],
+      ].map(([icon, title, text]) => <article key={title}><Icon name={icon} size={32}/><h3>{title}</h3><p>{text}</p></article>)}</div>
+      <a className="text-link" href="/#solucoes">Conheça as soluções da Delumo <ArrowUpRight size={18}/></a>
+    </div></section><ContactCTA/>
+  </main>;
+}

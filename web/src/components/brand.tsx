@@ -1,7 +1,7 @@
-import { ArrowUpRight, ArrowRight, GraduationCap, Gamepad2, Box, PanelsTopLeft, ScanEye, Users, Target, MessagesSquare, Workflow, RefreshCw, Layers, Timer, Puzzle, ChartNoAxesCombined, BrainCircuit, Monitor, Gauge, Search, Network, CircleCheck } from 'lucide-react';
+import { ArrowUpRight, ArrowRight, GraduationCap, Gamepad2, Box, PanelsTopLeft, ScanEye, Users, Target, MessagesSquare, Workflow, RefreshCw, Layers, Timer, Puzzle, ChartNoAxesCombined, BrainCircuit, Monitor, Gauge, Search, Network, CircleCheck, ShieldCheck, Store, Play, Code2, Building2 } from 'lucide-react';
 import type { ReactNode } from 'react';
 
-const icons = { GraduationCap, Gamepad2, Box, PanelsTopLeft, ScanEye, Users, Target, MessagesSquare, Workflow, RefreshCw, Layers, Timer, Puzzle, ChartNoAxesCombined, BrainCircuit, Monitor, Gauge, Search, Network, CircleCheck };
+const icons = { GraduationCap, Gamepad2, Box, PanelsTopLeft, ScanEye, Users, Target, MessagesSquare, Workflow, RefreshCw, Layers, Timer, Puzzle, ChartNoAxesCombined, BrainCircuit, Monitor, Gauge, Search, Network, CircleCheck, ShieldCheck, Store, Play, Code2, Building2 };
 export function Icon({ name, size = 28 }: { name: string; size?: number }) {
   const Component = icons[name as keyof typeof icons] || Box;
   return <Component size={size} strokeWidth={1.5} aria-hidden="true" />;

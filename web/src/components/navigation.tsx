@@ -6,7 +6,7 @@ import { Logo, WhatsAppIcon } from './brand';
 import { MotionToggle } from './motion';
 import { contact } from '@/data/content';
 
-const navigation = [['Soluções','/#solucoes'],['Treinamentos','/#treinamentos'],['Projetos','/projetos'],['A Delumo','/sobre']];
+const navigation = [['A Delumo','/sobre'],['Soluções','/#solucoes'],['Treinamentos','/solucoes/treinamentos'],['Gamificação','/projetos']];
 export default function Header() {
   const [open,setOpen]=useState(false);
   const [scrolled,setScrolled]=useState(false);
@@ -27,5 +27,5 @@ export default function Header() {
 }
 
 export function WhatsAppFloating() {
-  return <a href={contact.whatsapp} className="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Falar com Guto Luz no WhatsApp: (54) 98130-2517"><span className="whatsapp-label">Fale com Guto Luz<small>{contact.phone}</small></span><WhatsAppIcon/></a>;
+  return <a href={contact.whatsapp} className="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Falar com Guto da Luz no WhatsApp: (54) 98130-2517"><span className="whatsapp-label">Fale com Guto da Luz<small>{contact.phone}</small></span><WhatsAppIcon/></a>;
 }

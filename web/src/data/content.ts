@@ -1,5 +1,5 @@
 export const contact = {
-  name: 'Guto Luz',
+  name: 'Guto da Luz',
   phone: '(54) 98130-2517',
   email: 'agenciadelumo@gmail.com',
   whatsapp: 'https://wa.me/5554981302517?text=Ol%C3%A1%2C%20Guto!%20Quero%20conversar%20sobre%20um%20projeto%20com%20a%20Delumo.',
@@ -14,10 +14,10 @@ export type Solution = {
 
 export const solutions: Solution[] = [
   {
-    slug: 'treinamentos', number: '01', name: 'Treinamentos e trilhas', short: 'Conteúdo, metodologia e prática para desenvolver sua equipe.', icon: 'GraduationCap',
+    slug: 'treinamentos', number: '01', name: 'Treinamentos e trilhas', short: 'Aprendizagem sob medida para RH, vendas, segurança e cada setor.', icon: 'GraduationCap',
     intro: 'Pessoas preparadas para os desafios reais da sua empresa.',
     description: 'Transformamos apresentações, manuais, procedimentos e o conhecimento dos especialistas da empresa em treinamentos claros e reutilizáveis. Cada trilha organiza o que aprender, em qual sequência e como praticar, de acordo com o setor e a função. O objetivo é facilitar a integração, padronizar orientações e aproximar o conteúdo das tarefas reais de trabalho.',
-    image: '/assets/img/treinamento-metatrade.jpg', imageAlt: 'Aplicação presencial de uma experiência de treinamento MetaTrade com realidade virtual',
+    image: '/media/rh-equipe.webp', imageAlt: 'Imagem ilustrativa de integração e aprendizagem em equipe',
     applications: ['RH, cultura e integração de novos colaboradores', 'Produtos, atendimento, negociação e vendas', 'Liderança, comunicação, feedback e colaboração', 'Processos, rotinas administrativas e orientação sobre segurança'],
     deliverables: ['Diagnóstico, objetivos e trilhas de conhecimento por setor e função', 'Adaptação de apresentações, documentos e procedimentos em aulas e materiais de apoio', 'Roteiros, videoaulas, locução e avatares com a identidade da empresa', 'Casos, simulações, quizzes e questionários ligados à rotina', 'Revisão e aprovação com os responsáveis pelo conteúdo', 'Critérios de conclusão, acompanhamento da aprendizagem e atualização dos materiais'],
     outcome: 'O conteúdo certo, na sequência certa e em um formato que a equipe consegue aplicar.',
@@ -35,13 +35,13 @@ export const solutions: Solution[] = [
     slug: 'projetos-3d', number: '03', name: 'Projetos especiais 3D', short: 'Ambientes, produtos e simulações em três dimensões.', icon: 'Box',
     intro: 'Apresente o que ainda precisa ser visto, explorado ou compreendido.',
     description: 'Desenvolvemos ambientes, produtos e experiências digitais em 3D para explicar processos, demonstrar soluções e antecipar decisões. A tecnologia é escolhida de acordo com a experiência, o dispositivo e o objetivo de cada projeto.',
-    image: '/media/metatrade.webp', imageAlt: 'Ambiente de ponto de venda do projeto imersivo MetaTrade',
+    image: '/media/metatrade.webp', imageAlt: 'Treinamento MetaTrade com os rostos dos participantes desfocados para preservar sua privacidade',
     applications: ['Simulação de pontos de venda e espaços comerciais', 'Visualização de produtos e soluções técnicas', 'Demonstrações de processos e operação', 'Apresentações interativas e experiências para eventos'],
     deliverables: ['Conceito visual, roteiro de navegação e cenários', 'Modelagem, materiais, iluminação e composição', 'Interações, pontos de informação e demonstrações', 'Otimização para os dispositivos definidos no projeto'],
     outcome: 'Uma representação visual que ajuda a entender, treinar e decidir com mais contexto.',
   },
   {
-    slug: 'plataformas', number: '04', name: 'Plataformas inteligentes', short: 'Ensino, acompanhamento e sistemas conectados à sua empresa.', icon: 'PanelsTopLeft',
+    slug: 'plataformas', number: '03', name: 'Plataformas inteligentes', short: 'Ensino, acompanhamento e sistemas conectados à sua empresa.', icon: 'PanelsTopLeft',
     intro: 'Sua plataforma de treinamento. Com a identidade e as regras da sua empresa.',
     description: 'Além de produzir os treinamentos, desenvolvemos a plataforma personalizada para disponibilizar aulas, organizar trilhas e acompanhar os alunos. Perfis de acesso, percursos por cargo ou setor e indicadores são definidos conforme a operação. Quando necessário, também desenvolvemos APIs para integrar a solução ao ERP ou aplicativo de RH, conforme a disponibilidade técnica e as permissões dos sistemas. Nossa atuação inclui sites, catálogos, áreas de clientes e agentes de IA em Next.js.',
     image: '/media/site-supreme.webp', imageAlt: 'Site da Supreme Lubrificantes desenvolvido pela Delumo',
@@ -50,12 +50,12 @@ export const solutions: Solution[] = [
     outcome: 'Do conteúdo ao acompanhamento: uma experiência de ensino conectada à rotina da empresa.',
   },
   {
-    slug: 'imersao', number: '05', name: 'Experiências imersivas', short: 'Tours 360° e realidade virtual para explorar e aprender.', icon: 'ScanEye',
+    slug: 'imersao', number: '04', name: 'Experiências imersivas', short: 'Projetos 3D, tours 360° e realidade virtual para explorar e aprender.', icon: 'ScanEye',
     intro: 'Leve as pessoas para dentro da experiência.',
-    description: 'Criamos tours 360°, ambientes navegáveis e experiências de realidade virtual que aproximam pessoas de lugares, produtos e situações de trabalho. O visitante explora, observa detalhes e encontra informações no contexto em que elas fazem sentido.',
+    description: 'Reunimos projetos especiais 3D, tours 360° e realidade virtual em experiências para aprender, apresentar e simular. Modelamos produtos, espaços e situações de trabalho, com materiais, iluminação e interações que ajudam a compreender o contexto. O visitante explora detalhes, acompanha processos e pratica decisões por computador, celular ou óculos VR, conforme o projeto.',
     image: '/assets/img/treinamento-metatrade.jpg', imageAlt: 'Participantes exploram um treinamento imersivo da Delumo com óculos de realidade virtual',
-    applications: ['Onboarding e visitas virtuais à empresa', 'Treinamento de execução no ponto de venda', 'Apresentações comerciais e showrooms virtuais', 'Cultura, turismo e experiências de marca'],
-    deliverables: ['Roteiro e organização dos ambientes', 'Captura ou produção das cenas e pontos interativos', 'Vídeos, avatares e conteúdos integrados à navegação', 'Acesso em navegador e suporte a VR conforme a experiência'],
+    applications: ['Onboarding e visitas virtuais à empresa', 'Simulação e treinamento de execução no ponto de venda', 'Visualização técnica de produtos, equipamentos e processos', 'Apresentações comerciais, eventos e showrooms virtuais', 'Cultura, turismo e experiências de marca'],
+    deliverables: ['Conceito, roteiro e organização dos ambientes', 'Modelagem 3D, materiais, iluminação e composição', 'Captura 360° ou produção das cenas e pontos interativos', 'Vídeos, avatares e demonstrações integrados à navegação', 'Otimização para os dispositivos e suporte a VR conforme a experiência'],
     outcome: 'Mais proximidade com o ambiente real, mesmo à distância.',
   },
   {
@@ -68,6 +68,9 @@ export const solutions: Solution[] = [
     outcome: 'Menos conteúdo disperso. Mais clareza para quem chega e desenvolvimento contínuo para quem já faz parte do time.',
   },
 ];
+
+// Existing detail URLs remain available; navigation presents four service families.
+export const primarySolutions = solutions.filter(item => !['rh', 'projetos-3d'].includes(item.slug));
 
 export const trainingGroups = [
   { name: 'Integração e cultura', icon: 'Users', title: 'O primeiro passo com mais clareza.', text: 'Cultura, conduta e rotinas da função em uma jornada reutilizável para novas equipes. Orientações consistentes, exemplos do trabalho e conteúdos que podem ser revisitados.', modules: ['Boas-vindas e propósito', 'Cultura e conduta', 'Rotina da função', 'Prática e acompanhamento'] },

@@ -1,6 +1,6 @@
 import HeroCarousel from '@/components/hero';
 import { TextSliderArea } from '@/components/interactive';
-import { ClientLogos, ContactCTA, FAQ, FeaturedProjects, PlatformsSection, ProcessSection, Services, TrainingSection, WebsiteCases } from '@/components/sections';
+import { ClientLogos, ContactCTA, FAQ, FeaturedProjects, HRBanner, PlatformsSection, ProcessSection, Services, TrainingSection, WebsiteCases } from '@/components/sections';
 
 export default function Home() {
   return <main id="main" className="home-page">
@@ -9,6 +9,7 @@ export default function Home() {
     <Services/>
     <ClientLogos/>
     <TrainingSection/>
+    <HRBanner/>
     <PlatformsSection/>
     <FeaturedProjects compact/>
     <WebsiteCases compact/>
