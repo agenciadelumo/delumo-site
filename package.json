@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "node scripts/sync-assets.mjs && next dev web --hostname 127.0.0.1 --port 3007",
     "build": "node scripts/sync-assets.mjs && next build web && node scripts/package-site.mjs",
-    "typecheck": "tsc --noEmit -p web/tsconfig.json"
+    "typecheck": "tsc --noEmit -p web/tsconfig.json",
+    "test": "node --test tests/site-export.test.mjs"
   },
   "dependencies": {
     "d3-geo": "^3.1.1",

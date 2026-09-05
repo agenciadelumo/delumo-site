@@ -6,6 +6,7 @@ import { Footer } from '@/components/sections';
 import 'swiper/css';
 import './globals.css';
 import './hero.css';
+import './experience.css';
 
 const display = Bricolage_Grotesque({subsets:['latin'],variable:'--font-display',display:'swap'});
 const body = Figtree({subsets:['latin'],variable:'--font-body',display:'swap'});

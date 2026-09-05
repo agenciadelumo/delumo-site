@@ -23,7 +23,7 @@ export const solutions: Solution[] = [
     outcome: 'O conteúdo certo, na sequência certa e em um formato que a equipe consegue aplicar.',
   },
   {
-    slug: 'gamificacao', number: '02', name: 'Gamificação', short: 'Metas que movimentam o seu time.', icon: 'Gamepad2',
+    slug: 'gamificacao', number: '02', name: 'Gamificação', short: 'Games, missões e rankings para engajar equipes e campanhas.', icon: 'Gamepad2',
     intro: 'Transforme a estratégia em missões que fazem sentido.',
     description: 'Criamos games corporativos que conectam o comportamento esperado às metas do negócio. Narrativa, desafios, pontuação, reconhecimento e feedback dão visibilidade à evolução individual e coletiva.',
     image: '/media/conquista.webp', imageAlt: 'Tela do jogo ConquistaHNK com territórios, pontos de venda e indicadores',
@@ -32,7 +32,7 @@ export const solutions: Solution[] = [
     outcome: 'Uma experiência que traduz indicadores em ações e mostra ao time onde avançar.',
   },
   {
-    slug: 'projetos-3d', number: '03', name: 'Projetos especiais 3D', short: 'Ideias que ganham forma e contexto.', icon: 'Box',
+    slug: 'projetos-3d', number: '03', name: 'Projetos especiais 3D', short: 'Ambientes, produtos e simulações em três dimensões.', icon: 'Box',
     intro: 'Apresente o que ainda precisa ser visto, explorado ou compreendido.',
     description: 'Desenvolvemos ambientes, produtos e experiências digitais em 3D para explicar processos, demonstrar soluções e antecipar decisões. A tecnologia é escolhida de acordo com a experiência, o dispositivo e o objetivo de cada projeto.',
     image: '/media/metatrade.webp', imageAlt: 'Ambiente de ponto de venda do projeto imersivo MetaTrade',
@@ -50,7 +50,7 @@ export const solutions: Solution[] = [
     outcome: 'Do conteúdo ao acompanhamento: uma experiência de ensino conectada à rotina da empresa.',
   },
   {
-    slug: 'imersao', number: '05', name: 'Experiências imersivas', short: 'Aprender e explorar de dentro da cena.', icon: 'ScanEye',
+    slug: 'imersao', number: '05', name: 'Experiências imersivas', short: 'Tours 360° e realidade virtual para explorar e aprender.', icon: 'ScanEye',
     intro: 'Leve as pessoas para dentro da experiência.',
     description: 'Criamos tours 360°, ambientes navegáveis e experiências de realidade virtual que aproximam pessoas de lugares, produtos e situações de trabalho. O visitante explora, observa detalhes e encontra informações no contexto em que elas fazem sentido.',
     image: '/assets/img/treinamento-metatrade.jpg', imageAlt: 'Participantes exploram um treinamento imersivo da Delumo com óculos de realidade virtual',
@@ -59,7 +59,7 @@ export const solutions: Solution[] = [
     outcome: 'Mais proximidade com o ambiente real, mesmo à distância.',
   },
   {
-    slug: 'rh', number: '06', name: 'Soluções para RH', short: 'Integração, conduta, qualidade, 5S e segurança em treinamentos claros e envolventes.', icon: 'Users',
+    slug: 'rh', number: '06', name: 'Soluções para RH', short: 'Modernização de materiais de integração, conduta, qualidade, 5S e segurança.', icon: 'Users',
     intro: 'O conhecimento que sua empresa já tem pode ensinar muito melhor.',
     description: 'Transformamos PowerPoints, PDFs, manuais e procedimentos em treinamentos objetivos, visuais e fáceis de atualizar. Reorganizamos a apresentação, aprimoramos a linguagem e criamos jornadas para integrar novos colaboradores e reciclar as equipes atuais. RH, Segurança do Trabalho, Qualidade e gestores participam da revisão para manter o conteúdo alinhado à realidade da empresa.',
     image: '/media/immersive-team.webp', imageAlt: 'Representação de uma equipe em treinamento imersivo com realidade virtual',
