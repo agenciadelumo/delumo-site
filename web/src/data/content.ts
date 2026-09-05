@@ -16,10 +16,10 @@ export const solutions: Solution[] = [
   {
     slug: 'treinamentos', number: '01', name: 'Treinamentos e trilhas', short: 'Conhecimento que faz parte da rotina.', icon: 'GraduationCap',
     intro: 'Pessoas preparadas para os desafios reais da sua empresa.',
-    description: 'Transformamos o conhecimento da sua operação em treinamentos claros, contextualizados e reutilizáveis. Cada trilha conecta objetivos de aprendizagem, conteúdos curtos, situações práticas e avaliações para acompanhar a evolução por função.',
+    description: 'Transformamos apresentações, manuais, procedimentos e o conhecimento dos especialistas da empresa em treinamentos claros e reutilizáveis. Cada trilha organiza o que aprender, em qual sequência e como praticar, de acordo com o setor e a função. O objetivo é facilitar a integração, padronizar orientações e aproximar o conteúdo das tarefas reais de trabalho.',
     image: '/assets/img/treinamento-metatrade.jpg', imageAlt: 'Aplicação presencial de uma experiência de treinamento MetaTrade com realidade virtual',
     applications: ['RH, cultura e integração de novos colaboradores', 'Produtos, atendimento, negociação e vendas', 'Liderança, comunicação, feedback e colaboração', 'Processos, rotinas administrativas e orientação sobre segurança'],
-    deliverables: ['Diagnóstico e trilha de conhecimento por função', 'Roteiros, videoaulas, avatares de IA e materiais de apoio', 'Estudos de caso, simulações e atividades práticas', 'Avaliações, acompanhamento e ciclos de atualização'],
+    deliverables: ['Diagnóstico, objetivos e trilhas de conhecimento por setor e função', 'Adaptação de apresentações, documentos e procedimentos em aulas e materiais de apoio', 'Roteiros, videoaulas, locução e avatares com a identidade da empresa', 'Casos, simulações, quizzes e questionários ligados à rotina', 'Revisão e aprovação com os responsáveis pelo conteúdo', 'Critérios de conclusão, acompanhamento da aprendizagem e atualização dos materiais'],
     outcome: 'O conteúdo certo, na sequência certa e em um formato que a equipe consegue aplicar.',
   },
   {
@@ -44,9 +44,9 @@ export const solutions: Solution[] = [
     slug: 'plataformas', number: '04', name: 'Plataformas inteligentes', short: 'Tecnologia conectada ao seu negócio.', icon: 'PanelsTopLeft',
     intro: 'Seu site pode ser o começo de uma operação mais inteligente.',
     description: 'Desenvolvemos sites e plataformas sob medida em Next.js, com navegação objetiva e integrações que aproximam conteúdo, atendimento e operação. Do catálogo técnico às trilhas de ensino, cada ferramenta atende a uma necessidade concreta da empresa.',
-    image: '/media/plataformas.webp', imageAlt: 'Visão de um projeto digital desenvolvido pela Delumo',
-    applications: ['Sites institucionais, catálogos e páginas para campanhas', 'Ambientes de ensino com trilhas de conhecimento integradas', 'Áreas de clientes, parceiros e equipes', 'Agentes de IA, bases de conhecimento e automação de atendimento'],
-    deliverables: ['Arquitetura da informação e experiência de navegação', 'Desenvolvimento em Next.js e layout responsivo', 'SEO técnico, conteúdo estruturado e otimização de carregamento', 'Integrações, métricas e eventos de conversão definidos no escopo'],
+    image: '/media/site-supreme.webp', imageAlt: 'Site da Supreme Lubrificantes desenvolvido pela Delumo',
+    applications: ['Sites institucionais, catálogos e páginas para campanhas', 'Ambientes de ensino com trilhas por setor, aulas e avaliações integradas', 'Áreas de clientes, parceiros e equipes com acesso por perfil', 'Agentes de IA, bases de conhecimento e automação de atendimento'],
+    deliverables: ['Arquitetura da informação e experiência de navegação', 'Desenvolvimento em Next.js e layout responsivo', 'Bibliotecas de conteúdo, percursos de aprendizagem e regras de conclusão conforme o projeto', 'Acompanhamento de participação, etapas concluídas e avaliações conforme os dados disponíveis', 'SEO técnico, conteúdo estruturado e otimização de carregamento', 'Integrações, métricas e eventos de conversão definidos no escopo'],
     outcome: 'Uma base digital preparada para campanhas, busca orgânica e evolução contínua.',
   },
   {
@@ -61,7 +61,7 @@ export const solutions: Solution[] = [
 ];
 
 export const trainingGroups = [
-  { name: 'Integração e cultura', icon: 'Users', title: 'O primeiro passo com mais clareza.', text: 'Cultura, conduta, rotinas da função e apresentação da empresa em uma jornada que pode ser revisitada.', modules: ['Boas-vindas e propósito', 'Cultura e conduta', 'Rotina da função', 'Prática e acompanhamento'] },
+  { name: 'Integração e cultura', icon: 'Users', title: 'O primeiro passo com mais clareza.', text: 'Cultura, conduta e rotinas da função em uma jornada reutilizável para novas equipes. Orientações consistentes, exemplos do trabalho e conteúdos que podem ser revisitados.', modules: ['Boas-vindas e propósito', 'Cultura e conduta', 'Rotina da função', 'Prática e acompanhamento'] },
   { name: 'Vendas e produtos', icon: 'Target', title: 'Conhecimento técnico que chega ao cliente.', text: 'Portfólio, aplicação, abordagem e negociação conectados a situações reais de atendimento e execução comercial.', modules: ['Conhecer o portfólio', 'Entender a necessidade', 'Simular o atendimento', 'Aplicar e receber feedback'] },
   { name: 'Liderança e pessoas', icon: 'MessagesSquare', title: 'Competências para trabalhar melhor em equipe.', text: 'Comunicação, feedback, autogestão, tomada de decisão e colaboração desenvolvidos com casos e exercícios do dia a dia.', modules: ['Autoconhecimento', 'Comunicação e escuta', 'Conversas e decisões', 'Plano de desenvolvimento'] },
   { name: 'Processos e operação', icon: 'Workflow', title: 'Um padrão claro para cada atividade.', text: 'Rotinas administrativas, sistemas, procedimentos e conscientização sobre segurança apresentados com contexto e exemplos.', modules: ['Entender o processo', 'Observar a execução', 'Praticar a atividade', 'Verificar a compreensão'] },
@@ -79,7 +79,7 @@ export const methods = [
 export const process = [
   { title: 'Entender', text: 'Público, rotina, desafios e objetivos do negócio.' },
   { title: 'Desenhar', text: 'Escopo, trilha, experiência e indicadores de sucesso.' },
-  { title: 'Desenvolver', text: 'Conteúdo, design, tecnologia e revisão com a sua equipe.' },
+  { title: 'Desenvolver', text: 'Conteúdo, design e tecnologia, com apoio de IA quando adequado e revisão dos responsáveis da empresa.' },
   { title: 'Colocar em prática', text: 'Testes, implantação e acompanhamento da experiência.' },
   { title: 'Evoluir', text: 'Aprendizados, ajustes e novas possibilidades.' },
 ];
@@ -92,7 +92,8 @@ export const websiteCases = [
 
 export const faq = [
   ['Como a Delumo escolhe a solução para a minha empresa?', 'Começamos pelo objetivo, pelo público e pela rotina da operação. A partir disso, definimos se o projeto pede uma trilha de treinamento, um game, uma plataforma, uma experiência imersiva ou uma combinação dessas soluções.'],
-  ['Vocês aproveitam o conteúdo que a empresa já tem?', 'Sim. Podemos organizar manuais, apresentações, processos e conhecimento dos especialistas em roteiros, aulas, atividades e experiências. A revisão e a aprovação do conteúdo fazem parte da construção com a empresa.'],
+  ['Vocês aproveitam o conteúdo que a empresa já tem?', 'Sim. Apresentações em PowerPoint, PDFs, documentos, vídeos e conhecimento dos especialistas podem servir de base. Selecionamos o que é relevante, organizamos a sequência e adaptamos a linguagem em roteiros, aulas e atividades com a identidade da empresa. Os responsáveis pelo conteúdo participam da revisão e da aprovação.'],
+  ['Como acompanhar se o treinamento está funcionando?', 'Definimos os critérios antes da produção: participação, conclusão das etapas, compreensão nas avaliações e aplicação na rotina. Conforme o projeto, podemos desenvolver relatórios por pessoa ou equipe e combinar esses registros com feedback dos gestores para orientar reforços e atualizações.'],
   ['Como as metodologias entram nos treinamentos?', 'O método depende do que a pessoa precisa aprender e fazer. Podemos combinar princípios de aprendizagem de adultos, prática experiencial, microlearning e simulações. Os objetivos e as avaliações são definidos para cada situação.'],
   ['É possível integrar o site a uma área de ensino ou a agentes de IA?', 'Sim. Desenvolvemos essas integrações sob medida, considerando os sistemas existentes, as permissões de acesso, as fontes de conteúdo e o fluxo de atendimento. O escopo é definido a partir das necessidades da operação.'],
   ['As experiências funcionam no celular?', 'Sites e plataformas são desenvolvidos para diferentes tamanhos de tela. Tours e experiências 3D são planejados conforme os dispositivos de uso; quando houver óculos VR ou requisitos específicos, isso é definido e testado no projeto.'],
