@@ -1,0 +1,25 @@
+{
+  "name": "delumo-site",
+  "version": "2.0.0",
+  "private": true,
+  "packageManager": "pnpm@11.19.0",
+  "scripts": {
+    "dev": "node scripts/sync-assets.mjs && next dev web --hostname 127.0.0.1 --port 3007",
+    "build": "node scripts/sync-assets.mjs && next build web && node scripts/package-site.mjs",
+    "typecheck": "tsc --noEmit -p web/tsconfig.json"
+  },
+  "dependencies": {
+    "gsap": "^3.13.0",
+    "lucide-react": "^0.577.0",
+    "next": "16.3.4",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "swiper": "^12.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.9.3"
+  }
+}

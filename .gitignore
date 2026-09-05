@@ -1,1 +1,10 @@
 .vercel
+node_modules/
+dist/
+web/.next/
+web/out/
+web/public/assets/
+web/tsconfig.tsbuildinfo
+.env*
+!*.example
+qa-output/
