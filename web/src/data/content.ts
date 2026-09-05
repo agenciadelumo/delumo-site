@@ -55,7 +55,7 @@ export const solutions: Solution[] = [
   },
   {
     slug: 'plataformas', number: '03', name: 'Plataformas inteligentes', short: 'Ensino, acompanhamento e sistemas conectados à sua empresa.', icon: 'PanelsTopLeft',
-    intro: 'Sua plataforma de treinamento. Com a identidade e as regras da sua empresa.',
+    intro: 'Sites, ensino e ferramentas internas conectados às necessidades da sua empresa.',
     description: 'Além de produzir os treinamentos, desenvolvemos a plataforma personalizada para disponibilizar aulas, organizar trilhas e acompanhar os alunos. Perfis de acesso, percursos por cargo ou setor e indicadores são definidos conforme a operação. Quando necessário, também desenvolvemos APIs para integrar a solução ao ERP ou aplicativo de RH, conforme a disponibilidade técnica e as permissões dos sistemas. Nossa atuação inclui sites, catálogos, áreas de clientes e agentes de IA em Next.js.',
     image: '/media/site-supreme.webp', imageAlt: 'Site da Supreme Lubrificantes desenvolvido pela Delumo',
     applications: ['Sites institucionais, catálogos e páginas para campanhas', 'Ambientes de ensino com trilhas por setor, aulas e avaliações integradas', 'Áreas de clientes, parceiros e equipes com acesso por perfil', 'Agentes de IA, bases de conhecimento e automação de atendimento'],

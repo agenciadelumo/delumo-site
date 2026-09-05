@@ -7,6 +7,16 @@ import { academyCourses, trainingSectors, demoQuestions } from '../web/src/data/
 const exported = new URL('../dist/', import.meta.url);
 const html = path => readFile(new URL(path, exported), 'utf8');
 
+test('immersion navigation and platform examples include the public client tools', async () => {
+  const home = await html('index.html');
+  assert.ok(home.includes('href="/solucoes/imersao">Imersão</a>'));
+  const page = await html('solucoes/plataformas.html');
+  for (const text of ['Allmac360', 'Allmac Academy', 'Allmac Protect', 'AcademiaESB', 'Central de agentes', 'Rafael', 'Helena', 'Alberto']) assert.ok(page.includes(text));
+  for (const href of ['https://allmac360.com', 'https://esblight.com.br', 'https://www.esblight.com.br/agentes']) assert.ok(page.includes(`href="${href}"`));
+  assert.ok(page.includes('src="/media/esblight-agentes.webp"'));
+  assert.ok((await stat(new URL('media/esblight-agentes.webp', exported))).size < 200_000);
+});
+
 test('all ten client logos retain their assets and open the requested destinations', async () => {
   const page = await html('index.html');
   assert.equal(clientBrands.length, 10);

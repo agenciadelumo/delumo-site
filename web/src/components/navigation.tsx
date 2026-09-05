@@ -6,7 +6,7 @@ import { Logo, WhatsAppIcon } from './brand';
 import { MotionToggle } from './motion';
 import { contact } from '@/data/content';
 
-const navigation = [['Inicial','/'],['A Delumo','/sobre'],['Treinamentos','/solucoes/treinamentos'],['Gamificação','/projetos']];
+const navigation = [['Inicial','/'],['A Delumo','/sobre'],['Treinamentos','/solucoes/treinamentos'],['Gamificação','/projetos'],['Imersão','/solucoes/imersao']];
 export default function Header() {
   const [open,setOpen]=useState(false);
   const [scrolled,setScrolled]=useState(false);

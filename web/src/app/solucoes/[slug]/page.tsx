@@ -5,6 +5,7 @@ import { Action } from '@/components/brand';
 import { ContactCTA } from '@/components/sections';
 import { VideoPlayer } from '@/components/interactive';
 import TrainingDetail from '@/components/training-detail';
+import PlatformCases from '@/components/platform-cases';
 import { solutions } from '@/data/content';
 
 export const dynamicParams = false;
@@ -30,9 +31,10 @@ export default async function SolutionPage({params}:{params:Promise<{slug:string
     <section className="inner-hero"><div className="container">
       <nav className="breadcrumbs" aria-label="Caminho de navegação"><a href="/">Início</a><ChevronRight size={14}/><a href="/#solucoes">Soluções</a><ChevronRight size={14}/><span aria-current="page">{item.name}</span></nav>
       <h1>{item.name}</h1><p>{item.intro}</p>
-      <nav className="solution-jumps" aria-label="Nesta solução"><a href="#aplicacoes">Aplicações <ArrowDown size={15}/></a><a href="#entregas">O que entregamos <ArrowDown size={15}/></a></nav>
+      <nav className="solution-jumps" aria-label="Nesta solução">{slug==='plataformas' && <a href="#cases-plataformas">Plataformas em ação <ArrowDown size={15}/></a>}<a href="#aplicacoes">Aplicações <ArrowDown size={15}/></a><a href="#entregas">O que entregamos <ArrowDown size={15}/></a></nav>
     </div></section>
     {['projetos-3d','imersao'].includes(slug) && <section className="immersive-showreel" aria-label="Vídeo de capa MetaTrade"><VideoPlayer id="-C6du1R1xyg" poster="/media/metatrade-video.webp" title="MetaTrade: treinamento em ambientes 3D"/></section>}
+    {slug==='plataformas' && <PlatformCases/>}
     <section className="section solution-detail"><div className="container">
       {slug==='projetos-3d' && <p className="solution-family">Projetos especiais 3D fazem parte de <a href="/solucoes/imersao">Experiências imersivas <ArrowUpRight size={16}/></a>.</p>}
       {slug==='rh' && <p className="solution-family">Soluções para RH fazem parte de <a href="/solucoes/treinamentos#rh">Treinamentos e trilhas <ArrowUpRight size={16}/></a>.</p>}

@@ -2,6 +2,35 @@
 .ds-service-item-box { padding: 25px; }
 .ds-service-item h3 { font-size: 1.5rem; }
 .solution-family { margin: 0 0 35px; color: var(--muted); }
+.platform-cases { background: #f4f7f4; }
+.platform-case { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 48px; align-items: start; padding: 42px 0; border-top: 1px solid #cfdbcf; }
+.platform-case-preview { display: block; background: #e7ede8; border: 1px solid #d3dcd5; border-radius: 6px; overflow: hidden; }
+.platform-case-preview img { display: block; width: 100%; height: auto; object-fit: contain; }
+.platform-case-copy h3 { font-size: 2rem; line-height: 1.15; }
+.platform-case-copy .eyebrow { color: #397600; }
+.platform-case-copy>p:not(.eyebrow),.platform-case-copy dd { color: var(--muted); }
+.platform-case-copy dl { margin: 24px 0; }
+.platform-case-copy dl>div { padding: 13px 0; border-top: 1px solid #d4dfd5; }
+.platform-case-copy dt { font-weight: 750; }
+.platform-case-copy dd { margin: 5px 0 0; font-size: .95rem; }
+.platform-case-links { display: flex; flex-wrap: wrap; gap: 16px 24px; }
+.platform-case-links a { min-height: 44px; }
+.platform-agents { padding-top: 60px; }
+.agents-capture { margin: 0; }
+.agents-capture img { width: 100%; height: auto; object-fit: contain; border-radius: 6px; }
+.agents-capture figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; padding: 18px 0; color: var(--muted); font-size: .9rem; }
+.agent-roles { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 32px; margin-top: 30px; }
+.agent-roles article { border-top: 1px solid #aec7b2; padding-top: 25px; }
+.agent-roles svg { color: #397600; }
+.agent-roles h3 { font-size: 1.5rem; margin: 20px 0 14px; }
+.agent-roles h3 span { display: block; font-size: .9rem; margin-top: 8px; color: #397600; }
+.agent-roles p,.agent-responsibility { color: var(--muted); font-size: .95rem; }
+.agent-responsibility { margin: 26px 0 0; max-width: 95ch; }
+@media(max-width:800px) {
+  .platform-case,.agent-roles { grid-template-columns: minmax(0,1fr); gap: 26px; }
+  .platform-case-copy h3 { font-size: 1.7rem; }
+  .platform-agents { padding-top: 35px; }
+}
 .solution-family a { color: var(--ink); text-decoration: underline; display: inline-flex; align-items: center; gap: 5px; }
 .immersive-showreel { width: 100%; background: #000; }
 .immersive-showreel .video-player { border: 0; border-radius: 0; box-shadow: none; width: 100%; aspect-ratio: 16/9; }
