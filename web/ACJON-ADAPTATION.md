@@ -8,7 +8,7 @@ Implemented from the purchased package:
 - `public/assets/scss/layout/pages/_service.scss` and `_text-slider.scss`: adapted geometry, hover transition, type and band composition.
 - `src/hooks/useGsapAnimation.ts` (`fadeAnimation`): scoped GSAP entrance animation with route cleanup and reduced-motion handling added.
 - Bricolage Grotesque display typography and animated arrow buttons.
-- `src/components/hero/DigitalMarketingHero.tsx`: editorial heading and rotating identity mark adapted to a full-bleed immersive-training cover, with the original Delumo symbol. The two-cover carousel advances every four seconds and has keyboard-accessible navigation, pause, reduced-motion and visibility handling.
+- `src/components/hero/DigitalMarketingHero.tsx`: editorial heading and rotating identity mark adapted to a full-bleed immersive-training cover, with the original Delumo symbol. The two-cover carousel advances every ten seconds and has keyboard-accessible navigation, pause, reduced-motion and visibility handling.
 
 Only the selected components are adapted; demo copy, unrelated demos and placeholder assets are not shipped. Delumo content is in `src/data/content.ts`. The original package remains in the owner's template directory.
 

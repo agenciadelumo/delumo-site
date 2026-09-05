@@ -72,7 +72,7 @@ export default function NetworkCanvas({ active = true }: { active?: boolean }) {
       if (last && !paused && active && visible && !document.hidden) clock.current += Math.min(now-last, 80);
       last = now;
       ctx.clearRect(0,0,width,height); ctx.drawImage(base,0,0,width,height);
-      // Concurrent paths make movement visible during each four-second cover.
+      // Concurrent paths keep movement visible throughout the cover.
       paths.forEach((points,index) => {
         const progress = ((clock.current/2300 + index*.23)%1);
         const end = Math.max(1,Math.floor(progress*40));

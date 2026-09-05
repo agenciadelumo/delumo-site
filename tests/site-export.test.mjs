@@ -48,3 +48,19 @@ test('standalone proposal, tour and training routes remain unchanged', async () 
     assert.deepEqual(output, source, route);
   }
 });
+
+test('portrait, refreshed case previews and footer branding are exported', async () => {
+  const about = await html('sobre.html');
+  assert.ok(about.includes('Antônio Augusto da Luz'));
+  assert.ok(about.includes('about-portrait'));
+  assert.ok(about.includes('/media/antonio-augusto-da-luz.png'));
+  const original = await readFile(new URL('../web/public/media/antonio-augusto-da-luz.png', import.meta.url));
+  assert.deepEqual(await readFile(new URL('media/antonio-augusto-da-luz.png', exported)), original);
+  for (const route of ['index.html', 'projetos.html']) {
+    const page = await html(route);
+    assert.ok(page.includes('website-browser-bar'));
+    assert.ok(page.includes('powered-logo-fill'));
+    assert.ok(page.includes('Treinar. Jogar. Evoluir.'));
+    assert.ok(!page.includes('De Erechim para novas possibilidades.'));
+  }
+});

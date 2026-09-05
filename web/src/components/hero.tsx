@@ -22,7 +22,7 @@ export default function HeroCarousel() {
   },[]);
   useEffect(()=>{
     if(paused || held || !visible || !pageVisible)return;
-    const timer=window.setInterval(()=>setSlide(current=>(current+1)%2),4000);
+    const timer=window.setInterval(()=>setSlide(current=>(current+1)%2),10000);
     return()=>window.clearInterval(timer);
   },[paused,held,visible,pageVisible,slide]);
   const choose=(index:number)=>setSlide((index+2)%2);
