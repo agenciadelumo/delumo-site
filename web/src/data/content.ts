@@ -14,7 +14,7 @@ export type Solution = {
 
 export const solutions: Solution[] = [
   {
-    slug: 'treinamentos', number: '01', name: 'Treinamentos e trilhas', short: 'Conhecimento que faz parte da rotina.', icon: 'GraduationCap',
+    slug: 'treinamentos', number: '01', name: 'Treinamentos e trilhas', short: 'Conteúdo, metodologia e prática para desenvolver sua equipe.', icon: 'GraduationCap',
     intro: 'Pessoas preparadas para os desafios reais da sua empresa.',
     description: 'Transformamos apresentações, manuais, procedimentos e o conhecimento dos especialistas da empresa em treinamentos claros e reutilizáveis. Cada trilha organiza o que aprender, em qual sequência e como praticar, de acordo com o setor e a função. O objetivo é facilitar a integração, padronizar orientações e aproximar o conteúdo das tarefas reais de trabalho.',
     image: '/assets/img/treinamento-metatrade.jpg', imageAlt: 'Aplicação presencial de uma experiência de treinamento MetaTrade com realidade virtual',
@@ -41,13 +41,13 @@ export const solutions: Solution[] = [
     outcome: 'Uma representação visual que ajuda a entender, treinar e decidir com mais contexto.',
   },
   {
-    slug: 'plataformas', number: '04', name: 'Plataformas inteligentes', short: 'Tecnologia conectada ao seu negócio.', icon: 'PanelsTopLeft',
-    intro: 'Seu site pode ser o começo de uma operação mais inteligente.',
-    description: 'Desenvolvemos sites e plataformas sob medida em Next.js, com navegação objetiva e integrações que aproximam conteúdo, atendimento e operação. Do catálogo técnico às trilhas de ensino, cada ferramenta atende a uma necessidade concreta da empresa.',
+    slug: 'plataformas', number: '04', name: 'Plataformas inteligentes', short: 'Ensino, acompanhamento e sistemas conectados à sua empresa.', icon: 'PanelsTopLeft',
+    intro: 'Sua plataforma de treinamento. Com a identidade e as regras da sua empresa.',
+    description: 'Além de produzir os treinamentos, desenvolvemos a plataforma personalizada para disponibilizar aulas, organizar trilhas e acompanhar os alunos. Perfis de acesso, percursos por cargo ou setor e indicadores são definidos conforme a operação. Quando necessário, também desenvolvemos APIs para integrar a solução ao ERP ou aplicativo de RH, conforme a disponibilidade técnica e as permissões dos sistemas. Nossa atuação inclui sites, catálogos, áreas de clientes e agentes de IA em Next.js.',
     image: '/media/site-supreme.webp', imageAlt: 'Site da Supreme Lubrificantes desenvolvido pela Delumo',
     applications: ['Sites institucionais, catálogos e páginas para campanhas', 'Ambientes de ensino com trilhas por setor, aulas e avaliações integradas', 'Áreas de clientes, parceiros e equipes com acesso por perfil', 'Agentes de IA, bases de conhecimento e automação de atendimento'],
-    deliverables: ['Arquitetura da informação e experiência de navegação', 'Desenvolvimento em Next.js e layout responsivo', 'Bibliotecas de conteúdo, percursos de aprendizagem e regras de conclusão conforme o projeto', 'Acompanhamento de participação, etapas concluídas e avaliações conforme os dados disponíveis', 'SEO técnico, conteúdo estruturado e otimização de carregamento', 'Integrações, métricas e eventos de conversão definidos no escopo'],
-    outcome: 'Uma base digital preparada para campanhas, busca orgânica e evolução contínua.',
+    deliverables: ['Plataforma com identidade visual, navegação e recursos definidos para a empresa', 'Gestão de alunos, turmas, setores e permissões por perfil', 'Videoaulas, avatares, materiais de apoio, quizzes e trilhas de conhecimento', 'Painéis de participação, progresso, avaliações e conclusão por aluno e equipe', 'Desenvolvimento de API para ERP ou aplicativo de RH, conforme viabilidade técnica e escopo', 'Desenvolvimento responsivo em Next.js, otimização de carregamento e controles de acesso'],
+    outcome: 'Do conteúdo ao acompanhamento: uma experiência de ensino conectada à rotina da empresa.',
   },
   {
     slug: 'imersao', number: '05', name: 'Experiências imersivas', short: 'Aprender e explorar de dentro da cena.', icon: 'ScanEye',
@@ -58,13 +58,22 @@ export const solutions: Solution[] = [
     deliverables: ['Roteiro e organização dos ambientes', 'Captura ou produção das cenas e pontos interativos', 'Vídeos, avatares e conteúdos integrados à navegação', 'Acesso em navegador e suporte a VR conforme a experiência'],
     outcome: 'Mais proximidade com o ambiente real, mesmo à distância.',
   },
+  {
+    slug: 'rh', number: '06', name: 'Soluções para RH', short: 'Integração, conduta, qualidade, 5S e segurança em treinamentos claros e envolventes.', icon: 'Users',
+    intro: 'O conhecimento que sua empresa já tem pode ensinar muito melhor.',
+    description: 'Transformamos PowerPoints, PDFs, manuais e procedimentos em treinamentos objetivos, visuais e fáceis de atualizar. Reorganizamos a apresentação, aprimoramos a linguagem e criamos jornadas para integrar novos colaboradores e reciclar as equipes atuais. RH, Segurança do Trabalho, Qualidade e gestores participam da revisão para manter o conteúdo alinhado à realidade da empresa.',
+    image: '/media/immersive-team.webp', imageAlt: 'Representação de uma equipe em treinamento imersivo com realidade virtual',
+    applications: ['Integração: história, cultura, orientações e rotinas por função', 'Código de conduta: convivência, responsabilidades e situações do cotidiano', 'Qualidade: instruções de trabalho, padronização e melhoria contínua', '5S: utilização, organização, limpeza, padronização e autodisciplina', 'Segurança do Trabalho: conscientização, prevenção e procedimentos internos', 'Reciclagem de equipes, atualização de processos e capacitação comercial'],
+    deliverables: ['Diagnóstico dos materiais existentes e organização por tema, setor e público', 'Redesign de apresentações e materiais de apoio com a identidade da empresa', 'Roteiros, videoaulas com avatares, narração e demonstrações visuais', 'Trilhas de integração e reciclagem com atividades e verificação de compreensão', 'Revisão e aprovação dos conteúdos pelos responsáveis técnicos da empresa', 'Plataforma personalizada de ensino e acompanhamento dos alunos como parte opcional do projeto', 'Integração via API com ERP ou aplicativo de RH, quando necessária e tecnicamente viável'],
+    outcome: 'Menos conteúdo disperso. Mais clareza para quem chega e desenvolvimento contínuo para quem já faz parte do time.',
+  },
 ];
 
 export const trainingGroups = [
   { name: 'Integração e cultura', icon: 'Users', title: 'O primeiro passo com mais clareza.', text: 'Cultura, conduta e rotinas da função em uma jornada reutilizável para novas equipes. Orientações consistentes, exemplos do trabalho e conteúdos que podem ser revisitados.', modules: ['Boas-vindas e propósito', 'Cultura e conduta', 'Rotina da função', 'Prática e acompanhamento'] },
   { name: 'Vendas e produtos', icon: 'Target', title: 'Conhecimento técnico que chega ao cliente.', text: 'Portfólio, aplicação, abordagem e negociação conectados a situações reais de atendimento e execução comercial.', modules: ['Conhecer o portfólio', 'Entender a necessidade', 'Simular o atendimento', 'Aplicar e receber feedback'] },
   { name: 'Liderança e pessoas', icon: 'MessagesSquare', title: 'Competências para trabalhar melhor em equipe.', text: 'Comunicação, feedback, autogestão, tomada de decisão e colaboração desenvolvidos com casos e exercícios do dia a dia.', modules: ['Autoconhecimento', 'Comunicação e escuta', 'Conversas e decisões', 'Plano de desenvolvimento'] },
-  { name: 'Processos e operação', icon: 'Workflow', title: 'Um padrão claro para cada atividade.', text: 'Rotinas administrativas, sistemas, procedimentos e conscientização sobre segurança apresentados com contexto e exemplos.', modules: ['Entender o processo', 'Observar a execução', 'Praticar a atividade', 'Verificar a compreensão'] },
+  { name: 'Processos e operação', icon: 'Workflow', title: 'Um padrão claro para cada atividade.', text: 'Qualidade, 5S, instruções de trabalho e conscientização sobre segurança em orientações visuais. Conteúdo revisado pelos responsáveis técnicos e atualizado conforme os processos da empresa.', modules: ['Entender o padrão', 'Observar a execução', 'Praticar com contexto', 'Revisar e melhorar'] },
 ];
 
 export const methods = [
@@ -91,6 +100,7 @@ export const websiteCases = [
 ];
 
 export const faq = [
+  ['Vocês também desenvolvem a plataforma para os treinamentos?', 'Sim. Criamos a plataforma personalizada para disponibilizar os conteúdos e acompanhar os alunos, com identidade da empresa, trilhas por função, gestão de turmas, avaliações e relatórios definidos no projeto. Também podemos desenvolver APIs para conectar o ambiente ao ERP ou aplicativo de RH, após analisar os sistemas, os dados e as permissões necessárias.'],
   ['Como a Delumo escolhe a solução para a minha empresa?', 'Começamos pelo objetivo, pelo público e pela rotina da operação. A partir disso, definimos se o projeto pede uma trilha de treinamento, um game, uma plataforma, uma experiência imersiva ou uma combinação dessas soluções.'],
   ['Vocês aproveitam o conteúdo que a empresa já tem?', 'Sim. Apresentações em PowerPoint, PDFs, documentos, vídeos e conhecimento dos especialistas podem servir de base. Selecionamos o que é relevante, organizamos a sequência e adaptamos a linguagem em roteiros, aulas e atividades com a identidade da empresa. Os responsáveis pelo conteúdo participam da revisão e da aprovação.'],
   ['Como acompanhar se o treinamento está funcionando?', 'Definimos os critérios antes da produção: participação, conclusão das etapas, compreensão nas avaliações e aplicação na rotina. Conforme o projeto, podemos desenvolver relatórios por pessoa ou equipe e combinar esses registros com feedback dos gestores para orientar reforços e atualizações.'],

@@ -16,12 +16,21 @@ export function TrainingSection() {
 }
 
 export function PlatformsSection() {
-  return <section className="section platforms-section"><div className="container"><SectionHeading label="PLATAFORMAS INTELIGENTES" title={<>Um site pode fazer<br/><em>muito mais.</em></>} light><p>Uma presença digital que também ensina, atende e conecta. Desenvolvemos soluções sob medida em Next.js, com uma base preparada para crescer com a empresa.</p></SectionHeading><div className="platform-layout"><div className="platform-screen tp_fade_anim"><div className="browser-bar"><span/><span/><span/><small>supremelub.com.br</small><ArrowUpRight size={15}/></div><img src="/media/site-supreme.webp" alt="Site da Supreme Lubrificantes desenvolvido pela Delumo" width="1440" height="900" loading="lazy"/><a className="screen-caption" href="https://www.supremelub.com.br" target="_blank" rel="noopener noreferrer"><span>Supreme Lubrificantes<small>Conheça um dos nossos projetos</small></span><ArrowUpRight/></a></div><div className="platform-features">{[
-    ['GraduationCap','Ensino integrado','Bibliotecas de conteúdo, trilhas por setor, quizzes e critérios de conclusão. Acompanhamento por pessoa e equipe conforme o projeto.'],
-    ['BrainCircuit','Agentes de IA','Assistentes conectados a bases de conhecimento, com fontes, regras e encaminhamento ao atendimento humano.'],
-    ['Network','Operação conectada','Catálogos, formulários, áreas de acesso e integrações com as ferramentas que a empresa já utiliza.'],
-    ['Gauge','Performance e descoberta','SEO técnico, carregamento otimizado e eventos de conversão para apoiar busca orgânica e campanhas.'],
-  ].map(([icon,title,text]) => <article key={title}><Icon name={icon} size={27}/><div><h3>{title}</h3><p>{text}</p></div></article>)}<Action href="/solucoes/plataformas">Conheça as possibilidades</Action></div></div><p className="platform-footnote">Tecnologia com propósito. O desempenho de campanhas e posicionamento depende também de conteúdo, mídia, mercado e otimização contínua.</p></div></section>;
+  return <section className="section platforms-section" id="plataforma-de-ensino"><div className="container">
+    <SectionHeading label="SUA PLATAFORMA DE TREINAMENTOS" title={<>Da primeira aula<br/><em>à evolução de cada pessoa.</em></>} light><p>Produzimos o treinamento e desenvolvemos a plataforma para ele acontecer. Um ambiente personalizado para ensinar, acompanhar os alunos e conectar a aprendizagem à rotina da empresa.</p></SectionHeading>
+    <div className="platform-layout"><div className="learning-platform tp_fade_anim">
+      <img src="/media/immersive-team.webp" alt="Representação de aprendizagem em equipe com realidade virtual" width="1774" height="887" loading="lazy"/>
+      <h3>Seu conteúdo.<br/>Sua identidade. Sua forma de ensinar.</h3>
+      <p>Videoaulas, avatares, materiais de apoio e experiências imersivas organizados em trilhas. Do onboarding às reciclagens, o percurso acompanha as necessidades de cada cargo, setor e unidade.</p>
+      <ol className="learning-delivery"><li><small>01</small>Conteúdo</li><li><small>02</small>Trilhas</li><li><small>03</small>Aprendizagem</li><li><small>04</small>Acompanhamento</li></ol>
+    </div><div className="platform-features">{[
+      ['GraduationCap','Ensino sob medida','Plataforma com a identidade da empresa, biblioteca de aulas, quizzes, trilhas e critérios de conclusão definidos para sua operação.'],
+      ['ChartNoAxesCombined','Cada aluno, um percurso','Gestão de turmas e perfis. Acompanhe participação, progresso e avaliações por pessoa, equipe ou unidade, conforme o projeto.'],
+      ['Network','Integração com ERP e RH','Quando necessário, desenvolvemos a API para conectar cadastros e registros de treinamento ao ERP ou aplicativo de RH, conforme a viabilidade e as permissões dos sistemas.'],
+      ['BrainCircuit','Inteligência para apoiar','Agentes de IA podem ajudar a localizar conteúdos e responder dúvidas com uma base de conhecimento aprovada pela empresa.'],
+    ].map(([icon,title,text]) => <article key={title}><Icon name={icon} size={27}/><div><h3>{title}</h3><p>{text}</p></div></article>)}<Action href="/solucoes/plataformas">Planeje sua plataforma</Action></div></div>
+    <p className="platform-footnote">Desenvolvimento em Next.js, acesso responsivo e recursos definidos para cada projeto. Também criamos sites, catálogos e ferramentas para a operação comercial.</p>
+  </div></section>;
 }
 
 export function FeaturedProjects({ heading = true }: { heading?: boolean }) {

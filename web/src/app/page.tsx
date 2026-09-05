@@ -1,9 +1,20 @@
-import { ArrowDownRight, ArrowUpRight } from 'lucide-react';
-import { Action, Logo } from '@/components/brand';
-import NetworkCanvas from '@/components/network';
+import { Action } from '@/components/brand';
+import HeroCarousel from '@/components/hero';
 import { TextSliderArea } from '@/components/interactive';
 import { ClientLogos, ContactCTA, FAQ, FeaturedProjects, PlatformsSection, ProcessSection, Services, TrainingSection, TrainingVideos, WebsiteCases } from '@/components/sections';
 
 export default function Home() {
-  return <main id="main"><section className="hero"><NetworkCanvas/><div className="hero-shade"/><div className="container hero-inner"><div className="hero-content"><p className="eyebrow"><span className="status-dot"/> CONHECIMENTO. TECNOLOGIA. EXPERIÊNCIA.</p><h1><Logo/></h1><p className="hero-signature">Treinar. Jogar. Evoluir.</p><p className="hero-description">Soluções digitais para <strong>desenvolver pessoas</strong> e <strong>conectar negócios.</strong></p><p className="hero-support">Do treinamento à plataforma inteligente, transformamos desafios em experiências claras, úteis e envolventes.</p><div className="hero-actions"><Action href="#solucoes">Explore as soluções</Action><a className="hero-project-link" href="/projetos">Conheça os projetos <ArrowUpRight size={19}/></a></div></div><div className="hero-bottom"><span>Estratégia humana.<br/><strong>Possibilidades digitais.</strong></span><a href="#solucoes" aria-label="Explorar soluções"><ArrowDownRight size={30}/></a><span className="hero-map-label"><i/> CONEXÕES QUE GERAM POSSIBILIDADES</span></div></div></section><TextSliderArea/><Services/><ClientLogos/><TrainingSection/><PlatformsSection/><FeaturedProjects/><TrainingVideos/><WebsiteCases/><section className="about-teaser"><div className="container"><p className="eyebrow">MUITO ALÉM DE UM FORMATO</p><h2>A Delumo conecta<br/><span>quem aprende,</span><br/>quem cria e quem evolui.</h2><div><p>Somos uma empresa de soluções digitais. Unimos conteúdo, design e desenvolvimento para transformar conhecimento em experiências e tecnologia em ferramentas úteis para os negócios.</p><Action href="/sobre" secondary>Conheça a Delumo</Action></div></div></section><ProcessSection/><FAQ/><ContactCTA/></main>;
+  return <main id="main">
+    <HeroCarousel/>
+    <TextSliderArea/>
+    <Services/>
+    <ClientLogos/>
+    <TrainingSection/>
+    <PlatformsSection/>
+    <FeaturedProjects/>
+    <TrainingVideos/>
+    <WebsiteCases/>
+    <section className="about-teaser"><div className="container"><p className="eyebrow">MUITO ALÉM DE UM FORMATO</p><h2>A Delumo conecta<br/><span>quem aprende,</span><br/>quem cria e quem evolui.</h2><div><p>Somos uma empresa de soluções digitais. Unimos conteúdo, design e desenvolvimento para transformar conhecimento em experiências e tecnologia em ferramentas úteis para os negócios.</p><Action href="/sobre" secondary>Conheça a Delumo</Action></div></div></section>
+    <ProcessSection/><FAQ/><ContactCTA/>
+  </main>;
 }

@@ -9,7 +9,11 @@ export function Icon({ name, size = 28 }: { name: string; size?: number }) {
 
 // Original Delumo wordmark and ring geometry from the existing site.
 export function Logo({ className = '' }: { className?: string }) {
-  return <span className={`delumo-logo ${className}`} role="img" aria-label="Delumo">delum<svg viewBox="-36 -36 72 72" fill="none" stroke="currentColor" strokeLinecap="round" aria-hidden="true"><circle className="ring ring-one" r="27" strokeWidth="8" strokeDasharray="80 14 60 15.6" transform="rotate(35)" /><circle className="ring ring-two" r="15.5" strokeWidth="7" strokeDasharray="45 12 28 12.4" transform="rotate(190)" /><circle r="5" strokeWidth="6" strokeDasharray="22 9.4" transform="rotate(80)" /></svg></span>;
+  return <span className={`delumo-logo ${className}`} role="img" aria-label="Delumo">delum<DelumoMark/></span>;
+}
+
+export function DelumoMark() {
+  return <svg viewBox="-32 -32 64 64" fill="none" stroke="currentColor" strokeLinecap="round" aria-hidden="true"><circle r="27" strokeWidth="8" strokeDasharray="80 14 60 15.6" transform="rotate(35)"/><circle r="15.5" strokeWidth="7" strokeDasharray="45 12 28 12.4" transform="rotate(190)"/><circle r="5" strokeWidth="6" strokeDasharray="22 9.4" transform="rotate(80)"/></svg>;
 }
 
 export function WhatsAppIcon() {
