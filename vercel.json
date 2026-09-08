@@ -5,6 +5,11 @@
   "cleanUrls": true,
   "redirects": [
     {
+      "source": "/treinador",
+      "destination": "/aprender",
+      "permanent": true
+    },
+    {
       "source": "/telegestao",
       "destination": "/telegestao/",
       "permanent": false

@@ -73,7 +73,7 @@ test('main pages and shared training image exist', async () => {
 });
 
 test('standalone proposal, tour and training routes remain unchanged', async () => {
-  for (const route of ['propostadayro/index.html', 'erechim/index.html', 'treinador/index.html']) {
+  for (const route of ['propostadayro/index.html', 'erechim/index.html', 'aprender/index.html', 'treinador/index.html']) {
     const source = await readFile(new URL(`../${route}`, import.meta.url));
     const output = await readFile(new URL(route, exported));
     assert.deepEqual(output, source, route);
