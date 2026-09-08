@@ -35,6 +35,18 @@
 .immersive-showreel { width: 100%; background: #000; }
 .immersive-showreel .video-player { border: 0; border-radius: 0; box-shadow: none; width: 100%; aspect-ratio: 16/9; }
 .immersive-showreel .video-cover img { object-fit: contain; }
+.immersive-video-hero { position: relative; isolation: isolate; min-height: min(820px,100svh); overflow: hidden; display: flex; align-items: flex-end; background: #031109; color: #fff; }
+.immersive-video-poster,.immersive-video-frame,.immersive-video-film { position: absolute; inset: 0; }
+.immersive-video-poster { width: 100%; height: 100%; object-fit: cover; z-index: -4; }
+.immersive-video-frame { top: 50%; left: 50%; width: max(100vw,177.78vh); height: max(56.25vw,100vh); transform: translate(-50%,-50%); border: 0; pointer-events: none; z-index: -3; }
+.immersive-video-film { background: linear-gradient(90deg,rgba(1,27,14,.92) 0%,rgba(1,40,20,.72) 47%,rgba(1,28,15,.42) 100%); z-index: -2; }
+.immersive-video-content { padding-top: 160px; padding-bottom: 88px; }
+.immersive-video-content h1 { font-size: clamp(3.6rem,8vw,8rem); max-width: 950px; margin: 0; }
+.immersive-video-content>p:not(.eyebrow) { max-width: 630px; color: #d3e2d8; font-size: 1.15rem; margin: 28px 0 0; }
+.immersive-video-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 26px; margin-top: 34px; }
+.immersive-video-actions>a:last-child { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; }
+.training-detail-link { margin-top: 28px; }
+.hotzone-logo { height: auto; aspect-ratio: 500/479; object-fit: contain; }
 .rh-banner { position: relative; isolation: isolate; overflow: hidden; background: var(--green); }
 .rh-banner>img { position: absolute; inset: 0 0 0 auto; width: 65%; height: 100%; object-fit: cover; object-position: center; z-index: -2; }
 .rh-banner-film { position: absolute; inset: 0; background: linear-gradient(90deg,var(--green) 28%,#b0ff12ed 44%,#b0ff1200 75%); z-index: -1; }
@@ -99,6 +111,7 @@
 .quiz-layout h2 { font-size: 2.7rem; line-height: 1.1; }
 .quiz-layout h2 em { color: #397600; font-style: normal; }
 .quiz-layout>div>p:not(.eyebrow) { color: var(--muted); }
+.quiz-layout .video-cover img { object-fit: contain; }
 .learning-quiz { border: 1px solid #ccdacc; border-radius: 8px; padding: 30px; background: #f7faf6; }
 .quiz-heading { display: flex; justify-content: space-between; gap: 15px; font-size: .72rem; font-weight: 750; }
 .learning-quiz progress { width: 100%; height: 6px; accent-color: #4d8b0b; margin: 20px 0 26px; }
@@ -155,6 +168,11 @@
   .rh-banner-copy { max-width: 440px; }
 }
 @media(max-width:760px) {
+  .immersive-video-hero { min-height: 720px; }
+  .immersive-video-content { padding-top: 128px; padding-bottom: 64px; }
+  .immersive-video-content h1 { font-size: 3.45rem; }
+  .immersive-video-content>p:not(.eyebrow) { font-size: 1rem; }
+  .immersive-video-actions { align-items: flex-start; flex-direction: column; gap: 20px; }
   .academy-overview { display: block; }
   .academy-overview>a { margin-top: 20px; }
   .course-branches { grid-template-columns: minmax(0,1fr); padding: 0 0 0 24px; }

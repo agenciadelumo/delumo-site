@@ -46,21 +46,25 @@ test('all six solutions have detail pages and a contextual contact path', async 
   }
 });
 
-test('homepage keeps the covers, RH, platform and protected demonstrations', async () => {
+test('homepage keeps the covers, RH, platform and protected demonstrations without training examples', async () => {
   const page = await html('index.html');
-  for (const text of ['hero-carousel', 'immersive-team.webp', 'Soluções para RH', 'Integração com ERP e RH', 'Metodologias de aprendizagem', 'Exemplos de treinamentos com avatares', 'demo-dialog-title']) {
+  for (const text of ['hero-carousel', 'immersive-team.webp', 'Soluções para RH', 'Integração com ERP e RH', 'Metodologias de aprendizagem', 'Ver exemplos e formatos de treinamento', 'demo-dialog-title']) {
     assert.ok(page.includes(text), `Missing ${text}`);
   }
+  for (const videoId of ['XFXbMmj8w0E', 'OYASF7Wgz-s']) assert.ok(!page.includes(videoId));
   for (const label of ['Conveniência', 'Bar A/B', 'Bar C/D', 'Padaria', 'Adega', 'Mercado']) assert.ok(page.includes(label));
   assert.ok(!page.includes('class="field-gallery"'));
   assert.ok(!page.includes('class="about-teaser"'));
   for (const excluded of ['TreinaGente', 'incubadora', 'PRÊMIO ASSIDUIDADE']) assert.ok(!page.includes(excluded));
 });
 
-test('complete project media stays available on the projects page', async () => {
+test('gamification projects keep their media without duplicating training examples', async () => {
   const page = await html('projetos.html');
   assert.ok(page.includes('class="field-gallery"'));
-  for (const id of ['conquistahnk', 'avante-hotzone', 'metatrade', 'videos-treinamento', 'sites']) assert.ok(page.includes(`id="${id}"`));
+  for (const id of ['conquistahnk', 'avante-hotzone', 'metatrade', 'sites']) assert.ok(page.includes(`id="${id}"`));
+  assert.ok(!page.includes('id="videos-treinamento"'));
+  for (const videoId of ['XFXbMmj8w0E', 'OYASF7Wgz-s']) assert.ok(!page.includes(videoId));
+  assert.ok(page.includes('width="500" height="479"'));
 });
 
 test('main pages and shared training image exist', async () => {
@@ -98,11 +102,11 @@ test('service families are consolidated while existing detail URLs remain availa
   assert.equal((home.match(/class="ds-service-item tp_fade_anim"/g) || []).length, 4);
   assert.ok(home.includes('rh-banner-title'));
   assert.ok(home.includes('href="/solucoes/treinamentos#rh"'));
-  for (const slug of ['projetos-3d', 'imersao']) {
-    const page = await html(`solucoes/${slug}.html`);
-    assert.ok(page.includes('immersive-showreel'));
-    assert.ok(page.includes('Vídeo de capa MetaTrade'));
-  }
+  const legacy = await html('solucoes/projetos-3d.html');
+  assert.ok(legacy.includes('immersive-showreel'));
+  assert.ok(legacy.includes('Vídeo de capa MetaTrade'));
+  const immersion = await html('solucoes/imersao.html');
+  for (const text of ['immersive-video-hero', 'autoplay=1', 'mute=1', 'loop=1', 'Assistir vídeo completo com som']) assert.ok(immersion.includes(text));
 });
 
 test('training case contains the complete supplied curriculum and sector applications', async () => {
@@ -114,7 +118,11 @@ test('training case contains the complete supplied curriculum and sector applica
     for (const module of course.modules) assert.ok(page.includes(module));
   }
   for (const sector of trainingSectors) assert.ok(page.includes(sector.title));
-  for (const text of ['NR-1', '26 de maio de 2026', 'Quiz demonstrativo', 'Integrações sob medida', 'Pesquisa e diagnóstico', 'academia-esb-video.webp']) assert.ok(page.includes(text));
+  for (const text of ['NR-1', '26 de maio de 2026', 'Integrações sob medida', 'Pesquisa e diagnóstico', 'Acesso e acompanhamento individual', 'Planejamento da Trilha de Aprendizagem', 'dgGcgAeHu8Y', 'AVbWgESs2co', 'trilha-video.webp', 'quiz-video.webp', 'EXEMPLOS DE TREINAMENTOS', 'XFXbMmj8w0E', 'OYASF7Wgz-s']) assert.ok(page.includes(text));
+  assert.ok(!page.includes('Conheça a AcademiaESB'));
+  assert.ok(!page.includes('p85htFZYfu8'));
+  assert.ok(!page.includes('Quiz demonstrativo'));
+  for (const asset of ['trilha-video.webp', 'quiz-video.webp']) assert.ok((await stat(new URL(`media/${asset}`, exported))).size > 0);
   assert.ok(!page.includes('treinamento-metatrade.jpg'));
   for (const question of demoQuestions) assert.ok(question.answer >= 0 && question.answer < question.options.length);
 });
