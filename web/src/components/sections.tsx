@@ -50,7 +50,7 @@ export function FeaturedProjects({ heading = true, compact = false }: { heading?
 }
 
 export function TrainingVideos() {
-  const examples = <div className="video-examples"><article><VideoPlayer id="XFXbMmj8w0E" poster="/media/avatar.webp" title="Código de Conduta"/><div className="video-example-caption"><h3>Cultura e conduta</h3><span>Avatar de IA e narrativa visual</span></div></article><article><VideoPlayer id="OYASF7Wgz-s" poster="/media/integracao.webp" title="Integração de novos colaboradores"/><div className="video-example-caption"><h3>Integração de equipes</h3><span>Conteúdo por função</span></div></article></div>;
+  const examples = <div className="video-examples"><article><VideoPlayer id="XFXbMmj8w0E" poster="/media/avatar.webp" title="Código de Conduta"/><div className="video-example-caption"><h3>Cultura e conduta</h3><span>Avatar semi-realista Pixar</span></div></article><article><VideoPlayer id="OYASF7Wgz-s" poster="/media/integracao.webp" title="Integração de novos colaboradores"/><div className="video-example-caption"><h3>Integração de equipes</h3><span>Conteúdo por função</span></div></article></div>;
   return <section className="section training-videos"><div className="container"><SectionHeading label="EXEMPLOS DE TREINAMENTOS" title={<>Conteúdo da empresa.<br/><em>Novas formas de ensinar.</em></>}/>{examples}</div></section>;
 }
 

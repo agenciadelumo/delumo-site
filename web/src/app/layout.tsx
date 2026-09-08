@@ -8,6 +8,7 @@ import './globals.css';
 import './hero.css';
 import './experience.css';
 import './learning.css';
+import './aprender-banner.css';
 
 const display = Bricolage_Grotesque({subsets:['latin'],variable:'--font-display',display:'swap'});
 const body = Figtree({subsets:['latin'],variable:'--font-body',display:'swap'});

@@ -124,6 +124,14 @@ test('training case contains the complete supplied curriculum and sector applica
   assert.ok(!page.includes('Quiz demonstrativo'));
   for (const asset of ['trilha-video.webp', 'quiz-video.webp']) assert.ok((await stat(new URL(`media/${asset}`, exported))).size > 0);
   assert.ok(!page.includes('treinamento-metatrade.jpg'));
+  assert.ok(page.indexOf('AVALIAÇÃO E FEEDBACK') < page.indexOf('EXEMPLOS DE TREINAMENTOS'));
+  assert.ok(!page.includes('Aprendizagem de adultos, microlearning'));
+  assert.ok(page.includes('Avatar semi-realista Pixar'));
+  assert.ok(page.includes('plataforma-ead.webp'));
+  const avatarLabels = ['Avatar para Baterias VRLA','Avatar para Baterias Brutus','Avatar para Treinamentos Administrativos','Avatar para Baterias de Carrinhos de Golf','Avatar para Garantia de Baterias','Avatar para Baterias de Motos','Avatar para Baterias Náuticas','Avatar para Baterias Estacionárias','Avatar para Baterias Pesadas Agrícolas','Avatar para Baterias Pesadas para Caminhão','Avatar para Baterias Tracionárias'];
+  assert.equal((page.match(/<img[^>]+src="\/media\/avatares\/avatar-para-/g) || []).length, avatarLabels.length);
+  for (const label of avatarLabels) assert.ok(page.includes(label));
+  for (const file of ['plataforma-ead.webp','avatares/avatar-para-baterias-vrla.webp','avatares/avatar-para-baterias-brutus.webp','avatares/avatar-para-treinamentos-administrativos.webp']) assert.ok((await stat(new URL(`media/${file}`, exported))).size > 0);
   for (const question of demoQuestions) assert.ok(question.answer >= 0 && question.answer < question.options.length);
 });
 
