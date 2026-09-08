@@ -8,7 +8,7 @@ if (path.dirname(output) !== root || path.basename(output) !== 'dist') throw new
 await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
 // Retain published standalone proposals, tours and applications at their existing URLs.
-const legacyDirectories = ['assets', 'aprender', 'blog', 'bora', 'cases', 'erechim', 'gestor', 'propostadayro', 'propostaerbs', 'propostav3t', 'propostavandanamotos', 'servicos', 'treinador', 'aratiba_taverna'];
+const legacyDirectories = ['assets', 'aprender', 'blog', 'bora', 'cases', 'erechim', 'gestor', 'propostadayro', 'propostaerbs', 'propostav3t', 'propostavandanamotos', 'servicos', 'aratiba_taverna'];
 const existing = new Set((await readdir(root, { withFileTypes: true })).map(item => item.name));
 for (const name of legacyDirectories) {
   if (existing.has(name)) await cp(path.join(root, name), path.join(output, name), { recursive: true });
