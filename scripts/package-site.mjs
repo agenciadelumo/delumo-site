@@ -10,7 +10,7 @@ await mkdir(output, { recursive: true });
 // Retain published standalone proposals, tours and applications at their existing URLs.
 // Gestor is served by its Next.js application through the Vercel rewrites.
 // Keep the historical source folder, but do not publish its static export.
-const legacyDirectories = ['assets', 'aprender', 'blog', 'bora', 'cases', 'erechim', 'propostadayro', 'propostaerbs', 'propostav3t', 'propostavandanamotos', 'servicos', 'aratiba_taverna'];
+const legacyDirectories = ['assets', 'aprender', 'blog', 'bora', 'cases', 'erechim', 'imersao', 'propostadayro', 'propostaerbs', 'propostav3t', 'propostavandanamotos', 'servicos', 'aratiba_taverna'];
 const existing = new Set((await readdir(root, { withFileTypes: true })).map(item => item.name));
 for (const name of legacyDirectories) {
   if (existing.has(name)) await cp(path.join(root, name), path.join(output, name), { recursive: true });
@@ -19,7 +19,7 @@ for (const name of ['robots.txt', 'sitemap.xml']) {
   if (existing.has(name)) await cp(path.join(root, name), path.join(output, name));
 }
 await cp(path.join(root, 'web/out'), output, { recursive: true });
-for (const route of ['propostadayro/index.html', 'propostaerbs/index.html', 'erechim/index.html', 'index.html']) {
+for (const route of ['propostadayro/index.html', 'propostaerbs/index.html', 'erechim/index.html', 'imersao/index.html', 'index.html']) {
   const html = await readFile(path.join(output, route), 'utf8');
   if (!html.includes('<html')) throw new Error(`Missing published route: ${route}`);
 }
