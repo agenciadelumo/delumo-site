@@ -52,15 +52,6 @@
   window.addEventListener('hashchange',applyHash);
   window.addEventListener('popstate',applyHash);
   document.getElementById('print-proposal').addEventListener('click',() => window.print());
-  const footer = document.querySelector('.site-footer');
-  const motionButton = document.getElementById('footer-motion');
-  motionButton.addEventListener('click', () => {
-    const paused = footer.dataset.motion !== 'paused';
-    footer.dataset.motion = paused ? 'paused' : 'running';
-    motionButton.setAttribute('aria-pressed', String(paused));
-    motionButton.setAttribute('aria-label', paused ? 'Ativar animação do logotipo' : 'Pausar animação do logotipo');
-    motionButton.textContent = paused ? 'Ativar animação' : 'Pausar animação';
-  });
   let openedForPrint = [];
   window.addEventListener('beforeprint',() => {
     openedForPrint = Array.from(document.querySelectorAll('.proposal-panel:not([hidden]) details:not([open])'));
