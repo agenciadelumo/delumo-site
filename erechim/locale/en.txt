@@ -3,10 +3,10 @@
 ## Action
 
 ### URL
-LinkBehaviour_58AC125E_090E_72B1_417B_910A0EB5181B.source = https://g.page/Chokoladobana?share
 LinkBehaviour_44E19287_0916_D39F_41A2_73D80DF6FEF8.source = https://g.page/Chokoladobana?share
-LinkBehaviour_2E3F5F29_0911_D290_418F_DFFBC5F997C0.source = https://www.loremipsum.com
+LinkBehaviour_58AC125E_090E_72B1_417B_910A0EB5181B.source = https://g.page/Chokoladobana?share
 LinkBehaviour_3CDF76B6_090E_D3F1_4193_0091036959FF.source = https://www.loremipsum.com
+LinkBehaviour_2E3F5F29_0911_D290_418F_DFFBC5F997C0.source = https://www.loremipsum.com
 
 ## Media
 
@@ -16,8 +16,10 @@ panorama_6B989D85_66DD_5421_41CF_4E82FEBF2D52.label = IMG_20260818_063238_00_118
 panorama_6AF0EA44_66DD_3C27_41B2_E16668736568.label = IMG_20260818_063857_00_126
 
 ### Video
-videolevel_794A1A42_6727_7C23_41D2_E14A1C296C9C.posterURL = media/video_76ECD1A9_66E5_4C6E_41D3_72C269C99F4D_poster_pt.jpg
-videolevel_794A1A42_6727_7C23_41D2_E14A1C296C9C.url = media/video_76ECD1A9_66E5_4C6E_41D3_72C269C99F4D_pt.mp4
+videolevel_8EDF7501_9C2C_C39F_41D9_8E1633DC2D67.posterURL = media/video_76ECD1A9_66E5_4C6E_41D3_72C269C99F4D_poster_pt.jpg
+videolevel_8FF60D50_9C25_C3BD_41DB_18215A7632A5.posterURL = media/video_76ECD1A9_66E5_4C6E_41D3_72C269C99F4D_poster_pt.jpg
+videolevel_8FF60D50_9C25_C3BD_41DB_18215A7632A5.url = media/video_76ECD1A9_66E5_4C6E_41D3_72C269C99F4D_pt.m3u8
+videolevel_8EDF7501_9C2C_C39F_41D9_8E1633DC2D67.url = media/video_76ECD1A9_66E5_4C6E_41D3_72C269C99F4D_pt.mp4
 
 ### Video Subtitles
 
@@ -170,3 +172,10 @@ HTMLText_74195D79_6431_1DF1_41D6_64995F5D18F0.html = <div style="text-align:left
 
 ### Title
 tour.name = Erechim
+
+## VR Menu
+
+### Text
+MenuItem_88272D03_9C2C_C3A3_41CF_9FB0892C522F.label = IMG_20260818_063238_00_118
+MenuItem_88271D03_9C2C_C3A3_41B9_239A5F7332AE.label = IMG_20260818_063857_00_126
+Menu_8FC43CAD_9C2C_C2E7_41D3_208823685DD8.label = Media
