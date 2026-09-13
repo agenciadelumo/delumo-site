@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <base href="/convite/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0e1a2b" />
+    <title>Convite</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        background: #0e1a2b;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        background: #0e1a2b;
+      }
+
+      main {
+        display: grid;
+        width: 100%;
+        height: 100vh;
+        height: 100svh;
+        height: 100dvh;
+        padding:
+          max(12px, env(safe-area-inset-top))
+          max(12px, env(safe-area-inset-right))
+          max(12px, env(safe-area-inset-bottom))
+          max(12px, env(safe-area-inset-left));
+        place-items: center;
+      }
+
+      video {
+        display: block;
+        width: min(100%, calc(56.25vh - 13.5px));
+        width: min(100%, calc(56.25svh - 13.5px));
+        width: min(100%, calc(56.25dvh - 13.5px));
+        height: auto;
+        max-height: 100%;
+        aspect-ratio: 9 / 16;
+        object-fit: contain;
+        background: #0e1a2b;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <video controls playsinline preload="metadata" aria-label="Convite em vídeo">
+        <source src="./Areta.mp4" type="video/mp4" />
+        Seu navegador não oferece suporte à reprodução deste vídeo.
+      </video>
+    </main>
+  </body>
+</html>
