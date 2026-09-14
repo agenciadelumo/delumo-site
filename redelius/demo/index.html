@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Missão Cuidar — demonstração interativa Rede Lius</title>
+  <link rel="stylesheet" href="preview.css">
+  <script src="preview.js" defer></script>
+  <script type="text/javascript" src="APISCORM.js"></script>
+  <script type="text/javascript" src="heygen-scorm-wrapper.js"></script>
+  <!-- Packaged draft + segment metadata before scorm-video-config.js (HeyGen mode) -->
+<script type="text/javascript" src="draft.js"></script>
+<script type="text/javascript" src="segment_metadata.js"></script>
+
+  
+  <script type="text/javascript" src="scorm-video-config.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .controls-container {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+      pointer-events: auto;
+    }
+
+    .controls-container.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .controls-container select {
+      padding: 8px 12px;
+      font-size: 14px;
+      border: 2px solid #333;
+      border-radius: 4px;
+      background-color: white;
+      cursor: pointer;
+    }
+
+    .controls-container label {
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+
+    video {
+      width: 100%;
+      height: auto;
+      max-width: 100vw;
+      max-height: 100vh;
+      display: block;
+    }
+
+    /* Disable seeking when video is not skippable */
+    video.no-skip::-webkit-media-controls-timeline,
+    video.no-skip::-webkit-media-controls-seek-back-button,
+    video.no-skip::-webkit-media-controls-seek-forward-button {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    video.no-skip::-moz-media-controls-timeline,
+    video.no-skip::-moz-media-controls-seek-back-button,
+    video.no-skip::-moz-media-controls-seek-forward-button {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    /* Video container - wraps video without changing its natural size */
+    #videoContainer {
+      position: relative;
+      /* Container auto-sizes to video dimensions */
+      width: fit-content;
+      max-width: 100vw;
+      margin: 0 auto;
+      /* Center the video container */
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    button {
+      font-family: inherit;
+      font-feature-settings: inherit;
+      font-variation-settings: inherit;
+      font-size: 100%;
+      font-weight: inherit;
+      line-height: inherit;
+      letter-spacing: inherit;
+      color: inherit;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="controls-container">
+    <label for="languageSelect">Idioma:</label>
+    <select id="languageSelect">
+      <!-- Options will be dynamically populated -->
+    </select>
+    
+    <label for="speedSelect">Velocidade:</label>
+    <select id="speedSelect">
+      <!-- Options will be dynamically populated -->
+    </select>
+  </div>
+
+  <div id="videoContainer">
+    <video id="miVideo" controls playsinline controlslist="nofullscreen">
+      <source id="videoSource" src="default.mp4" type="video/mp4">
+      Your browser does not support HTML5 videos.
+    </video>
+  </div>
+
+  <script>
+    // Language configuration, to be injected by backend when exporting
+    var LANGUAGE_CONFIG = {"defaultLanguage": "default", "languages": [{"code": "default", "label": "default", "videoFile": "default.mp4"}]};
+
+    // Playback speed configuration
+    var SPEED_CONFIG = {"defaultSpeed": 1.0, "speeds": [{"value": 0.5, "label": "0.5x"}, {"value": 0.75, "label": "0.75x"}, {"value": 1.0, "label": "Normal"}, {"value": 1.25, "label": "1.25x"}, {"value": 1.5, "label": "1.5x"}, {"value": 1.75, "label": "1.75x"}, {"value": 2.0, "label": "2x"}]};
+
+    // Video control configuration
+    var VIDEO_CONFIG = {"skippable": false};
+
+    // Best-effort runtime refresh (fallback keeps packaged values).
+    var runtimeFetchPromise = Promise.resolve(false);
+    if (typeof window.fetchScormRuntimeData === 'function') {
+      runtimeFetchPromise = window.fetchScormRuntimeData();
+    }
+
+    // Get DOM elements
+    var video = document.getElementById('miVideo');
+    var languageSelect = document.getElementById('languageSelect');
+    var speedSelect = document.getElementById('speedSelect');
+    var scorm = pipwerks.SCORM;
+
+    // Try to initialize SCORM (language system doesn't depend on it)
+    var scormInitialized = scorm.init();
+
+    // Initialize language manager after runtime fetch to avoid
+    // overriding refreshed URLs with packaged defaults.
+    runtimeFetchPromise.finally(function() {
+      heygenScormWrapper.init(video, languageSelect, scormInitialized ? scorm : null, LANGUAGE_CONFIG);
+    });
+    
+    // Initialize playback speed control
+    heygenScormWrapper.initPlaybackSpeed(video, speedSelect, scormInitialized ? scorm : null, SPEED_CONFIG);
+
+    // Initialize volume control (syncs with native video controls only)
+    heygenScormWrapper.initVolumeControl(video, scormInitialized ? scorm : null);
+
+    // Initialize video progress tracking (save every 5 seconds)
+    // For interactive videos, this will be called after DRAFT_DATA is loaded
+    var LESSON_ID = 'scorm_cd60d2823d4049f0b13c28bbb1b4b13e';
+
+    window.progressTrackingConfig = {
+      lessonId: LESSON_ID,
+      scormAPI: scormInitialized ? scorm : null,
+      saveInterval: 5
+    };
+
+    // For non-interactive videos, initialize after a short delay so interactive scripts
+    // can take over when DRAFT_DATA is present.
+    setTimeout(function() {
+      if (!window.progressTrackingInitialized) {
+        console.log('[PROGRESS] Initializing for non-interactive video');
+        heygenScormWrapper.initProgressTracking(
+          video,
+          window.progressTrackingConfig.scormAPI,
+          window.progressTrackingConfig.saveInterval,
+          window.progressTrackingConfig.lessonId
+        );
+      }
+    }, 100);
+
+    // Setup video skip control
+    if (!VIDEO_CONFIG.skippable) {
+      // Add class to disable seeking via CSS
+      video.classList.add('no-skip');
+      
+      // Also prevent seeking programmatically (keyboard shortcuts, etc.)
+      // Initialize maxWatchedTime with saved progress so resume doesn't get blocked
+      var savedTime = heygenScormWrapper.loadCurrentTime(scormInitialized ? scorm : null);
+      var maxWatchedTime = savedTime || 0;
+      
+      video.addEventListener('timeupdate', function() {
+        if (video.currentTime > maxWatchedTime) {
+          maxWatchedTime = video.currentTime;
+        }
+      });
+      
+      var seekingListener = function() {
+        var seekingForward = video.currentTime > maxWatchedTime;
+
+        if (seekingForward) {
+          console.log('[SEEK] No-skip prevention - limiting to:', maxWatchedTime, 'was trying:', video.currentTime);
+          video.currentTime = maxWatchedTime;
+        }
+      };
+
+      video.addEventListener('seeking', seekingListener);
+
+      // Store listener reference so interactive videos can remove it
+      window.noSkipSeekingListener = seekingListener;
+
+      console.log('Video skip control: Skipping disabled');
+    } else {
+      console.log('Video skip control: Skipping allowed');
+    }
+
+    // Setup auto-hide controls
+    var controlsContainer = document.querySelector('.controls-container');
+    var hideTimeout;
+    var HIDE_DELAY = 2000; // 2 seconds
+
+    function showControls() {
+      controlsContainer.classList.remove('hidden');
+      
+      // Clear existing timeout
+      if (hideTimeout) {
+        clearTimeout(hideTimeout);
+      }
+      
+      // Set new timeout to hide controls
+      hideTimeout = setTimeout(function() {
+        controlsContainer.classList.add('hidden');
+      }, HIDE_DELAY);
+    }
+
+    function hideControlsImmediately() {
+      if (hideTimeout) {
+        clearTimeout(hideTimeout);
+      }
+      controlsContainer.classList.add('hidden');
+    }
+
+    // Show controls on mouse move over the video container
+    document.body.addEventListener('mousemove', showControls);
+    
+    // Keep controls visible when hovering over them
+    controlsContainer.addEventListener('mouseenter', function() {
+      if (hideTimeout) {
+        clearTimeout(hideTimeout);
+      }
+    });
+    
+    // Resume auto-hide when mouse leaves controls
+    controlsContainer.addEventListener('mouseleave', function() {
+      hideTimeout = setTimeout(function() {
+        controlsContainer.classList.add('hidden');
+      }, HIDE_DELAY);
+    });
+
+    // Show controls initially, then start auto-hide
+    showControls();
+
+    // SCORM-specific logic (video progress tracking)
+    if (scormInitialized) {
+      var completado = false;
+      var mastery_score = 80 / 100;
+      var unloaded = false;
+
+      // Detect SCORM version for proper data model usage
+      var isScorm2004 = scorm.version === "2004";
+      console.log('SCORM version detected:', scorm.version);
+
+      // Disable pipwerks auto-exit-mode — we set cmi.exit ourselves
+      // in every path (timeupdate, ended, beforeunload). The wrapper's
+      // set() caches completionStatus but NOT exitStatus, so terminate()
+      // may override our explicit exit value unless we disable auto-exit
+      // mode or cache exitStatus correctly.
+      scorm.handleExitMode = false;
+
+      video.addEventListener('timeupdate', function () {
+        if (!video.duration) return; // duration not yet available
+        var progress = video.currentTime / video.duration;
+        // SCORM 2004: report progress_measure so the manifest's
+        // minProgressMeasure threshold can be evaluated by the LMS
+        if (isScorm2004 && !completado) {
+          scorm.set("cmi.progress_measure", progress.toFixed(4));
+        }
+        if (!completado && progress >= mastery_score) {
+          if (isScorm2004) {
+            // SCORM 2004: Use completion_status and success_status
+            scorm.set("cmi.completion_status", "completed");
+            scorm.set("cmi.success_status", "passed");
+            scorm.set("cmi.score.raw", 100);
+            scorm.set("cmi.progress_measure", "1.0");
+            scorm.set("cmi.exit", "normal");
+          } else {
+            // SCORM 1.2: Use lesson_status
+            scorm.set("cmi.core.lesson_status", "passed");
+            scorm.set("cmi.core.score.raw", 100);
+            scorm.set("cmi.core.exit", "logout");
+          }
+          scorm.save();
+          completado = true;
+          console.log('Video completion threshold reached - marked as completed');
+        }
+      });
+
+      video.addEventListener('ended', function () {
+        if (!completado) {
+          // Video reached its natural end — treat as completed.
+          // The only way to reach ended without completado is the
+          // floating-point edge case where timeupdate's last fire
+          // lands just under duration (e.g. 59.95/60 = 0.999 < 1.0).
+          if (isScorm2004) {
+            scorm.set("cmi.completion_status", "completed");
+            scorm.set("cmi.success_status", "passed");
+            scorm.set("cmi.score.raw", 100);
+            scorm.set("cmi.progress_measure", "1.0");
+            scorm.set("cmi.exit", "normal");
+          } else {
+            scorm.set("cmi.core.lesson_status", "passed");
+            scorm.set("cmi.core.score.raw", 100);
+            scorm.set("cmi.core.exit", "logout");
+          }
+          scorm.save();
+          completado = true;
+          console.log('Video ended - marked as completed (edge case catch)');
+        }
+        // Terminate the SCORM session so the LMS finalizes the transcript.
+        // Skip for interactive videos — their SDK registers its own ended
+        // handler that saves progress/resets resume state, and quit() here
+        // would close the connection before those writes complete. Interactive
+        // sessions terminate via beforeunload instead.
+        if (!(window.interactiveVideoReady && window.SEGMENT_METADATA && window.SEGMENT_METADATA.length > 1)) {
+          unloaded = scorm.quit();
+        }
+      });
+
+      window.addEventListener('beforeunload', function (e) {
+        if (!unloaded) {
+          if (isScorm2004) {
+            // SCORM 2004
+            if (completado) {
+              scorm.set("cmi.completion_status", "completed");
+              scorm.set("cmi.success_status", "passed");
+              scorm.set("cmi.score.raw", 100);
+            } else {
+              scorm.set("cmi.completion_status", "incomplete");
+              scorm.set("cmi.success_status", "unknown");
+              scorm.set("cmi.score.raw", 0);
+            }
+            scorm.set("cmi.exit", completado ? "normal" : "suspend");
+          } else {
+            // SCORM 1.2
+            var lessonStatus = completado ? "passed" : "incomplete";
+            scorm.set("cmi.core.lesson_status", lessonStatus);
+            scorm.set("cmi.core.score.raw", completado ? 100 : 0);
+            scorm.set("cmi.core.exit", completado ? "logout" : "suspend");
+          }
+          scorm.save();
+          scorm.quit();
+          unloaded = true;
+          console.log('Page unload - SCORM session terminated');
+        }
+      });
+    } else {
+      console.info("Demonstração web sem LMS: acompanhamento institucional disponível no ambiente SCORM.");
+    }
+  </script>
+  <!-- draft.js + segment_metadata.js load from index.html <head> (before scorm-video-config.js). -->
+
+<script>
+  // Packaged draft.js has run; fetchScormRuntimeData may still overwrite DRAFT_DATA / SEGMENT_METADATA.
+  // Keep this flag synchronous so the main template's 100ms progress fallback does not race
+  // initProgressTracking — do not defer until after the API without changing index.html.
+  window.DRAFT_DATA_LOADED = true;
+
+  // NOW initialize progress tracking AFTER DRAFT_DATA is loaded
+  // This ensures the isInteractive check works correctly
+  if (window.progressTrackingConfig) {
+    var video = document.getElementById('miVideo');
+    heygenScormWrapper.initProgressTracking(
+      video,
+      window.progressTrackingConfig.scormAPI,
+      window.progressTrackingConfig.saveInterval,
+      window.progressTrackingConfig.lessonId
+    );
+    window.progressTrackingInitialized = true;
+  }
+</script>
+
+<script type="text/javascript" src="react.production.min.js"></script>
+<script type="text/javascript" src="react-dom.production.min.js"></script>
+<script type="text/javascript" src="interactive-video.umd.js"></script>
+
+<script>
+  (function() {
+    var initializeInteractiveVideo = async function() {
+      if (!window.DRAFT_DATA || !window.InteractiveVideo) {
+        console.error('[INTERACTIVE] Cannot initialize - missing dependencies');
+        window.interactiveVideoInitialized = false;
+        return;
+      }
+
+      try {
+        var video = document.getElementById('miVideo');
+        var segments = window.SEGMENT_METADATA;
+        var scormAPI = window.progressTrackingConfig ? window.progressTrackingConfig.scormAPI : null;
+
+        // Remove no-skip seeking listener — SDK controls seeking
+        if (window.noSkipSeekingListener) {
+          video.removeEventListener('seeking', window.noSkipSeekingListener);
+        }
+
+        var resumeState = heygenScormWrapper.getInteractiveResumeState(scormAPI);
+        var currentSegmentId = resumeState.segmentId || (segments && segments.length > 0 ? segments[0].segmentId : null);
+        var initialResumeTime = resumeState.checkpointTime || 0;
+        window.currentSegmentId = currentSegmentId;
+
+        // Suppress saves while SDK switches source after branch/jump.
+        function beginSegmentSwitch(newSegmentId, reason) {
+          if (newSegmentId === currentSegmentId) return;
+          window.segmentSwitchInProgress = true;
+          currentSegmentId = newSegmentId;
+          window.currentSegmentId = newSegmentId;
+          console.log('[INTERACTIVE] Segment switch: ' + newSegmentId + ' (' + reason + ')');
+
+          var srcAtSwitch = video.src || '';
+          var cleared = false;
+          var clearSwitch = function() {
+            if (cleared) return;
+            cleared = true;
+            window.segmentSwitchInProgress = false;
+          };
+          var onLoaded = function() {
+            if ((video.src || '') !== srcAtSwitch) {
+              video.removeEventListener('loadeddata', onLoaded);
+              clearTimeout(fallback);
+              setTimeout(clearSwitch, 200);
+            }
+          };
+          var fallback = setTimeout(function() {
+            video.removeEventListener('loadeddata', onLoaded);
+            clearSwitch();
+          }, 2000);
+          video.addEventListener('loadeddata', onLoaded);
+        }
+
+        // Track which DRAFT_DATA element keys have already been matched to a
+        // quiz submit event, so duplicate-option quizzes get distinct IDs.
+        var matchedQuizElKeys = {};
+        var quizFallbackCounter = 0;
+
+        await InteractiveVideo.create({
+          container: '#videoContainer',
+          video: { element: '#miVideo' },
+          draft: window.DRAFT_DATA,
+          segments: segments,
+          initialSegmentId: currentSegmentId,
+          width: window.DRAFT_DATA.video_output.resolution.width || 1920,
+          height: window.DRAFT_DATA.video_output.resolution.height || 1080,
+
+          onBranch: function(branchId) {
+            beginSegmentSwitch(branchId, 'branch');
+          },
+          onJumpToScene: function(sceneId) {
+            if (segments) {
+              for (var i = 0; i < segments.length; i++) {
+                if (segments[i].sceneIds.indexOf(sceneId) !== -1) {
+                  beginSegmentSwitch(segments[i].segmentId, 'scene jump');
+                  break;
+                }
+              }
+            }
+          },
+          onReady: function(instance) {
+            window.interactiveVideoReady = true;
+            window.interactivePlayer = instance;
+            window.currentSegmentId = currentSegmentId;
+
+            var syncPrimarySegmentVideoWithSource = function() {
+              var sourceEl = document.getElementById('videoSource');
+              if (!sourceEl || !video) return;
+              var want = (sourceEl.src || '').split('#')[0];
+              var have = (video.currentSrc || video.src || '').split('#')[0];
+              if (!want || !have || want === have) return;
+              var onPrimarySegment =
+                !segments ||
+                segments.length === 0 ||
+                segments.length === 1 ||
+                (segments[0] && currentSegmentId === segments[0].segmentId);
+              if (!onPrimarySegment) return;
+              var canonical = (window.__SCORM_RUNTIME_VIDEO_URL || '').split('#')[0];
+              if (canonical && want !== canonical) return;
+              console.warn('[INTERACTIVE] video.src out of sync with #videoSource; correcting');
+              video.src = want;
+              if (typeof video.load === 'function') video.load();
+            };
+            setTimeout(syncPrimarySegmentVideoWithSource, 400);
+
+            // Resume to saved checkpoint
+            if (currentSegmentId && initialResumeTime > 0) {
+              var resumeApplied = false;
+              window.resumeInProgress = true;
+
+              var applyResumeCheckpoint = function() {
+                if (resumeApplied) return;
+                resumeApplied = true;
+                console.log('[SEEK] Restoring checkpoint:', currentSegmentId, initialResumeTime);
+                video.currentTime = initialResumeTime;
+                setTimeout(function() {
+                  window.resumeInProgress = false;
+                }, 500);
+              };
+
+              var isFirstSegment = segments && segments.length > 0 && currentSegmentId === segments[0].segmentId;
+
+              if (isFirstSegment) {
+                if (video.readyState >= 1) {
+                  applyResumeCheckpoint();
+                } else {
+                  video.addEventListener('loadedmetadata', applyResumeCheckpoint, { once: true });
+                }
+              } else {
+                // Non-first segment waits for src swap before seeking.
+                var originalSrc = video.src || '';
+                var fallbackTimer = setTimeout(function() {
+                  video.removeEventListener('canplay', onCanPlay);
+                  if (!resumeApplied) applyResumeCheckpoint();
+                }, 5000);
+                var onCanPlay = function() {
+                  if (resumeApplied) {
+                    video.removeEventListener('canplay', onCanPlay);
+                    return;
+                  }
+                  if ((video.src || '') !== originalSrc) {
+                    clearTimeout(fallbackTimer);
+                    video.removeEventListener('canplay', onCanPlay);
+                    applyResumeCheckpoint();
+                  }
+                };
+                video.addEventListener('canplay', onCanPlay);
+              }
+            }
+
+            // Save checkpoint on timeupdate
+            video.addEventListener('timeupdate', function() {
+              if (window.resumeInProgress || window.segmentSwitchInProgress) return;
+              if (window.currentSegmentId && heygenScormWrapper) {
+                var currentTime = video.currentTime;
+                var segmentId = window.currentSegmentId;
+                heygenScormWrapper.saveCurrentTime(
+                  currentTime,
+                  null,
+                  segmentId,
+                  null,
+                  heygenScormWrapper.getInteractiveCheckpointTime(currentTime, segmentId)
+                );
+              }
+            });
+
+            // On video end, reset resume to first segment for fresh branch selection
+            video.addEventListener('ended', function() {
+              var firstSegmentId = segments && segments.length > 0 ? segments[0].segmentId : null;
+              if (firstSegmentId) {
+                var progressData = heygenScormWrapper.loadInteractiveProgress(scormAPI);
+                progressData.currentSegment = firstSegmentId;
+                progressData.checkpoints[firstSegmentId] = 0;
+                heygenScormWrapper.saveInteractiveProgress(progressData, scormAPI);
+              }
+            });
+          },
+          onError: function(error) {
+            console.error('[INTERACTIVE] SDK Error:', error);
+          },
+          onEvent: function(name, data) {
+            // Snapshot the source segment BEFORE beginSegmentSwitch changes it.
+            var sourceSegmentId = window.currentSegmentId || '';
+
+            // Fallback: update segment from branching event if onBranch wasn't called
+            if (name === 'INTERACTIVE_BRANCHING_BUTTON_CLICK' && data && data.targetBranchId) {
+              beginSegmentSwitch(data.targetBranchId, 'event fallback');
+            }
+
+            // Dispatch xAPI interaction event (picked up by xapi-tracker.js)
+            if (window.HEYGEN_XAPI_CONFIG && typeof window.HEYGEN_XAPI_CONFIG === 'object') {
+              var xapiDetail = null;
+              if (name === 'INTERACTIVE_BRANCHING_BUTTON_CLICK') {
+                xapiDetail = { response: (data && data.targetBranchId) || '', interactionType: 'branch', segmentId: sourceSegmentId };
+              } else if (name === 'INTERACTIVE_QUIZ_SUBMIT' && data) {
+                // Build enriched quiz answer event for xapi-tracker.js
+                var opts = data.options || [];
+                var selected = data.selectedAnswers || [];
+                var selectedTexts = [];
+                var selectedIds = [];
+                var choices = [];
+                var correctIds = [];
+                for (var qi = 0; qi < opts.length; qi++) {
+                  var optId = opts[qi].id || String(qi);
+                  choices.push({ id: optId, description: { "en-US": opts[qi].text || "" } });
+                  if (opts[qi].isCorrect) { correctIds.push(optId); }
+                  if (selected.indexOf(qi) !== -1) {
+                    selectedIds.push(optId);
+                    selectedTexts.push(opts[qi].text || "");
+                  }
+                }
+                // Match specific quiz element from DRAFT_DATA by comparing options,
+                // scoped to current segment's scenes for multi-quiz disambiguation.
+                var questionText = '';
+                var matchedElKey = '';
+                if (window.DRAFT_DATA && window.DRAFT_DATA.text_draft && window.DRAFT_DATA.text_draft.visual) {
+                  var allElements = window.DRAFT_DATA.text_draft.visual.elements;
+                  // Build set of element IDs belonging to the current segment's scenes
+                  var segmentElementIds = null;
+                  if (window.SEGMENT_METADATA && sourceSegmentId) {
+                    for (var si = 0; si < window.SEGMENT_METADATA.length; si++) {
+                      if (window.SEGMENT_METADATA[si].segmentId === sourceSegmentId) {
+                        segmentElementIds = {};
+                        var sceneIds = window.SEGMENT_METADATA[si].sceneIds || [];
+                        for (var sci = 0; sci < sceneIds.length; sci++) {
+                          var sceneEl = allElements[sceneIds[sci]];
+                          if (sceneEl && sceneEl.content && sceneEl.content.elements) {
+                            for (var cei = 0; cei < sceneEl.content.elements.length; cei++) {
+                              segmentElementIds[sceneEl.content.elements[cei]] = true;
+                            }
+                          }
+                        }
+                        break;
+                      }
+                    }
+                  }
+                  // Collect event option texts for matching against DRAFT_DATA
+                  var eventOptTexts = [];
+                  for (var oi = 0; oi < opts.length; oi++) { eventOptTexts.push(opts[oi].text || ''); }
+                  var fallbackElKey = '';
+                  var fallbackTitle = '';
+                  for (var elKey in allElements) {
+                    if (!allElements.hasOwnProperty(elKey)) { continue; }
+                    if (segmentElementIds && !segmentElementIds[elKey]) { continue; }
+                    // Skip elements already claimed by a previous submit
+                    if (matchedQuizElKeys[elKey]) { continue; }
+                    var el = allElements[elKey];
+                    if (!el || el.type !== 'interactive' || !el.content ||
+                        el.content.component_id !== 'interactive_quiz' ||
+                        !el.content.component_props) { continue; }
+                    var draftOpts = el.content.component_props.options || [];
+                    // Try exact match by option texts
+                    if (draftOpts.length === eventOptTexts.length) {
+                      var allMatch = true;
+                      for (var mi = 0; mi < draftOpts.length; mi++) {
+                        if ((draftOpts[mi].text || '') !== eventOptTexts[mi]) { allMatch = false; break; }
+                      }
+                      if (allMatch) {
+                        questionText = el.content.component_props.title || '';
+                        matchedElKey = elKey;
+                        break;
+                      }
+                    }
+                    // Track first unclaimed quiz as fallback
+                    if (!fallbackElKey && el.content.component_props.title) {
+                      fallbackElKey = elKey;
+                      fallbackTitle = el.content.component_props.title;
+                    }
+                  }
+                  if (!matchedElKey && fallbackElKey) {
+                    matchedElKey = fallbackElKey;
+                    questionText = fallbackTitle;
+                  }
+                }
+                // Mark element as claimed so subsequent submits don't reuse it
+                if (matchedElKey) { matchedQuizElKeys[matchedElKey] = true; }
+                // Use element key for unique questionId; monotonic counter fallback
+                var questionId = sourceSegmentId + '_' + (matchedElKey || 'quiz_' + (++quizFallbackCounter));
+                var quizEvt = document.createEvent('CustomEvent');
+                quizEvt.initCustomEvent('heygen-xapi-quiz-answer', true, true, {
+                  questionId: questionId,
+                  questionText: questionText,
+                  response: selectedIds.join('[,]'),
+                  isCorrect: !!data.hasAnsweredCorrectly,
+                  segmentId: sourceSegmentId,
+                  choices: choices,
+                  correctResponsePattern: correctIds.join('[,]')
+                });
+                document.dispatchEvent(quizEvt);
+                // Also send the legacy interacted event (human-readable text)
+                xapiDetail = { response: selectedTexts.join(', '), interactionType: 'quiz', segmentId: sourceSegmentId };
+              } else if (name === 'INTERACTIVE_LINK_BUTTON_CLICK') {
+                xapiDetail = { response: (data && (data.url || data.label)) || '', interactionType: 'link', segmentId: sourceSegmentId };
+              }
+              if (xapiDetail) {
+                var evt = document.createEvent('CustomEvent');
+                evt.initCustomEvent('heygen-xapi-interact', true, true, xapiDetail);
+                document.dispatchEvent(evt);
+              }
+            }
+          }
+        });
+
+        window.interactiveVideoInitialized = true;
+      } catch (error) {
+        console.error('[INTERACTIVE] Failed to initialize:', error);
+        window.interactiveVideoInitialized = false;
+      }
+    };
+
+    // Wait for runtime data hydration before interactive initialization.
+    var runtimeFetch = typeof window.fetchScormRuntimeData === 'function' ? window.fetchScormRuntimeData() : Promise.resolve(false);
+    runtimeFetch.finally(function() {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeInteractiveVideo);
+      } else {
+        initializeInteractiveVideo();
+      }
+    });
+  })();
+</script>
+</body>
+</html>
