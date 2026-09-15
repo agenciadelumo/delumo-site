@@ -1,0 +1,270 @@
+[
+  {
+    "id": "photo-reference",
+    "type": "text",
+    "maxlength": "500"
+  },
+  {
+    "id": "play-time",
+    "type": "number",
+    "min": "1",
+    "max": "30",
+    "step": "1"
+  },
+  {
+    "id": "change-time",
+    "type": "number",
+    "min": "1",
+    "max": "10",
+    "step": "1"
+  },
+  {
+    "id": "hours",
+    "type": "number",
+    "min": "1",
+    "max": "16",
+    "step": "1"
+  },
+  {
+    "id": "days",
+    "type": "number",
+    "min": "1",
+    "max": "11",
+    "step": "1"
+  },
+  {
+    "id": "efficiency",
+    "type": "number",
+    "min": "10",
+    "max": "100",
+    "step": "1"
+  },
+  {
+    "id": "supplier-projectors",
+    "type": "text",
+    "maxlength": "200"
+  },
+  {
+    "id": "cost-projectors",
+    "type": "number",
+    "min": "0",
+    "max": "100000000",
+    "step": "0.01"
+  },
+  {
+    "id": "supplier-computers",
+    "type": "text",
+    "maxlength": "200"
+  },
+  {
+    "id": "cost-computers",
+    "type": "number",
+    "min": "0",
+    "max": "100000000",
+    "step": "0.01"
+  },
+  {
+    "id": "supplier-controls",
+    "type": "text",
+    "maxlength": "200"
+  },
+  {
+    "id": "cost-controls",
+    "type": "number",
+    "min": "0",
+    "max": "100000000",
+    "step": "0.01"
+  },
+  {
+    "id": "supplier-research",
+    "type": "text",
+    "maxlength": "200"
+  },
+  {
+    "id": "cost-research",
+    "type": "number",
+    "min": "0",
+    "max": "100000000",
+    "step": "0.01"
+  },
+  {
+    "id": "supplier-game",
+    "type": "text",
+    "maxlength": "200"
+  },
+  {
+    "id": "cost-game",
+    "type": "number",
+    "min": "0",
+    "max": "100000000",
+    "step": "0.01"
+  },
+  {
+    "id": "supplier-stand",
+    "type": "text",
+    "maxlength": "200"
+  },
+  {
+    "id": "cost-stand",
+    "type": "number",
+    "min": "0",
+    "max": "100000000",
+    "step": "0.01"
+  },
+  {
+    "id": "supplier-infrastructure",
+    "type": "text",
+    "maxlength": "200"
+  },
+  {
+    "id": "cost-infrastructure",
+    "type": "number",
+    "min": "0",
+    "max": "100000000",
+    "step": "0.01"
+  },
+  {
+    "id": "supplier-access",
+    "type": "text",
+    "maxlength": "200"
+  },
+  {
+    "id": "cost-access",
+    "type": "number",
+    "min": "0",
+    "max": "100000000",
+    "step": "0.01"
+  },
+  {
+    "id": "supplier-operation",
+    "type": "text",
+    "maxlength": "200"
+  },
+  {
+    "id": "cost-operation",
+    "type": "number",
+    "min": "0",
+    "max": "100000000",
+    "step": "0.01"
+  },
+  {
+    "id": "supplier-management",
+    "type": "text",
+    "maxlength": "200"
+  },
+  {
+    "id": "cost-management",
+    "type": "number",
+    "min": "0",
+    "max": "100000000",
+    "step": "0.01"
+  },
+  {
+    "id": "budget-notes",
+    "maxlength": "4000"
+  },
+  {
+    "id": "meeting-date",
+    "type": "datetime-local"
+  },
+  {
+    "id": "coordinator",
+    "type": "text",
+    "maxlength": "150"
+  },
+  {
+    "id": "date-concept",
+    "type": "date"
+  },
+  {
+    "id": "owner-concept",
+    "type": "text",
+    "maxlength": "150"
+  },
+  {
+    "id": "done-concept",
+    "type": "checkbox"
+  },
+  {
+    "id": "date-assets",
+    "type": "date"
+  },
+  {
+    "id": "owner-assets",
+    "type": "text",
+    "maxlength": "150"
+  },
+  {
+    "id": "done-assets",
+    "type": "checkbox"
+  },
+  {
+    "id": "date-technical",
+    "type": "date"
+  },
+  {
+    "id": "owner-technical",
+    "type": "text",
+    "maxlength": "150"
+  },
+  {
+    "id": "done-technical",
+    "type": "checkbox"
+  },
+  {
+    "id": "date-prototype",
+    "type": "date"
+  },
+  {
+    "id": "owner-prototype",
+    "type": "text",
+    "maxlength": "150"
+  },
+  {
+    "id": "done-prototype",
+    "type": "checkbox"
+  },
+  {
+    "id": "date-production",
+    "type": "date"
+  },
+  {
+    "id": "owner-production",
+    "type": "text",
+    "maxlength": "150"
+  },
+  {
+    "id": "done-production",
+    "type": "checkbox"
+  },
+  {
+    "id": "date-rehearsal",
+    "type": "date"
+  },
+  {
+    "id": "owner-rehearsal",
+    "type": "text",
+    "maxlength": "150"
+  },
+  {
+    "id": "done-rehearsal",
+    "type": "checkbox"
+  },
+  {
+    "id": "date-setup",
+    "type": "date"
+  },
+  {
+    "id": "owner-setup",
+    "type": "text",
+    "maxlength": "150"
+  },
+  {
+    "id": "done-setup",
+    "type": "checkbox"
+  },
+  {
+    "id": "meeting-notes",
+    "maxlength": "6000"
+  }
+]

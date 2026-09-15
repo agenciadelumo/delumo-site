@@ -73,12 +73,14 @@ function save(manual = false) {
     $('save-status').textContent = 'Salvo neste navegador · ' + new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
     $('budget-save-status').textContent = 'Valores e fornecedores salvos neste navegador · ' + new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
     if (manual) $('action-status').textContent = 'Dados salvos neste navegador. Use “Baixar dados preenchidos” para guardar uma cópia ou abrir em outro aparelho.';
+    window.dispatchEvent(new CustomEvent('castelinho:save',{detail:{manual}}));
     return true;
   } catch {
     storageHealthy = false;
     $('save-status').textContent = 'Não foi possível salvar aqui. Baixe uma cópia.';
     $('budget-save-status').textContent = 'Não foi possível salvar neste navegador. Use “Baixar dados preenchidos” para guardar uma cópia.';
     $('action-status').textContent = 'O navegador não permitiu o salvamento. Seus campos continuam na tela: use “Baixar dados preenchidos” para preservá-los.';
+    window.dispatchEvent(new CustomEvent('castelinho:save',{detail:{manual}}));
     return false;
   }
 }
@@ -139,9 +141,7 @@ fields.forEach(input => {
 });
 document.querySelectorAll('[data-mission]').forEach(button => button.addEventListener('click',() => {selectMission(Number(button.dataset.mission));save();}));
 for (const id of ['save-top','save-bottom']) $(id).addEventListener('click',() => save(true));
-$('save-budget').addEventListener('click',() => {
-  if (save(true)) $('budget-save-status').textContent = 'Orçamento salvo neste navegador: valores, marcas, fornecedores e observações. Você pode fechar e reabrir esta página.';
-});
+$('save-budget').addEventListener('click',() => save(true));
 for (const id of ['print','print-bottom']) $(id).addEventListener('click',() => window.print());
 $('section-nav').addEventListener('change',event => {
   const target = $(event.target.value);
@@ -201,7 +201,7 @@ function preparePrint() {
 }
 window.addEventListener('beforeprint',preparePrint);
 window.addEventListener('afterprint',() => document.querySelectorAll('.print-value').forEach(element => element.remove()));
-window.addEventListener('pagehide',() => save());
+// Edits are persisted immediately; pagehide must not mark an untouched draft as edited.
 window.addEventListener('beforeunload',event => {
   if (!storageHealthy) {event.preventDefault();event.returnValue='';}
 });
