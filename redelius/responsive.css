@@ -1,0 +1,70 @@
+/* Mobile proposal: readable copy, comfortable touch targets and natural flow. */
+@media screen and (max-width: 760px) {
+  .wrap { width: calc(100% - 36px); }
+  .masthead { flex-wrap: wrap; gap: 18px; padding-block: 22px; }
+  .masthead .logo { font-size: 30px; }
+  .meta { margin-left: auto; font-size: 10px; letter-spacing: .06em; }
+  .nav-link { display: none; }
+  .hero { padding-block: 36px 30px; }
+  h1 { font-size: clamp(30px, 7.6vw, 48px); line-height: 1.12; }
+  .title-prefix { font-size: 17px; line-height: 1.4; }
+  .hero > .eyebrow { font-size: 10px; letter-spacing: .08em; }
+  .lead { font-size: 17px; line-height: 1.6; }
+  .text-link { min-height: 44px; margin-top: 14px; font-size: 14px; }
+  .section-line { flex-wrap: wrap; gap: 10px; }
+  .section-line h2 { font-size: 17px; line-height: 1.3; }
+  .tag { flex-shrink: 0; white-space: nowrap; font-size: 10px; letter-spacing: .06em; }
+  .demo-stage { aspect-ratio: auto; min-height: 280px; border-radius: 14px; }
+  .demo-caption { flex-direction: column; align-items: stretch; gap: 14px; font-size: 14px; }
+  .button.small { min-height: 46px; font-size: 14px; }
+  .section { padding-block: 40px; }
+  .section-heading h2, .investment-inner h2 { font-size: clamp(28px, 6vw, 36px); line-height: 1.15; }
+  .intro-grid, .mechanics-layout, .training-grid, .technical-grid, .investment-inner { grid-template-columns: minmax(0, 1fr); gap: 26px; }
+  .intro-grid > *, .mechanics-layout > *, .training-grid > *, .technical-grid > *, .investment-inner > * { min-width: 0; }
+  .large-copy { font-size: 17px; line-height: 1.65; }
+  .concept-note { padding-left: 20px; }
+  .concept-note p { font-size: 17px; }
+  .concept-note small, .mechanics-list p, .training-card > p, .training-card li, .technical-grid p, .scope-note p { font-size: 16px; line-height: 1.65; }
+  .mini-label, .eyebrow.dark { font-size: 11px; letter-spacing: .08em; line-height: 1.6; }
+  .route-strip { padding: 20px; }
+  .route-strip p { font-size: 16px; line-height: 1.9; }
+  .radar-card { padding: 10px; max-width: 520px; width: 100%; justify-self: center; }
+  .radar-card figcaption { font-size: 14px; }
+  .training-card { padding: 26px 22px; }
+  .training-card > .mini-label { max-width: none; padding-right: 28px; }
+  .card-number { font-size: 56px; right: 16px; top: 20px; }
+  .training-card h3 { font-size: 29px; }
+  .card-foot { flex-wrap: wrap; gap: 8px 12px; }
+  .card-foot span { font-size: 14px; }
+  .technical-note, .scope-note { padding: 22px; }
+  .technical-note p, .section-note { font-size: 14px; line-height: 1.65; }
+  .production-flow { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .production-flow li { position: relative; padding: 20px 0 0 38px; }
+  .production-flow li > span { position: absolute; left: 0; top: 22px; }
+  .production-flow h3 { margin-top: 0; font-size: 22px; }
+  .production-flow p { font-size: 16px; line-height: 1.65; }
+  .timeline { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .timeline h3 { margin-block: 10px; font-size: 46px; }
+  .timeline .mini-label { font-size: 11px; }
+  .timeline article > p { font-size: 16px; }
+  .timeline-line { margin-top: 16px; }
+  .timeline-total { padding-block: 22px 0; flex-wrap: wrap; gap: 12px; }
+  .timeline-total p { font-size: 14px; }
+  .investment-inner { padding-block: 40px; }
+  .investment-inner > div > p { max-width: none; font-size: 16px; }
+  .price-card { padding: 28px 22px; }
+  .price-card .price { font-size: clamp(30px, 8.5vw, 44px); white-space: nowrap; }
+  .price-card .price-detail, .payment-schedule span { font-size: 15px; line-height: 1.6; }
+  .payment-schedule strong { font-size: 24px; }
+  .price-card .button { width: 100%; min-height: 48px; font-size: 14px; gap: 10px; }
+  .footer { flex-direction: column; gap: 20px; }
+  .footer p { font-size: 11px; letter-spacing: .08em; }
+  .print-button { width: 100%; min-height: 48px; font-size: 14px; border-top: 1px solid var(--line); }
+}
+@media screen and (max-width: 380px) {
+  .wrap { width: calc(100% - 32px); }
+  .meta { flex-basis: 100%; margin: 0; font-size: 10px; }
+  .masthead { gap: 14px; }
+  .section-line { align-items: flex-start; flex-direction: column; }
+  .training-card, .price-card { padding: 24px 18px; }
+}
