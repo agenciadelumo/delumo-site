@@ -4,6 +4,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    // Vercel removes index.html from the public URL; retain the package directory.
+    // Leave normal LMS launch paths unchanged.
+    if (location.pathname === '/redelius/demo') {
+      var packageBase = document.createElement('base');
+      packageBase.href = '/redelius/demo/';
+      document.head.appendChild(packageBase);
+    }
+  </script>
   <title>Missão Cuidar — demonstração interativa Rede Lius</title>
   <link rel="stylesheet" href="preview.css?v=20260914">
   <script src="preview.js?v=20260914" defer></script>
