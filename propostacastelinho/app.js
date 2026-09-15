@@ -57,13 +57,13 @@ function budget() {
   });
   $('budget-error').textContent = invalid ? 'Revise os valores destacados: use valores positivos ou zero, com até duas casas decimais.' : '';
   $('budget-total').textContent = invalid ? 'Revisar campos' : filled ? money.format(total) : 'Nenhum valor informado';
-  $('budget-pending').textContent = `${inputs.length-filled} itens a cotar · projetores fora deste subtotal`;
+  $('budget-pending').textContent = inputs.length === filled && !invalid ? 'Todos os itens preenchidos · inclui projetores' : `${inputs.length-filled} itens a cotar · soma inclui os projetores preenchidos`;
 }
 
 function snapshot() {
   const values = {};
   fields.forEach(input => { values[input.id] = input.type === 'checkbox' ? input.checked : input.value; });
-  return {project:'castelinho-vivo', version:2, savedAt:new Date().toISOString(), selectedMission, values};
+  return {project:'castelinho-vivo', version:3, savedAt:new Date().toISOString(), selectedMission, values};
 }
 
 function save(manual = false) {
@@ -71,21 +71,29 @@ function save(manual = false) {
     localStorage.setItem(storageKey, JSON.stringify(snapshot()));
     storageHealthy = true;
     $('save-status').textContent = 'Salvo neste navegador · ' + new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+    $('budget-save-status').textContent = 'Valores e fornecedores salvos neste navegador · ' + new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
     if (manual) $('action-status').textContent = 'Dados salvos neste navegador. Use “Baixar dados preenchidos” para guardar uma cópia ou abrir em outro aparelho.';
     return true;
   } catch {
     storageHealthy = false;
     $('save-status').textContent = 'Não foi possível salvar aqui. Baixe uma cópia.';
+    $('budget-save-status').textContent = 'Não foi possível salvar neste navegador. Use “Baixar dados preenchidos” para guardar uma cópia.';
     $('action-status').textContent = 'O navegador não permitiu o salvamento. Seus campos continuam na tela: use “Baixar dados preenchidos” para preservá-los.';
     return false;
   }
 }
 
 function validateSaved(data) {
-  if (!data || data.project !== 'castelinho-vivo' || data.version !== 2 || !data.values || typeof data.values !== 'object' || Array.isArray(data.values)) throw Error('Este arquivo não é uma cópia compatível da proposta Castelinho Vivo.');
+  if (!data || data.project !== 'castelinho-vivo' || ![2,3].includes(data.version) || !data.values || typeof data.values !== 'object' || Array.isArray(data.values)) throw Error('Este arquivo não é uma cópia compatível da proposta Castelinho Vivo.');
   const clean = {};
   fields.forEach(input => {
-    if (!Object.hasOwn(data.values,input.id)) throw Error('Arquivo incompleto: faltam campos da proposta.');
+    if (!Object.hasOwn(data.values,input.id)) {
+      // Old drafts retain their 40 fields; only the newly added fields start empty.
+      if (data.version === 2 && (input.id === 'cost-projectors' || input.id.startsWith('supplier-'))) {
+        clean[input.id] = ''; return;
+      }
+      throw Error('Arquivo incompleto: faltam campos da proposta.');
+    }
     const value = data.values[input.id];
     if (input.type === 'checkbox') {
       if (typeof value !== 'boolean') throw Error('Arquivo com marcação inválida.');
@@ -131,6 +139,9 @@ fields.forEach(input => {
 });
 document.querySelectorAll('[data-mission]').forEach(button => button.addEventListener('click',() => {selectMission(Number(button.dataset.mission));save();}));
 for (const id of ['save-top','save-bottom']) $(id).addEventListener('click',() => save(true));
+$('save-budget').addEventListener('click',() => {
+  if (save(true)) $('budget-save-status').textContent = 'Orçamento salvo neste navegador: valores, marcas, fornecedores e observações. Você pode fechar e reabrir esta página.';
+});
 for (const id of ['print','print-bottom']) $(id).addEventListener('click',() => window.print());
 $('section-nav').addEventListener('change',event => {
   const target = $(event.target.value);
@@ -154,14 +165,14 @@ $('import-data').addEventListener('change',async event => {
   event.target.value = '';
 });
 $('download-summary').addEventListener('click',() => {
-  const lines = ['CASTELINHO VIVO · FRINAPE 2026','Estande: 8 × 4 m · quatro projeções de 3 × 3 m','Quatro grupos de cinco pessoas; um navegador por grupo.','Evento: 12 a 22 de novembro de 2026',''];
+  const lines = ['CASTELINHO VIVO · FRINAPE 2026','Estande: 8 × 4 m · quatro projeções de 3 × 2 m; alternativa 16:9: 3 × 1,6875 m','Quatro grupos de cinco pessoas; um navegador por grupo.','Evento: 12 a 22 de novembro de 2026',''];
   fields.forEach(input => {
     const label = input.getAttribute('aria-label') || [...(input.labels || [])].map(label => label.textContent.trim()).join(' ') || input.id;
     const row = input.closest('.schedule-row');
     const prefix = row ? row.querySelector('h3').textContent + ' · ' : '';
     lines.push(prefix+label+': '+(input.type === 'checkbox' ? input.checked?'Sim':'Não' : input.value || 'A definir'));
   });
-  lines.push('', 'Subtotal preenchido, sem projetores: '+$('budget-total').textContent, $('budget-pending').textContent, '', 'ESTIMATIVA DE ATENDIMENTO', $('round-result').textContent,$('navigator-result').textContent,'Participações no período: '+$('per-event').textContent,'','Registro de preparação. Não constitui assinatura ou aprovação institucional.');
+  lines.push('', 'Subtotal dos valores preenchidos: '+$('budget-total').textContent, $('budget-pending').textContent, '', 'ESTIMATIVA DE ATENDIMENTO', $('round-result').textContent,$('navigator-result').textContent,'Participações no período: '+$('per-event').textContent,'','Registro de preparação. Não constitui assinatura ou aprovação institucional.');
   download('\ufeff'+lines.join('\n'),'castelinho-vivo-resumo.txt','text/plain;charset=utf-8');
   $('action-status').textContent = 'Resumo preparado para download com os dados atuais.';
 });
@@ -172,6 +183,7 @@ try {
   if (saved) {
     applySaved(JSON.parse(saved));
     $('save-status').textContent = 'Dados salvos restaurados neste navegador';
+    $('budget-save-status').textContent = 'Orçamento salvo restaurado neste navegador.';
   }
 } catch {
   $('save-status').textContent = 'Não foi possível recuperar a cópia local. Use seu arquivo salvo.';
