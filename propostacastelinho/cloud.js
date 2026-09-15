@@ -1,7 +1,7 @@
 (() => {
   'use strict';
   const metaKey = 'delumo.castelinho.cloud.v1';
-  const fingerprint = data => JSON.stringify({values:data.values,selectedMission:data.selectedMission});
+  const fingerprint = data => JSON.stringify({values:Object.fromEntries(Object.keys(data.values).sort().map(key => [key,data.values[key]])),selectedMission:data.selectedMission});
   let meta = {}, ready = false, dirty = false, busy = false, timer, conflict = false;
   let remoteCandidate = null;
   try {meta = JSON.parse(localStorage.getItem(metaKey) || '{}');} catch {}
@@ -77,6 +77,7 @@
   }
   window.addEventListener('castelinho:save', event => {
     dirty=true;
+    if (conflict) {status('Há versões diferentes. Escolha qual continuar abaixo; o envio automático está pausado.');return;}
     status('Cópia local salva · aguardando envio ao banco');
     clearTimeout(timer);
     if (event.detail.manual) sync();else timer=setTimeout(sync,900);

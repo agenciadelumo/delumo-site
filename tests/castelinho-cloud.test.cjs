@@ -41,3 +41,14 @@ test('anonymous reads work while invalid writes and foreign origins remain rejec
     assert.equal((await call({method:'POST',query:{action:'login'}})).code,405);
   } finally {if(original===undefined)delete process.env.CASTELINHO_DATABASE_URL;else process.env.CASTELINHO_DATABASE_URL=original;}
 });
+
+test('JSONB field ordering does not create a false browser conflict', () => {
+  const source=require('node:fs').readFileSync(require('node:path').join(__dirname,'../propostacastelinho/cloud.js'),'utf8');
+  const expression=source.match(/const fingerprint = (.*);/)[1];
+  const fingerprint=require('node:vm').runInNewContext('('+expression+')');
+  const draft=data();draft.values['supplier-projectors']='Fornecedor';
+  const reordered={...draft,values:Object.fromEntries(Object.entries(draft.values).reverse())};
+  assert.equal(fingerprint(draft),fingerprint(reordered));
+  reordered.values['supplier-projectors']='Outra cotação';
+  assert.notEqual(fingerprint(draft),fingerprint(reordered));
+});
