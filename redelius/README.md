@@ -22,4 +22,10 @@ Vídeo otimizado de 3840×2160 / 212.838.145 bytes para 1920×1080 / 33.869.662 
 3. Testar controles, quiz, feedback, navegação por teclado, legendas e tela cheia em desktop/mobile.
 4. Homologar a versão final no LMS/Educere, incluindo retomada e conclusão.
 
-O material original anexado na outra conversa não acompanha o link compartilhado. Confirmar o roteiro e os protocolos com os anexos antes da produção do treinamento.
+## Revisão de 15/09/2026
+
+Conteúdo alinhado ao PDF `Sugestão Roteiro_Rede Lius_professores e linha de frente.pdf` (22 páginas), enviado pela Escola. Radar copiado integralmente de `C:/Users/agenc/Desktop/matriz.png`, sem edição, em `assets/radar-do-cuidado.png`.
+
+Demonstração identificada como Bloco Prevenir, com vídeo completo de 130,774 segundos. Na prévia pública, cada abertura inicia em zero e velocidade normal, sem carregar o ponto salvo. Controles inferiores: voltar 10 segundos, reproduzir/pausar, assistir novamente, posição e som. A retomada SCORM continua condicionada à presença de um LMS; homologação no Educere permanece pendente.
+
+Proposta: R$ 18.000,00, com R$ 6.000,00 na assinatura, R$ 6.000,00 na entrega final da Formação 1 e R$ 6.000,00 na entrega final da Formação 2. Vídeos de apoio na plataforma Delumo em dias e horários acordados entre Escola e Delumo. Personalizar contatos, fluxos e protocolos antes da gravação final.

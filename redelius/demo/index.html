@@ -13,13 +13,13 @@
       document.head.appendChild(packageBase);
     }
   </script>
-  <title>Missão Cuidar — demonstração interativa Rede Lius</title>
-  <link rel="stylesheet" href="preview.css?v=20260914">
-  <script src="preview.js?v=20260914" defer></script>
+  <title>Bloco Prevenir — demonstração interativa Rede Lius</title>
+  <link rel="stylesheet" href="preview.css?v=20260915">
+  <script src="preview.js?v=20260915" defer></script>
   <script type="text/javascript" src="APISCORM.js"></script>
   <script type="text/javascript" src="heygen-scorm-wrapper.js"></script>
   <!-- Packaged draft + segment metadata before scorm-video-config.js (HeyGen mode) -->
-<script type="text/javascript" src="draft.js?v=20260914"></script>
+<script type="text/javascript" src="draft.js?v=20260915"></script>
 <script type="text/javascript" src="segment_metadata.js"></script>
 
   
@@ -120,7 +120,7 @@
 </head>
 
 <body>
-  <div class="controls-container">
+  <div class="controls-container" hidden aria-hidden="true">
     <label for="languageSelect">Idioma:</label>
     <select id="languageSelect">
       <!-- Options will be dynamically populated -->
@@ -139,6 +139,11 @@
     </video>
   </div>
 
+  <div id="demo-navigation" aria-label="Controles do vídeo">
+    <div class="playback-timeline"><input id="demo-seek" type="range" min="0" max="131" step="0.1" value="0" aria-label="Posição do vídeo"><output id="demo-time">0:00 / 2:11</output></div>
+    <div class="playback-buttons"><button id="demo-back" type="button">↶ Voltar 10s</button><button id="demo-toggle" type="button">▶ Reproduzir</button><button id="demo-replay" type="button">↺ Assistir novamente</button><button id="demo-mute" type="button" aria-label="Silenciar vídeo">Som ligado</button></div>
+    <p id="playback-status" role="status"></p>
+  </div>
   <script>
     // Language configuration, to be injected by backend when exporting
     var LANGUAGE_CONFIG = {"defaultLanguage": "default", "languages": [{"code": "default", "label": "default", "videoFile": "default.mp4"}]};
@@ -147,7 +152,7 @@
     var SPEED_CONFIG = {"defaultSpeed": 1.0, "speeds": [{"value": 0.5, "label": "0.5x"}, {"value": 0.75, "label": "0.75x"}, {"value": 1.0, "label": "Normal"}, {"value": 1.25, "label": "1.25x"}, {"value": 1.5, "label": "1.5x"}, {"value": 1.75, "label": "1.75x"}, {"value": 2.0, "label": "2x"}]};
 
     // Video control configuration
-    var VIDEO_CONFIG = {"skippable": false};
+    var VIDEO_CONFIG = {"skippable": true};
 
     // Best-effort runtime refresh (fallback keeps packaged values).
     var runtimeFetchPromise = Promise.resolve(false);
@@ -163,6 +168,7 @@
 
     // Try to initialize SCORM (language system doesn't depend on it)
     var scormInitialized = scorm.init();
+    window.REDELIUS_PUBLIC_DEMO = !scormInitialized;
 
     // Initialize language manager after runtime fetch to avoid
     // overriding refreshed URLs with packaged defaults.
@@ -171,7 +177,8 @@
     });
     
     // Initialize playback speed control
-    heygenScormWrapper.initPlaybackSpeed(video, speedSelect, scormInitialized ? scorm : null, SPEED_CONFIG);
+    if (scormInitialized) heygenScormWrapper.initPlaybackSpeed(video, speedSelect, scorm, SPEED_CONFIG);
+    else video.playbackRate = 1;
 
     // Initialize volume control (syncs with native video controls only)
     heygenScormWrapper.initVolumeControl(video, scormInitialized ? scorm : null);
@@ -189,7 +196,7 @@
     // For non-interactive videos, initialize after a short delay so interactive scripts
     // can take over when DRAFT_DATA is present.
     setTimeout(function() {
-      if (!window.progressTrackingInitialized) {
+      if (!window.progressTrackingInitialized && !window.REDELIUS_PUBLIC_DEMO) {
         console.log('[PROGRESS] Initializing for non-interactive video');
         heygenScormWrapper.initProgressTracking(
           video,
@@ -398,7 +405,7 @@
 
   // NOW initialize progress tracking AFTER DRAFT_DATA is loaded
   // This ensures the isInteractive check works correctly
-  if (window.progressTrackingConfig) {
+  if (window.progressTrackingConfig && !window.REDELIUS_PUBLIC_DEMO) {
     var video = document.getElementById('miVideo');
     heygenScormWrapper.initProgressTracking(
       video,
@@ -433,7 +440,7 @@
           video.removeEventListener('seeking', window.noSkipSeekingListener);
         }
 
-        var resumeState = heygenScormWrapper.getInteractiveResumeState(scormAPI);
+        var resumeState = window.REDELIUS_PUBLIC_DEMO ? {} : heygenScormWrapper.getInteractiveResumeState(scormAPI);
         var currentSegmentId = resumeState.segmentId || (segments && segments.length > 0 ? segments[0].segmentId : null);
         var initialResumeTime = resumeState.checkpointTime || 0;
         window.currentSegmentId = currentSegmentId;

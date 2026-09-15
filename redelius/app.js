@@ -7,7 +7,7 @@
   const fullscreen = document.getElementById('demo-fullscreen');
   let demoHeight = 0;
   const resizeDemo = () => {
-    stage.style.height = window.innerWidth <= 600 && !document.fullscreenElement && demoHeight ? `${demoHeight + 2}px` : '';
+    stage.style.height = !document.fullscreenElement && demoHeight ? `${demoHeight + 2}px` : '';
   };
   window.addEventListener('message', event => {
     const frame = document.getElementById('demo-scorm');
@@ -18,7 +18,10 @@
     resizeDemo();
   });
   window.addEventListener('resize', resizeDemo);
-  document.addEventListener('fullscreenchange', resizeDemo);
+  document.addEventListener('fullscreenchange', () => {
+    resizeDemo();
+    document.getElementById('demo-scorm').contentWindow?.postMessage({ type: 'redelius-demo-fullscreen', active: !!document.fullscreenElement }, location.origin);
+  });
   const showError = () => {
     document.getElementById('demo-status').textContent = 'A demonstração está temporariamente indisponível.';
     pending.hidden = false;
@@ -46,7 +49,7 @@
       const frame = document.getElementById('demo-scorm');
       frame.src = source.href; frame.hidden = false; pending.hidden = true;
       fullscreen.hidden = !document.fullscreenEnabled;
-      caption.textContent = 'Use os controles da demonstração para navegar pelo vídeo e responder ao quiz.';
+      caption.textContent = 'Bloco Prevenir completo, desde o início. Use os controles para reproduzir, pausar, voltar ou assistir novamente e responder ao quiz.';
     }
   }
   fullscreen.addEventListener('click', async () => {
