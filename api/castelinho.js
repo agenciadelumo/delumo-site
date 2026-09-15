@@ -9,20 +9,10 @@ module.exports = async function handler(req, res) {
   const reply = (status, body) => res.status(status).json(body);
   const action = req.query.action || 'project';
   const enabled = security.configured(process.env);
-  if (req.method === 'GET' && action === 'status') return reply(200, {configured:enabled, authenticated:enabled && security.authorized(req.headers.cookie, process.env)});
+  if (req.method === 'GET' && action === 'status') return reply(200, {configured:enabled, access:'public'});
   if (!enabled) return reply(503, {error:'O banco de dados ainda não foi conectado. A cópia local continua disponível.'});
-  if (!['GET','POST','PUT','DELETE'].includes(req.method)) {res.setHeader('Allow','GET, POST, PUT, DELETE');return reply(405,{error:'Método não permitido.'});}
+  if (!['GET','PUT'].includes(req.method)) {res.setHeader('Allow','GET, PUT');return reply(405,{error:'Método não permitido.'});}
   if (req.method !== 'GET' && !origins.has(req.headers.origin)) return reply(403, {error:'Origem não permitida.'});
-  if (req.method === 'POST' && action === 'login') {
-    if (!security.validKey(req.body?.key, process.env)) return reply(401, {error:'Chave de acesso inválida.'});
-    res.setHeader('Set-Cookie', `${security.cookieName}=${security.session(process.env)}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=604800`);
-    return reply(200, {authenticated:true});
-  }
-  if (req.method === 'DELETE' && action === 'login') {
-    res.setHeader('Set-Cookie', `${security.cookieName}=; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=0`);
-    return reply(200, {authenticated:false});
-  }
-  if (!security.authorized(req.headers.cookie, process.env)) return reply(401, {error:'Entre para acessar os dados salvos online.'});
   if (action !== 'project') return reply(404, {error:'Recurso inexistente.'});
   if (!['GET','PUT'].includes(req.method)) return reply(405, {error:'Método não permitido.'});
   let data;
