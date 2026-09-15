@@ -5,13 +5,20 @@
   const stage = document.getElementById('demo-stage');
   const caption = document.getElementById('demo-caption');
   const fullscreen = document.getElementById('demo-fullscreen');
+  let demoHeight = 0;
+  const resizeDemo = () => {
+    stage.style.height = window.innerWidth <= 600 && !document.fullscreenElement && demoHeight ? `${demoHeight + 2}px` : '';
+  };
   window.addEventListener('message', event => {
     const frame = document.getElementById('demo-scorm');
     if (event.origin !== location.origin || event.source !== frame.contentWindow || event.data?.type !== 'redelius-demo-height') return;
     const height = Number(event.data.height);
     if (!Number.isFinite(height) || height < 100 || height > 2000) return;
-    stage.style.height = window.innerWidth <= 600 && !document.fullscreenElement ? `${height}px` : '';
+    demoHeight = height;
+    resizeDemo();
   });
+  window.addEventListener('resize', resizeDemo);
+  document.addEventListener('fullscreenchange', resizeDemo);
   const showError = () => {
     document.getElementById('demo-status').textContent = 'A demonstração está temporariamente indisponível.';
     pending.hidden = false;

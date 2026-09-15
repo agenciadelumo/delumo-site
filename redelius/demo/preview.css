@@ -1,6 +1,8 @@
 /* Presentation adapter; video timings and quiz answers stay in the supplied SDK. */
 @font-face{font-family:Arial;src:local('Arial');font-display:swap}
 html,body{background:#0c1f14}
+#videoContainer{width:100%!important}
+#miVideo{width:100%!important;max-height:100vh!important;object-fit:contain}
 #interactive-renderer{transform:none!important;width:100%!important;height:100%!important}
 [data-interactive-element-id]{font-family:Arial,sans-serif!important}
 [data-interactive-element-id]>div{padding:24px!important;gap:16px!important;border-radius:0!important;font-family:Arial,sans-serif!important}
@@ -16,6 +18,7 @@ html,body{background:#0c1f14}
 [data-quiz-option]:focus-visible,[data-interactive-element-id] button:focus-visible{outline:3px solid #b4f428;outline-offset:2px}
 .controls-container:focus-within{opacity:1!important;pointer-events:auto!important}
 @media(max-width:600px){
+  #miVideo{max-height:none!important}
   #videoContainer{width:100%!important}
   #videoContainer:has([data-interactive-element-id])>div{position:relative!important;height:auto!important}
   #videoContainer:has([data-interactive-element-id])>div>div{height:auto!important;overflow:visible!important}

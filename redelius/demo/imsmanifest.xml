@@ -26,6 +26,13 @@
       <file href="heygen-scorm-wrapper.js"/>
       <file href="scorm-video-config.js"/>
       <file href="default.mp4"/>
+      <file href="draft.js"/>
+      <file href="segment_metadata.js"/>
+      <file href="react.production.min.js"/>
+      <file href="react-dom.production.min.js"/>
+      <file href="interactive-video.umd.js"/>
+      <file href="preview.css"/>
+      <file href="preview.js"/>
     </resource>
   </resources>
 </manifest>
