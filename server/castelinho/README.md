@@ -19,4 +19,6 @@ Dados de formulário são validados no servidor e consultas são parametrizadas.
 
 ## Verificação
 
-`node --test tests/castelinho-cloud.test.cjs` verifica acesso sem chave, validação dos 51 campos e rejeição de operações inválidas. `node --test tests/site-export.test.mjs` verifica a exportação após o build. A ativação inicial em 15/09/2026 confirmou gravação e recuperação no Neon; a revisão pública deve ser validada novamente sem cookies ou cabeçalhos de autenticação.
+`node --test tests/castelinho-cloud.test.cjs` verifica acesso sem chave, validação dos 50 campos e rejeição de operações inválidas. `node --test tests/site-export.test.mjs` verifica a exportação após o build. A ativação inicial em 15/09/2026 confirmou gravação e recuperação no Neon; a revisão pública deve ser validada novamente sem cookies ou cabeçalhos de autenticação.
+
+Formato 4: quatro capítulos (Imigração, Comissão de Terras, A Cidade, Castelinho). Dados no formato 3 são migrados por tema, preservando os campos atuais e descartando a referência de foto removida da interface. O histórico anterior permanece no banco.

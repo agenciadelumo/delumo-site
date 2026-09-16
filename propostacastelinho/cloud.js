@@ -6,6 +6,11 @@
   let remoteCandidate = null;
   try {meta = JSON.parse(localStorage.getItem(metaKey) || '{}');} catch {}
   let baseline = meta.fingerprint || '';
+  // Migrate the old comparison baseline too, avoiding false conflicts after an update.
+  try {
+    const previous = JSON.parse(baseline);
+    if (Object.hasOwn(previous.values,'photo-reference')) baseline = fingerprint(validateSaved({...previous,project:'castelinho-vivo',version:3}));
+  } catch {}
   let revision = Number.isSafeInteger(meta.revision) ? meta.revision : 0;
   const status = (text, synced = false) => {
     $('cloud-status').textContent = text;
@@ -24,6 +29,7 @@
     return result;
   }
   function showConflict(remote) {
+    if (remote.data) remote.data={...remote.data,...validateSaved(remote.data),version:4};
     conflict = true;remoteCandidate = remote;
     $('cloud-conflict').hidden = false;
     $('cloud-version').textContent = `Versão online ${remote.revision} · salva em ${new Date(remote.savedAt).toLocaleString('pt-BR')}. Seus campos continuam na tela.`;
@@ -45,7 +51,7 @@
       const remote=await request();
       conflict=false;remoteCandidate=null;$('cloud-conflict').hidden=true;
       if (remote.data) {
-        validateSaved(remote.data);
+        remote.data={...remote.data,...validateSaved(remote.data),version:4};
         const current=fingerprint(snapshot());
         const hasLocal=Boolean(localStorage.getItem(storageKey));
         if (current === fingerprint(remote.data)) {revision=remote.revision;remember(remote.data);status('Dados sincronizados · versão '+revision,true);}

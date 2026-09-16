@@ -1,10 +1,5 @@
 [
   {
-    "id": "photo-reference",
-    "type": "text",
-    "maxlength": "500"
-  },
-  {
     "id": "play-time",
     "type": "number",
     "min": "1",

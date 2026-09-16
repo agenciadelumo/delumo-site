@@ -1,8 +1,8 @@
 const fields = require('./fields.json');
 function configured(env) { return Boolean(env.CASTELINHO_DATABASE_URL); }
 function validate(data) {
-  if (!data || data.project !== 'castelinho-vivo' || data.version !== 3 || !data.values || Array.isArray(data.values) || typeof data.values !== 'object') throw Error('Proposta inválida.');
-  if (!Number.isInteger(data.selectedMission) || data.selectedMission < 0 || data.selectedMission > 6) throw Error('Capítulo inválido.');
+  if (!data || data.project !== 'castelinho-vivo' || ![3,4].includes(data.version) || !data.values || Array.isArray(data.values) || typeof data.values !== 'object') throw Error('Proposta inválida.');
+  if (!Number.isInteger(data.selectedMission) || data.selectedMission < 0 || data.selectedMission > (data.version === 3 ? 6 : 3)) throw Error('Capítulo inválido.');
   const values = {};
   for (const field of fields) {
     const v = data.values[field.id];
@@ -19,6 +19,6 @@ function validate(data) {
     }
     values[field.id] = v;
   }
-  return {project:'castelinho-vivo',version:3,selectedMission:data.selectedMission,values};
+  return {project:'castelinho-vivo',version:4,selectedMission:data.version === 3 ? ({0:1,3:0,4:2,6:3}[data.selectedMission] ?? 0) : data.selectedMission,values};
 }
 module.exports = {configured, validate};

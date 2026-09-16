@@ -1,13 +1,11 @@
+'use strict';
+const missionNames = ["Imigração", "Comissão de Terras", "A Cidade", "Castelinho"];
 const missions = [
-  {title:'O mapa que conta uma história',text:'Encontre um documento, observe seus detalhes e descubra sua relação com o território de Erechim.',place:'Memorial e exposição permanente · revista, p. 15.',action:'Examinar o documento e relacionar uma pista ao mapa.',learning:'Compreender a atuação da Comissão de Terras a partir de fontes históricas.'},
-  {title:'Saberes que sustentam o Castelinho',text:'Entre na oficina e descubra como os artífices uniam peças de madeira. Um encaixe ajuda a revelar um saber que precisa ser preservado.',place:'Oficina técnica no anexo do 2º subsolo · revista, p. 17.',action:'Girar e posicionar uma peça virtual, com dicas e novas tentativas.',learning:'Reconhecer técnicas construtivas e o trabalho dos artífices, com revisão técnica.'},
-  {title:'Cada detalhe tem uma história',text:'Observe janelas, telhados e elementos de madeira. Compare fotografias e perceba o que mudou ao longo do tempo.',place:'Fachada e percurso externo · revista, pp. 6 e 9–13.',action:'Localizar três detalhes e relacioná-los às imagens do acervo.',learning:'Perceber características arquitetônicas e distinguir conservação de alteração.'},
   {title:'Muitas histórias formam uma cidade',text:'Conheça pessoas e trajetórias que participaram da formação de Erechim. O roteiro contextualiza também o território e seus habitantes anteriores ao período apresentado.',place:'Exposição temporária / sala multimídia · revista, pp. 15 e 18.',action:'Ouvir narrativas curtas e associar objetos às histórias documentadas.',learning:'Compreender a diversidade cultural, com curadoria e fontes identificadas.'},
+  {title:'O mapa que conta uma história',text:'Encontre um documento, observe seus detalhes e descubra sua relação com o território de Erechim.',place:'Memorial e exposição permanente · revista, p. 15.',action:'Examinar o documento e relacionar uma pista ao mapa.',learning:'Compreender a atuação da Comissão de Terras a partir de fontes históricas.'},
   {title:'Veja Erechim se transformar',text:'Uma fotografia antiga abre uma janela para outro tempo. O jogador reconhece um lugar e acompanha suas transformações.',place:'Ático tecnológico · revista, p. 19.',action:'Comparar imagens e escolher pontos de uma linha do tempo.',learning:'Relacionar a paisagem urbana atual aos processos históricos da cidade.'},
-  {title:'Objetos que guardam memórias',text:'No memorial, um objeto revela a lembrança de alguém. A descoberta convida o visitante a pensar em sua própria relação com a cidade.',place:'Memorial / espaço multimídia · revista, pp. 15 e 18.',action:'Inspecionar um objeto e identificar uma pista no depoimento autorizado.',learning:'Valorizar relatos, acervos e diferentes formas de guardar a memória.'},
   {title:'Por que preservar?',text:'Encontre registros da restauração e compare passado, intervenção e futuro projetado. Ao final, a história continua com o visitante.',place:'Percurso de restauro e Janela do Tempo · revista, pp. 6 e 19.',action:'Associar um cuidado de preservação ao elemento correspondente.',learning:'Compreender a preservação como responsabilidade coletiva, sem simular uma intervenção técnica real.'}
 ];
-'use strict';
 
 const $ = id => document.getElementById(id);
 const storageKey = 'delumo.castelinho.proposta.v2';
@@ -22,7 +20,7 @@ function selectMission(index) {
   if (!mission) return;
   selectedMission = index;
   document.querySelectorAll('[data-mission]').forEach(button => button.setAttribute('aria-pressed', String(Number(button.dataset.mission) === index)));
-  $('mission-num').textContent = `CAPÍTULO ${String(index+1).padStart(2,'0')} / 07 · ROTEIRO PROPOSTO`;
+  $('mission-num').textContent = `TELA ${String(index+1).padStart(2,'0')} / 04 · ${missionNames[index].toUpperCase()}`;
   for (const key of ['title','text','place','action','learning']) $('mission-'+key).textContent = mission[key];
 }
 
@@ -63,7 +61,7 @@ function budget() {
 function snapshot() {
   const values = {};
   fields.forEach(input => { values[input.id] = input.type === 'checkbox' ? input.checked : input.value; });
-  return {project:'castelinho-vivo', version:3, savedAt:new Date().toISOString(), selectedMission, values};
+  return {project:'castelinho-vivo', version:4, savedAt:new Date().toISOString(), selectedMission, values};
 }
 
 function save(manual = false) {
@@ -86,11 +84,11 @@ function save(manual = false) {
 }
 
 function validateSaved(data) {
-  if (!data || data.project !== 'castelinho-vivo' || ![2,3].includes(data.version) || !data.values || typeof data.values !== 'object' || Array.isArray(data.values)) throw Error('Este arquivo não é uma cópia compatível da proposta Castelinho Vivo.');
+  if (!data || data.project !== 'castelinho-vivo' || ![2,3,4].includes(data.version) || !data.values || typeof data.values !== 'object' || Array.isArray(data.values)) throw Error('Este arquivo não é uma cópia compatível da proposta Castelinho Vivo.');
   const clean = {};
   fields.forEach(input => {
     if (!Object.hasOwn(data.values,input.id)) {
-      // Old drafts retain their 40 fields; only the newly added fields start empty.
+      // Retain surviving legacy fields; newly added budget fields start empty.
       if (data.version === 2 && (input.id === 'cost-projectors' || input.id.startsWith('supplier-'))) {
         clean[input.id] = ''; return;
       }
@@ -113,7 +111,7 @@ function validateSaved(data) {
     }
     clean[input.id] = value;
   });
-  return {values:clean,selectedMission:Number.isInteger(data.selectedMission) && data.selectedMission >= 0 && data.selectedMission < missions.length ? data.selectedMission : 0};
+  return {values:clean,selectedMission:data.version < 4 ? ({0:1,3:0,4:2,6:3}[data.selectedMission] ?? 0) : Number.isInteger(data.selectedMission) && data.selectedMission >= 0 && data.selectedMission < missions.length ? data.selectedMission : 0};
 }
 
 function applySaved(data) {
@@ -165,7 +163,7 @@ $('import-data').addEventListener('change',async event => {
   event.target.value = '';
 });
 $('download-summary').addEventListener('click',() => {
-  const lines = ['CASTELINHO VIVO · FRINAPE 2026','Estande: 8 × 4 m · quatro projeções de 3 × 2 m; alternativa 16:9: 3 × 1,6875 m','Quatro grupos de cinco pessoas; um navegador por grupo.','Evento: 12 a 22 de novembro de 2026',''];
+  const lines = ['CASTELINHO VIVO · FRINAPE 2026','Estande: 8 × 4 m · quatro projeções de 3 × 2 m','Telas da esquerda para a direita: 1. Imigração; 2. Comissão de Terras; 3. A Cidade; 4. Castelinho','Quatro grupos de cinco pessoas; um navegador por grupo.','Evento: 12 a 22 de novembro de 2026',''];
   fields.forEach(input => {
     const label = input.getAttribute('aria-label') || [...(input.labels || [])].map(label => label.textContent.trim()).join(' ') || input.id;
     const row = input.closest('.schedule-row');
@@ -188,7 +186,7 @@ try {
 } catch {
   $('save-status').textContent = 'Não foi possível recuperar a cópia local. Use seu arquivo salvo.';
 }
-capacity();budget();
+selectMission(selectedMission);capacity();budget();
 function preparePrint() {
   document.querySelectorAll('.print-value').forEach(element => element.remove());
   fields.forEach(input => {

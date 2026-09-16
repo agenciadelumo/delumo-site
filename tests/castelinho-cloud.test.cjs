@@ -4,22 +4,56 @@ const {Pool} = require('pg');
 const security = require('../server/castelinho/security.cjs');
 const fields = require('../server/castelinho/fields.json');
 const handler = require('../api/castelinho');
-const data = () => ({project:'castelinho-vivo',version:3,selectedMission:0,values:Object.fromEntries(fields.map(f=>[f.id,f.type==='checkbox'?false:'']))});
+const data = () => ({project:'castelinho-vivo',version:4,selectedMission:0,values:Object.fromEntries(fields.map(f=>[f.id,f.type==='checkbox'?false:'']))});
 
 test('public access needs only the database connection', () => {
   assert.equal(security.configured({}),false);
   assert.equal(security.configured({CASTELINHO_DATABASE_URL:'postgres://test'}),true);
 });
-test('server validates all 51 fields, dates, values and notes and strips unknown keys', () => {
+test('server validates all 50 fields, dates, values and notes and strips unknown keys', () => {
   const draft=data();draft.values['cost-projectors']='16000.00';draft.values['supplier-projectors']='Marca / fornecedor';draft.values['date-concept']='2026-11-01';draft.values['meeting-notes']='Decisão da equipe';draft.values.injected='ignored';
   const clean=security.validate(draft);
-  assert.equal(Object.keys(clean.values).length,51);
+  assert.equal(Object.keys(clean.values).length,50);
   assert.equal(clean.values['supplier-projectors'],'Marca / fornecedor');
   assert.equal(clean.values.injected,undefined);
   assert.throws(()=>security.validate({...draft,project:'other-project'}));
   draft.values['date-concept']='2026-02-30';assert.throws(()=>security.validate(draft));
   draft.values['date-concept']='';draft.values['meeting-notes']='x'.repeat(6001);assert.throws(()=>security.validate(draft));
   draft.values['meeting-notes']='';delete draft.values['supplier-projectors'];assert.throws(()=>security.validate(draft));
+});
+
+test('legacy chapters migrate by theme and retain all remaining proposal fields', () => {
+  const mapping=[1,0,0,0,2,0,3];
+  mapping.forEach((expected,oldIndex)=>{
+    const old={...data(),version:3,selectedMission:oldIndex};
+    old.values['photo-reference']='Removed photo';
+    old.values['supplier-projectors']='Existing supplier';
+    old.values['meeting-notes']='Existing decisions';
+    const migrated=security.validate(old);
+    assert.equal(migrated.version,4);
+    assert.equal(migrated.selectedMission,expected);
+    assert.equal(migrated.values['photo-reference'],undefined);
+    assert.equal(migrated.values['supplier-projectors'],'Existing supplier');
+    assert.equal(migrated.values['meeting-notes'],'Existing decisions');
+    assert.deepEqual(security.validate(migrated),migrated);
+  });
+  assert.throws(()=>security.validate({...data(),selectedMission:4}));
+});
+
+test('browser migration agrees with server and removes the retired field from fingerprints', () => {
+  const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
+  const app=fs.readFileSync(path.join(__dirname,'../propostacastelinho/app.js'),'utf8');
+  const cloud=fs.readFileSync(path.join(__dirname,'../propostacastelinho/cloud.js'),'utf8');
+  const context=vm.createContext({fields:fields.map(f=>({...f,maxLength:Number(f.maxlength||-1)})),missions:Array(4)});
+  vm.runInContext(app.slice(app.indexOf('function validateSaved('),app.indexOf('function applySaved(')),context);
+  const fingerprint=vm.runInContext('('+cloud.match(/const fingerprint = (.*);/)[1]+')',context);
+  for(let i=0;i<7;i++) {
+    const legacy={...data(),version:3,selectedMission:i};
+    legacy.values['photo-reference']='Old image';
+    context.legacy=legacy;
+    const result=vm.runInContext('validateSaved(legacy)',context);
+    assert.equal(fingerprint(result),fingerprint(security.validate(legacy)));
+  }
 });
 
 test('anonymous reads work while invalid writes and foreign origins remain rejected', async t => {
