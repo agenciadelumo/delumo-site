@@ -28,17 +28,19 @@ const productionGuide = `
 ].map(phaseLink).join(' · ')}</p>`;
 
 function phaseMarkup(phase,index,print=false) {
-  const e=phaseEscape, suffix=print?'print-':'phase-';
+  const e=phaseEscape, suffix=print?'print-':'phase-', overview=phaseOverviews[index];
   return `<article class="phase-script" aria-labelledby="${suffix}title-${index}">
-    <header class="phase-hero"><span class="eyebrow">${e(phase.location)} · roteiro para aprovação</span><h2 id="${suffix}title-${index}">${e(phase.name)}<span>${e(phase.title)}</span></h2><p class="lead">${e(phase.premise)}</p><div class="phase-tags"><span>Primeira pessoa</span><span>Meta: 4 minutos</span><span>1 navegador + 4 acompanhantes</span></div></header>
-    <div class="phase-intro"><p><strong>Objetivo:</strong> ${e(phase.objective)}</p><p><strong>Ambiente:</strong> ${e(phase.setting)}</p><p><strong>Conquista:</strong> ${e(phase.badge)}</p></div>
-    <h3 class="phase-section-title">Roteiro cena a cena</h3><p class="small">Locução original proposta. As janelas de tempo incluem interação e leitura; serão ajustadas no ensaio. As ações descritas abaixo pertencem ao futuro game.</p>
-    <div class="phase-scenes">${phase.scenes.map(scene=>`<section class="phase-scene"><div class="scene-heading"><span>${e(scene.id)} · ${e(scene.time)}</span><h4>${e(scene.title)}</h4></div><p><strong>Imagem e som</strong>${e(scene.visual)}</p><blockquote><span>Locução proposta</span>${e(scene.voice)}</blockquote><div class="scene-interaction"><p><strong>Ação do grupo</strong>${e(scene.interaction)}</p><p><strong>Resposta do jogo</strong>${e(scene.feedback)}</p></div><p class="scene-production"><strong>Produção</strong>${e(scene.production)}</p></section>`).join('')}</div>
-    ${phase.environments?`<section class="phase-environments"><h3>Ambientes futuros · mapa do roteiro</h3><p>Visita ao programa previsto na revista, com priorização dos ambientes culturais no percurso de quatro minutos.</p><dl>${phase.environments.map(([name,description])=>`<dt>${e(name)}</dt><dd>${e(description)}</dd>`).join('')}</dl></section>`:''}
-    <details class="phase-detail" ${print?'open':''}><summary>Materiais e implementação desta fase</summary><p>${e(phase.implementation)}</p><ul>${phase.assets.map(asset=>`<li>${e(asset)}</li>`).join('')}</ul></details>
-    <details class="phase-detail" ${print?'open':''}><summary>Prompts de vídeo · Seedance 2.5</summary><p>Aplicar somente após aprovação das referências. Gerar planos separados; montar a fase com locução e legendas externas. Conferir arquitetura, mãos, movimentos e continuidade a cada tomada. As durações abaixo são metas de produção.</p>${phase.prompts.map(([name,prompt])=>`<section class="phase-prompt"><h4>${e(name)}</h4><p>${e(prompt)}</p></section>`).join('')}</details>
-    <details class="phase-detail" ${print?'open':''}><summary>Fluxo de produção · 3DVista, Blender e Unity</summary>${productionGuide}</details>
-    <details class="phase-detail" ${print?'open':''}><summary>Curadoria e base documental desta fase</summary><p>${e(phase.review)}</p><p>${e(phase.pages)}</p><p>Fontes consultadas em 16/09/2026. Conteúdo narrativo e escolhas são propostas criativas; citações literais de entrevistados não foram usadas como falas de personagens.</p><ul class="phase-source-links">${phase.sources.map(source=>`<li>${phaseLink(source)}</li>`).join('')}</ul></details>
+    <header class="phase-hero"><span class="eyebrow">${e(phase.location)} · roteiro para aprovação</span><h2 id="${suffix}title-${index}">${e(phase.name)}<span>${e(overview.question)}</span></h2><p class="lead">${e(overview.goal)}</p><div class="phase-tags"><span>Primeira pessoa</span><span>Meta: 4 minutos</span><span>1 conduz + 4 participam</span></div></header>
+    <section class="journey-overview" aria-label="As quatro fases"><h3>A história em quatro fases</h3><ol class="journey-strip">${phaseOverviews.map((item,n)=>`<li ${n===index?'aria-current="step"':''}><span class="journey-number">${n+1}</span><strong>${e(phaseScripts[n].name)}</strong><small>${e(item.question)}</small></li>`).join('')}</ol><p class="small">Ordem das telas: esquerda → fundo esquerdo → fundo direito → direita. As fases funcionam independentemente; esta é a sequência sugerida da história.</p></section>
+    <section class="phase-quick"><h3><span class="section-step">1</span> O que acontece nesta fase</h3><p><strong>O visitante faz:</strong> ${e(overview.action)}</p><p><strong>Ao concluir:</strong> ${e(overview.result)}</p></section>
+    <section class="phase-route"><h3><span class="section-step">2</span> Percurso do visitante</h3><p class="small">Siga as setas. Toque em uma etapa para abrir sua cena detalhada.</p><ol class="route-flow">${overview.steps.map(([title,action],n)=>`<li><button class="route-node" type="button" data-scene-jump="${n}" aria-controls="${suffix}scene-${index}-${n}"><span class="route-number">${n+1}</span><strong>${e(title)}</strong><small>${e(action)}</small><span class="route-time">${e(phase.scenes[n].time)}</span></button></li>`).join('')}</ol><div class="choice-rule"><strong>Como a escolha funciona</strong><span>Escolher uma opção → assistir à cena correspondente → voltar ao percurso → continuar.</span><small>As alternativas se reencontram. O grupo não precisa assistir a todos os caminhos para concluir a fase.</small></div></section>
+    <details class="phase-detail scene-script-group" ${print?'open':''}><summary><span class="section-step">3</span> Roteiro detalhado · cenas e locução</summary><p class="small">Cada cena segue a mesma ordem: o que aparece → o que o narrador diz → o que o grupo faz → como o jogo responde. Tempos estimados, incluindo leitura e interação.</p>
+    <div class="phase-scenes">${phase.scenes.map((scene,n)=>`<details class="phase-scene" id="${suffix}scene-${index}-${n}" ${print?'open':''}><summary class="scene-heading"><span>${e(scene.id)} · ${e(scene.time)}</span><strong>${n+1}. ${e(scene.title)}</strong></summary><p><strong>Imagem e som</strong>${e(scene.visual)}</p><blockquote><span>Locução proposta</span>${e(scene.voice)}</blockquote><div class="scene-interaction"><p><strong>Ação do grupo</strong>${e(scene.interaction)}</p><p><strong>Resposta do jogo</strong>${e(scene.feedback)}</p></div><p class="scene-production"><strong>Produção</strong>${e(scene.production)}</p></details>`).join('')}</div></details>
+    ${phase.environments?`<details class="phase-detail phase-environments" ${print?'open':''}><summary>Ambientes futuros · onde cada atividade acontece</summary><p>Visita ao programa previsto na revista, com priorização dos ambientes culturais no percurso de quatro minutos.</p><dl>${phase.environments.map(([name,description])=>`<dt>${e(name)}</dt><dd>${e(description)}</dd>`).join('')}</dl></details>`:''}
+    <details class="phase-detail" ${print?'open':''}><summary><span class="section-step">4</span> Produção · materiais e montagem</summary><p>${e(phase.implementation)}</p><ul>${phase.assets.map(asset=>`<li>${e(asset)}</li>`).join('')}</ul></details>
+    <details class="phase-detail" ${print?'open':''}><summary><span class="section-step">5</span> Prompts para gerar os vídeos</summary><p>Aplicar somente após aprovação das referências. Gerar planos separados; montar a fase com locução e legendas externas. Conferir arquitetura, mãos, movimentos e continuidade a cada tomada. As durações abaixo são metas de produção.</p>${phase.prompts.map(([name,prompt])=>`<section class="phase-prompt"><h4>${e(name)}</h4><p>${e(prompt)}</p></section>`).join('')}</details>
+    <details class="phase-detail" ${print?'open':''}><summary><span class="section-step">6</span> Guia técnico · plataformas e operação</summary>${productionGuide}</details>
+    <details class="phase-detail" ${print?'open':''}><summary><span class="section-step">7</span> Validação histórica e fontes</summary><p>${e(phase.review)}</p><p>${e(phase.pages)}</p><p>Fontes consultadas em 16/09/2026. Conteúdo narrativo e escolhas são propostas criativas; citações literais de entrevistados não foram usadas como falas de personagens.</p><ul class="phase-source-links">${phase.sources.map(source=>`<li>${phaseLink(source)}</li>`).join('')}</ul></details>
   </article>`;
 }
 
@@ -58,6 +60,16 @@ function openPhase(index) {
   document.body.classList.add('phase-modal-open');
   $('phase-close').focus();
 }
+phaseContent.addEventListener('click',event=>{
+  const button=event.target.closest('[data-scene-jump]');
+  if (!button) return;
+  const target=document.getElementById(button.getAttribute('aria-controls'));
+  if (!target) return;
+  phaseContent.querySelector('.scene-script-group').open=true;
+  phaseContent.querySelectorAll('.phase-scene').forEach(scene=>{scene.open=scene===target;});
+  target.scrollIntoView({block:'start',behavior:'instant'});
+  target.querySelector('summary').focus({preventScroll:true});
+});
 $('phase-close').addEventListener('click',()=>phaseDialog.close());
 phaseDialog.addEventListener('close',()=>{document.body.classList.remove('phase-modal-open');phaseOpener?.focus();});
 phaseDialog.addEventListener('click',event=>{if(event.target===phaseDialog){const r=phaseDialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)phaseDialog.close();}});
