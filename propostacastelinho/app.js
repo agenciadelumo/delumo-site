@@ -1,11 +1,6 @@
 'use strict';
 const missionNames = ["Imigração", "Comissão de Terras", "A Cidade", "Castelinho"];
-const missions = [
-  {title:'Muitas histórias formam uma cidade',text:'Conheça pessoas e trajetórias que participaram da formação de Erechim. O roteiro contextualiza também o território e seus habitantes anteriores ao período apresentado.',place:'Exposição temporária / sala multimídia · revista, pp. 15 e 18.',action:'Ouvir narrativas curtas e associar objetos às histórias documentadas.',learning:'Compreender a diversidade cultural, com curadoria e fontes identificadas.'},
-  {title:'O mapa que conta uma história',text:'Encontre um documento, observe seus detalhes e descubra sua relação com o território de Erechim.',place:'Memorial e exposição permanente · revista, p. 15.',action:'Examinar o documento e relacionar uma pista ao mapa.',learning:'Compreender a atuação da Comissão de Terras a partir de fontes históricas.'},
-  {title:'Veja Erechim se transformar',text:'Uma fotografia antiga abre uma janela para outro tempo. O jogador reconhece um lugar e acompanha suas transformações.',place:'Ático tecnológico · revista, p. 19.',action:'Comparar imagens e escolher pontos de uma linha do tempo.',learning:'Relacionar a paisagem urbana atual aos processos históricos da cidade.'},
-  {title:'Por que preservar?',text:'Encontre registros da restauração e compare passado, intervenção e futuro projetado. Ao final, a história continua com o visitante.',place:'Percurso de restauro e Janela do Tempo · revista, pp. 6 e 19.',action:'Associar um cuidado de preservação ao elemento correspondente.',learning:'Compreender a preservação como responsabilidade coletiva, sem simular uma intervenção técnica real.'}
-];
+const missions = phaseScripts;
 
 const $ = id => document.getElementById(id);
 const storageKey = 'delumo.castelinho.proposta.v2';
@@ -20,8 +15,7 @@ function selectMission(index) {
   if (!mission) return;
   selectedMission = index;
   document.querySelectorAll('[data-mission]').forEach(button => button.setAttribute('aria-pressed', String(Number(button.dataset.mission) === index)));
-  $('mission-num').textContent = `TELA ${String(index+1).padStart(2,'0')} / 04 · ${missionNames[index].toUpperCase()}`;
-  for (const key of ['title','text','place','action','learning']) $('mission-'+key).textContent = mission[key];
+
 }
 
 function capacity() {
@@ -137,7 +131,7 @@ fields.forEach(input => {
   input.addEventListener('input',update);
   input.addEventListener('change',update);
 });
-document.querySelectorAll('[data-mission]').forEach(button => button.addEventListener('click',() => {selectMission(Number(button.dataset.mission));save();}));
+document.querySelectorAll('[data-mission]').forEach(button => button.addEventListener('click',() => {selectMission(Number(button.dataset.mission));save();openPhase(selectedMission);}));
 for (const id of ['save-top','save-bottom']) $(id).addEventListener('click',() => save(true));
 $('save-budget').addEventListener('click',() => save(true));
 for (const id of ['print','print-bottom']) $(id).addEventListener('click',() => window.print());
