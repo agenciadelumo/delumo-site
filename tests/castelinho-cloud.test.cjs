@@ -10,12 +10,14 @@ test('public access needs only the database connection', () => {
   assert.equal(security.configured({}),false);
   assert.equal(security.configured({CASTELINHO_DATABASE_URL:'postgres://test'}),true);
 });
-test('server validates all 50 fields, dates, values and notes and strips unknown keys', () => {
+test('server validates all 48 fields, dates, values and notes and strips unknown keys', () => {
   const draft=data();draft.values['cost-projectors']='16000.00';draft.values['supplier-projectors']='Marca / fornecedor';draft.values['date-concept']='2026-11-01';draft.values['meeting-notes']='Decisão da equipe';draft.values.injected='ignored';
   const clean=security.validate(draft);
-  assert.equal(Object.keys(clean.values).length,50);
+  assert.equal(Object.keys(clean.values).length,48);
   assert.equal(clean.values['supplier-projectors'],'Marca / fornecedor');
   assert.equal(clean.values.injected,undefined);
+  const olderBudget={...draft,values:{...draft.values,'cost-management':'3500','supplier-management':'Fornecedor anterior'}};
+  assert.deepEqual(security.validate(olderBudget),clean);
   assert.throws(()=>security.validate({...draft,project:'other-project'}));
   draft.values['date-concept']='2026-02-30';assert.throws(()=>security.validate(draft));
   draft.values['date-concept']='';draft.values['meeting-notes']='x'.repeat(6001);assert.throws(()=>security.validate(draft));

@@ -9,7 +9,7 @@
   // Migrate the old comparison baseline too, avoiding false conflicts after an update.
   try {
     const previous = JSON.parse(baseline);
-    if (Object.hasOwn(previous.values,'photo-reference')) baseline = fingerprint(validateSaved({...previous,project:'castelinho-vivo',version:3}));
+    baseline = fingerprint(validateSaved({...previous,project:'castelinho-vivo',version:Object.hasOwn(previous.values,'photo-reference')?3:4}));
   } catch {}
   let revision = Number.isSafeInteger(meta.revision) ? meta.revision : 0;
   const status = (text, synced = false) => {

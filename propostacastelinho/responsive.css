@@ -12,3 +12,5 @@ html{background:#e6e9df;scroll-padding-top:118px}body{font-size:16px}.page{width
 @media print{.budget{table-layout:fixed}.budget th:nth-child(1){width:28%}.budget th:nth-child(2){width:27%}.budget th:nth-child(3){width:13%}.budget th:nth-child(4){width:32%}.budget td:before{display:none}.budget td:nth-child(2),.budget th:nth-child(2){display:table-cell}.budget td{font-size:9pt}.budget-actions,#budget-save-status{display:none}}
 
 .cloud-panel [hidden]{display:none!important}.cloud-panel form{max-width:540px}.cloud-panel button{margin-top:12px}#cloud-status{font-weight:600;margin:16px 0}#cloud-conflict{border-top:1px solid var(--line);padding-top:20px;margin-top:20px}@media print{.cloud-panel{display:none}}
+
+.controller img{display:block;width:100%;height:auto;object-fit:contain;border-radius:12px}
