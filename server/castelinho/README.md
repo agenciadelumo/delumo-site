@@ -1,4 +1,4 @@
-# Salvamento público da proposta Castelinho Vivo
+# Salvamento público dos projetos Castelinho Vivo
 
 Qualquer visitante pode consultar e salvar os mesmos dados, sem chave ou login, conforme solicitado pelo responsável. O GitHub versiona o código; os preenchimentos ficam no Neon.
 
@@ -8,19 +8,21 @@ Qualquer visitante pode consultar e salvar os mesmos dados, sem chave ou login, 
 - A única variável necessária é `CASTELINHO_DATABASE_URL`, secreta no servidor. Os antigos segredos de autenticação não são usados.
 - Tabelas: `castelinho_proposals` e `castelinho_proposal_history`. Para reinstalação, aplicar `schema.sql`; no editor Vercel executar cada CREATE TABLE separadamente.
 - API pública GET/PUT em `/api/castelinho`. O front-end não envia credenciais e não oferece login.
+- A proposta histórica usa o recurso padrão `project`, salvo como `castelinho-vivo`.
+- A cópia de orçamento e cronograma usa `/api/castelinho?action=budget`, salva separadamente como `castelinho-orcamento`.
 
 ## Comportamento
 
-Ao abrir a página, o navegador carrega a proposta do banco. Alterações são enviadas após 900 ms sem edição; o botão Salvar envia imediatamente. Uma cópia local permanece disponível quando a rede falha.
+Na cópia `orcamentocastelinho`, o navegador carrega o orçamento e o cronograma do banco. Alterações são enviadas após 700 ms sem edição; o botão Salvar envia imediatamente. Uma cópia local permanece disponível quando a rede falha.
 
-Cada escrita informa a revisão esperada. Transações no banco impedem sobrescrita silenciosa por uma versão antiga. Conflitos pausam o envio e permitem escolher entre carregar a versão online ou enviar os campos atuais. As versões anteriores permanecem no histórico.
+Cada escrita informa a revisão esperada. Transações e bloqueios independentes por recurso impedem que a proposta e o orçamento interfiram um no outro. Em caso de conflito, a cópia consulta a revisão mais recente e tenta o envio mais uma vez. As versões anteriores permanecem no histórico.
 
 Dados de formulário são validados no servidor e consultas são parametrizadas. O endpoint aceita alterações originadas das páginas Delumo, sem exigir identidade do visitante. Isto não identifica nem restringe os autores das edições públicas.
 
 ## Verificação
 
-`node --test tests/castelinho-cloud.test.cjs` verifica acesso sem chave, validação dos 48 campos e rejeição de operações inválidas. `node --test tests/site-export.test.mjs` verifica a exportação após o build. A ativação inicial em 15/09/2026 confirmou gravação e recuperação no Neon; a revisão pública deve ser validada novamente sem cookies ou cabeçalhos de autenticação.
+`node --test tests/castelinho-cloud.test.cjs` verifica o acesso sem chave, a validação da proposta histórica e a rejeição de operações inválidas. `node --test tests/site-export.test.mjs` verifica a exportação após o build. A ativação inicial em 15/09/2026 confirmou gravação e recuperação no Neon; o recurso `budget` deve ser validado em produção sem cookies ou cabeçalhos de autenticação.
 
 Formato 4: quatro capítulos (Imigração, Comissão de Terras, A Cidade, Castelinho). Dados no formato 3 são migrados por tema, preservando os campos atuais e descartando a referência de foto removida da interface. O histórico anterior permanece no banco.
 
-O orçamento atual contém nove itens. Os campos antigos cost-management e supplier-management são ignorados na leitura da interface e na próxima gravação; revisões históricas permanecem no banco.
+O recurso `budget` valida 32 itens de custos, sete etapas de alinhamento e os demais campos da página, totalizando 138 campos salvos. Os campos antigos `cost-management` e `supplier-management` da proposta histórica continuam ignorados; revisões antigas permanecem no banco.

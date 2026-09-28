@@ -39,6 +39,7 @@ function capacity() {
 }
 
 function budget() {
+  if (!$('budget-error')) return;
   const inputs = [...document.querySelectorAll('[data-cost]')];
   let total = 0, filled = 0, invalid = false;
   inputs.forEach(input => {
@@ -63,15 +64,15 @@ function save(manual = false) {
     localStorage.setItem(storageKey, JSON.stringify(snapshot()));
     storageHealthy = true;
     $('save-status').textContent = 'Salvo neste navegador · ' + new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
-    $('budget-save-status').textContent = 'Valores e fornecedores salvos neste navegador · ' + new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
-    if (manual) $('action-status').textContent = 'Dados salvos neste navegador. Use “Baixar dados preenchidos” para guardar uma cópia ou abrir em outro aparelho.';
+    if ($('budget-save-status')) $('budget-save-status').textContent = 'Valores e fornecedores salvos neste navegador · ' + new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+    if (manual && $('action-status')) $('action-status').textContent = 'Dados salvos neste navegador. Use “Baixar dados preenchidos” para guardar uma cópia ou abrir em outro aparelho.';
     window.dispatchEvent(new CustomEvent('castelinho:save',{detail:{manual}}));
     return true;
   } catch {
     storageHealthy = false;
     $('save-status').textContent = 'Não foi possível salvar aqui. Baixe uma cópia.';
-    $('budget-save-status').textContent = 'Não foi possível salvar neste navegador. Use “Baixar dados preenchidos” para guardar uma cópia.';
-    $('action-status').textContent = 'O navegador não permitiu o salvamento. Seus campos continuam na tela: use “Baixar dados preenchidos” para preservá-los.';
+    if ($('budget-save-status')) $('budget-save-status').textContent = 'Não foi possível salvar neste navegador. Use “Baixar dados preenchidos” para guardar uma cópia.';
+    if ($('action-status')) $('action-status').textContent = 'O navegador não permitiu o salvamento. Seus campos continuam na tela: use “Baixar dados preenchidos” para preservá-los.';
     window.dispatchEvent(new CustomEvent('castelinho:save',{detail:{manual}}));
     return false;
   }
@@ -132,18 +133,18 @@ fields.forEach(input => {
   input.addEventListener('change',update);
 });
 document.querySelectorAll('[data-mission]').forEach(button => button.addEventListener('click',() => {selectMission(Number(button.dataset.mission));save();openPhase(selectedMission);}));
-for (const id of ['save-top','save-bottom']) $(id).addEventListener('click',() => save(true));
-$('save-budget').addEventListener('click',() => save(true));
-for (const id of ['print','print-bottom']) $(id).addEventListener('click',() => window.print());
+for (const id of ['save-top','save-bottom']) $(id)?.addEventListener('click',() => save(true));
+$('save-budget')?.addEventListener('click',() => save(true));
+for (const id of ['print','print-bottom']) $(id)?.addEventListener('click',() => window.print());
 $('section-nav').addEventListener('change',event => {
   const target = $(event.target.value);
   if (target) { target.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'}); history.replaceState(null,'','#'+target.id); }
 });
-$('export-data').addEventListener('click',() => {
+$('export-data')?.addEventListener('click',() => {
   download(JSON.stringify(snapshot(),null,2),'castelinho-vivo-dados.json','application/json;charset=utf-8');
   $('action-status').textContent = 'Cópia preparada para download. Guarde o arquivo e use “Abrir dados salvos” para continuar em outro aparelho.';
 });
-$('import-data').addEventListener('change',async event => {
+$('import-data')?.addEventListener('change',async event => {
   const file = event.target.files[0];
   if (!file) return;
   try {
@@ -156,7 +157,7 @@ $('import-data').addEventListener('change',async event => {
   }
   event.target.value = '';
 });
-$('download-summary').addEventListener('click',() => {
+$('download-summary')?.addEventListener('click',() => {
   const lines = ['CASTELINHO VIVO · FRINAPE 2026','Estande: 8 × 4 m · quatro projeções de 3 × 2 m','Telas da esquerda para a direita: 1. Imigração; 2. Comissão de Terras; 3. A Cidade; 4. Castelinho','Quatro grupos de cinco pessoas; um navegador por grupo.','Evento: 12 a 22 de novembro de 2026',''];
   fields.forEach(input => {
     const label = input.getAttribute('aria-label') || [...(input.labels || [])].map(label => label.textContent.trim()).join(' ') || input.id;
@@ -175,7 +176,7 @@ try {
   if (saved) {
     applySaved(JSON.parse(saved));
     $('save-status').textContent = 'Dados salvos restaurados neste navegador';
-    $('budget-save-status').textContent = 'Orçamento salvo restaurado neste navegador.';
+    if ($('budget-save-status')) $('budget-save-status').textContent = 'Orçamento salvo restaurado neste navegador.';
   }
 } catch {
   $('save-status').textContent = 'Não foi possível recuperar a cópia local. Use seu arquivo salvo.';
