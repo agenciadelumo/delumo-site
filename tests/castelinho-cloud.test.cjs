@@ -5,10 +5,32 @@ const security = require('../server/castelinho/security.cjs');
 const fields = require('../server/castelinho/fields.json');
 const handler = require('../api/castelinho');
 const data = () => ({project:'castelinho-vivo',version:4,selectedMission:0,values:Object.fromEntries(fields.map(f=>[f.id,f.type==='checkbox'?false:'']))});
+const budgetCostIds=[...Array.from({length:20},(_,index)=>index+1),26,27,31];
+const budgetData=()=>{
+  const values={};
+  for(const index of budgetCostIds){const id=String(index).padStart(2,'0');values[`unit-cost-${id}`]='';values[`cost-date-${id}`]='';values[`cost-confirmed-${id}`]=false;}
+  values['budget-notes']='';
+  for(const id of ['concept','assets','technical','prototype','production','rehearsal','setup']){values[`date-${id}`]='';values[`owner-${id}`]='';values[`reference-${id}`]='';values[`observations-${id}`]='';values[`done-${id}`]=false;}
+  values['meeting-notes']='';
+  return {project:'castelinho-orcamento',version:1,selectedMission:0,values};
+};
 
 test('public access needs only the database connection', () => {
   assert.equal(security.configured({}),false);
   assert.equal(security.configured({CASTELINHO_DATABASE_URL:'postgres://test'}),true);
+});
+test('budget validates the 23 retained cost items and seven project stages', () => {
+  const draft=budgetData();
+  draft.values['unit-cost-01']='12890';
+  draft.values['unit-cost-31']='65';
+  draft.values['date-assets']='2026-09-25';
+  draft.values['reference-assets']='https://drive.google.com/example';
+  const clean=security.validate(draft);
+  assert.equal(Object.keys(clean.values).length,106);
+  assert.equal(clean.values['unit-cost-31'],'65');
+  assert.equal(clean.values['unit-cost-21'],undefined);
+  delete draft.values['cost-confirmed-31'];
+  assert.throws(()=>security.validate(draft));
 });
 test('server validates all 48 fields, dates, values and notes and strips unknown keys', () => {
   const draft=data();draft.values['cost-projectors']='16000.00';draft.values['supplier-projectors']='Marca / fornecedor';draft.values['date-concept']='2026-11-01';draft.values['meeting-notes']='Decisão da equipe';draft.values.injected='ignored';

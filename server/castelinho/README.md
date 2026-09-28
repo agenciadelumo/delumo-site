@@ -25,4 +25,4 @@ Dados de formulário são validados no servidor e consultas são parametrizadas.
 
 Formato 4: quatro capítulos (Imigração, Comissão de Terras, A Cidade, Castelinho). Dados no formato 3 são migrados por tema, preservando os campos atuais e descartando a referência de foto removida da interface. O histórico anterior permanece no banco.
 
-O recurso `budget` valida 32 itens de custos, sete etapas de alinhamento e os demais campos da página, totalizando 138 campos salvos. Os campos antigos `cost-management` e `supplier-management` da proposta histórica continuam ignorados; revisões antigas permanecem no banco.
+O recurso `budget` valida 23 itens de custos, sete etapas de alinhamento e os demais campos da página, totalizando 106 campos salvos. Os campos antigos `cost-management` e `supplier-management` da proposta histórica continuam ignorados; revisões antigas permanecem no banco.

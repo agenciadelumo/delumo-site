@@ -1,13 +1,15 @@
 const proposalFields = require("./fields.json");
 
+const budgetCostIds = [
+  ...Array.from({ length: 20 }, (_, index) => index + 1),
+  26,
+  27,
+  31,
+];
+
 const budgetFields = [
-  { id: "play-time", type: "number", maxlength: "100" },
-  { id: "change-time", type: "number", maxlength: "100" },
-  { id: "hours", type: "number", maxlength: "100" },
-  { id: "days", type: "number", maxlength: "100" },
-  { id: "efficiency", type: "number", maxlength: "100" },
-  ...Array.from({ length: 32 }, (_, index) => {
-    const id = String(index + 1).padStart(2, "0");
+  ...budgetCostIds.map((index) => {
+    const id = String(index).padStart(2, "0");
     return [
       { id: `unit-cost-${id}`, type: "number", maxlength: "100" },
       { id: `cost-date-${id}`, type: "date", maxlength: "100" },
@@ -106,7 +108,7 @@ function validate(data) {
       data.version !== 1 ||
       !Number.isInteger(data.selectedMission) ||
       data.selectedMission < 0 ||
-      data.selectedMission > 3
+      data.selectedMission > 0
     )
       throw Error("Orçamento inválido.");
     return {

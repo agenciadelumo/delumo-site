@@ -1,12 +1,6 @@
 "use strict";
 
-const missionNames = [
-  "Imigração",
-  "Comissão de Terras",
-  "A Cidade",
-  "Castelinho",
-];
-const missions = phaseScripts;
+const missions = [true];
 const $ = (id) => document.getElementById(id);
 const storageKey = "delumo.castelinho.orcamento.v1";
 const fields = [...document.querySelectorAll("[data-save]")];
@@ -14,7 +8,6 @@ const money = new Intl.NumberFormat("pt-BR", {
   style: "currency",
   currency: "BRL",
 });
-const count = new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 1 });
 const dateFormat = new Intl.DateTimeFormat("pt-BR", { timeZone: "UTC" });
 let selectedMission = 0;
 let storageHealthy = true;
@@ -25,58 +18,7 @@ function setText(id, text) {
 }
 
 function selectMission(index) {
-  if (!missions[index]) return;
-  selectedMission = index;
-  document.querySelectorAll("[data-mission]").forEach((button) => {
-    button.setAttribute(
-      "aria-pressed",
-      String(Number(button.dataset.mission) === index),
-    );
-  });
-}
-
-function capacity() {
-  const inputs = [...document.querySelectorAll("[data-capacity]")];
-  const valid = inputs.every(
-    (input) => input.value !== "" && input.validity.valid,
-  );
-  inputs.forEach((input) =>
-    input.setAttribute(
-      "aria-invalid",
-      String(!input.value || !input.validity.valid),
-    ),
-  );
-  setText(
-    "capacity-error",
-    valid
-      ? ""
-      : "Preencha a duração, a troca, as horas, os dias e o fator dentro dos limites indicados.",
-  );
-  if (!valid) {
-    for (const id of ["per-hour", "per-day", "per-event"]) setText(id, "—");
-    setText(
-      "round-result",
-      "A estimativa será atualizada quando todos os campos forem válidos.",
-    );
-    setText("navigator-result", "");
-    return;
-  }
-  const roundsHour =
-    ((60 / (+$("play-time").value + +$("change-time").value)) *
-      +$("efficiency").value) /
-    100;
-  const roundsDay = Math.floor(roundsHour * +$("hours").value + 1e-8);
-  setText("per-hour", count.format(roundsHour * 20));
-  setText("per-day", count.format(roundsDay * 20));
-  setText("per-event", count.format(roundsDay * 20 * +$("days").value));
-  setText(
-    "navigator-result",
-    `${count.format(roundsDay * 4)} sessões de navegação por dia · ${count.format(roundsDay * 16)} participações de acompanhantes.`,
-  );
-  setText(
-    "round-result",
-    `${count.format(roundsDay)} rodadas completas por dia, com 20 pessoas por rodada.`,
-  );
+  selectedMission = missions[index] ? index : 0;
 }
 
 function budget() {
@@ -293,14 +235,12 @@ function applySaved(data) {
     else input.value = checked.values[input.id];
   });
   selectMission(checked.selectedMission);
-  capacity();
   budget();
   scheduleSummary();
 }
 
 fields.forEach((input) => {
   const update = () => {
-    capacity();
     budget();
     scheduleSummary();
     save();
@@ -309,13 +249,6 @@ fields.forEach((input) => {
   input.addEventListener("change", update);
 });
 
-document.querySelectorAll("[data-mission]").forEach((button) =>
-  button.addEventListener("click", () => {
-    selectMission(Number(button.dataset.mission));
-    save();
-    openPhase(selectedMission);
-  }),
-);
 for (const id of ["save-top", "save-bottom", "save-budget"])
   $(id)?.addEventListener("click", () => save(true));
 for (const id of ["print", "print-bottom"])
@@ -344,7 +277,6 @@ try {
 }
 
 selectMission(selectedMission);
-capacity();
 budget();
 scheduleSummary();
 
