@@ -27,5 +27,5 @@ export default function Header() {
 }
 
 export function WhatsAppFloating() {
-  return <a href={contact.whatsapp} className="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Falar com Guto da Luz no WhatsApp: (54) 98130-2517"><span className="whatsapp-label">Fale com Guto da Luz<small>{contact.phone}</small></span><WhatsAppIcon/></a>;
+  return <a href={contact.whatsapp} className="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Falar com a Equipe Delumo no WhatsApp: (54) 98130-2517"><span className="whatsapp-label">Fale com a Equipe Delumo<small>{contact.phone}</small></span><WhatsAppIcon/></a>;
 }

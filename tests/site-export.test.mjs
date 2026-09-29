@@ -81,13 +81,11 @@ test('standalone proposal, tour and training routes remain unchanged', async () 
   await assert.rejects(readFile(new URL('treinador/index.html', exported)), { code: 'ENOENT' });
 });
 
-test('portrait, refreshed case previews and footer branding are exported', async () => {
+test('team profiles, refreshed case previews and footer branding are exported', async () => {
   const about = await html('sobre.html');
-  assert.ok(about.includes('Guto da Luz'));
-  assert.ok(about.includes('about-portrait'));
-  assert.ok(about.includes('/media/antonio-augusto-da-luz.png'));
-  const original = await readFile(new URL('../web/public/media/antonio-augusto-da-luz.png', import.meta.url));
-  assert.deepEqual(await readFile(new URL('media/antonio-augusto-da-luz.png', exported)), original);
+  for (const name of ['Suélen da Veiga', 'Eduardo Vargas', 'Guto Luz']) assert.ok(about.includes(name));
+  assert.ok(!about.includes('Elen Caren Farina'));
+  assert.ok(!about.includes('/media/antonio-augusto-da-luz.png'));
   for (const route of ['index.html', 'projetos.html']) {
     const page = await html(route);
     assert.ok(page.includes('website-browser-bar'));
@@ -136,9 +134,10 @@ test('training case contains the complete supplied curriculum and sector applica
   for (const question of demoQuestions) assert.ok(question.answer >= 0 && question.answer < question.options.length);
 });
 
-test('founder profile preserves a single portrait and omits private resume details', async () => {
+test('team profile omits the founder portrait, Elen and private resume details', async () => {
   const page = await html('sobre.html');
-  assert.equal((page.match(/<img[^>]+src="\/media\/antonio-augusto-da-luz.png"/g) || []).length, 1);
-  for (const text of ['Guto da Luz', 'TIME DELUMO', 'Engenharia de software', 'Design 3D', 'Arquitetura e espaços', 'Desenvolvimento de games']) assert.ok(page.includes(text));
+  assert.equal((page.match(/<img[^>]+src="\/media\/antonio-augusto-da-luz.png"/g) || []).length, 0);
+  for (const text of ['Suélen da Veiga', 'Eduardo Vargas', 'Guto Luz', 'EQUIPE DELUMO', 'Engenharia de software', 'Design 3D', 'Arquitetura e espaços', 'Desenvolvimento de games']) assert.ok(page.includes(text));
+  for (const text of ['Elen Caren Farina', 'Guto da Luz', 'QUEM SOU']) assert.ok(!page.includes(text));
   for (const text of ['Antônio Augusto da Luz', '29/07/1983', 'antonioaugustodaluz83', 'Incerti', 'Hidroluz', 'Vitano']) assert.ok(!page.includes(text));
 });

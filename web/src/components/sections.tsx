@@ -8,7 +8,7 @@ export function ClientLogos() {
 }
 
 export function Services() {
-  return <section className="section services" id="solucoes"><div className="container"><SectionHeading label="O QUE A DELUMO FAZ" title={<>Soluções para<br/><em>sua empresa.</em></>}><p>Desenvolvemos o conteúdo, a experiência e a plataforma. Cada solução pode funcionar sozinha ou fazer parte do mesmo projeto.</p></SectionHeading><div className="ds-service-grid">{primarySolutions.map(item => <a href={`/solucoes/${item.slug}`} className="ds-service-item tp_fade_anim" key={item.slug}><div className="ds-service-item-box"><div className="ds-service-item-icon"><Icon name={item.icon} size={34}/><span>{item.number}</span></div><h3>{item.name}</h3><p>{item.short}</p><div className="ds-service-item-bottom"><span>Ver aplicações e entregas</span><span className="ds-service-item-btn"><ArrowUpRight size={22}/></span></div></div></a>)}</div><p className="solution-help">Não sabe por onde começar? <a href="/contato">Converse com Guto da Luz <ArrowUpRight size={16}/></a></p></div></section>;
+  return <section className="section services" id="solucoes"><div className="container"><SectionHeading label="O QUE A DELUMO FAZ" title={<>Soluções para<br/><em>sua empresa.</em></>}><p>Desenvolvemos o conteúdo, a experiência e a plataforma. Cada solução pode funcionar sozinha ou fazer parte do mesmo projeto.</p></SectionHeading><div className="ds-service-grid">{primarySolutions.map(item => <a href={`/solucoes/${item.slug}`} className="ds-service-item tp_fade_anim" key={item.slug}><div className="ds-service-item-box"><div className="ds-service-item-icon"><Icon name={item.icon} size={34}/><span>{item.number}</span></div><h3>{item.name}</h3><p>{item.short}</p><div className="ds-service-item-bottom"><span>Ver aplicações e entregas</span><span className="ds-service-item-btn"><ArrowUpRight size={22}/></span></div></div></a>)}</div><p className="solution-help">Não sabe por onde começar? <a href="/contato">Converse com a Equipe Delumo <ArrowUpRight size={16}/></a></p></div></section>;
 }
 
 export function TrainingSection() {
@@ -73,7 +73,7 @@ export function FAQ() {
 }
 
 export function ContactCTA() {
-  return <section className="contact-cta"><div className="container"><p className="eyebrow">SEU PRÓXIMO PROJETO COMEÇA AQUI</p><h2>Vamos conversar<br/><em>sobre seu projeto?</em></h2><Action href={contact.whatsapp} external>Converse com Guto da Luz</Action><p className="cta-contact"><a href="tel:+5554981302517">{contact.phone}</a><a href={`mailto:${contact.email}`}>{contact.email}</a></p><div className="cta-down"><ArrowDown size={24}/></div></div></section>;
+  return <section className="contact-cta"><div className="container"><p className="eyebrow">SEU PRÓXIMO PROJETO COMEÇA AQUI</p><h2>Vamos conversar<br/><em>sobre seu projeto?</em></h2><Action href={contact.whatsapp} external>Converse com a Equipe Delumo</Action><p className="cta-contact"><a href="tel:+5554981302517">{contact.phone}</a><a href={`mailto:${contact.email}`}>{contact.email}</a></p><div className="cta-down"><ArrowDown size={24}/></div></div></section>;
 }
 
 export function Footer() {

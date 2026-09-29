@@ -1,8 +1,8 @@
 export const contact = {
-  name: 'Guto da Luz',
+  name: 'Equipe Delumo',
   phone: '(54) 98130-2517',
   email: 'agenciadelumo@gmail.com',
-  whatsapp: 'https://wa.me/5554981302517?text=Ol%C3%A1%2C%20Guto!%20Quero%20conversar%20sobre%20um%20projeto%20com%20a%20Delumo.',
+  whatsapp: 'https://wa.me/5554981302517?text=Ol%C3%A1%2C%20equipe%20Delumo!%20Quero%20conversar%20sobre%20um%20projeto%20com%20a%20Delumo.',
   address: 'Rua Anita Garibaldi, 1473, Bela Vista, Erechim, RS',
 };
 
