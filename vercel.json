@@ -17,6 +17,14 @@
   ],
   "rewrites": [
     {
+      "source": "/aprender",
+      "destination": "https://treinador-ecru.vercel.app/aprender"
+    },
+    {
+      "source": "/aprender/:path*",
+      "destination": "https://treinador-ecru.vercel.app/aprender/:path*"
+    },
+    {
       "source": "/gestor/",
       "destination": "https://delumo-gestor.vercel.app/gestor"
     },

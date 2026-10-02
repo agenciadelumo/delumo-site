@@ -72,13 +72,23 @@ test('main pages and shared training image exist', async () => {
   assert.ok((await stat(new URL('media/immersive-team.webp', exported))).size < 200_000);
 });
 
-test('standalone proposal, tour and training routes remain unchanged', async () => {
-  for (const route of ['propostadayro/index.html', 'erechim/index.html', 'aprender/index.html']) {
+test('standalone proposals and tours retain their published content', async () => {
+  for (const route of ['propostadayro/index.html', 'erechim/index.html']) {
     const source = await readFile(new URL(`../${route}`, import.meta.url));
     const output = await readFile(new URL(route, exported));
     assert.deepEqual(output, source, route);
   }
   await assert.rejects(readFile(new URL('treinador/index.html', exported)), { code: 'ENOENT' });
+});
+
+test('Aprender authentication and resources share the Delumo origin through the application proxy', async () => {
+  const config=JSON.parse(await readFile(new URL('../vercel.json',import.meta.url),'utf8'));
+  assert.deepEqual(config.rewrites.filter(rule=>rule.source.startsWith('/aprender')), [
+    {source:'/aprender',destination:'https://treinador-ecru.vercel.app/aprender'},
+    {source:'/aprender/:path*',destination:'https://treinador-ecru.vercel.app/aprender/:path*'},
+  ]);
+  await assert.rejects(readFile(new URL('aprender/index.html',exported)),{code:'ENOENT'});
+  for(const prefix of ['/gestor/','/telegestao/'])assert.ok(config.rewrites.some(rule=>rule.source===prefix));
 });
 
 test('team profiles, refreshed case previews and footer branding are exported', async () => {
