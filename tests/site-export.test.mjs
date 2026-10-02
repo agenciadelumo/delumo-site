@@ -83,6 +83,7 @@ test('standalone proposals and tours retain their published content', async () =
 
 test('Aprender authentication and resources share the Delumo origin through the application proxy', async () => {
   const config=JSON.parse(await readFile(new URL('../vercel.json',import.meta.url),'utf8'));
+  assert.ok(config.redirects.some(rule=>rule.source==='/aprender/'&&rule.destination==='/aprender'));
   assert.deepEqual(config.rewrites.filter(rule=>rule.source.startsWith('/aprender')), [
     {source:'/aprender',destination:'https://treinador-ecru.vercel.app/aprender'},
     {source:'/aprender/:path*',destination:'https://treinador-ecru.vercel.app/aprender/:path*'},
