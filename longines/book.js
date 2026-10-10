@@ -130,6 +130,7 @@
     }finally{
       $('turnSheet').className='turn-sheet';$('turnFront').replaceChildren();$('turnBack').replaceChildren();
       busy=false;$('bookShell').classList.remove('busy');updateUI();buildHotspots();
+      window.dispatchEvent(new CustomEvent('longines:page',{detail:{index:current}}));
       [current-1,current+1].filter(i=>i>=0&&i<pages.length).forEach(i=>getSvg(i).catch(()=>{}));
     }
   }

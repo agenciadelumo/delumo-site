@@ -10,7 +10,7 @@
   <meta property="og:description" content="Brincar, explorar e aprender com a natureza. Conheça a proposta em um livro ilustrado interativo.">
   <meta property="og:image" content="https://www.delumo.com.br/longines/assets/pagina-01.webp"><meta property="og:type" content="website">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="assets/titulo.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="book.css"><script src="pages.js" defer></script><script src="book.js" defer></script>
+  <link rel="stylesheet" href="book.css"><script src="pages.js" defer></script><script src="book.js" defer></script><script src="sound.js" defer></script>
 </head>
 <body>
   <svg class="symbols" aria-hidden="true"><defs>
@@ -23,17 +23,19 @@
     <symbol id="close" viewBox="0 0 24 24"><path d="m5 5 14 14M19 5 5 19"/></symbol>
     <symbol id="zoom" viewBox="0 0 24 24"><circle cx="10" cy="10" r="7"/><path d="m15 15 6 6M6 10h8m-4-4v8"/></symbol>
     <symbol id="star" viewBox="0 0 24 24"><path d="m12 2 3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1Z"/></symbol>
+    <symbol id="sound" viewBox="0 0 24 24"><path d="m11 4-5 4H3v8h3l5 4Zm4 4a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></symbol>
   </defs></svg>
   <a class="skip-link" href="#reader">Ir para o livro</a>
   <div class="ambient" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
   <header class="topbar">
     <a class="delumo" href="https://www.delumo.com.br" aria-label="Visitar o site Delumo"><img src="assets/delumo-branco.svg" alt="Delumo" width="122" height="35"></a>
-    <div class="book-identity"><img src="assets/longines-logo.svg" alt="Longines" width="155" height="32"><small>Brincar, explorar e aprender com a natureza.</small></div>
+    <div class="book-identity"><img src="assets/longines-logo.svg" alt="Longines" width="200" height="48"><small><span>Brincar, explorar e aprender</span><span>com a natureza.</span></small></div>
     <nav class="tools" aria-label="Ferramentas do livro">
       <button id="indexButton" aria-label="Abrir índice" title="Índice (I)"><svg><use href="#book"/></svg><span>Índice</span></button>
       <button id="readButton" aria-label="Ler texto da página" title="Ler texto"><svg><use href="#read"/></svg></button>
       <button id="zoomButton" aria-label="Ampliar página" title="Ampliar"><svg><use href="#zoom"/></svg></button>
       <button id="fullscreenButton" aria-label="Entrar em tela cheia" title="Tela cheia (F)"><svg><use href="#expand"/></svg></button>
+      <button id="soundButton" aria-label="Som da aventura" title="Som da aventura"><svg><use href="#sound"/></svg></button>
       <a href="Longines_Uma_Aventura_na_Natureza.pdf" download aria-label="Baixar proposta em PDF" title="Baixar PDF"><svg><use href="#download"/></svg></a>
     </nav>
   </header>
@@ -58,8 +60,11 @@
     <p class="sr-only" id="announcement" aria-live="polite" aria-atomic="true"></p>
     <noscript><p class="fallback-message">Ative o JavaScript para virar as páginas, ou <a href="Longines_Uma_Aventura_na_Natureza.pdf">abra a proposta ilustrada em PDF</a>.</p></noscript>
   </main>
+  <footer class="institutional-footer" aria-label="Referência institucional"><svg aria-hidden="true"><use href="#leaf"/></svg><strong>Parque Natural Municipal Longines Malinowski</strong><span>Secretaria Municipal de Cultura, Esporte e Economia Criativa</span><span>Prefeitura Municipal de Erechim — RS</span></footer>
   <dialog id="indexDialog" class="index-dialog"><div class="dialog-head"><div><span class="eyebrow">ESCOLHA SUA DESCOBERTA</span><h2>O mapa deste livro.</h2></div><button class="dialog-close" aria-label="Fechar índice"><svg><use href="#close"/></svg></button></div><div class="thumbnail-grid" id="thumbnails"></div></dialog>
   <dialog id="readDialog" class="read-dialog"><div class="dialog-head"><div><span class="eyebrow">LEITURA DO CONTEÚDO</span><h2 id="readTitle"></h2></div><button class="dialog-close" aria-label="Fechar leitura"><svg><use href="#close"/></svg></button></div><div id="readText"></div></dialog>
   <dialog id="zoomDialog" class="zoom-dialog"><div class="dialog-head"><div><span class="eyebrow">OLHE MAIS DE PERTO</span><h2 id="zoomTitle"></h2></div><button class="dialog-close" aria-label="Fechar ampliação"><svg><use href="#close"/></svg></button></div><div id="zoomContent"></div><p class="zoom-hint">Role para explorar a página ampliada.</p></dialog>
   <dialog id="detailDialog" class="detail-dialog"><div class="dialog-head"><div><span class="eyebrow">UMA NOVA DESCOBERTA</span><h2 id="detailTitle"></h2></div><button class="dialog-close" aria-label="Fechar descoberta"><svg><use href="#close"/></svg></button></div><div class="discovery-star" aria-hidden="true"><svg><use href="#star"/></svg></div><p id="detailText"></p><button class="detail-ok">Continuar a aventura <span aria-hidden="true">→</span></button></dialog>
+  <dialog id="soundDialog" class="sound-dialog"><div class="dialog-head"><div><span class="eyebrow">ESCUTE A AVENTURA</span><h2>A floresta também tem som.</h2></div><button class="dialog-close" aria-label="Fechar som"><svg><use href="#close"/></svg></button></div><p>Uma trilha suave, com notas de aventura e uma atmosfera de floresta, para acompanhar suas descobertas.</p><button id="musicToggle" class="detail-ok" aria-pressed="false">Ouvir a trilha</button><label class="volume-label" for="musicVolume">Volume da trilha <output id="volumeValue" for="musicVolume">15%</output></label><input id="musicVolume" type="range" min="0" max="100" value="15" step="1"><div id="narrationControls" hidden><button id="narrationToggle" class="detail-ok" aria-pressed="false">Ouvir a tatu-bola</button><p>A música fica mais baixinha enquanto sua companheira fala.</p></div><p id="soundStatus" class="sound-status" aria-live="polite">O som começa apenas quando você escolhe ouvir.</p></dialog>
+  <audio id="forestMusic" src="assets/floresta-aventura.mp3" preload="none" loop></audio><audio id="mascotVoice" preload="none"></audio>
 </body></html>

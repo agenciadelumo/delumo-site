@@ -31,7 +31,7 @@ test('all 15 published pages keep their illustrations, readable content and work
 });
 
 test('the public folder contains the reader, logo, typeface and downloadable proposal', async () => {
-  for (const file of ['index.html','book.js','book.css','pages.js','assets/longines-logo.svg','assets/titulo.ttf','Longines_Uma_Aventura_na_Natureza.pdf']) {
+  for (const file of ['index.html','book.js','book.css','sound.js','narration.json','pages.js','assets/floresta-aventura.mp3','assets/longines-logo.svg','assets/longines-logo-com-slogan.svg','assets/titulo.ttf','Longines_Uma_Aventura_na_Natureza.pdf']) {
     assert.deepEqual(await readFile(new URL(file, output)), await readFile(new URL(file, source)), file);
   }
   const html = await readFile(new URL('index.html', output), 'utf8');
