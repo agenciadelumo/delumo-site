@@ -9,3 +9,15 @@
 .page-dots{gap:0}.page-dots button{width:22px;height:30px;margin:0;background:transparent;border-radius:0}.page-dots button:before{inset:11px 7px;border-radius:8px;background:#63866e}.page-dots button.active{width:36px;background:transparent}.page-dots button.active:before{inset:11px 5px;background:var(--lime)}.page-dots button:hover{background:transparent}.page-dots button:hover:before{background:var(--orange)}
 @media(max-width:640px){.page-dots button{width:20px}.page-dots button:before{inset:11px 6px}.page-dots button.active{width:34px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.turn-sheet{display:none!important}}
+
+
+
+/* longines-brand-20261010 */
+.book-identity .brand-logo,.book-identity>img{display:block;width:200px;height:auto;max-width:100%;overflow:visible}
+.institutional-footer{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;text-align:left;gap:24px}
+.institutional-credit{display:flex;flex-direction:column;gap:3px;min-width:0}
+.footer-delumo{display:block;justify-self:end;line-height:0}
+.footer-delumo img{width:122px;height:auto;max-width:100%}
+.adventure-tagline{text-align:center;font-family:Longines,sans-serif;color:var(--lime);font-size:15px;margin:20px 18px 8px}
+@media(max-width:640px){.institutional-footer{gap:15px;padding-inline:18px;font-size:10px}.institutional-footer strong{font-size:12px}.footer-delumo img{width:85px}.adventure-tagline{font-size:13px}}
+/* end-longines-brand-20261010 */

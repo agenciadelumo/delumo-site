@@ -1,7 +1,7 @@
 'use strict';
 (() => {
   const pages=window.LONGINES_PAGES, $=id=>document.getElementById(id), cache=new Map();
-  fetch('assets/longines-logo.svg').then(response=>response.ok?response.text():Promise.reject()).then(raw=>{
+  fetch('assets/longines-logo-com-slogan.svg').then(response=>response.ok?response.text():Promise.reject()).then(raw=>{
     const doc=new DOMParser().parseFromString(raw,'image/svg+xml');
     if(doc.querySelector('parsererror'))return;
     doc.querySelectorAll('script,foreignObject').forEach(el=>el.remove());
