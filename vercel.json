@@ -45,5 +45,34 @@
       "source": "/telegestao/:path*",
       "destination": "https://telemetria-olive.vercel.app/:path*"
     }
+  ],
+  "headers": [
+    {
+      "source": "/gamelongines/Build/Web.wasm",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/wasm"
+        }
+      ]
+    },
+    {
+      "source": "/gamelongines/Build/Web.data",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/octet-stream"
+        }
+      ]
+    },
+    {
+      "source": "/gamelongines/downloads/:path*",
+      "headers": [
+        {
+          "key": "Content-Disposition",
+          "value": "attachment"
+        }
+      ]
+    }
   ]
 }
