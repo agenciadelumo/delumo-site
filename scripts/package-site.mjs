@@ -11,9 +11,11 @@ await mkdir(output, { recursive: true });
 // Gestor and Aprender are served by their Next.js applications through Vercel rewrites.
 // Keep the historical source folder, but do not publish its static export.
 const legacyDirectories = ['assets', 'blog', 'bora', 'cases', 'convite', 'erechim', 'imersao', 'propostadayro', 'propostaunimed', 'redelius', 'propostacastelinho', 'orcamentocastelinho', 'propostaerbs', 'propostaerbsrh', 'propostav3t', 'propostavandanamotos', 'servicos', 'aratiba_taverna', 'longines', 'gamelongines'];
+// Executable installers are published as GitHub Releases, never from the site itself.
+const excluded = source => /[\\/]downloads([\\/]|$)/.test(path.relative(root, source)) || /\.(zip|exe|msi|apk|rar|7z|dmg)$/i.test(source);
 const existing = new Set((await readdir(root, { withFileTypes: true })).map(item => item.name));
 for (const name of legacyDirectories) {
-  if (existing.has(name)) await cp(path.join(root, name), path.join(output, name), { recursive: true });
+  if (existing.has(name)) await cp(path.join(root, name), path.join(output, name), { recursive: true, filter: source => !excluded(source) });
 }
 for (const name of ['robots.txt', 'sitemap.xml']) {
   if (existing.has(name)) await cp(path.join(root, name), path.join(output, name));

@@ -1,0 +1,7 @@
+# Delumo — 64.535.022 SUELEN DA VEIGA — CNPJ 64.535.022/0001-39
+# Para relatar uma vulnerabilidade ou um uso indevido do nome Delumo, escreva para o contato abaixo.
+Contact: mailto:agenciadelumo@gmail.com
+Expires: 2027-10-14T00:00:00.000Z
+Preferred-Languages: pt-BR, en
+Canonical: https://www.delumo.com.br/.well-known/security.txt
+Policy: https://www.delumo.com.br/privacidade

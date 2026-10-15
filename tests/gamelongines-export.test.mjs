@@ -15,12 +15,11 @@ test('game assets resolve at the requested URL with or without a trailing slash'
  const binary=await readFile(new URL('dist/gamelongines/Build/Web.wasm',root));
  assert.deepEqual([...binary.subarray(0,4)],[0,97,115,109]);
 });
-test('Windows package and proposal link remain available beside the web game',async()=>{
- const zip=await stat(new URL('dist/gamelongines/downloads/Longines-Windows.zip',root));
- assert.ok(zip.size>80_000_000&&zip.size<100_000_000);
+test('Windows package is served from GitHub Releases, not from the site',async()=>{
+ await assert.rejects(stat(new URL('dist/gamelongines/downloads/Longines-Windows.zip',root)));
  const game=await readFile(new URL('dist/gamelongines/index.html',root),'utf8');
  const book=await readFile(new URL('dist/longines/index.html',root),'utf8');
- assert.ok(game.includes('downloads/Longines-Windows.zip'));
+ assert.ok(game.includes('https://github.com/agenciadelumo/delumo-site/releases/download/longines-windows-0.1.0/Longines-Windows.zip'));
  assert.ok(game.includes('https://www.delumo.com.br/longines/#pagina-1'));
  assert.ok(book.includes('href="/gamelongines"'));
  const config=JSON.parse(await readFile(new URL('vercel.json',root),'utf8'));

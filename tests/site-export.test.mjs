@@ -46,13 +46,17 @@ test('all six solutions have detail pages and a contextual contact path', async 
   }
 });
 
-test('homepage keeps the covers, RH, platform and protected demonstrations without training examples', async () => {
+test('homepage keeps the covers, RH, platform and on-request demonstrations without training examples', async () => {
   const page = await html('index.html');
-  for (const text of ['hero-carousel', 'immersive-team.webp', 'Soluções para RH', 'Integração com ERP e RH', 'Metodologias de aprendizagem', 'Ver exemplos e formatos de treinamento', 'demo-dialog-title']) {
+  for (const text of ['hero-carousel', 'immersive-team.webp', 'Soluções para RH', 'Integração com ERP e RH', 'Metodologias de aprendizagem', 'Ver exemplos e formatos de treinamento', 'Demonstração sob solicitação']) {
     assert.ok(page.includes(text), `Missing ${text}`);
   }
   for (const videoId of ['XFXbMmj8w0E', 'OYASF7Wgz-s']) assert.ok(!page.includes(videoId));
   for (const label of ['Conveniência', 'Bar A/B', 'Bar C/D', 'Padaria', 'Adega', 'Mercado']) assert.ok(page.includes(label));
+  // No password fields or embedded credentials on the public site (anti-phishing heuristics).
+  assert.ok(!/type="password"/.test(page));
+  assert.ok(!page.includes('Delumo@123'));
+  assert.ok(page.includes('wa.me/5554981302517'));
   assert.ok(!page.includes('class="field-gallery"'));
   assert.ok(!page.includes('class="about-teaser"'));
   for (const excluded of ['TreinaGente', 'incubadora', 'PRÊMIO ASSIDUIDADE']) assert.ok(!page.includes(excluded));
@@ -151,4 +155,13 @@ test('team profile omits the founder portrait, Elen and private resume details',
   for (const text of ['Suélen da Veiga', 'Eduardo Vargas', 'Guto Luz', 'EQUIPE DELUMO', 'Engenharia de software', 'Design 3D', 'Arquitetura e espaços', 'Desenvolvimento de games']) assert.ok(page.includes(text));
   for (const text of ['Elen Caren Farina', 'Guto da Luz', 'QUEM SOU']) assert.ok(!page.includes(text));
   for (const text of ['Antônio Augusto da Luz', '29/07/1983', 'antonioaugustodaluz83', 'Incerti', 'Hidroluz', 'Vitano']) assert.ok(!page.includes(text));
+});
+
+test('privacy policy and terms identify the controller (LGPD) and are linked in the footer', async () => {
+  const privacy = await html('privacidade.html');
+  for (const text of ['64.535.022/0001-39', '64.535.022 SUELEN DA VEIGA', 'Antônio Augusto da Luz', 'art. 18', 'ANPD', '99704-058']) assert.ok(privacy.includes(text), `Missing ${text}`);
+  const terms = await html('termos.html');
+  assert.ok(terms.includes('64.535.022/0001-39'));
+  const home = await html('index.html');
+  assert.ok(home.includes('href="/termos"') && home.includes('href="/privacidade"'));
 });

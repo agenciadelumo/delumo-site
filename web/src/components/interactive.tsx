@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import type { Swiper as SwiperInstance } from 'swiper';
-import { ArrowRight, ArrowUpRight, Check, Eye, EyeOff, LockKeyhole, Play, Sparkles, X } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Check, Play, Sparkles, X } from 'lucide-react';
 import { useMotion } from './motion';
 import { Icon } from './brand';
 import { contact, primarySolutions, solutions, trainingGroups } from '@/data/content';
@@ -43,28 +43,12 @@ export function VideoPlayer({ id, poster, title }: { id: string; poster: string;
   return <div className="video-player" ref={container}>{playing ? <><iframe src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1&controls=1`} title={title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowFullScreen referrerPolicy="strict-origin-when-cross-origin"/><button className="video-close icon-button" onClick={() => setPlaying(false)} aria-label={`Fechar vídeo: ${title}`} title="Fechar vídeo"><X size={18}/></button></> : <button className="video-cover" onClick={() => setPlaying(true)} aria-label={`Reproduzir vídeo: ${title}`}><img src={poster} alt={title} width="1280" height="720" loading="lazy"/><span className="play-button"><Play size={26} fill="currentColor"/></span><span className="video-caption">{title}<span>Assistir <ArrowUpRight size={15}/></span></span></button>}</div>;
 }
 
-const tours = [
-  ['Conveniência','conveniencia-ok'], ['Bar A/B','bar-ab-correto'], ['Bar C/D','bar-cd-correto'],
-  ['Padaria','padaria-correto'], ['Adega','adega-ok'], ['Mercado','mercado-certo'],
-];
+const tours = ['Conveniência','Bar A/B','Bar C/D','Padaria','Adega','Mercado'];
+const demoRequest = (tour: string) => `https://wa.me/5554981302517?text=${encodeURIComponent(`Olá, equipe Delumo! Quero agendar uma demonstração do MetaTrade (ambiente ${tour}).`)}`;
 
+/** Demonstração sob solicitação: o acesso é enviado pela equipe, sem senha no site. */
 export function DemoGate() {
-  const [selected,setSelected] = useState<number | null>(null);
-  const [password,setPassword] = useState('');
-  const [visible,setVisible] = useState(false);
-  const [error,setError] = useState('');
-  const [authorized,setAuthorized] = useState(false);
-  const dialog = useRef<HTMLDialogElement>(null);
-  useEffect(() => { if (selected === null) { dialog.current?.close(); return; } setPassword('');setError('');setVisible(false);setAuthorized(false);dialog.current?.showModal(); },[selected]);
-  function submit(event: FormEvent) {
-    event.preventDefault();
-    // Presentation-only gate retained from the previous static site; not server authentication.
-    if (password !== 'Delumo@123') {setError('Senha incorreta. Confira e tente novamente.');return;}
-    setAuthorized(true);setError('');
-    const popup = window.open(`https://meutour360.com/tour-360/${tours[selected!][1]}`,'_blank','noopener,noreferrer');
-    void popup;
-  }
-  return <div className="demo-gate"><div className="demo-heading"><strong>Explore os 6 ambientes</strong><span><LockKeyhole size={14}/> Demonstração com senha</span></div><div className="tour-grid">{tours.map(([title],i) => <button key={title} onClick={() => setSelected(i)}><span>{title}</span><LockKeyhole size={16}/></button>)}</div><dialog className="demo-dialog" aria-labelledby="demo-dialog-title" ref={dialog} onCancel={() => setSelected(null)} onClick={event => {if(event.target===dialog.current)setSelected(null);}}><div className="dialog-content"><button className="icon-button dialog-close" onClick={() => setSelected(null)} aria-label="Fechar demonstração"><X/></button><span className="dialog-symbol"><LockKeyhole size={28}/></span><p className="eyebrow">METATRADE {selected !== null ? `/ ${tours[selected][0]}` : ''}</p><h2 id="demo-dialog-title">SOLICITE A SENHA DE DEMONSTRAÇÃO</h2>{authorized ? <div className="demo-success"><p><Check size={20}/> Acesso liberado.</p><a className="action" href={`https://meutour360.com/tour-360/${tours[selected!][1]}`} target="_blank" rel="noopener noreferrer">Abrir ambiente <ArrowUpRight size={18}/></a></div> : <><p>Recebeu a senha? Informe abaixo para acessar este ambiente.</p><form onSubmit={submit}><label htmlFor="demo-password">Senha de demonstração</label><div className="password-input"><input id="demo-password" type={visible ? 'text' : 'password'} value={password} onChange={event => {setPassword(event.target.value);setError('');}} required autoComplete="off" autoFocus aria-invalid={!!error} aria-describedby={error ? 'demo-error' : undefined}/><button type="button" className="icon-button" onClick={() => setVisible(!visible)} aria-label={visible ? 'Ocultar senha' : 'Mostrar senha'}>{visible ? <EyeOff size={20}/> : <Eye size={20}/>}</button></div>{error && <p id="demo-error" className="form-error" role="alert">{error}</p>}<button className="action" type="submit">Acessar demonstração <ArrowRight size={18}/></button></form><a className="request-password" href="https://wa.me/5554981302517?text=Ol%C3%A1%2C%20equipe%20Delumo!%20Quero%20solicitar%20a%20senha%20de%20demonstra%C3%A7%C3%A3o%20do%20MetaTrade." target="_blank" rel="noopener noreferrer">Solicitar a senha com a Equipe Delumo <ArrowUpRight size={16}/></a></>}</div></dialog></div>;
+  return <div className="demo-gate"><div className="demo-heading"><strong>Explore os 6 ambientes</strong><span>Demonstração sob solicitação</span></div><div className="tour-grid">{tours.map(title => <a key={title} href={demoRequest(title)} target="_blank" rel="noopener noreferrer" aria-label={`Solicitar demonstração do ambiente ${title} pelo WhatsApp`}><span>{title}</span><ArrowUpRight size={16}/></a>)}</div><p className="demo-note">A equipe Delumo envia o acesso à demonstração pelo WhatsApp.</p></div>;
 }
 
 export function ContactForm() {
@@ -85,7 +69,7 @@ export function ContactForm() {
     <div className="form-row"><div><label htmlFor="contact-name">Seu nome</label><input id="contact-name" name="name" autoComplete="name" required maxLength={100}/></div><div><label htmlFor="contact-company">Empresa <span className="optional-field">(opcional)</span></label><input id="contact-company" name="company" autoComplete="organization" maxLength={150}/></div></div>
     <label htmlFor="contact-solution">Solução de interesse</label><select id="contact-solution" name="solution" value={solution} onChange={event=>setSolution(event.target.value)}><option value="">Ainda não sei qual solução escolher</option>{primarySolutions.map(item=><option key={item.slug} value={item.slug}>{item.name}</option>)}</select>
     <label htmlFor="contact-message">O que sua empresa precisa?</label><textarea id="contact-message" name="message" rows={4} placeholder="Conte o objetivo, o público e os materiais que você já tem." required maxLength={2500}/>
-    <button className="action" type="submit">Continuar no WhatsApp <ArrowUpRight size={19}/></button>
+    <button className="action" type="submit">Continuar no WhatsApp <ArrowUpRight size={19}/></button><p className="form-privacy">Os dados preenchidos não são armazenados pelo site: eles apenas montam a mensagem que você envia pelo WhatsApp. Saiba mais na <a href="/privacidade">Política de Privacidade</a>.</p>
     {prepared && <p className="contact-feedback" role="status">Mensagem preparada. <a href={prepared} target="_blank" rel="noopener noreferrer">Abrir conversa no WhatsApp</a></p>}
     <p className="form-note">A mensagem será aberta no WhatsApp para você conferir e enviar. O site não armazena os dados deste formulário.</p>
   </form>;

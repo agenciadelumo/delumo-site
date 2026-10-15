@@ -1,4 +1,5 @@
 import { ArrowDown, ArrowUpRight, Check, Plus } from 'lucide-react';
+import { legal } from '@/data/legal';
 import { Action, Icon, Logo, SectionHeading } from './brand';
 import { DemoGate, LearningPaths, VideoPlayer } from './interactive';
 import { clientBrands, contact, faq, methods, process, primarySolutions, websiteCases } from '@/data/content';
@@ -77,7 +78,7 @@ export function ContactCTA() {
 }
 
 export function Footer() {
-  return <footer className="site-footer"><div className="container"><div className="footer-top"><div><a href="/" aria-label="Delumo, início"><Logo/></a><p>Conhecimento, tecnologia<br/>e experiências para evoluir.</p></div><nav aria-label="Soluções no rodapé"><h3>Soluções</h3>{primarySolutions.map(item=><a href={`/solucoes/${item.slug}`} key={item.slug}>{item.name}</a>)}</nav><nav aria-label="Empresa no rodapé"><h3>Delumo</h3><a href="/sobre">Quem somos</a><a href="/projetos">Projetos</a><a href="/contato">Contato</a><a href="/privacidade">Privacidade</a></nav><div className="footer-contact"><h3>Vamos conversar</h3><a href={contact.whatsapp} target="_blank" rel="noopener noreferrer">{contact.name}<br/>{contact.phone}<ArrowUpRight size={18}/></a><a href={`mailto:${contact.email}`}>{contact.email}</a><p>Rua Anita Garibaldi, 1473<br/>Bela Vista, Erechim, RS</p></div></div>
+  return <footer className="site-footer"><div className="container"><div className="footer-top"><div><a href="/" aria-label="Delumo, início"><Logo/></a><p>Conhecimento, tecnologia<br/>e experiências para evoluir.</p></div><nav aria-label="Soluções no rodapé"><h3>Soluções</h3>{primarySolutions.map(item=><a href={`/solucoes/${item.slug}`} key={item.slug}>{item.name}</a>)}</nav><nav aria-label="Empresa no rodapé"><h3>Delumo</h3><a href="/sobre">Quem somos</a><a href="/projetos">Projetos</a><a href="/contato">Contato</a><a href="/privacidade">Privacidade</a><a href="/termos">Termos de uso</a></nav><div className="footer-contact"><h3>Vamos conversar</h3><a href={contact.whatsapp} target="_blank" rel="noopener noreferrer">{contact.name}<br/>{contact.phone}<ArrowUpRight size={18}/></a><a href={`mailto:${contact.email}`}>{contact.email}</a><p>Rua Anita Garibaldi, 1473<br/>Bela Vista, Erechim, RS</p></div></div>
     <div className="powered"><span>POWERED</span><div className="powered-logo"><Logo/><div className="powered-logo-fill" aria-hidden="true"><Logo/></div></div></div>
-    <div className="footer-bottom"><span>© {new Date().getFullYear()} Delumo. Todos os direitos reservados.</span><span>Treinar. Jogar. Evoluir.</span><a href="#top">Voltar ao topo <ArrowUpRight size={16}/></a></div></div></footer>;
+    <div className="footer-bottom"><span>© {new Date().getFullYear()} Delumo. Todos os direitos reservados.<small className="legal-id">{legal.company} · CNPJ {legal.cnpj}</small></span><span>Treinar. Jogar. Evoluir.</span><a href="#top">Voltar ao topo <ArrowUpRight size={16}/></a></div></div></footer>;
 }

@@ -249,7 +249,7 @@ section[id], details[id], .solution-list[id] { scroll-margin-top: 0; }
   .inline-checks li { padding: 7px 9px; }
   .demo-heading { align-items: flex-start; font-size: .9rem; }
   .demo-heading>span { font-size: .75rem; }
-  .tour-grid button { font-size: .9rem; min-height: 48px; }
+  .tour-grid a, .tour-grid button { font-size: .9rem; min-height: 48px; }
   .dialog-content { padding: 30px 22px; }
   .dialog-symbol { margin-bottom: 20px; }
   .dialog-content h2 { font-size: 1.45rem; }
