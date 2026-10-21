@@ -1,0 +1,754 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Apresentação Delumo</title>
+<meta name="description" content="Apresentação de 7 minutos da Delumo: treinamentos, games e plataformas sob medida.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:wght@400..700&display=swap">
+<meta property="og:title" content="Apresentação Delumo">
+<meta property="og:description" content="Treinamentos, games e plataformas sob medida. Treinar. Jogar. Evoluir.">
+<meta property="og:image" content="https://www.delumo.com.br/apresentacao/capa-poster.jpg">
+<meta name="theme-color" content="#06130D">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='3152.875 -698.125 736.25 736.25'><path fill='%23A8FF0A' d='M3822.6 -118.9A368.1 368.1 0 0 1 3186.7 -484.2A47.5 47.5 0 0 1 3273 -444.4A273.1 273.1 0 0 0 3744.7 -173.3A47.5 47.5 0 0 1 3822.6 -118.9ZM3307.1 -629.6A368.1 368.1 0 0 1 3888.9 -318.4A47.5 47.5 0 0 1 3794 -321.4A273.1 273.1 0 0 0 3362.3 -552.3A47.5 47.5 0 0 1 3307.1 -629.6ZM3298.8 -369.2A225.6 225.6 0 0 1 3746.2 -344.4A41.6 41.6 0 0 1 3663.2 -339.1A142.5 142.5 0 0 0 3380.7 -354.7A41.6 41.6 0 0 1 3298.8 -369.2ZM3692.1 -182.9A225.6 225.6 0 0 1 3338 -198A41.6 41.6 0 0 1 3405.4 -246.6A142.5 142.5 0 0 0 3629 -237.1A41.6 41.6 0 0 1 3692.1 -182.9ZM3537.5 -236.4A95 95 0 1 1 3605 -374.5A35.6 35.6 0 0 1 3542 -341.1A23.8 23.8 0 1 0 3525.1 -306.6A35.6 35.6 0 0 1 3537.5 -236.4Z'/></svg>">
+<style>/* Palco 1920×1080 escalado para caber na janela; slides alternam Noite (Ink) e Dia (Paper), como o PDF de serviços. */
+:root {
+  --ink: #06130D; --ink-2: #0B2117; --ink-line: #1F3A2B; --ink-strong: #36594A;
+  --paper: #F4F7F4; --paper-2: #FFFFFF; --paper-line: #D8E0DA;
+  --verde: #A8FF0A; --verde-dia: #397600;
+  --muted-n: #A9B9B0; --muted-d: #607067;
+  --treinar: #A8FF0A; --jogar: #FFB020; --imergir: #3DE1DD; --evoluir: #B8A6FF;
+  --treinar-d: #397600; --jogar-d: #8A5A00; --imergir-d: #0B6F6C; --evoluir-d: #5B3FD1;
+  --display: 'Bricolage Grotesque', 'Figtree', ui-sans-serif, system-ui, sans-serif;
+  --body: 'Figtree', ui-sans-serif, system-ui, 'Segoe UI', sans-serif;
+  color-scheme: dark;
+}
+[hidden] { display: none !important; }
+html, body { height: 100%; margin: 0; background: var(--ink); color: #fff; overflow: hidden; }
+body { font-family: var(--body); -webkit-font-smoothing: antialiased; }
+#app { position: fixed; inset: 0; }
+#app.idle, #app.idle * { cursor: none !important; }
+#viewport { position: absolute; inset: 0; overflow: hidden; background: var(--ink); }
+#stage { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; transform-origin: 50% 50%;
+  transform: translate(-50%, -50%) scale(.5); font-family: var(--body); }
+
+/* ───────── base dos slides ───────── */
+.slide { position: absolute; inset: 0; box-sizing: border-box; width: 1920px; height: 1080px; padding: 84px 104px 120px;
+  display: flex; flex-direction: column; overflow: hidden; }
+.slide * { box-sizing: border-box; }
+.slide h2, .slide h3, .slide h4, .slide p, .slide ul, .slide ol, .slide figure { margin: 0; }
+.slide ul, .slide ol { list-style: none; padding: 0; }
+.slide img { display: block; max-width: none; }
+.noite { background: var(--ink); color: #fff; --brand: var(--verde); --muted: var(--muted-n); --line: var(--ink-line); --raised: var(--ink-2); }
+.dia { background: var(--paper); color: var(--ink); --brand: var(--verde-dia); --muted: var(--muted-d); --line: var(--paper-line); --raised: var(--paper-2); }
+.notes { display: none; }
+.eb { font: 700 19px/1.2 var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--brand); display: flex; align-items: center; }
+.hd h2 { font: 700 76px/1.02 var(--display); letter-spacing: -.025em; margin-top: 16px; text-wrap: balance; }
+.sub { font: 400 28px/1.4 var(--body); color: var(--muted); margin-top: 18px; max-width: 1100px; }
+.tx { font: 400 25px/1.5 var(--body); color: var(--muted); }
+.foot { position: absolute; left: 104px; right: 104px; bottom: 44px; display: flex; justify-content: space-between;
+  font: 600 17px/1 var(--body); letter-spacing: .04em; color: var(--muted); font-variant-numeric: tabular-nums; }
+.ph { border-radius: 24px; overflow: hidden; position: relative; background: var(--line); }
+.ph img { width: 100%; height: 100%; object-fit: cover; }
+.ph figcaption { position: absolute; left: 16px; bottom: 14px; font: 600 15px/1 var(--body); color: #fff;
+  background: rgba(6, 19, 13, .7); padding: 8px 12px; border-radius: 999px; }
+.chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+.chip { font: 600 17px/1 var(--body); padding: 9px 15px; border-radius: 999px; border: 1.5px solid var(--line); color: inherit; }
+.noite .chip { border-color: var(--ink-strong); color: #DDE7E1; }
+.dia .chip { border-color: #B9C6BE; color: #23342B; }
+.dot { width: 14px; height: 14px; border-radius: 50%; display: inline-block; margin-right: 14px; flex: none; }
+.dot.p-imergir { background: var(--imergir); } .dot.p-jogar { background: var(--jogar); }
+.dia .dot.p-imergir { background: var(--imergir-d); } .dia .dot.p-jogar { background: var(--jogar-d); }
+.lk { display: inline-flex; align-items: center; gap: 10px; margin-top: 30px; font: 700 20px/1 var(--body); color: var(--brand); text-decoration: none; }
+.lk:hover, .av a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.url { display: inline-flex; align-items: center; gap: 10px; font: 600 19px/1 var(--body); color: var(--brand); margin-top: 26px; }
+.deco { position: absolute; pointer-events: none; }
+.deco-tr { width: 820px; right: -300px; top: -330px; }
+
+/* moldura de navegador */
+.frame { border-radius: 18px; overflow: hidden; border: 1px solid var(--line); background: var(--raised); box-shadow: 0 30px 80px rgba(0, 0, 0, .35); }
+.frame .bar { height: 44px; display: flex; align-items: center; gap: 8px; padding: 0 18px; background: #10281C; }
+.frame .bar i { width: 12px; height: 12px; border-radius: 50%; background: #2E4A3B; }
+.frame .bar span { margin-left: 14px; padding: 7px 16px; border-radius: 999px; background: rgba(255, 255, 255, .07); font: 500 15px/1 var(--body); color: var(--muted-n); }
+.frame img { width: 100%; height: auto; }
+.dia .frame { box-shadow: 0 30px 70px rgba(6, 19, 13, .18); }
+.dia .frame .bar { background: #E3E9E5; }
+.dia .frame .bar i { background: #C3CEC7; }
+.dia .frame .bar span { background: #fff; color: var(--muted-d); }
+.dia .frame.dark { border-color: #0B2117; }
+
+/* ───────── 1 · capa ───────── */
+.capa { padding: 0; }
+.cv-top, .cv-bot { height: 128px; display: flex; align-items: center; justify-content: space-between; padding: 0 104px; }
+.cv-top span { font: 600 18px/1 var(--body); letter-spacing: .06em; color: var(--muted-n); }
+.cv-video { position: relative; height: 824px; background: #000; }
+.cv-video video { width: 1920px; height: 824px; display: block; object-fit: cover; }
+.cv-end { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: rgba(6, 19, 13, .8); opacity: 0; transition: opacity .9s ease; pointer-events: none; }
+.capa.ended .cv-end { opacity: 1; }
+.cv-tag { font: 700 78px/1 var(--display); letter-spacing: -.02em; margin-top: 46px; }
+.cv-tag em, .cv-bot em { font-style: normal; color: var(--verde); }
+.cv-sub { font: 400 30px/1.3 var(--body); color: var(--muted-n); margin-top: 20px; }
+.cv-bot p { font: 700 40px/1 var(--display); letter-spacing: -.015em; }
+.cv-bot span { font: 500 20px/1 var(--body); color: var(--muted-n); }
+.cv-start { position: absolute; left: 50%; bottom: 70px; transform: translateX(-50%); display: flex; align-items: center; gap: 22px;
+  padding: 16px 40px 16px 16px; border-radius: 999px; border: 0; background: var(--verde); color: var(--ink); cursor: pointer; text-align: left;
+  font-family: var(--body); box-shadow: 0 24px 70px rgba(0, 0, 0, .55); }
+.cv-start b { display: block; font: 700 32px/1.05 var(--body); }
+.cv-start small { display: block; font: 600 17px/1.2 var(--body); opacity: .72; margin-top: 4px; }
+.cv-play { width: 76px; height: 76px; border-radius: 50%; background: var(--ink); color: var(--verde); display: grid; place-items: center; position: relative; }
+.cv-play::after { content: ""; position: absolute; inset: -8px; border-radius: 50%; border: 3px solid var(--ink); opacity: .5; animation: pulse 1.8s ease-out infinite; }
+.cv-start:focus-visible { outline: 4px solid #fff; outline-offset: 6px; }
+@keyframes pulse { from { transform: scale(.9); opacity: .6; } to { transform: scale(1.35); opacity: 0; } }
+
+/* ───────── 2 · desafio ───────── */
+.desafio { display: grid; grid-template-columns: 1fr 820px; gap: 96px; align-items: center; flex: 1; margin-top: 40px; }
+.lead { font: 600 54px/1.08 var(--display); letter-spacing: -.02em; max-width: 760px; text-wrap: balance; }
+.ticks { margin-top: 40px; display: grid; gap: 18px; }
+.ticks li { display: flex; align-items: center; gap: 18px; font: 500 31px/1.2 var(--body); }
+.ticks svg { color: var(--verde-dia); flex: none; }
+.claim { font: 600 33px/1.35 var(--body); margin-top: 48px; max-width: 780px; text-wrap: pretty; }
+.claim b { color: var(--brand); }
+.dz-img { height: 600px; }
+
+/* ───────── 3 · equipe ───────── */
+.team { display: grid; grid-template-columns: repeat(5, 1fr); gap: 22px; margin-top: 46px; position: relative; z-index: 1; }
+.tm { background: var(--ink-2); border: 1px solid var(--ink-line); border-radius: 22px; padding: 30px 28px 32px; display: flex; flex-direction: column; }
+.tm-hd { display: flex; align-items: center; justify-content: space-between; }
+.mono { width: 64px; height: 64px; border-radius: 50%; border: 2px solid var(--verde); color: var(--verde); display: grid; place-items: center;
+  font: 700 24px/1 var(--display); letter-spacing: .02em; }
+.badge { font: 700 14px/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--ink); background: var(--verde); padding: 8px 12px; border-radius: 999px; }
+.tm h3 { font: 700 34px/1.05 var(--display); letter-spacing: -.015em; margin-top: 26px; }
+.tm .role { font: 600 20px/1.3 var(--body); color: var(--verde); margin-top: 8px; }
+.tm .tx { font-size: 20px; line-height: 1.5; margin-top: 18px; flex: 1; }
+.tm .chips { gap: 8px; margin-top: 22px; }
+.tm .chip { font-size: 15.5px; padding: 8px 12px; }
+
+/* ───────── 4 · soluções ───────── */
+.sols { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 24px; flex: 1; align-content: center; }
+.sol .chips { margin-top: 26px; gap: 8px; } .sol .chip { font-size: 16px; padding: 8px 12px; }
+.sol { padding: 0 44px; border-left: 1px solid var(--paper-line); }
+.sol:first-child { padding-left: 0; border-left: 0; }
+.disc { width: 104px; height: 104px; border-radius: 50%; display: grid; place-items: center; color: var(--ink); }
+.p-treinar .disc { background: var(--treinar); } .p-jogar .disc { background: var(--jogar); }
+.p-evoluir .disc { background: var(--evoluir); } .p-imergir .disc { background: var(--imergir); }
+.ptag { font: 700 18px/1 var(--body); letter-spacing: .16em; text-transform: uppercase; margin-top: 36px; }
+.p-treinar .ptag { color: var(--treinar-d); } .p-jogar .ptag { color: var(--jogar-d); }
+.p-evoluir .ptag { color: var(--evoluir-d); } .p-imergir .ptag { color: var(--imergir-d); }
+.sol h3 { font: 700 46px/1.04 var(--display); letter-spacing: -.02em; margin-top: 14px; }
+.sol p.d { font: 400 25px/1.45 var(--body); color: var(--muted-d); margin-top: 20px; }
+.note { font: 500 24px/1.4 var(--body); color: var(--muted-d); border-top: 1px solid var(--paper-line); padding-top: 28px; max-width: 1300px; }
+
+/* ───────── 5 · método ───────── */
+.metodo { display: grid; grid-template-columns: 760px 1fr; gap: 88px; margin-top: 44px; flex: 1; }
+.steps li { display: grid; grid-template-columns: 92px 1fr; padding: 24px 0; border-top: 1px solid var(--ink-line); }
+.steps li:last-child { border-bottom: 1px solid var(--ink-line); }
+.steps .n, .proc .n { font: 700 40px/1 var(--display); color: var(--verde); font-variant-numeric: tabular-nums; }
+.steps h3 { font: 600 34px/1.1 var(--display); letter-spacing: -.01em; }
+.steps p { font: 400 22px/1.45 var(--body); color: var(--muted-n); margin-top: 8px; }
+.plat .ph { height: 466px; }
+.plat-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 32px; }
+.plat-3 h4 { display: flex; align-items: center; gap: 10px; font: 700 22px/1.2 var(--body); }
+.plat-3 svg { color: var(--verde); flex: none; }
+.plat-3 p { font: 400 20px/1.45 var(--body); color: var(--muted-n); margin-top: 10px; }
+
+/* ───────── 6 · avatares ───────── */
+.avs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 24px; flex: 1; align-content: center; }
+.av .ph { aspect-ratio: 16 / 9; }
+.av h3 { font: 700 36px/1.08 var(--display); letter-spacing: -.015em; margin-top: 28px; }
+.av p { font: 400 23px/1.45 var(--body); color: var(--muted-d); margin-top: 10px; }
+.av a { display: inline-flex; align-items: center; gap: 10px; margin-top: 18px; font: 700 19px/1 var(--body); color: var(--verde-dia); text-decoration: none; }
+
+/* ───────── splits (cases e projetos) ───────── */
+.split { display: grid; grid-template-columns: 700px 1fr; gap: 84px; align-items: center; flex: 1; position: relative; z-index: 1; }
+.split.rev { grid-template-columns: 1fr 640px; }
+.split.wide { grid-template-columns: 600px 1fr; gap: 72px; }
+.sp-txt h2 { font: 700 92px/1 var(--display); letter-spacing: -.03em; margin-top: 18px; text-wrap: balance; }
+.sp-txt .h3 { font: 600 38px/1.12 var(--display); letter-spacing: -.015em; margin-top: 16px; text-wrap: balance; }
+.sp-txt .tx { margin-top: 26px; max-width: 640px; }
+.split.wide .sp-txt h2 { font-size: 80px; }
+.stats { display: flex; gap: 56px; margin-top: 38px; }
+.stats b { display: block; font: 800 84px/1 var(--display); letter-spacing: -.03em; color: var(--brand); }
+.stats span { display: block; font: 500 19px/1.35 var(--body); color: var(--muted); margin-top: 10px; max-width: 280px; }
+.stats.sm { margin-top: 30px; }
+.stats.sm b { font-size: 64px; }
+.cred { font: 500 18px/1.4 var(--body); color: var(--muted); margin-top: 34px; }
+.sp-img { position: relative; }
+.mt-img { height: 800px; }
+.mt-img .big { position: absolute; right: 0; top: 0; width: 92%; height: 660px; }
+.mt-img .inset { position: absolute; left: 0; bottom: 0; width: 470px; height: 264px; border: 8px solid var(--ink); border-radius: 26px; }
+.at-img, .ca-img, .av-img { height: 660px; }
+.frame.big { position: absolute; right: 0; top: 0; width: 100%; }
+.at-img .inset2 { position: absolute; left: -48px; bottom: 0; width: 470px; height: 206px; border: 6px solid var(--ink); border-radius: 20px; }
+.frame.inset3 { position: absolute; left: -56px; bottom: 0; width: 520px; border-width: 6px; border-color: var(--ink); }
+.dia .frame.inset3 { border-color: var(--paper); }
+.frame.inset3 .bar { height: 34px; } .frame.inset3 .bar span { font-size: 13px; padding: 5px 12px; }
+.frame.inset3 .bar i { width: 9px; height: 9px; }
+.pnav { position: absolute; top: 84px; right: 104px; display: flex; align-items: center; gap: 10px; z-index: 3; }
+.pnav b { font: 700 15px/1 var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-right: 8px; }
+.pnav span { font: 600 17px/1 var(--body); padding: 9px 16px; border-radius: 999px; border: 1.5px solid var(--line); color: var(--muted); }
+.noite .pnav span { border-color: var(--ink-strong); }
+.pnav span.on { background: var(--verde); border-color: var(--verde); color: var(--ink); }
+.split.wide { margin-top: 40px; }
+
+/* Avante: estádio ao fundo */
+.avante .bg-photo { position: absolute; inset: 0; }
+.avante .bg-photo img { width: 100%; height: 100%; object-fit: cover; opacity: .32; }
+.avante .bg-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(6, 19, 13, .97) 30%, rgba(6, 19, 13, .7) 70%, rgba(6, 19, 13, .85)); }
+.selo { width: 150px; height: auto; margin-bottom: 18px; filter: drop-shadow(0 12px 30px rgba(0, 0, 0, .5)); }
+.avante .sp-txt h2 { margin-top: 14px; }
+
+/* Frinape: render em sangria */
+.frinape .fr-img { position: absolute; top: 0; right: 0; bottom: 0; width: 1260px; }
+.frinape .fr-img img { width: 100%; height: 100%; object-fit: cover; }
+.frinape .fr-img::before { content: ""; position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(90deg, var(--ink) 0%, rgba(6, 19, 13, .55) 26%, rgba(6, 19, 13, 0) 52%), linear-gradient(0deg, rgba(6, 19, 13, .6), rgba(6, 19, 13, 0) 30%), linear-gradient(180deg, rgba(6, 19, 13, .85), rgba(6, 19, 13, 0) 22%); }
+.tag-prev { position: absolute; right: 104px; bottom: 104px; z-index: 2; font: 600 17px/1 var(--body); color: #fff; background: rgba(6, 19, 13, .78);
+  border: 1px solid var(--ink-strong); padding: 10px 16px; border-radius: 999px; }
+.fr-txt { position: relative; z-index: 2; width: 680px; margin: auto 0; }
+.fr-txt h2 { font: 700 124px/.95 var(--display); letter-spacing: -.035em; margin-top: 20px; }
+.fr-txt .h3 { font: 600 42px/1.1 var(--display); margin-top: 22px; color: var(--imergir); }
+.fr-txt .tx { margin-top: 24px; color: #C9D6CF; }
+
+/* ───────── 13 · sites ───────── */
+.sites { display: grid; grid-template-columns: repeat(4, 1fr); gap: 34px; margin-top: 24px; flex: 1; align-content: center; }
+.si .ph { aspect-ratio: 16 / 10; border: 1px solid var(--paper-line); }
+.si .ph img { object-position: left top; }
+.si h3 { font: 700 34px/1.1 var(--display); letter-spacing: -.01em; margin-top: 24px; }
+.si p { font: 400 22px/1.45 var(--body); color: var(--muted-d); margin-top: 10px; }
+.si .url { font-size: 17px; margin-top: 14px; }
+
+/* ───────── 14 · processo ───────── */
+.proc { display: grid; grid-template-columns: repeat(5, 1fr); gap: 30px; margin-top: 52px; }
+.proc li { position: relative; }
+.proc li:not(:last-child)::before { content: ""; position: absolute; top: 42px; left: 98px; right: -22px; height: 2px; background: var(--ink-line); }
+.proc .n { width: 84px; height: 84px; border-radius: 50%; border: 2px solid var(--verde); display: grid; place-items: center; font-size: 26px; }
+.proc h3 { font: 600 36px/1.1 var(--display); margin-top: 28px; }
+.proc p { font: 400 23px/1.45 var(--body); color: var(--muted-n); margin-top: 10px; }
+.proc-bot { display: grid; grid-template-columns: 640px 1fr; gap: 64px; align-items: center; margin-top: auto; }
+.proc-bot .ph { height: 330px; }
+.claim.lg { font: 600 54px/1.08 var(--display); letter-spacing: -.02em; margin: 0; color: #fff; }
+.proc-bot .tx { margin-top: 18px; max-width: 760px; }
+
+/* ───────── 15 · CTA ───────── */
+.cta { justify-content: center; }
+.deco-cta { width: 1180px; right: -330px; top: 50%; transform: translateY(-50%); }
+.cta-in { position: relative; z-index: 1; max-width: 1180px; }
+.cta-in h2 { font: 700 96px/1.02 var(--display); letter-spacing: -.03em; margin-top: 56px; text-wrap: balance; }
+.cta-in .sub { font-size: 30px; max-width: 1000px; margin-top: 28px; }
+.contacts { display: grid; grid-template-columns: auto auto; justify-content: start; gap: 28px 64px; margin-top: 56px; }
+.contacts div { display: flex; align-items: center; gap: 18px; }
+.contacts svg { color: var(--verde); flex: none; }
+.contacts span { font: 600 27px/1.2 var(--body); }
+.contacts small { display: block; font: 700 15px/1 var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--muted-n); margin-bottom: 8px; }
+.qr { position: absolute; right: 170px; bottom: 150px; z-index: 1; text-align: center; }
+.qr-box { background: #fff; padding: 18px; border-radius: 24px; display: inline-block; }
+.qr-box svg { display: block; }
+.qr p { font: 600 20px/1.35 var(--body); color: var(--muted-n); margin-top: 18px; }
+.cta .foot { z-index: 1; }
+
+/* ───────── entrada dos slides ───────── */
+@keyframes sIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+.slide.enter:not(.capa) > :not(.notes):not(.bg-photo):not(.fr-img):not(.deco) { animation: sIn .6s cubic-bezier(.2, .7, .2, 1) both; }
+.slide.enter > :nth-child(2) { animation-delay: .07s !important; }
+.slide.enter > :nth-child(3) { animation-delay: .14s !important; }
+.slide.enter > :nth-child(4) { animation-delay: .2s !important; }
+@media (prefers-reduced-motion: reduce) { .slide.enter > *, .cv-play::after { animation: none !important; } .cv-end { transition: none; } }
+
+/* ───────── barra do apresentador ───────── */
+#hud { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; display: flex; align-items: center; gap: 18px;
+  padding: 10px max(16px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+  background: rgba(6, 19, 13, .9); border-top: 1px solid var(--ink-line); color: var(--muted-n); font: 500 14px/1 var(--body);
+  opacity: 0; transform: translateY(8px); transition: opacity .25s, transform .25s; }
+#hud.show { opacity: 1; transform: none; }
+.h-l { display: flex; gap: 12px; align-items: center; min-width: 0; }
+#hNum { font-variant-numeric: tabular-nums; color: #fff; font-weight: 700; }
+#hTitle { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 26vw; }
+.h-bar { flex: 1; height: 4px; border-radius: 4px; background: var(--ink-line); overflow: hidden; min-width: 40px; }
+.h-bar i { display: block; height: 100%; width: 0; background: var(--verde); transition: width .4s; }
+.h-r { display: flex; align-items: center; gap: 8px; }
+#hTime { font-variant-numeric: tabular-nums; color: #fff; font-weight: 600; margin-right: 6px; white-space: nowrap; }
+#hTime.warn { color: var(--jogar); } #hTime.late { color: #FF7A6B; }
+#hud button { height: 36px; min-width: 36px; padding: 0 9px; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  border-radius: 10px; border: 1px solid #2E4A3B; background: transparent; color: #fff; font: 600 14px/1 var(--body); cursor: pointer; }
+#hud button:hover { border-color: var(--verde); }
+#hud button:focus-visible { outline: 2px solid var(--verde); outline-offset: 2px; }
+#hud button[aria-pressed="true"] { background: var(--verde); color: var(--ink); border-color: var(--verde); }
+#notes { position: fixed; left: 0; right: 0; bottom: 57px; z-index: 19; max-height: 38vh; overflow: auto; background: var(--ink-2);
+  border-top: 1px solid var(--ink-line); padding: 16px max(20px, env(safe-area-inset-right, 0px)) 18px max(20px, env(safe-area-inset-left, 0px)); }
+.n-hd { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: baseline; }
+#nTitle { color: var(--verde); font: 700 16px/1.2 var(--body); }
+#nClock { font: 600 15px/1.2 var(--body); color: #fff; font-variant-numeric: tabular-nums; }
+#nClock.warn { color: var(--jogar); }
+.n-keys { margin-left: auto; font: 500 13px/1.3 var(--body); color: var(--muted-n); }
+#nText { margin: 10px 0 0; font: 400 18px/1.55 var(--body); color: #E8EFEB; max-width: 1100px; }
+@media (max-width: 720px) { #hTitle, .n-keys, #bNotes span { display: none; } #hud { gap: 10px; } }
+
+.marcas { display: flex; align-items: center; gap: 14px 28px; flex-wrap: wrap; border-top: 1px solid var(--paper-line); padding-top: 26px; margin-top: 8px; }
+.marcas b { font: 700 16px/1 var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--muted-d); margin-right: 8px; }
+.marcas span { font: 700 24px/1 var(--display); color: #23342B; letter-spacing: -.01em; }
+
+/* ───────── v2: site, Aprender, principais projetos, Atacadão ───────── */
+.desafio .dz-site { width: 820px; }
+.dot.p-treinar { background: var(--treinar); } .dia .dot.p-treinar { background: var(--treinar-d); }
+.split.apr { grid-template-columns: 660px 1fr; gap: 72px; }
+.apr .sp-txt h2 { font-size: 84px; }
+.apr-steps { margin-top: 34px; }
+.apr-steps li { display: grid; grid-template-columns: 76px 1fr; align-items: center; padding: 16px 0; border-top: 1px solid var(--line); }
+.apr-steps li:last-child { border-bottom: 1px solid var(--line); }
+.apr-steps .ai { width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; background: var(--verde); color: var(--ink); }
+.apr-steps h3 { font: 600 30px/1.1 var(--display); letter-spacing: -.01em; }
+.apr-steps p { font: 400 21px/1.4 var(--body); color: var(--muted); margin-top: 6px; }
+.go { display: inline-flex; align-items: center; gap: 14px; margin-top: 36px; padding: 18px 30px 18px 24px; border-radius: 999px;
+  background: var(--ink); color: var(--verde); font: 700 25px/1 var(--body); text-decoration: none; box-shadow: 0 18px 40px rgba(6, 19, 13, .25); }
+.go:hover { background: #0B2117; }
+.go:focus-visible { outline: 4px solid var(--verde-dia); outline-offset: 4px; }
+.cases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px 36px; margin-top: 40px; }
+.cs .ph { height: 196px; }
+.cs .ph img { object-position: left top; }
+.cs .cl { font: 700 15px/1.2 var(--body); letter-spacing: .12em; text-transform: uppercase; margin-top: 18px; }
+.cs.p-imergir .cl { color: var(--imergir); } .cs.p-jogar .cl { color: var(--jogar); } .cs.p-treinar .cl { color: var(--treinar); } .cs.p-evoluir .cl { color: var(--evoluir); }
+.cs h3 { font: 700 32px/1.08 var(--display); letter-spacing: -.015em; margin-top: 8px; }
+.cs p:last-child { font: 400 20px/1.45 var(--body); color: var(--muted); margin-top: 6px; }
+.at-vr { display: grid; grid-template-columns: 600px 430px 430px; gap: 0 40px; align-items: center; flex: 1; margin-top: 40px; position: relative; z-index: 1; }
+.at-vr .sp-txt h2 { font-size: 80px; }
+.vr-vid, .vr-foto { height: 764px; border-radius: 26px; }
+.vr-vid video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.dia .vr-vid, .dia .vr-foto { box-shadow: 0 30px 70px rgba(6, 19, 13, .18); }
+.modes { margin-top: 38px; display: grid; gap: 14px; }
+.modes li { display: flex; align-items: center; gap: 20px; padding: 18px 22px; border-radius: 20px; border: 1.5px solid var(--ink-strong); }
+.modes li.on { border-color: var(--verde); background: rgba(168, 255, 10, .08); }
+.modes .mi { width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; border: 2px solid var(--ink-strong); color: var(--verde); flex: none; }
+.modes li.on .mi { background: var(--verde); border-color: var(--verde); color: var(--ink); }
+.modes b { display: block; font: 700 28px/1.1 var(--display); }
+.modes span:not(.mi) { display: block; font: 400 20px/1.35 var(--body); color: var(--muted-n); margin-top: 4px; }
+.wc-img { height: 660px; }
+.wc-vid { position: absolute; right: 0; top: 0; width: 100%; border-radius: 20px; box-shadow: 0 30px 80px rgba(0, 0, 0, .35); }
+.wc-vid img, .wc-vid video { width: 100%; height: auto; display: block; }
+.cs.p-imergir .ph img { object-position: center 45%; }
+
+/* ───────── v3: vídeo de treinamento técnico e respostas do Aprender ───────── */
+.seg-eb { justify-content: center; }
+.seg-video { width: 960px; height: 540px; margin: 22px auto 0; border-radius: 22px; overflow: hidden; background: #000; box-shadow: 0 30px 80px rgba(0, 0, 0, .45); flex: none; }
+.seg-video video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.seg-pts { display: grid; grid-template-columns: 1fr 580px; gap: 56px; margin-top: 30px; }
+.seg-h { display: flex; align-items: center; gap: 10px; font: 700 17px/1 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--verde); }
+.seg-neg .seg-h { color: var(--jogar); }
+.seg-pos ul { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px 26px; margin-top: 18px; }
+.seg-pos li { display: flex; gap: 12px; align-items: flex-start; }
+.seg-pos .pi { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: rgba(168, 255, 10, .12); color: var(--verde); flex: none; }
+.seg-pos b { display: block; font: 700 21px/1.15 var(--body); }
+.seg-pos li span:not(.pi) { display: block; font: 400 17px/1.35 var(--body); color: var(--muted-n); margin-top: 4px; }
+.seg-neg ul { display: grid; gap: 10px; margin-top: 18px; }
+.seg-neg li { display: flex; align-items: center; gap: 12px; font: 600 20px/1.25 var(--body); }
+.seg-neg .ni { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--jogar); color: var(--jogar); display: grid; place-items: center; flex: none; }
+.seg-next { display: inline-flex; align-items: center; gap: 12px; margin-top: 20px; padding: 14px 24px; border-radius: 999px; background: var(--verde); color: var(--ink); font: 600 21px/1.1 var(--body); }
+.seg-next b { font-weight: 800; }
+.answers { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; margin-bottom: 6px; }
+.answers li { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px 10px 14px; border-radius: 999px; background: var(--verde); color: var(--ink); font: 700 19px/1 var(--body); }
+</style>
+</head>
+<body>
+
+<div id="app">
+  <div id="viewport"><div id="stage">
+<section class="slide noite capa" data-title="Abertura" data-secs="20" aria-label="1. Abertura">
+<div class="cv-top"><svg class="logo" viewBox="34 -720 3855.125 758.125" width="234" height="46" role="img" aria-label="Delumo"><path fill="#A8FF0A" d="M255 14Q189 14 139.5 -19.5Q90 -53 62 -115.5Q34 -178 34 -265Q34 -345 58 -407Q82 -469 129.5 -504.5Q177 -540 247 -540Q297 -540 331.5 -522Q366 -504 389 -468Q412 -432 426 -377H451Q444 -411 438 -441.5Q432 -472 428.5 -498.5Q425 -525 425 -545V-720H587V0H455L453 -156H431Q420 -96 396.5 -58.5Q373 -21 337.5 -3.5Q302 14 255 14ZM313 -116Q344 -116 365.5 -129.5Q387 -143 400 -164Q413 -185 419 -209Q425 -233 425 -254V-275Q425 -294 420 -313Q415 -332 405.5 -350Q396 -368 382 -382Q368 -396 349.5 -404Q331 -412 309 -412Q276 -412 252.5 -394Q229 -376 216.5 -343Q204 -310 204 -265Q204 -220 217 -186.5Q230 -153 255 -134.5Q280 -116 313 -116Z M962 14Q896 14 844 -3.5Q792 -21 755.5 -55Q719 -89 700 -139Q681 -189 681 -254Q681 -317 699.5 -370Q718 -423 752.5 -461.5Q787 -500 837.5 -521Q888 -542 951 -542Q1015 -542 1063.5 -521.5Q1112 -501 1143.5 -461Q1175 -421 1190 -363.5Q1205 -306 1200 -232L836 -229Q841 -168 871 -138Q906 -101 961 -101Q988 -101 1006 -108.5Q1024 -116 1035.5 -127.5Q1047 -139 1053.5 -153Q1060 -167 1064 -180L1204 -150Q1196 -113 1178.5 -83Q1161 -53 1131.5 -31Q1102 -9 1060.5 2.5Q1019 14 962 14ZM840 -313 1053 -315Q1053 -340 1045 -359Q1032 -390 1007 -404.5Q982 -419 953 -419Q918 -419 891.5 -400Q865 -381 850 -345Q844 -331 840 -313Z M1298 0V-720H1456V0Z M1762 14Q1668 14 1620.5 -49.5Q1573 -113 1573 -243V-528H1735V-264Q1735 -190 1757 -153.5Q1779 -117 1824 -117Q1851 -117 1870.5 -130.5Q1890 -144 1903.5 -168.5Q1917 -193 1923.5 -225Q1930 -257 1930 -295V-528H2091V0H1963L1960 -163H1940Q1925 -101 1902.5 -61.5Q1880 -22 1846 -4Q1812 14 1762 14Z M2215 0V-528H2342L2344 -373H2364Q2378 -430 2401 -467.5Q2424 -505 2457 -523.5Q2490 -542 2534 -542Q2580 -542 2610.5 -522.5Q2641 -503 2659 -465.5Q2677 -428 2683 -373H2700Q2716 -432 2742 -469.5Q2768 -507 2804 -524.5Q2840 -542 2882 -542Q2927 -542 2960.5 -524.5Q2994 -507 3016.5 -472.5Q3039 -438 3050 -386.5Q3061 -335 3061 -267V0H2899V-247Q2899 -300 2890.5 -335Q2882 -370 2864 -387.5Q2846 -405 2818 -405Q2786 -405 2763.5 -384Q2741 -363 2729 -325.5Q2717 -288 2717 -241V0H2559V-244Q2559 -299 2549.5 -334Q2540 -369 2521.5 -387Q2503 -405 2475 -405Q2443 -405 2421 -384Q2399 -363 2387.5 -325.5Q2376 -288 2376 -241V0Z"/><path fill="#A8FF0A" d="M3822.6 -118.9A368.1 368.1 0 0 1 3186.7 -484.2A47.5 47.5 0 0 1 3273 -444.4A273.1 273.1 0 0 0 3744.7 -173.3A47.5 47.5 0 0 1 3822.6 -118.9ZM3307.1 -629.6A368.1 368.1 0 0 1 3888.9 -318.4A47.5 47.5 0 0 1 3794 -321.4A273.1 273.1 0 0 0 3362.3 -552.3A47.5 47.5 0 0 1 3307.1 -629.6ZM3298.8 -369.2A225.6 225.6 0 0 1 3746.2 -344.4A41.6 41.6 0 0 1 3663.2 -339.1A142.5 142.5 0 0 0 3380.7 -354.7A41.6 41.6 0 0 1 3298.8 -369.2ZM3692.1 -182.9A225.6 225.6 0 0 1 3338 -198A41.6 41.6 0 0 1 3405.4 -246.6A142.5 142.5 0 0 0 3629 -237.1A41.6 41.6 0 0 1 3692.1 -182.9ZM3537.5 -236.4A95 95 0 1 1 3605 -374.5A35.6 35.6 0 0 1 3542 -341.1A23.8 23.8 0 1 0 3525.1 -306.6A35.6 35.6 0 0 1 3537.5 -236.4Z"/></svg><span>Apresentação institucional · Outubro de 2026</span></div>
+<div class="cv-video">
+  <video id="capaVideo" src="/apresentacao/capa.mp4" poster="/apresentacao/capa-poster.jpg" playsinline preload="auto"></video>
+  <div class="cv-end" id="capaEnd">
+    <svg class="logo" viewBox="34 -720 3855.125 758.125" width="763" height="150" role="img" aria-label="Delumo"><path fill="#A8FF0A" d="M255 14Q189 14 139.5 -19.5Q90 -53 62 -115.5Q34 -178 34 -265Q34 -345 58 -407Q82 -469 129.5 -504.5Q177 -540 247 -540Q297 -540 331.5 -522Q366 -504 389 -468Q412 -432 426 -377H451Q444 -411 438 -441.5Q432 -472 428.5 -498.5Q425 -525 425 -545V-720H587V0H455L453 -156H431Q420 -96 396.5 -58.5Q373 -21 337.5 -3.5Q302 14 255 14ZM313 -116Q344 -116 365.5 -129.5Q387 -143 400 -164Q413 -185 419 -209Q425 -233 425 -254V-275Q425 -294 420 -313Q415 -332 405.5 -350Q396 -368 382 -382Q368 -396 349.5 -404Q331 -412 309 -412Q276 -412 252.5 -394Q229 -376 216.5 -343Q204 -310 204 -265Q204 -220 217 -186.5Q230 -153 255 -134.5Q280 -116 313 -116Z M962 14Q896 14 844 -3.5Q792 -21 755.5 -55Q719 -89 700 -139Q681 -189 681 -254Q681 -317 699.5 -370Q718 -423 752.5 -461.5Q787 -500 837.5 -521Q888 -542 951 -542Q1015 -542 1063.5 -521.5Q1112 -501 1143.5 -461Q1175 -421 1190 -363.5Q1205 -306 1200 -232L836 -229Q841 -168 871 -138Q906 -101 961 -101Q988 -101 1006 -108.5Q1024 -116 1035.5 -127.5Q1047 -139 1053.5 -153Q1060 -167 1064 -180L1204 -150Q1196 -113 1178.5 -83Q1161 -53 1131.5 -31Q1102 -9 1060.5 2.5Q1019 14 962 14ZM840 -313 1053 -315Q1053 -340 1045 -359Q1032 -390 1007 -404.5Q982 -419 953 -419Q918 -419 891.5 -400Q865 -381 850 -345Q844 -331 840 -313Z M1298 0V-720H1456V0Z M1762 14Q1668 14 1620.5 -49.5Q1573 -113 1573 -243V-528H1735V-264Q1735 -190 1757 -153.5Q1779 -117 1824 -117Q1851 -117 1870.5 -130.5Q1890 -144 1903.5 -168.5Q1917 -193 1923.5 -225Q1930 -257 1930 -295V-528H2091V0H1963L1960 -163H1940Q1925 -101 1902.5 -61.5Q1880 -22 1846 -4Q1812 14 1762 14Z M2215 0V-528H2342L2344 -373H2364Q2378 -430 2401 -467.5Q2424 -505 2457 -523.5Q2490 -542 2534 -542Q2580 -542 2610.5 -522.5Q2641 -503 2659 -465.5Q2677 -428 2683 -373H2700Q2716 -432 2742 -469.5Q2768 -507 2804 -524.5Q2840 -542 2882 -542Q2927 -542 2960.5 -524.5Q2994 -507 3016.5 -472.5Q3039 -438 3050 -386.5Q3061 -335 3061 -267V0H2899V-247Q2899 -300 2890.5 -335Q2882 -370 2864 -387.5Q2846 -405 2818 -405Q2786 -405 2763.5 -384Q2741 -363 2729 -325.5Q2717 -288 2717 -241V0H2559V-244Q2559 -299 2549.5 -334Q2540 -369 2521.5 -387Q2503 -405 2475 -405Q2443 -405 2421 -384Q2399 -363 2387.5 -325.5Q2376 -288 2376 -241V0Z"/><path fill="#A8FF0A" d="M3822.6 -118.9A368.1 368.1 0 0 1 3186.7 -484.2A47.5 47.5 0 0 1 3273 -444.4A273.1 273.1 0 0 0 3744.7 -173.3A47.5 47.5 0 0 1 3822.6 -118.9ZM3307.1 -629.6A368.1 368.1 0 0 1 3888.9 -318.4A47.5 47.5 0 0 1 3794 -321.4A273.1 273.1 0 0 0 3362.3 -552.3A47.5 47.5 0 0 1 3307.1 -629.6ZM3298.8 -369.2A225.6 225.6 0 0 1 3746.2 -344.4A41.6 41.6 0 0 1 3663.2 -339.1A142.5 142.5 0 0 0 3380.7 -354.7A41.6 41.6 0 0 1 3298.8 -369.2ZM3692.1 -182.9A225.6 225.6 0 0 1 3338 -198A41.6 41.6 0 0 1 3405.4 -246.6A142.5 142.5 0 0 0 3629 -237.1A41.6 41.6 0 0 1 3692.1 -182.9ZM3537.5 -236.4A95 95 0 1 1 3605 -374.5A35.6 35.6 0 0 1 3542 -341.1A23.8 23.8 0 1 0 3525.1 -306.6A35.6 35.6 0 0 1 3537.5 -236.4Z"/></svg>
+    <p class="cv-tag">Treinar. Jogar. <em>Evoluir.</em></p>
+    <p class="cv-sub">Treinamentos, games e plataformas sob medida.</p>
+  </div>
+  <button class="cv-start" id="capaStart" type="button" hidden>
+    <span class="cv-play"><svg aria-hidden="true" class="lucide lucide-play" xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" ><polygon points="6 3 20 12 6 21 6 3" /></svg></span><span><b>Iniciar com som</b><small>ou pressione Enter</small></span>
+  </button>
+</div>
+<div class="cv-bot"><p>Treinar. Jogar. <em>Evoluir.</em></p><span>Pessoas no centro. Experiência na prática.</span></div>
+<aside class="notes">(Deixe o vídeo de 15 s rodar com som.)<br>Boa tarde! Eu sou o Guto, da Delumo. Criamos treinamentos, games e plataformas sob medida: treinar, jogar, evoluir.</aside></section>
+<section class="slide dia" data-title="O desafio" data-secs="18" aria-label="2. O desafio" hidden>
+<header class="hd"><p class="eb">O ponto de partida</p><h2>O desafio está no dia a dia</h2></header>
+<div class="desafio">
+  <div class="dz-txt">
+    <p class="lead">Sua equipe precisa colocar o conhecimento em prática.</p>
+    <ul class="ticks">
+      <li><svg aria-hidden="true" class="lucide lucide-check" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg>Na integração de quem chega.</li>
+      <li><svg aria-hidden="true" class="lucide lucide-check" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg>Na conversa com o cliente.</li>
+      <li><svg aria-hidden="true" class="lucide lucide-check" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg>Na execução de um procedimento.</li>
+    </ul>
+    <p class="claim"><b>A Delumo</b> transforma o conteúdo da empresa em experiências de aprendizagem conectadas à rotina.</p>
+  </div>
+  <figure class="frame dz-site"><div class="bar"><i></i><i></i><i></i><span>www.delumo.com.br</span></div><img src="/apresentacao/site-home.jpg" alt="Página inicial do site delumo.com.br: Desenvolvemos pessoas. Conectamos possibilidades." loading="eager"></figure>
+</div>
+<footer class="foot"><span>Delumo · O desafio</span><span>02</span></footer><aside class="notes">Toda empresa tem conhecimento. O desafio é levar isso para a prática: na integração, no atendimento, num procedimento.<br>A Delumo transforma esse conteúdo em experiência, e está tudo no delumo.com.br.</aside></section>
+<section class="slide noite" data-title="Equipe" data-secs="30" aria-label="3. Equipe" hidden>
+<header class="hd"><p class="eb">Gestão, criação e tecnologia</p><h2>Equipe Delumo</h2></header>
+<div class="team"><article class="tm"><div class="tm-hd"><span class="mono">GL</span></div><h3>Guto da Luz</h3><p class="role">Estratégia, front-end e imersão</p><p class="tx">Formado em Marketing Digital, com especialização em Engenharia de Front-End. Une estratégia, design e código, com capacitações em metaverso, Unreal, Unity e 3DVista, e leva para cada projeto os aplicativos de IA mais recentes.</p><div class="chips"><span class="chip">Marketing digital</span><span class="chip">Front-end</span><span class="chip">Unreal · Unity</span><span class="chip">3DVista</span><span class="chip">IA</span></div></article><article class="tm"><div class="tm-hd"><span class="mono">RN</span></div><h3>Rafael Nascimento</h3><p class="role">Sistemas e plataformas</p><p class="tx">Desenvolve as plataformas SaaS, os aplicativos e os PWAs que sustentam os projetos, da gamificação e dos programas de incentivo à publicação na nuvem, com segurança e integração aos sistemas da empresa.</p><div class="chips"><span class="chip">SaaS</span><span class="chip">Apps e PWA</span><span class="chip">Gamificação e incentivo</span><span class="chip">Cloud e deploy</span><span class="chip">Segurança e integrações</span></div></article><article class="tm"><div class="tm-hd"><span class="mono">EV</span></div><h3>Eduardo Vargas</h3><p class="role">Gamificação e jogabilidade</p><p class="tx">Especializado em gamificação personalizada, manipulação e movimentos em Blender, interatividade e jogabilidade. Desenvolve mecânicas, animações e respostas do ambiente para experiências funcionais e envolventes.</p><div class="chips"><span class="chip">Gamificação</span><span class="chip">Blender</span><span class="chip">Animação</span><span class="chip">Jogabilidade</span></div></article><article class="tm"><div class="tm-hd"><span class="mono">EF</span></div><h3>Elen Caren Farina</h3><p class="role">Modelagem e acabamento 3D</p><p class="tx">Formada em Design de Interiores e especializada em modelagens complexas. Cria e refina imagens e ambientes 3D, com atenção à composição, aos materiais, à iluminação e ao acabamento visual.</p><div class="chips"><span class="chip">Modelagem 3D</span><span class="chip">Materiais</span><span class="chip">Iluminação</span><span class="chip">Render</span></div></article><article class="tm"><div class="tm-hd"><span class="mono">V</span></div><h3>Vitor</h3><p class="role">Estagiário</p><p class="tx">Aluno do curso de Engenharia Mecânica. Apoia os projetos que unem hardware e software com IA, participa dos projetos-piloto e das soluções em ambientes imersivos e adapta os espaços para gamificação e imersão.</p><div class="chips"><span class="chip">Hardware + software</span><span class="chip">IA</span><span class="chip">Projetos-piloto</span><span class="chip">Ambientes imersivos</span></div></article></div>
+<svg class="deco deco-tr" viewBox="0 0 1200 1200" aria-hidden="true" style="opacity:0.07"><path d="M 80 600 A 520 520 0 1 1 600 1120" fill="none" stroke="#A8FF0A" stroke-width="46" stroke-linecap="round"/><path d="M 210 600 A 390 390 0 1 1 600 990" fill="none" stroke="#A8FF0A" stroke-width="46" stroke-linecap="round"/><path d="M 340 600 A 260 260 0 1 1 600 860" fill="none" stroke="#A8FF0A" stroke-width="46" stroke-linecap="round"/></svg>
+<footer class="foot"><span>Delumo · Equipe</span><span>03</span></footer><aside class="notes">Somos uma equipe de gestão, criação e tecnologia. Eu cuido da estratégia, do front-end e das experiências imersivas.<br>O Rafael desenvolve as plataformas e as integrações. O Eduardo cria a jogabilidade e as animações. A Elen modela e dá acabamento aos ambientes 3D.<br>E o Vitor, nosso estagiário de Engenharia Mecânica, apoia os projetos com hardware, IA e imersão.</aside></section>
+<section class="slide dia" data-title="Soluções" data-secs="20" aria-label="4. Soluções" hidden>
+<header class="hd"><p class="eb">Nossos serviços</p><h2>Quatro soluções que podem trabalhar juntas</h2></header>
+<div class="sols"><article class="sol p-treinar"><span class="disc"><svg aria-hidden="true" class="lucide lucide-graduation-cap" xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" /><path d="M22 10v6" /><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" /></svg></span><p class="ptag">Treinar</p><h3>Treinamentos<br>e trilhas</h3><p class="d">Conteúdo organizado em aulas, atividades e avaliações para cada função.</p><div class="chips"><span class="chip">Integração e cultura</span><span class="chip">Vendas e produtos</span><span class="chip">Liderança</span><span class="chip">Processos</span></div></article><article class="sol p-jogar"><span class="disc"><svg aria-hidden="true" class="lucide lucide-gamepad-2" xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><line x1="6" x2="10" y1="11" y2="11" /><line x1="8" x2="8" y1="9" y2="13" /><line x1="15" x2="15.01" y1="12" y2="12" /><line x1="18" x2="18.01" y1="10" y2="10" /><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z" /></svg></span><p class="ptag">Jogar</p><h3>Gamificação</h3><p class="d">Missões, metas e rankings conectados a campanhas e à execução comercial.</p><div class="chips"><span class="chip">Missões</span><span class="chip">Rankings</span><span class="chip">Campanhas</span></div></article><article class="sol p-evoluir"><span class="disc"><svg aria-hidden="true" class="lucide lucide-layout-dashboard" xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><rect width="7" height="9" x="3" y="3" rx="1" /><rect width="7" height="5" x="14" y="3" rx="1" /><rect width="7" height="9" x="14" y="12" rx="1" /><rect width="7" height="5" x="3" y="16" rx="1" /></svg></span><p class="ptag">Evoluir</p><h3>Plataformas<br>inteligentes</h3><p class="d">Ambientes de ensino, acompanhamento, integrações e agentes de IA.</p><div class="chips"><span class="chip">Trilhas</span><span class="chip">Relatórios</span><span class="chip">ERP e RH</span><span class="chip">Agentes de IA</span></div></article><article class="sol p-imergir"><span class="disc"><svg aria-hidden="true" class="lucide lucide-glasses" xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><circle cx="6" cy="15" r="4" /><circle cx="18" cy="15" r="4" /><path d="M14 15a2 2 0 0 0-2-2 2 2 0 0 0-2 2" /><path d="M2.5 13 5 7c.7-1.3 1.4-2 3-2" /><path d="M21.5 13 19 7c-.7-1.3-1.5-2-3-2" /></svg></span><p class="ptag">Imergir</p><h3>Experiências<br>imersivas</h3><p class="d">Ambientes 3D, tours 360° e realidade virtual para explorar e aprender.</p><div class="chips"><span class="chip">Tour 360°</span><span class="chip">Realidade virtual</span><span class="chip">Ambientes 3D</span></div></article></div>
+<p class="note">Cada solução funciona sozinha ou faz parte do mesmo projeto: a Delumo desenvolve o conteúdo, a experiência e a plataforma.</p>
+<footer class="foot"><span>Delumo · Soluções</span><span>04</span></footer><aside class="notes">Atuamos em quatro frentes, sozinhas ou juntas: treinamentos e trilhas, gamificação, plataformas inteligentes e experiências imersivas.</aside></section>
+<section class="slide noite" data-title="Como treinamos" data-secs="20" aria-label="5. Como treinamos" hidden>
+<header class="hd"><p class="eb">A solução de aprendizagem</p><h2>Um treinamento pensado para a sua equipe</h2></header>
+<div class="metodo">
+  <ol class="steps"><li><span class="n">01</span><div><h3>O conhecimento já existe</h3><p>Materiais, vídeos e especialistas da empresa dão origem ao conteúdo.</p></div></li><li><span class="n">02</span><div><h3>A trilha dá direção</h3><p>Objetivos e módulos curtos organizam o percurso de cada função.</p></div></li><li><span class="n">03</span><div><h3>A prática dá contexto</h3><p>Exemplos, simulações e avatares aproximam o tema da rotina.</p></div></li><li><span class="n">04</span><div><h3>O feedback orienta</h3><p>Avaliações ajudam a identificar dúvidas e a planejar reforços.</p></div></li></ol>
+  <div class="plat">
+    <figure class="ph"><img src="/apresentacao/plataforma.jpg" alt="Plataforma de ensino personalizada aberta em um monitor"></figure>
+    <div class="plat-3">
+      <div><h4><svg aria-hidden="true" class="lucide lucide-users" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>Para o aluno</h4><p>Acesso individual, cursos por função e uma trilha para seguir no próprio ritmo.</p></div>
+      <div><h4><svg aria-hidden="true" class="lucide lucide-layout-dashboard" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><rect width="7" height="9" x="3" y="3" rx="1" /><rect width="7" height="5" x="14" y="3" rx="1" /><rect width="7" height="9" x="14" y="12" rx="1" /><rect width="7" height="5" x="3" y="16" rx="1" /></svg>Para a gestão</h4><p>Participação, progresso, avaliações e conclusão por pessoa ou equipe.</p></div>
+      <div><h4><svg aria-hidden="true" class="lucide lucide-cpu" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><rect width="16" height="16" x="4" y="4" rx="2" /><rect width="6" height="6" x="9" y="9" rx="1" /><path d="M15 2v2" /><path d="M15 20v2" /><path d="M2 15h2" /><path d="M2 9h2" /><path d="M20 15h2" /><path d="M20 9h2" /><path d="M9 2v2" /><path d="M9 20v2" /></svg>Integrações</h4><p>API para ERP ou RH e agentes de IA, conforme a viabilidade do projeto.</p></div>
+    </div>
+  </div>
+</div>
+<footer class="foot"><span>Delumo · Como treinamos</span><span>05</span></footer><aside class="notes">Nosso método tem quatro passos: partimos do conhecimento da empresa, organizamos a trilha, damos contexto com a prática e orientamos com feedback.<br>Vou mostrar um exemplo.</aside></section>
+<section class="slide noite" data-title="Treinamento técnico na prática" data-secs="85" aria-label="6. Treinamento técnico na prática" hidden>
+<p class="eb seg-eb"><span class="dot p-treinar"></span>Na prática · Treinamento técnico personalizado · Atacadão e Incerti</p>
+<div class="seg-video"><video class="sv" src="/apresentacao/seguranca.mp4" poster="/apresentacao/seguranca-poster.jpg" playsinline preload="auto" data-auto data-sound></video></div>
+<div class="seg-pts">
+  <div class="seg-pos"><p class="seg-h"><svg aria-hidden="true" class="lucide lucide-circle-check" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="10" /><path d="m9 12 2 2 4-4" /></svg>6 pontos positivos</p><ul><li><span class="pi"><svg aria-hidden="true" class="lucide lucide-box" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" /><path d="m3.3 7 8.7 5 8.7-5" /><path d="M12 22V12" /></svg></span><div><b>Ambiente fiel</b><span>O cenário da empresa recriado para o treinamento.</span></div></li><li><span class="pi"><svg aria-hidden="true" class="lucide lucide-hand" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2" /><path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2" /><path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8" /><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15" /></svg></span><div><b>Aplicação e manuseio</b><span>Produtos e serviços usados na prática, passo a passo.</span></div></li><li><span class="pi"><svg aria-hidden="true" class="lucide lucide-mouse-pointer" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><path d="M12.586 12.586 19 19" /><path d="M3.688 3.037a.497.497 0 0 0-.651.651l6.5 15.999a.501.501 0 0 0 .947-.062l1.569-6.083a2 2 0 0 1 1.448-1.479l6.124-1.579a.5.5 0 0 0 .063-.947z" /></svg></span><div><b>Interação com o usuário</b><span>O colaborador faz, escolhe e recebe resposta.</span></div></li><li><span class="pi"><svg aria-hidden="true" class="lucide lucide-sparkles" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" /><path d="M20 3v4" /><path d="M22 5h-4" /><path d="M4 17v2" /><path d="M5 18H3" /></svg></span><div><b>Alta personalização</b><span>Processos, linguagem e marca da própria empresa.</span></div></li><li><span class="pi"><svg aria-hidden="true" class="lucide lucide-shield-check" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /><path d="m9 12 2 2 4-4" /></svg></span><div><b>Prática sem risco</b><span>Erra no virtual para acertar no real.</span></div></li><li><span class="pi"><svg aria-hidden="true" class="lucide lucide-target" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="6" /><circle cx="12" cy="12" r="2" /></svg></span><div><b>Avaliação na hora</b><span>Pontuação e feedback a cada etapa.</span></div></li></ul></div>
+  <div class="seg-neg"><p class="seg-h"><svg aria-hidden="true" class="lucide lucide-circle-alert" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></svg>Pontos negativos</p><ul><li><span class="ni"><svg aria-hidden="true" class="lucide lucide-minus" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M5 12h14" /></svg></span>Necessita alto nível técnico de desenvolvimento</li><li><span class="ni"><svg aria-hidden="true" class="lucide lucide-minus" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M5 12h14" /></svg></span>Demora no desenvolvimento do conteúdo</li><li><span class="ni"><svg aria-hidden="true" class="lucide lucide-minus" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M5 12h14" /></svg></span>Necessita de plataforma compatível</li></ul>
+    <p class="seg-next"><span>Pensando nesses pontos, surgiu o <b>Delumo Aprender</b></span><svg aria-hidden="true" class="lucide lucide-arrow-right" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" ><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></p></div>
+</div>
+<footer class="foot"><span>Delumo · Treinamento técnico na prática</span><span>06</span></footer><aside class="notes">(O vídeo começa sozinho, com som, e dura 1 minuto. Deixe rodar.)<br>Esse é um módulo de segurança do trabalho feito para o Atacadão e a Incerti.<br>Esse tipo de treinamento tem muitos pontos positivos: ambiente fiel, manuseio de produtos, interação, personalização, prática sem risco e avaliação na hora.<br>Mas tem três pontos negativos: exige alto nível técnico, o conteúdo demora para ficar pronto e precisa de uma plataforma compatível.<br>Pensando nisso, criamos o Delumo Aprender.</aside></section>
+<section class="slide dia" data-title="Delumo Aprender" data-secs="55" aria-label="7. Delumo Aprender" hidden>
+<div class="split apr">
+  <div class="sp-txt">
+    <p class="eb"><span class="dot p-treinar"></span>Delumo Aprender · demonstração ao vivo</p>
+    <h2>Do material ao treinamento</h2>
+    <p class="tx">Os materiais que a empresa já tem viram um treinamento com a cara da equipe, do primeiro arquivo à prévia final.</p>
+    <ul class="answers"><li><svg aria-hidden="true" class="lucide lucide-check" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg>Sem programar</li><li><svg aria-hidden="true" class="lucide lucide-check" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg>Em poucos passos</li><li><svg aria-hidden="true" class="lucide lucide-check" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg>No navegador</li></ul>
+    <ol class="apr-steps"><li><span class="ai"><svg aria-hidden="true" class="lucide lucide-upload" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" x2="12" y1="3" y2="15" /></svg></span><div><h3>Anexe o conteúdo</h3><p>PDF, PPT, DOC, HTML ou vídeo MP4, ou um link do YouTube ou do Vimeo.</p></div></li><li><span class="ai"><svg aria-hidden="true" class="lucide lucide-route" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><circle cx="6" cy="19" r="3" /><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15" /><circle cx="18" cy="5" r="3" /></svg></span><div><h3>Siga o caminho guiado</h3><p>Aulas, prática e avaliação organizadas em 6 passos, nível a nível.</p></div></li><li><span class="ai"><svg aria-hidden="true" class="lucide lucide-sparkles" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" /><path d="M20 3v4" /><path d="M22 5h-4" /><path d="M4 17v2" /><path d="M5 18H3" /></svg></span><div><h3>Dê a cara da sua equipe</h3><p>Avatar, cenário, voz e marca da empresa no treinamento.</p></div></li></ol>
+    <a class="go" href="https://www.delumo.com.br/aprender" target="_blank" rel="noopener"><svg aria-hidden="true" class="lucide lucide-play" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" ><polygon points="6 3 20 12 6 21 6 3" /></svg><span>Abrir delumo.com.br/aprender</span><svg aria-hidden="true" class="lucide lucide-arrow-up-right" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg></a>
+  </div>
+  <div class="sp-img"><figure class="frame"><div class="bar"><i></i><i></i><i></i><span>www.delumo.com.br/aprender</span></div><img src="/apresentacao/aprender.jpg" alt="Página inicial do Delumo Aprender: anexar conteúdo e criar meu treinamento" loading="eager"></figure></div>
+</div>
+<footer class="foot"><span>Delumo · Delumo Aprender</span><span>07</span></footer><aside class="notes">O Delumo Aprender responde a esses três pontos: não precisa programar, sai em poucos passos e funciona no navegador.<br>(Clique em Abrir delumo.com.br/aprender.)<br>Eu anexo um material da empresa e clico em Criar meu treinamento. O Aprender organiza aulas, prática e avaliação em seis passos, com avatar, cenário, voz e marca da empresa.<br>(Volte para a aba da apresentação e avance.)</aside></section>
+<section class="slide noite" data-title="Principais projetos" data-secs="30" aria-label="8. Principais projetos" hidden>
+<header class="hd"><p class="eb">O que já entregamos</p><h2>Principais projetos</h2></header>
+<div class="cases"><article class="cs p-imergir"><figure class="ph"><img src="/apresentacao/metatrade-grupo.jpg" alt="MetaTrade"></figure><p class="cl">Realizações Humanas · Heineken</p><h3>MetaTrade</h3><p>O ponto de venda em seis ambientes navegáveis em 360°.</p></article><article class="cs p-jogar"><figure class="ph"><img src="/apresentacao/conquista-mapa.jpg" alt="ConquistaHNK"></figure><p class="cl">SPSul · Heineken</p><h3>ConquistaHNK</h3><p>33 revendas em 4 estados: metas viram missões e territórios.</p></article><article class="cs p-treinar"><figure class="ph"><img src="/apresentacao/avatar-produtos.jpg" alt="Avatares em vídeo"></figure><p class="cl">Atacadão · Incerti</p><h3>Avatares em vídeo</h3><p>Formação técnica, cultura e conduta e integração de equipes.</p></article><article class="cs p-treinar"><figure class="ph"><img src="/apresentacao/esb.jpg" alt="AcademiaESB"></figure><p class="cl">ESB Light</p><h3>AcademiaESB</h3><p>Trilha de três cursos para a conversa de venda e agentes de IA.</p></article><article class="cs p-evoluir"><figure class="ph"><img src="/apresentacao/supreme.jpg" alt="Supreme Lubrificantes"></figure><p class="cl">Site e catálogo técnico</p><h3>Supreme Lubrificantes</h3><p>Portfólio por aplicação e fichas técnicas para a venda.</p></article><article class="cs p-evoluir"><figure class="ph"><img src="/apresentacao/allmac.jpg" alt="Allmac360"></figure><p class="cl">Site e conhecimento técnico</p><h3>Allmac360</h3><p>Soluções têxteis e aplicações em uma navegação integrada.</p></article></div>
+<footer class="foot"><span>Delumo · Principais projetos</span><span>08</span></footer><aside class="notes">Alguns projetos já entregues: o MetaTrade, para a Realizações Humanas e a Heineken; o ConquistaHNK, com 33 revendas Heineken; avatares para o Atacadão e a Incerti; a AcademiaESB, da ESB Light; e os sites da Supreme e da Allmac.</aside></section>
+<section class="slide dia" data-title="Atacadão · VR" data-secs="25" aria-label="9. Atacadão · VR" hidden>
+<nav class="pnav" aria-label="Projetos atuais"><b>Projetos atuais</b><span class="on">Atacadão</span><span class="">Castelinho Vivo</span><span class="">Avante HotZone</span><span class="">Frinape 60 anos</span></nav>
+<div class="at-vr">
+  <div class="sp-txt">
+    <p class="eb"><span class="dot p-imergir"></span>Projeto atual · Realidade virtual</p>
+    <h2>Simulador de Segurança</h2>
+    <p class="h3">Atacadão Baterias e Lubrificantes</p>
+    <p class="tx">Com os óculos de realidade virtual, o colaborador entra na oficina, percorre as estações e interage com o carro, as baterias e os lubrificantes, somando pontos a cada acerto.</p>
+    <div class="chips"><span class="chip">Garantia</span><span class="chip">EPI</span><span class="chip">Extintores</span><span class="chip">Incêndio</span><span class="chip">Lubrificantes</span><span class="chip">Óleo</span><span class="chip">Troca</span></div>
+    <div class="stats sm"><div><b>7</b><span>estações<br>com pontuação</span></div></div>
+  </div>
+  <figure class="ph vr-vid"><video class="sv" src="/apresentacao/atacadao-vr.mp4" poster="/apresentacao/atacadao-vr-poster.jpg" muted loop playsinline preload="auto" data-auto></video><figcaption>Teste com o Meta Quest no Atacadão</figcaption></figure>
+  <figure class="ph vr-foto"><img src="/apresentacao/atacadao-vr-foto.jpg" alt="Teste do simulador com óculos Meta Quest e controles, no escritório do Atacadão"></figure>
+</div>
+<footer class="foot"><span>Delumo · Atacadão · VR</span><span>09</span></footer><aside class="notes">Agora, o que estamos desenvolvendo: o simulador de segurança do Atacadão.<br>Este é o nosso teste com os óculos de VR: o colaborador passa por sete estações na oficina e soma pontos a cada acerto.</aside></section>
+<section class="slide noite" data-title="Atacadão · Webcam" data-secs="20" aria-label="10. Atacadão · Webcam" hidden>
+<nav class="pnav" aria-label="Projetos atuais"><b>Projetos atuais</b><span class="on">Atacadão</span><span class="">Castelinho Vivo</span><span class="">Avante HotZone</span><span class="">Frinape 60 anos</span></nav>
+<div class="split wide">
+  <div class="sp-txt">
+    <p class="eb"><span class="dot p-imergir"></span>Projeto atual · Três formas de jogar</p>
+    <h2>Óculos de VR ou só uma webcam</h2>
+    <p class="tx">Sem os óculos, a webcam acompanha os movimentos das mãos: o colaborador joga e interage com a oficina na frente do computador.</p>
+    <ul class="modes"><li class=""><span class="mi"><svg aria-hidden="true" class="lucide lucide-glasses" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><circle cx="6" cy="15" r="4" /><circle cx="18" cy="15" r="4" /><path d="M14 15a2 2 0 0 0-2-2 2 2 0 0 0-2 2" /><path d="M2.5 13 5 7c.7-1.3 1.4-2 3-2" /><path d="M21.5 13 19 7c-.7-1.3-1.5-2-3-2" /></svg></span><div><b>VR</b><span>Óculos Meta Quest, imersão total</span></div></li><li class="on"><span class="mi"><svg aria-hidden="true" class="lucide lucide-hand" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2" /><path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2" /><path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8" /><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15" /></svg></span><div><b>Webcam</b><span>Movimentos das mãos, sentado ou de pé</span></div></li><li class=""><span class="mi"><svg aria-hidden="true" class="lucide lucide-mouse-pointer" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M12.586 12.586 19 19" /><path d="M3.688 3.037a.497.497 0 0 0-.651.651l6.5 15.999a.501.501 0 0 0 .947-.062l1.569-6.083a2 2 0 0 1 1.448-1.479l6.124-1.579a.5.5 0 0 0 .063-.947z" /></svg></span><div><b>PC</b><span>Mouse e teclado</span></div></li></ul>
+  </div>
+  <div class="sp-img wc-img">
+    <figure class="ph wc-vid" id="webcamSlot"><img src="/apresentacao/atacadao-oficina.jpg" alt="Simulador do Atacadão: mão virtual diante do carro, com a ação Abrir capô"></figure>
+    <figure class="frame inset3"><div class="bar"><i></i><i></i><i></i><span>atacadao-treinamento-vr.vercel.app</span></div><img src="/apresentacao/atacadao-menu.jpg" alt="Menu do simulador com as opções VR, Webcam e PC" loading="eager"></figure>
+  </div>
+</div>
+<footer class="foot"><span>Delumo · Atacadão · Webcam</span><span>10</span></footer><aside class="notes">E sem óculos: com uma webcam, os movimentos das mãos controlam o jogo, sentado ou de pé. Também roda no PC, com mouse e teclado.<br>(Quando o vídeo dos movimentos com webcam chegar, ele entra nesta tela.)</aside></section>
+<section class="slide dia" data-title="Castelinho Vivo" data-secs="15" aria-label="11. Castelinho Vivo" hidden>
+<nav class="pnav" aria-label="Projetos atuais"><b>Projetos atuais</b><span class="">Atacadão</span><span class="on">Castelinho Vivo</span><span class="">Avante HotZone</span><span class="">Frinape 60 anos</span></nav>
+<div class="split wide">
+  <div class="sp-txt">
+    <p class="eb"><span class="dot p-jogar"></span>Projeto atual · Game educativo</p>
+    <h2>Castelinho Vivo</h2>
+    <p class="h3">Desafios da Aventura</p>
+    <p class="tx">Um jogo de tabuleiro digital em fases. A turma rola o dado, percorre o mapa, cumpre desafios e monta a maquete do Castelinho. A primeira fase, A Mala das Memórias, fala da imigração.</p>
+    <div class="chips"><span class="chip">Tabuleiro digital</span><span class="chip">Fases</span><span class="chip">Dado e desafios</span><span class="chip">Maquete do Castelinho</span></div>
+    <p class="url"><svg aria-hidden="true" class="lucide lucide-globe" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /><path d="M2 12h20" /></svg>castelinho.delumo.com.br</p>
+  </div>
+  <div class="sp-img ca-img">
+    <figure class="frame big"><div class="bar"><i></i><i></i><i></i><span>castelinho.delumo.com.br</span></div><img src="/apresentacao/castelinho-tabuleiro.jpg" alt="Tabuleiro do Castelinho Vivo na Fase 1, A Mala das Memórias" loading="eager"></figure>
+    <figure class="frame inset3"><div class="bar"><i></i><i></i><i></i><span>castelinho.delumo.com.br</span></div><img src="/apresentacao/castelinho-home.jpg" alt="Tela inicial do Castelinho Vivo" loading="eager"></figure>
+  </div>
+</div>
+<footer class="foot"><span>Delumo · Castelinho Vivo</span><span>11</span></footer><aside class="notes">O Castelinho Vivo é um tabuleiro digital em fases: a turma rola o dado, cumpre desafios e monta a maquete do Castelinho.</aside></section>
+<section class="slide noite avante" data-title="Avante HotZone" data-secs="15" aria-label="12. Avante HotZone" hidden>
+<div class="bg-photo"><img src="/apresentacao/avante-estadio.jpg" alt=""></div>
+<nav class="pnav" aria-label="Projetos atuais"><b>Projetos atuais</b><span class="">Atacadão</span><span class="">Castelinho Vivo</span><span class="on">Avante HotZone</span><span class="">Frinape 60 anos</span></nav>
+<div class="split wide">
+  <div class="sp-txt">
+    <img class="selo" src="/apresentacao/avante-selo.png" alt="Selo Avante HotZone, Rumo ao Gol, SPSul">
+    <p class="eb"><span class="dot p-jogar"></span>Projeto atual · Gamificação · SPSul</p>
+    <h2>Avante HotZone</h2>
+    <p class="h3">A estratégia entra em campo. O time joga junto.</p>
+    <p class="tx">Um campeonato de execução comercial em que cada território vira um campo de jogo. Metas, rodadas e rankings organizam as prioridades e mostram a evolução da equipe.</p>
+    <div class="chips"><span class="chip">Metas e missões</span><span class="chip">Farol diário</span><span class="chip">Ranking por rodada</span></div>
+  </div>
+  <div class="sp-img av-img">
+    <figure class="frame big"><div class="bar"><i></i><i></i><i></i><span>avantehotzone.com.br</span></div><img src="/apresentacao/avante-painel.jpg" alt="Painel do Avante HotZone com os KPIs agregados das revendas" loading="eager"></figure>
+    <figure class="frame inset3"><div class="bar"><i></i><i></i><i></i><span>avantehotzone.com.br</span></div><img src="/apresentacao/avante-login.jpg" alt="Tela inicial do Avante HotZone, incentivo de vendas" loading="eager"></figure>
+  </div>
+</div>
+<footer class="foot"><span>Delumo · Avante HotZone</span><span>12</span></footer><aside class="notes">O Avante HotZone, da SPSul, transforma a execução comercial em campeonato: metas, farol diário e ranking por rodada.</aside></section>
+<section class="slide noite frinape" data-title="Frinape 60 anos" data-secs="20" aria-label="13. Frinape 60 anos" hidden>
+<div class="fr-img"><img src="/apresentacao/frinape-render.jpg" alt="Render 3D da sala imersiva com pessoas assistindo a projeções nas paredes"><span class="tag-prev">Prévia do ambiente · render 3D</span></div>
+<nav class="pnav" aria-label="Projetos atuais"><b>Projetos atuais</b><span class="">Atacadão</span><span class="">Castelinho Vivo</span><span class="">Avante HotZone</span><span class="on">Frinape 60 anos</span></nav>
+<div class="fr-txt">
+  <p class="eb"><span class="dot p-imergir"></span>Projeto atual · Experiência imersiva</p>
+  <h2>Frinape<br>60 anos</h2>
+  <p class="h3">Sala imersiva 360°</p>
+  <p class="tx">Desenvolvida pela Delumo para o CIT, o Centro de Inovação e Tecnologia de Erechim. Vídeo 360° nas quatro paredes: o visitante fica dentro da cena.</p>
+  <div class="stats"><div><b>4×4 m</b><span>de sala<br>imersiva</span></div><div><b>360°</b><span>nas quatro<br>paredes</span></div></div>
+</div>
+<footer class="foot"><span>Delumo · Frinape 60 anos</span><span>13</span></footer><aside class="notes">E para a Frinape 60 anos, com o CIT de Erechim, uma sala imersiva de 4 por 4 metros com vídeo 360° nas quatro paredes.<br>(A prévia 3D dá lugar ao vídeo da experiência quando ele estiver pronto.)</aside></section>
+<section class="slide noite" data-title="Como o projeto acontece" data-secs="15" aria-label="14. Como o projeto acontece" hidden>
+<header class="hd"><p class="eb">Construção em parceria</p><h2>Como o projeto acontece</h2></header>
+<ol class="proc"><li><span class="n">01</span><h3>Entender</h3><p>Público, rotina e o que precisa mudar na prática.</p></li><li><span class="n">02</span><h3>Desenhar</h3><p>Objetivos, trilha, formatos e critérios de acompanhamento.</p></li><li><span class="n">03</span><h3>Desenvolver</h3><p>Conteúdo, design e tecnologia com a identidade da empresa.</p></li><li><span class="n">04</span><h3>Colocar em prática</h3><p>Revisão dos responsáveis, testes e implantação.</p></li><li><span class="n">05</span><h3>Evoluir</h3><p>Acompanhamento, reforços e atualização dos conteúdos.</p></li></ol>
+<div class="proc-bot">
+  <figure class="ph"><img src="/apresentacao/processo.jpg" alt="Estande de treinamento com tenda PitStop do Atacadão e Incerti"></figure>
+  <div><p class="claim lg">O conteúdo da sua empresa é o ponto de partida.</p><p class="tx">PDFs, apresentações, vídeos e o conhecimento dos especialistas viram trilhas, games e experiências.</p></div>
+</div>
+<footer class="foot"><span>Delumo · Como o projeto acontece</span><span>14</span></footer><aside class="notes">Cada projeto passa por cinco etapas: entender, desenhar, desenvolver, colocar em prática e evoluir.</aside></section>
+<section class="slide noite cta" data-title="Vamos conversar" data-secs="12" aria-label="15. Vamos conversar" hidden>
+<svg class="deco deco-cta" viewBox="0 0 1200 1200" aria-hidden="true" style="opacity:0.16"><path d="M 80 600 A 520 520 0 1 1 600 1120" fill="none" stroke="#A8FF0A" stroke-width="46" stroke-linecap="round"/><path d="M 210 600 A 390 390 0 1 1 600 990" fill="none" stroke="#A8FF0A" stroke-width="46" stroke-linecap="round"/><path d="M 340 600 A 260 260 0 1 1 600 860" fill="none" stroke="#A8FF0A" stroke-width="46" stroke-linecap="round"/></svg>
+<div class="cta-in">
+  <svg class="logo" viewBox="34 -720 3855.125 758.125" width="356" height="70" role="img" aria-label="Delumo"><path fill="#A8FF0A" d="M255 14Q189 14 139.5 -19.5Q90 -53 62 -115.5Q34 -178 34 -265Q34 -345 58 -407Q82 -469 129.5 -504.5Q177 -540 247 -540Q297 -540 331.5 -522Q366 -504 389 -468Q412 -432 426 -377H451Q444 -411 438 -441.5Q432 -472 428.5 -498.5Q425 -525 425 -545V-720H587V0H455L453 -156H431Q420 -96 396.5 -58.5Q373 -21 337.5 -3.5Q302 14 255 14ZM313 -116Q344 -116 365.5 -129.5Q387 -143 400 -164Q413 -185 419 -209Q425 -233 425 -254V-275Q425 -294 420 -313Q415 -332 405.5 -350Q396 -368 382 -382Q368 -396 349.5 -404Q331 -412 309 -412Q276 -412 252.5 -394Q229 -376 216.5 -343Q204 -310 204 -265Q204 -220 217 -186.5Q230 -153 255 -134.5Q280 -116 313 -116Z M962 14Q896 14 844 -3.5Q792 -21 755.5 -55Q719 -89 700 -139Q681 -189 681 -254Q681 -317 699.5 -370Q718 -423 752.5 -461.5Q787 -500 837.5 -521Q888 -542 951 -542Q1015 -542 1063.5 -521.5Q1112 -501 1143.5 -461Q1175 -421 1190 -363.5Q1205 -306 1200 -232L836 -229Q841 -168 871 -138Q906 -101 961 -101Q988 -101 1006 -108.5Q1024 -116 1035.5 -127.5Q1047 -139 1053.5 -153Q1060 -167 1064 -180L1204 -150Q1196 -113 1178.5 -83Q1161 -53 1131.5 -31Q1102 -9 1060.5 2.5Q1019 14 962 14ZM840 -313 1053 -315Q1053 -340 1045 -359Q1032 -390 1007 -404.5Q982 -419 953 -419Q918 -419 891.5 -400Q865 -381 850 -345Q844 -331 840 -313Z M1298 0V-720H1456V0Z M1762 14Q1668 14 1620.5 -49.5Q1573 -113 1573 -243V-528H1735V-264Q1735 -190 1757 -153.5Q1779 -117 1824 -117Q1851 -117 1870.5 -130.5Q1890 -144 1903.5 -168.5Q1917 -193 1923.5 -225Q1930 -257 1930 -295V-528H2091V0H1963L1960 -163H1940Q1925 -101 1902.5 -61.5Q1880 -22 1846 -4Q1812 14 1762 14Z M2215 0V-528H2342L2344 -373H2364Q2378 -430 2401 -467.5Q2424 -505 2457 -523.5Q2490 -542 2534 -542Q2580 -542 2610.5 -522.5Q2641 -503 2659 -465.5Q2677 -428 2683 -373H2700Q2716 -432 2742 -469.5Q2768 -507 2804 -524.5Q2840 -542 2882 -542Q2927 -542 2960.5 -524.5Q2994 -507 3016.5 -472.5Q3039 -438 3050 -386.5Q3061 -335 3061 -267V0H2899V-247Q2899 -300 2890.5 -335Q2882 -370 2864 -387.5Q2846 -405 2818 -405Q2786 -405 2763.5 -384Q2741 -363 2729 -325.5Q2717 -288 2717 -241V0H2559V-244Q2559 -299 2549.5 -334Q2540 -369 2521.5 -387Q2503 -405 2475 -405Q2443 -405 2421 -384Q2399 -363 2387.5 -325.5Q2376 -288 2376 -241V0Z"/><path fill="#A8FF0A" d="M3822.6 -118.9A368.1 368.1 0 0 1 3186.7 -484.2A47.5 47.5 0 0 1 3273 -444.4A273.1 273.1 0 0 0 3744.7 -173.3A47.5 47.5 0 0 1 3822.6 -118.9ZM3307.1 -629.6A368.1 368.1 0 0 1 3888.9 -318.4A47.5 47.5 0 0 1 3794 -321.4A273.1 273.1 0 0 0 3362.3 -552.3A47.5 47.5 0 0 1 3307.1 -629.6ZM3298.8 -369.2A225.6 225.6 0 0 1 3746.2 -344.4A41.6 41.6 0 0 1 3663.2 -339.1A142.5 142.5 0 0 0 3380.7 -354.7A41.6 41.6 0 0 1 3298.8 -369.2ZM3692.1 -182.9A225.6 225.6 0 0 1 3338 -198A41.6 41.6 0 0 1 3405.4 -246.6A142.5 142.5 0 0 0 3629 -237.1A41.6 41.6 0 0 1 3692.1 -182.9ZM3537.5 -236.4A95 95 0 1 1 3605 -374.5A35.6 35.6 0 0 1 3542 -341.1A23.8 23.8 0 1 0 3525.1 -306.6A35.6 35.6 0 0 1 3537.5 -236.4Z"/></svg>
+  <h2>Qual desafio sua equipe precisa aprender a resolver?</h2>
+  <p class="sub">Vamos definir o público, o objetivo e a experiência de treinamento que faz sentido para a sua empresa.</p>
+  <div class="contacts">
+    <div><svg aria-hidden="true" class="lucide lucide-message-circle" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" /></svg><span><small>WhatsApp</small>(54) 98130-2517</span></div>
+    <div><svg aria-hidden="true" class="lucide lucide-mail" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg><span><small>E-mail</small>agenciadelumo@gmail.com</span></div>
+    <div><svg aria-hidden="true" class="lucide lucide-globe" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /><path d="M2 12h20" /></svg><span><small>Site</small>www.delumo.com.br</span></div>
+    <div><svg aria-hidden="true" class="lucide lucide-map-pin" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /><circle cx="12" cy="10" r="3" /></svg><span><small>Endereço</small>Rua Anita Garibaldi, 1473 · Erechim, RS</span></div>
+  </div>
+</div>
+<div class="qr"><div class="qr-box"><svg viewBox="0 0 33 33" width="230" height="230" shape-rendering="crispEdges" aria-hidden="true"><rect width="33" height="33" fill="#FFFFFF"/><path fill="#06130D" d="M2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM5 2h1v1h-1zM6 2h1v1h-1zM7 2h1v1h-1zM8 2h1v1h-1zM10 2h1v1h-1zM11 2h1v1h-1zM13 2h1v1h-1zM16 2h1v1h-1zM17 2h1v1h-1zM19 2h1v1h-1zM20 2h1v1h-1zM22 2h1v1h-1zM24 2h1v1h-1zM25 2h1v1h-1zM26 2h1v1h-1zM27 2h1v1h-1zM28 2h1v1h-1zM29 2h1v1h-1zM30 2h1v1h-1zM2 3h1v1h-1zM8 3h1v1h-1zM12 3h1v1h-1zM14 3h1v1h-1zM15 3h1v1h-1zM20 3h1v1h-1zM22 3h1v1h-1zM24 3h1v1h-1zM30 3h1v1h-1zM2 4h1v1h-1zM4 4h1v1h-1zM5 4h1v1h-1zM6 4h1v1h-1zM8 4h1v1h-1zM10 4h1v1h-1zM11 4h1v1h-1zM13 4h1v1h-1zM14 4h1v1h-1zM15 4h1v1h-1zM16 4h1v1h-1zM17 4h1v1h-1zM18 4h1v1h-1zM19 4h1v1h-1zM20 4h1v1h-1zM21 4h1v1h-1zM22 4h1v1h-1zM24 4h1v1h-1zM26 4h1v1h-1zM27 4h1v1h-1zM28 4h1v1h-1zM30 4h1v1h-1zM2 5h1v1h-1zM4 5h1v1h-1zM5 5h1v1h-1zM6 5h1v1h-1zM8 5h1v1h-1zM10 5h1v1h-1zM11 5h1v1h-1zM14 5h1v1h-1zM15 5h1v1h-1zM16 5h1v1h-1zM18 5h1v1h-1zM20 5h1v1h-1zM21 5h1v1h-1zM24 5h1v1h-1zM26 5h1v1h-1zM27 5h1v1h-1zM28 5h1v1h-1zM30 5h1v1h-1zM2 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM11 6h1v1h-1zM14 6h1v1h-1zM15 6h1v1h-1zM17 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM24 6h1v1h-1zM26 6h1v1h-1zM27 6h1v1h-1zM28 6h1v1h-1zM30 6h1v1h-1zM2 7h1v1h-1zM8 7h1v1h-1zM10 7h1v1h-1zM11 7h1v1h-1zM12 7h1v1h-1zM14 7h1v1h-1zM15 7h1v1h-1zM16 7h1v1h-1zM17 7h1v1h-1zM21 7h1v1h-1zM24 7h1v1h-1zM30 7h1v1h-1zM2 8h1v1h-1zM3 8h1v1h-1zM4 8h1v1h-1zM5 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM8 8h1v1h-1zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM16 8h1v1h-1zM18 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM24 8h1v1h-1zM25 8h1v1h-1zM26 8h1v1h-1zM27 8h1v1h-1zM28 8h1v1h-1zM29 8h1v1h-1zM30 8h1v1h-1zM10 9h1v1h-1zM11 9h1v1h-1zM13 9h1v1h-1zM17 9h1v1h-1zM19 9h1v1h-1zM3 10h1v1h-1zM5 10h1v1h-1zM7 10h1v1h-1zM8 10h1v1h-1zM9 10h1v1h-1zM10 10h1v1h-1zM12 10h1v1h-1zM13 10h1v1h-1zM16 10h1v1h-1zM17 10h1v1h-1zM19 10h1v1h-1zM20 10h1v1h-1zM22 10h1v1h-1zM23 10h1v1h-1zM24 10h1v1h-1zM25 10h1v1h-1zM27 10h1v1h-1zM28 10h1v1h-1zM30 10h1v1h-1zM3 11h1v1h-1zM4 11h1v1h-1zM5 11h1v1h-1zM7 11h1v1h-1zM10 11h1v1h-1zM13 11h1v1h-1zM15 11h1v1h-1zM16 11h1v1h-1zM17 11h1v1h-1zM18 11h1v1h-1zM24 11h1v1h-1zM25 11h1v1h-1zM30 11h1v1h-1zM2 12h1v1h-1zM3 12h1v1h-1zM6 12h1v1h-1zM7 12h1v1h-1zM8 12h1v1h-1zM9 12h1v1h-1zM10 12h1v1h-1zM12 12h1v1h-1zM13 12h1v1h-1zM14 12h1v1h-1zM15 12h1v1h-1zM18 12h1v1h-1zM21 12h1v1h-1zM24 12h1v1h-1zM25 12h1v1h-1zM27 12h1v1h-1zM28 12h1v1h-1zM29 12h1v1h-1zM2 13h1v1h-1zM3 13h1v1h-1zM7 13h1v1h-1zM10 13h1v1h-1zM12 13h1v1h-1zM13 13h1v1h-1zM14 13h1v1h-1zM16 13h1v1h-1zM18 13h1v1h-1zM20 13h1v1h-1zM21 13h1v1h-1zM22 13h1v1h-1zM23 13h1v1h-1zM24 13h1v1h-1zM27 13h1v1h-1zM28 13h1v1h-1zM29 13h1v1h-1zM2 14h1v1h-1zM6 14h1v1h-1zM8 14h1v1h-1zM14 14h1v1h-1zM17 14h1v1h-1zM19 14h1v1h-1zM22 14h1v1h-1zM24 14h1v1h-1zM25 14h1v1h-1zM27 14h1v1h-1zM2 15h1v1h-1zM4 15h1v1h-1zM5 15h1v1h-1zM7 15h1v1h-1zM13 15h1v1h-1zM14 15h1v1h-1zM15 15h1v1h-1zM17 15h1v1h-1zM18 15h1v1h-1zM21 15h1v1h-1zM22 15h1v1h-1zM23 15h1v1h-1zM25 15h1v1h-1zM27 15h1v1h-1zM3 16h1v1h-1zM4 16h1v1h-1zM8 16h1v1h-1zM10 16h1v1h-1zM12 16h1v1h-1zM13 16h1v1h-1zM15 16h1v1h-1zM22 16h1v1h-1zM24 16h1v1h-1zM30 16h1v1h-1zM2 17h1v1h-1zM3 17h1v1h-1zM5 17h1v1h-1zM9 17h1v1h-1zM12 17h1v1h-1zM16 17h1v1h-1zM17 17h1v1h-1zM22 17h1v1h-1zM23 17h1v1h-1zM25 17h1v1h-1zM2 18h1v1h-1zM4 18h1v1h-1zM7 18h1v1h-1zM8 18h1v1h-1zM10 18h1v1h-1zM11 18h1v1h-1zM13 18h1v1h-1zM14 18h1v1h-1zM15 18h1v1h-1zM16 18h1v1h-1zM17 18h1v1h-1zM18 18h1v1h-1zM21 18h1v1h-1zM25 18h1v1h-1zM29 18h1v1h-1zM6 19h1v1h-1zM9 19h1v1h-1zM13 19h1v1h-1zM14 19h1v1h-1zM16 19h1v1h-1zM17 19h1v1h-1zM22 19h1v1h-1zM24 19h1v1h-1zM27 19h1v1h-1zM29 19h1v1h-1zM30 19h1v1h-1zM2 20h1v1h-1zM4 20h1v1h-1zM6 20h1v1h-1zM8 20h1v1h-1zM9 20h1v1h-1zM13 20h1v1h-1zM14 20h1v1h-1zM15 20h1v1h-1zM23 20h1v1h-1zM25 20h1v1h-1zM26 20h1v1h-1zM27 20h1v1h-1zM28 20h1v1h-1zM29 20h1v1h-1zM30 20h1v1h-1zM5 21h1v1h-1zM6 21h1v1h-1zM10 21h1v1h-1zM11 21h1v1h-1zM14 21h1v1h-1zM15 21h1v1h-1zM16 21h1v1h-1zM17 21h1v1h-1zM18 21h1v1h-1zM19 21h1v1h-1zM20 21h1v1h-1zM22 21h1v1h-1zM25 21h1v1h-1zM2 22h1v1h-1zM4 22h1v1h-1zM6 22h1v1h-1zM8 22h1v1h-1zM11 22h1v1h-1zM12 22h1v1h-1zM14 22h1v1h-1zM16 22h1v1h-1zM20 22h1v1h-1zM22 22h1v1h-1zM23 22h1v1h-1zM24 22h1v1h-1zM25 22h1v1h-1zM26 22h1v1h-1zM27 22h1v1h-1zM28 22h1v1h-1zM10 23h1v1h-1zM15 23h1v1h-1zM16 23h1v1h-1zM19 23h1v1h-1zM22 23h1v1h-1zM26 23h1v1h-1zM30 23h1v1h-1zM2 24h1v1h-1zM3 24h1v1h-1zM4 24h1v1h-1zM5 24h1v1h-1zM6 24h1v1h-1zM7 24h1v1h-1zM8 24h1v1h-1zM10 24h1v1h-1zM11 24h1v1h-1zM12 24h1v1h-1zM13 24h1v1h-1zM14 24h1v1h-1zM15 24h1v1h-1zM18 24h1v1h-1zM20 24h1v1h-1zM22 24h1v1h-1zM24 24h1v1h-1zM26 24h1v1h-1zM27 24h1v1h-1zM28 24h1v1h-1zM2 25h1v1h-1zM8 25h1v1h-1zM10 25h1v1h-1zM11 25h1v1h-1zM12 25h1v1h-1zM13 25h1v1h-1zM14 25h1v1h-1zM16 25h1v1h-1zM17 25h1v1h-1zM18 25h1v1h-1zM20 25h1v1h-1zM22 25h1v1h-1zM26 25h1v1h-1zM28 25h1v1h-1zM2 26h1v1h-1zM4 26h1v1h-1zM5 26h1v1h-1zM6 26h1v1h-1zM8 26h1v1h-1zM13 26h1v1h-1zM14 26h1v1h-1zM15 26h1v1h-1zM16 26h1v1h-1zM18 26h1v1h-1zM20 26h1v1h-1zM22 26h1v1h-1zM23 26h1v1h-1zM24 26h1v1h-1zM25 26h1v1h-1zM26 26h1v1h-1zM27 26h1v1h-1zM29 26h1v1h-1zM30 26h1v1h-1zM2 27h1v1h-1zM4 27h1v1h-1zM5 27h1v1h-1zM6 27h1v1h-1zM8 27h1v1h-1zM10 27h1v1h-1zM12 27h1v1h-1zM14 27h1v1h-1zM15 27h1v1h-1zM17 27h1v1h-1zM20 27h1v1h-1zM21 27h1v1h-1zM22 27h1v1h-1zM23 27h1v1h-1zM24 27h1v1h-1zM26 27h1v1h-1zM28 27h1v1h-1zM30 27h1v1h-1zM2 28h1v1h-1zM4 28h1v1h-1zM5 28h1v1h-1zM6 28h1v1h-1zM8 28h1v1h-1zM13 28h1v1h-1zM16 28h1v1h-1zM17 28h1v1h-1zM18 28h1v1h-1zM21 28h1v1h-1zM22 28h1v1h-1zM26 28h1v1h-1zM30 28h1v1h-1zM2 29h1v1h-1zM8 29h1v1h-1zM10 29h1v1h-1zM12 29h1v1h-1zM14 29h1v1h-1zM18 29h1v1h-1zM19 29h1v1h-1zM20 29h1v1h-1zM22 29h1v1h-1zM23 29h1v1h-1zM25 29h1v1h-1zM27 29h1v1h-1zM29 29h1v1h-1zM2 30h1v1h-1zM3 30h1v1h-1zM4 30h1v1h-1zM5 30h1v1h-1zM6 30h1v1h-1zM7 30h1v1h-1zM8 30h1v1h-1zM12 30h1v1h-1zM14 30h1v1h-1zM15 30h1v1h-1zM16 30h1v1h-1zM17 30h1v1h-1zM18 30h1v1h-1zM19 30h1v1h-1zM20 30h1v1h-1zM21 30h1v1h-1zM22 30h1v1h-1zM24 30h1v1h-1zM26 30h1v1h-1zM29 30h1v1h-1z"/></svg></div><p>Aponte a câmera e<br>fale com a Equipe Delumo</p></div>
+<footer class="foot"><span>Delumo · Vamos conversar</span><span>15</span></footer><aside class="notes">Qual desafio a sua equipe precisa aprender a resolver? O QR code abre o nosso WhatsApp. Muito obrigado!</aside></section>
+  </div></div>
+  <div id="hud" class="show">
+    <div class="h-l"><span id="hNum">01 / 15</span><span id="hTitle">Abertura</span></div>
+    <div class="h-bar"><i id="hProg"></i></div>
+    <div class="h-r">
+      <span id="hTime" title="Tempo total / meta de 7 minutos">0:00 / 7:00</span>
+      <button type="button" id="bPrev" aria-label="Slide anterior"><svg aria-hidden="true" class="lucide lucide-chevron-left" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="m15 18-6-6 6-6" /></svg></button>
+      <button type="button" id="bNext" aria-label="Próximo slide"><svg aria-hidden="true" class="lucide lucide-chevron-right" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="m9 18 6-6-6-6" /></svg></button>
+      <button type="button" id="bSound" aria-label="Ativar ou desativar o som"><svg aria-hidden="true" class="lucide lucide-volume-x" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z" /><line x1="22" x2="16" y1="9" y2="15" /><line x1="16" x2="22" y1="9" y2="15" /></svg></button>
+      <button type="button" id="bNotes" aria-label="Mostrar notas do apresentador"><svg aria-hidden="true" class="lucide lucide-notebook-pen" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4" /><path d="M2 6h4" /><path d="M2 10h4" /><path d="M2 14h4" /><path d="M2 18h4" /><path d="M21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z" /></svg><span>Notas</span></button>
+      <button type="button" id="bFull" aria-label="Tela cheia"><svg aria-hidden="true" class="lucide lucide-maximize" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M8 3H5a2 2 0 0 0-2 2v3" /><path d="M21 8V5a2 2 0 0 0-2-2h-3" /><path d="M3 16v3a2 2 0 0 0 2 2h3" /><path d="M16 21h3a2 2 0 0 0 2-2v-3" /></svg></button>
+    </div>
+  </div>
+  <div id="notes" hidden>
+    <div class="n-hd"><b id="nTitle"></b><span id="nClock"></span><span class="n-keys">→ avança · ← volta · F tela cheia · N notas · M som · T zera o tempo</span></div>
+    <p id="nText"></p>
+  </div>
+</div>
+<script>(() => {
+  const $ = (id) => document.getElementById(id);
+  const slides = [...document.querySelectorAll('.slide')];
+  const N = slides.length, BUDGET = 420, PLAN = 400;
+  const stage = $('stage'), vp = $('viewport'), hud = $('hud'), notes = $('notes'), app = $('app');
+  const video = $('capaVideo'), startBtn = $('capaStart'), capa = slides[0];
+  const secs = slides.map((s) => +s.dataset.secs || 0);
+  const planUntil = secs.map((_, i) => secs.slice(0, i + 1).reduce((a, b) => a + b, 0));
+  let cur = 0, t0 = null, slideT0 = Date.now(), wake = null;
+
+  const ICON = { on: $('bSound').innerHTML, off: $('bSound').innerHTML };
+  const SVG_ON = '<svg aria-hidden="true" class="lucide lucide-volume-2" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z" /><path d="M16 9a5 5 0 0 1 0 6" /><path d="M19.364 18.364a9 9 0 0 0 0-12.728" /></svg>';
+  ICON.on = SVG_ON;
+
+  const fmt = (s) => { s = Math.max(0, Math.floor(s)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
+
+  function fit() {
+    const nh = notes.hidden ? 0 : notes.offsetHeight + hud.offsetHeight;
+    vp.style.bottom = nh + 'px';
+    const s = Math.min(vp.clientWidth / 1920, vp.clientHeight / 1080);
+    stage.style.transform = `translate(-50%, -50%) scale(${s})`;
+  }
+
+  function setSound(on) {
+    if (video) video.muted = !on;
+    $('bSound').innerHTML = on ? ICON.on : ICON.off;
+    $('bSound').setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  function startTimer(reset) {
+    if (!t0 || reset) { t0 = Date.now(); slideT0 = Date.now(); }
+    if (!wake && navigator.wakeLock) navigator.wakeLock.request('screen').then((w) => { wake = w; }).catch(() => {});
+  }
+
+  function updateHud() {
+    const s = slides[cur];
+    $('hNum').textContent = String(cur + 1).padStart(2, '0') + ' / ' + String(N).padStart(2, '0');
+    $('hTitle').textContent = s.dataset.title;
+    $('hProg').style.width = ((cur + 1) / N * 100) + '%';
+    $('nTitle').textContent = (cur + 1) + '. ' + s.dataset.title;
+    $('nText').innerHTML = s.querySelector('.notes').innerHTML;
+    tick();
+  }
+
+  function tick() {
+    const total = t0 ? (Date.now() - t0) / 1000 : 0;
+    const el = $('hTime');
+    el.textContent = fmt(total) + ' / 7:00';
+    el.classList.toggle('warn', total > BUDGET - 45 && total <= BUDGET);
+    el.classList.toggle('late', total > BUDGET);
+    const here = t0 ? (Date.now() - slideT0) / 1000 : 0;
+    const c = $('nClock');
+    c.textContent = 'Neste slide ' + fmt(here) + ' de ' + fmt(secs[cur]) + ' · meta até aqui ' + fmt(planUntil[cur]) + ' · total ' + fmt(total);
+    c.classList.toggle('warn', here > secs[cur]);
+  }
+  setInterval(tick, 500);
+
+  function go(i) {
+    i = Math.max(0, Math.min(N - 1, i));
+    if (i === cur) return;
+    const prev = slides[cur];
+    prev.hidden = true; prev.classList.remove('enter');
+    prev.querySelectorAll('video[data-auto]').forEach((v) => v.pause());
+    if (cur === 0 && video) { video.pause(); }
+    cur = i;
+    const s = slides[cur];
+    s.hidden = false; void s.offsetWidth; s.classList.add('enter');
+    autoplay(s);
+    slideT0 = Date.now();
+    if (cur === 0 && video && video.currentTime > 0) capa.classList.add('ended');
+    if (cur > 0) { startTimer(); if (startBtn) startBtn.hidden = true; }
+    updateHud();
+    try { history.replaceState(null, '', '#s' + (cur + 1)); } catch (e) {}
+  }
+  const next = () => go(cur + 1), prev = () => go(cur - 1);
+  function showIcon(on) { $('bSound').innerHTML = on ? ICON.on : ICON.off; $('bSound').setAttribute('aria-pressed', on ? 'true' : 'false'); }
+  function autoplay(s) {
+    const vs = s.querySelectorAll('video[data-auto]');
+    let sound = false;
+    vs.forEach((v) => {
+      v.currentTime = 0;
+      if (v.hasAttribute('data-sound')) {
+        v.muted = false; sound = true;
+        v.play().catch(() => { v.muted = true; v.play().catch(() => {}); showIcon(false); });
+      } else { v.muted = true; v.play().catch(() => {}); }
+    });
+    if (s !== capa) showIcon(sound);
+  }
+
+  function fullscreen() {
+    const d = document, el = d.documentElement;
+    try {
+      if (d.fullscreenElement) d.exitFullscreen().catch(() => {});
+      else if (el.requestFullscreen) el.requestFullscreen().catch(() => {});
+    } catch (e) {}
+  }
+
+  // ─── capa: tenta tocar com som; se o navegador bloquear, toca sem som e mostra o botão ───
+  async function boot() {
+    if (!video) return;
+    video.volume = 1;
+    video.muted = false;
+    try { await video.play(); setSound(true); startTimer(); }
+    catch (e) {
+      setSound(false);
+      try { await video.play(); } catch (_) {}
+      if (startBtn) startBtn.hidden = false;
+    }
+  }
+  function startWithSound() {
+    if (startBtn) startBtn.hidden = true;
+    capa.classList.remove('ended');
+    try { if (!document.fullscreenElement && document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(() => {}); } catch (e) {}
+    video.currentTime = 0;
+    setSound(true);
+    video.play().catch(() => { setSound(false); video.play().catch(() => {}); });
+    startTimer(true);
+  }
+  if (video) {
+    video.addEventListener('ended', () => capa.classList.add('ended'));
+    video.addEventListener('play', () => capa.classList.remove('ended'));
+  }
+  if (startBtn) startBtn.addEventListener('click', (e) => { e.stopPropagation(); startWithSound(); });
+
+  // ─── controles ───
+  $('bPrev').addEventListener('click', (e) => { e.stopPropagation(); prev(); });
+  $('bNext').addEventListener('click', (e) => { e.stopPropagation(); next(); });
+  $('bFull').addEventListener('click', (e) => { e.stopPropagation(); fullscreen(); });
+  $('bSound').addEventListener('click', (e) => {
+    e.stopPropagation();
+    const sv = slides[cur].querySelector('video[data-auto]');
+    if (cur !== 0 && sv) {
+      sv.muted = !sv.muted;
+      $('bSound').innerHTML = sv.muted ? ICON.off : ICON.on;
+      $('bSound').setAttribute('aria-pressed', sv.muted ? 'false' : 'true');
+      return;
+    }
+    if (!video) return;
+    const on = video.muted;
+    setSound(on);
+    if (on && cur === 0 && (video.paused || video.ended)) { video.currentTime = 0; video.play().catch(() => {}); }
+  });
+  function toggleNotes() {
+    notes.hidden = !notes.hidden;
+    $('bNotes').setAttribute('aria-pressed', notes.hidden ? 'false' : 'true');
+    if (!notes.hidden) hud.classList.add('show');
+    fit();
+  }
+  $('bNotes').addEventListener('click', (e) => { e.stopPropagation(); toggleNotes(); });
+
+  vp.addEventListener('click', (e) => {
+    if (e.target.closest('a, button, video[controls]')) return;
+    if (cur === 0 && startBtn && !startBtn.hidden) { startWithSound(); return; }
+    const r = vp.getBoundingClientRect();
+    if (e.clientX - r.left < r.width * 0.25) prev(); else next();
+  });
+
+  addEventListener('keydown', (e) => {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    const k = e.key;
+    if (cur === 0 && startBtn && !startBtn.hidden && (k === 'Enter' || k === ' ')) { e.preventDefault(); startWithSound(); return; }
+    if (['ArrowRight', 'PageDown', ' ', 'Enter'].includes(k)) { e.preventDefault(); next(); }
+    else if (['ArrowLeft', 'PageUp', 'Backspace'].includes(k)) { e.preventDefault(); prev(); }
+    else if (k === 'Home') go(0);
+    else if (k === 'End') go(N - 1);
+    else if (k === 'f' || k === 'F') fullscreen();
+    else if (k === 'n' || k === 'N') toggleNotes();
+    else if (k === 'm' || k === 'M') $('bSound').click();
+    else if (k === 't' || k === 'T') { startTimer(true); tick(); }
+    else if ((k === 'r' || k === 'R') && cur === 0 && video) startWithSound();
+  });
+
+  let tx = null;
+  vp.addEventListener('touchstart', (e) => { tx = e.touches[0].clientX; }, { passive: true });
+  vp.addEventListener('touchend', (e) => {
+    if (tx === null) return;
+    const dx = e.changedTouches[0].clientX - tx; tx = null;
+    if (Math.abs(dx) > 50) { dx < 0 ? next() : prev(); }
+  });
+
+  let hideT;
+  function poke() {
+    hud.classList.add('show'); app.classList.remove('idle');
+    clearTimeout(hideT);
+    hideT = setTimeout(() => { if (notes.hidden) { hud.classList.remove('show'); app.classList.add('idle'); } }, 2600);
+  }
+  addEventListener('pointermove', poke);
+  addEventListener('pointerdown', poke);
+
+  addEventListener('resize', fit);
+  document.addEventListener('fullscreenchange', fit);
+  fit(); setSound(false);
+
+  const m = /^#s(\d+)$/.exec(location.hash || '');
+  if (m && +m[1] > 1 && +m[1] <= N) { if (video) video.pause(); go(+m[1] - 1); }
+  else { slides[0].classList.add('enter'); updateHud(); boot(); }
+  poke();
+})();
+</script>
+</body>
+</html>
