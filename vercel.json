@@ -22,6 +22,14 @@
   ],
   "rewrites": [
     {
+      "source": "/cit",
+      "destination": "https://cit-erechim.vercel.app/cit"
+    },
+    {
+      "source": "/cit/:path*",
+      "destination": "https://cit-erechim.vercel.app/cit/:path*"
+    },
+    {
       "source": "/aprender",
       "destination": "https://treinador-ecru.vercel.app/aprender"
     },
