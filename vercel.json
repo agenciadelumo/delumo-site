@@ -23,6 +23,11 @@
       "source": "/x",
       "destination": "/x/",
       "permanent": false
+    },
+    {
+      "source": "/xx",
+      "destination": "/xx/",
+      "permanent": false
     }
   ],
   "rewrites": [
@@ -65,11 +70,19 @@
     {
       "source": "/x/:path*",
       "destination": "https://delumo-x.vercel.app/:path*"
+    },
+    {
+      "source": "/xx/",
+      "destination": "https://delumo-xx.vercel.app/"
+    },
+    {
+      "source": "/xx/:path*",
+      "destination": "https://delumo-xx.vercel.app/:path*"
     }
   ],
   "headers": [
     {
-      "source": "/((?!x$|x/).*)",
+      "source": "/((?!x$|x/|xx$|xx/).*)",
       "headers": [
         {
           "key": "Strict-Transport-Security",
@@ -102,7 +115,7 @@
       ]
     },
     {
-      "source": "/x(/.*)?",
+      "source": "/(x|xx)(/.*)?",
       "headers": [
         {
           "key": "Strict-Transport-Security",
