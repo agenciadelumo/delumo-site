@@ -82,7 +82,7 @@
   ],
   "headers": [
     {
-      "source": "/((?!x$|x/|xx$|xx/).*)",
+      "source": "/((?!x$|x/|xx$|xx/|mascotex$|mascotex/).*)",
       "headers": [
         {
           "key": "Strict-Transport-Security",
@@ -115,7 +115,7 @@
       ]
     },
     {
-      "source": "/(x|xx)(/.*)?",
+      "source": "/(x|xx|mascotex)(/.*)?",
       "headers": [
         {
           "key": "Strict-Transport-Security",
@@ -180,6 +180,24 @@
         {
           "key": "Content-Type",
           "value": "application/octet-stream"
+        }
+      ]
+    },
+    {
+      "source": "/mascotex/mp/(.*)\\.wasm",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/wasm"
+        }
+      ]
+    },
+    {
+      "source": "/mascotex(/.*)?",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
         }
       ]
     }

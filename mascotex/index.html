@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<base href="/mascotex/">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mascote X</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Figtree:wght@500;600&display=swap">
+<style>
+/* Saída para painel de LED 2:1 (672x336 px). O quadro renderiza em 3x (2016x1008) e é encaixado na janela sem distorcer. Fundo preto = LED apagado. */
+:root{
+  --black:#000; --panel:#141010; --ink:#f6f1ef; --muted:#a8a09d; --red:#e62b1e; --line:rgba(246,241,239,.16);
+  --f-display:"Bricolage Grotesque","Arial Black",system-ui,sans-serif;
+  --f-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--black);color:var(--ink);font-family:var(--f-body);overflow:hidden;cursor:none}
+body.op{cursor:default}
+[hidden]{display:none!important}
+/* quadro 2:1 encaixado na janela (letterbox) */
+#frame{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:min(100vw, calc(100vh * var(--ar,2)));height:min(100vh, calc(100vw / var(--ar,2)));
+  container-type:size;overflow:hidden;background:var(--black)}
+#stage{position:absolute;inset:0;width:100%;height:100%;display:block}
+/* aviso dentro do quadro: legível no LED */
+.hint{position:absolute;left:50%;top:5cqh;transform:translateX(-50%);white-space:nowrap;
+  font-family:var(--f-display);font-weight:800;font-size:6.2cqh;line-height:1;letter-spacing:-.01em;
+  color:var(--ink);text-shadow:0 0 2cqh rgba(0,0,0,.9);transition:opacity .5s}
+.hint b{color:var(--red)}
+.hint.off{opacity:0}
+.loading{position:absolute;inset:0;display:grid;place-items:center;font-size:4cqh;color:var(--muted)}
+/* camada do operador: aparece ao mexer o mouse, some sozinha */
+.ops{position:fixed;inset:0;pointer-events:none;opacity:0;transition:opacity .25s;z-index:10}
+body.op .ops{opacity:1}
+body.op .ops > *{pointer-events:auto}
+.bar{position:absolute;left:12px;right:12px;bottom:12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;
+  background:rgba(20,16,16,.9);border:1px solid var(--line);border-radius:14px;padding:8px 10px;font-size:13px}
+.bar .info{color:var(--muted);font-variant-numeric:tabular-nums}
+.bar .info strong{color:var(--ink);font-weight:600}
+.bar .btns{display:flex;flex-wrap:wrap;gap:6px}
+button,.filebtn{font:600 13px var(--f-body);color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:10px;padding:7px 12px;cursor:pointer}
+button:hover,.filebtn:hover{border-color:var(--muted)}
+button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+button[aria-pressed="true"]{background:var(--red);border-color:var(--red)}
+kbd{font:600 11px var(--f-body);border:1px solid var(--line);border-radius:4px;padding:0 4px;margin-left:5px;color:var(--muted)}
+.pip{position:absolute;right:12px;top:12px;width:min(260px,30vw);aspect-ratio:4/3;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#000}
+.pip video,.pip canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1)}
+/* tela de início (só quando a câmera precisa de um clique ou foi recusada) */
+.start{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:24px;background:rgba(0,0,0,.6);cursor:default}
+.card{width:min(460px,100%);background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:12px}
+.card h2{margin:0;font-family:var(--f-display);font-weight:800;font-size:24px;line-height:1.1}
+.card p{margin:0;color:var(--muted);line-height:1.5;font-size:14px}
+.card .warn{color:var(--ink);border-left:3px solid var(--red);padding-left:10px}
+.card .row{display:flex;flex-wrap:wrap;gap:8px}
+.card .primary{background:var(--red);border-color:var(--red);font-size:15px;padding:10px 18px}
+.filebtn{position:relative;display:inline-block}
+.filebtn input{position:absolute;width:1px;height:1px;opacity:0}
+</style>
+</head>
+<body>
+<div id="frame">
+  <canvas id="stage" aria-label="Mascote X imitando quem está na frente da câmera"></canvas>
+  <div class="loading" id="loading">Carregando…</div>
+  <div class="hint off" id="hint">Fique na frente da câmera e <b>mexa-se!</b></div>
+</div>
+
+<div class="ops" id="ops">
+  <div class="pip" id="pip" hidden><video id="video" playsinline muted></video><canvas id="overlay"></canvas></div>
+  <div class="bar">
+    <div class="info" id="info">Saída <strong id="res">2016×1008</strong> · painel 672×336 (3×) · <span id="status">preparando…</span></div>
+    <div class="btns">
+      <button id="fsBtn" type="button">Tela cheia<kbd>F</kbd></button>
+      <button id="pipBtn" type="button" aria-pressed="false">Ver câmera<kbd>C</kbd></button>
+      <button id="legsBtn" type="button" aria-pressed="true">Pernas<kbd>P</kbd></button>
+      <button id="hintBtn" type="button" aria-pressed="true">Aviso<kbd>A</kbd></button>
+    </div>
+  </div>
+</div>
+
+<div class="start" id="start" hidden>
+  <div class="card">
+    <h2>O mascote é o seu espelho</h2>
+    <p>Fique de frente para a webcam, com o corpo inteiro aparecendo. Tudo o que você fizer, ele faz igual.</p>
+    <p class="warn" id="startMsg" hidden></p>
+    <div class="row">
+      <button class="primary" id="camBtn" type="button">Ligar câmera</button>
+      <label class="filebtn" id="vidLabel" hidden>Testar com um vídeo<input id="vidInput" type="file" accept="video/*"></label>
+    </div>
+  </div>
+</div>
+
+<script type="importmap">{"imports":{"three":"./vendor/three.module.min.js"}}</script>
+<script src="./mp/pose.js"></script>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from './vendor/GLTFLoader.js';
+import { RoomEnvironment } from './vendor/RoomEnvironment.js';
+
+const $=s=>document.querySelector(s);
+// ---------- resolução de saída ----------
+// Painel: 672x336 px. Renderiza em 3x = 2016x1008 e encaixa na tela.
+// Pode trocar pela URL: ?w=672&h=336&escala=3
+const qs=new URLSearchParams(location.search);
+const PANEL_W=+qs.get('w')||672, PANEL_H=+qs.get('h')||336, SCALE=+qs.get('escala')||3;
+const OUT_W=PANEL_W*SCALE, OUT_H=PANEL_H*SCALE, AR=OUT_W/OUT_H;
+document.documentElement.style.setProperty('--ar',AR);
+$('#res').textContent=`${OUT_W}×${OUT_H}`;
+$('#info').childNodes[2].textContent=` · painel ${PANEL_W}×${PANEL_H} (${SCALE}×) · `;
+const statusEl=$('#status'); const setStatus=t=>statusEl.textContent=t;
+
+// ---------- cena ----------
+const canvas=$('#stage');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'});
+renderer.setPixelRatio(1);
+renderer.setSize(OUT_W,OUT_H,false);           // buffer fixo 2016x1008; o CSS só encaixa na janela
+renderer.outputColorSpace=THREE.SRGBColorSpace;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;
+renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+const scene=new THREE.Scene(); scene.background=new THREE.Color(0x000000);
+const pmrem=new THREE.PMREMGenerator(renderer);
+scene.environment=pmrem.fromScene(new RoomEnvironment(),0.04).texture; scene.environmentIntensity=0.6;
+// câmera enquadra o mascote em ~88% da altura do painel
+const camera=new THREE.PerspectiveCamera(30,AR,0.01,50);
+const LOOK=new THREE.Vector3(0,0.5,0);
+const fitDist=(1.32/2)/Math.tan(THREE.MathUtils.degToRad(15));
+camera.position.set(0,0.56,fitDist); camera.lookAt(LOOK);
+const key=new THREE.SpotLight(0xffffff,30,0,Math.PI/5,0.6,1.5);
+key.position.set(1.2,2.6,2.2); key.target.position.set(0,0.4,0); key.castShadow=true; key.shadow.mapSize.set(2048,2048); key.shadow.bias=-0.0004;
+scene.add(key,key.target);
+const rim=new THREE.DirectionalLight(0xff5544,1.6); rim.position.set(-2,1.5,-2); scene.add(rim);
+scene.add(new THREE.HemisphereLight(0xffffff,0x221111,0.4));
+const floor=new THREE.Mesh(new THREE.CircleGeometry(0.55,128),new THREE.MeshStandardMaterial({color:0x7a140d,roughness:0.9}));
+floor.rotation.x=-Math.PI/2; floor.scale.set(Math.min(2.2,AR),1,1); floor.receiveShadow=true; scene.add(floor);
+const ground=new THREE.Mesh(new THREE.PlaneGeometry(30,30),new THREE.ShadowMaterial({opacity:0.4}));
+ground.rotation.x=-Math.PI/2; ground.position.y=-0.001; ground.receiveShadow=true; scene.add(ground);
+// quanto o mascote pode andar para os lados (cabe no quadro largo)
+const halfW=Math.tan(THREE.MathUtils.degToRad(15))*fitDist*AR;
+const MAX_X=Math.max(0.2,halfW-0.45);
+
+// ---------- modelo ----------
+const BASE_YAW=-Math.PI/2;
+let model, bones={}, neutral={};
+const modelReady=new Promise((res,rej)=>new GLTFLoader().load('./mascote_tedx.glb',res,undefined,rej)).then(gltf=>{
+  model=gltf.scene;
+  model.traverse(o=>{ if(o.isMesh){o.castShadow=true;o.frustumCulled=false;} if(o.isBone){ bones[o.name.replace(/^mixamorig:?/,'')]=o; } });
+  const box=new THREE.Box3().setFromObject(model);
+  model.rotation.y=BASE_YAW; model.position.y-=box.min.y; scene.add(model);
+  const idle=gltf.animations.find(c=>c.name==='idle');
+  if(idle){ const mixer=new THREE.AnimationMixer(model); mixer.clipAction(idle).play(); mixer.setTime(0); }
+  for(const [n,b] of Object.entries(bones)) neutral[n]=b.quaternion.clone();
+  $('#loading').hidden=true;
+}).catch(e=>{ $('#loading').textContent='Não consegui carregar o modelo 3D.'; console.error(e); throw e; });
+
+// ---------- detector de pose ----------
+let pose=null, poseReady=null, stream=null, running=false, sending=false, lastLm=null, lastHipX=0.5, legs=true, hintOn=true;
+const video=$('#video'), pip=$('#pip'), overlay=$('#overlay'), octx=overlay.getContext('2d');
+function ensurePose(){
+  if(poseReady) return poseReady;
+  poseReady=new Promise((res,rej)=>{
+    try{
+      if(!window.Pose) throw new Error('pose.js não carregou');
+      pose=new window.Pose({locateFile:f=>'./mp/'+f});
+      pose.setOptions({modelComplexity:0,smoothLandmarks:true,enableSegmentation:false,minDetectionConfidence:0.5,minTrackingConfidence:0.5,selfieMode:false});
+      pose.onResults(onResults);
+      pose.initialize().then(()=>res(pose),rej);
+    }catch(e){rej(e);}
+  });
+  poseReady.catch(()=>{poseReady=null;});
+  return poseReady;
+}
+let lostAt=0;
+function onResults(r){
+  const L=r.poseLandmarks;
+  lastLm=(L && r.poseWorldLandmarks)?r.poseWorldLandmarks:null;
+  if(lastLm) lostAt=0; else if(!lostAt) lostAt=performance.now();
+  setStatus(lastLm?'espelhando':'procurando alguém…');
+  if(L) lastHipX=(L[23].x+L[24].x)/2;
+  if(pip.hidden) return;
+  overlay.width=video.videoWidth||640; overlay.height=video.videoHeight||480;
+  octx.clearRect(0,0,overlay.width,overlay.height);
+  if(!L) return;
+  octx.strokeStyle='#ff6a5c'; octx.lineWidth=4; octx.lineCap='round';
+  for(const [a,b] of [[11,13],[13,15],[12,14],[14,16],[11,12],[11,23],[12,24],[23,24],[23,25],[25,27],[24,26],[26,28]]){
+    if(L[a].visibility<.5||L[b].visibility<.5) continue;
+    octx.beginPath(); octx.moveTo(L[a].x*overlay.width,L[a].y*overlay.height); octx.lineTo(L[b].x*overlay.width,L[b].y*overlay.height); octx.stroke();
+  }
+}
+async function loop(){
+  if(!running) return;
+  if(!sending && video.readyState>=2){ sending=true; try{ await pose.send({image:video}); }catch(e){console.error(e);} sending=false; }
+  requestAnimationFrame(loop);
+}
+function showStart(msg,allowVideo){
+  $('#start').hidden=false;
+  const m=$('#startMsg'); if(msg){m.textContent=msg;m.hidden=false;} else m.hidden=true;
+  $('#vidLabel').hidden=!allowVideo;
+}
+async function begin(){
+  try{ setStatus('carregando detector…'); await ensurePose(); }
+  catch(e){ console.error(e); setStatus('detector indisponível'); showStart('O detector de pose não abriu neste navegador. Use o Chrome ou o Edge atualizados.',false); return; }
+  $('#start').hidden=true; running=true; lostAt=performance.now(); loop();
+}
+async function startCamera(){
+  try{
+    stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:640},height:{ideal:480}},audio:false});
+  }catch(e){
+    console.warn(e); setStatus('câmera desligada');
+    showStart('A câmera não foi liberada. Clique no ícone de câmera ao lado do endereço, permita o acesso e tente de novo.',true);
+    return;
+  }
+  video.srcObject=stream; await video.play(); await begin();
+}
+$('#camBtn').onclick=startCamera;
+$('#vidInput').onchange=async e=>{
+  const f=e.target.files[0]; if(!f) return;
+  if(stream){stream.getTracks().forEach(t=>t.stop());stream=null;video.srcObject=null;}
+  video.src=URL.createObjectURL(f); video.loop=true; await video.play(); await begin(); e.target.value='';
+};
+
+// ---------- operador: botões e atalhos ----------
+const toggle=(btn,on)=>btn.setAttribute('aria-pressed',String(on));
+function fullscreen(){ (document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen?.())?.catch?.(()=>{}); }
+function togglePip(){ pip.hidden=!pip.hidden; toggle($('#pipBtn'),!pip.hidden); }
+function toggleLegs(){ legs=!legs; toggle($('#legsBtn'),legs); }
+function toggleHint(){ hintOn=!hintOn; toggle($('#hintBtn'),hintOn); }
+$('#fsBtn').onclick=fullscreen; $('#pipBtn').onclick=togglePip; $('#legsBtn').onclick=toggleLegs; $('#hintBtn').onclick=toggleHint;
+addEventListener('keydown',e=>{ if(e.target.tagName==='INPUT') return; const k=e.key.toLowerCase();
+  if(k==='f') fullscreen(); else if(k==='c') togglePip(); else if(k==='p') toggleLegs(); else if(k==='a') toggleHint(); });
+let opTimer=0;
+function wake(){ document.body.classList.add('op'); clearTimeout(opTimer); opTimer=setTimeout(()=>document.body.classList.remove('op'),3000); }
+addEventListener('mousemove',wake); addEventListener('pointerdown',wake);
+
+modelReady.then(()=>{ setStatus('ligando a câmera…'); startCamera(); }).catch(()=>{});
+
+// ---------- espelho: pontos do corpo -> ossos ----------
+const _a=new THREE.Vector3(),_b=new THREE.Vector3(),_q=new THREE.Quaternion(),_wq=new THREE.Quaternion(),_pq=new THREE.Quaternion();
+const smooth={}; let yawS=0, posS=0;
+function aim(name,childName,dir,k){
+  const bone=bones[name], child=bones[childName]; if(!bone||!child) return;
+  bone.updateWorldMatrix(true,false); child.updateWorldMatrix(false,false);
+  bone.getWorldPosition(_a); child.getWorldPosition(_b);
+  _q.setFromUnitVectors(_b.sub(_a).normalize(),dir);
+  bone.getWorldQuaternion(_wq).premultiply(_q);
+  bone.parent.getWorldQuaternion(_pq).invert();
+  const s=smooth[name]||(smooth[name]=bone.quaternion.clone());
+  s.slerp(_pq.multiply(_wq),k); bone.quaternion.copy(s);
+  bone.updateMatrixWorld(true);
+}
+// MediaPipe: x para a direita da imagem, y para baixo, z negativo = perto da câmera.
+// Espelho: invertendo x e z, o lado direito da pessoa vai para o lado da tela onde ela se vê.
+const P=i=>{const l=lastLm[i]; return new THREE.Vector3(-l.x,-l.y,-l.z);};
+const vis=(...ids)=>ids.every(i=>(lastLm[i].visibility??1)>0.5);
+const dirOf=(a,b)=>b.clone().sub(a).normalize();
+const UP=new THREE.Vector3(0,1,0);
+function updateMirror(){
+  if(!model) return;
+  const plan=[]; let yaw=0, pos=0;
+  if(lastLm){
+    const lsh=P(11), rsh=P(12), lhp=P(23), rhp=P(24);
+    const hipMid=lhp.clone().add(rhp).multiplyScalar(.5), shMid=lsh.clone().add(rsh).multiplyScalar(.5);
+    if(vis(11,12)){ const v=lsh.clone().sub(rsh); yaw=THREE.MathUtils.clamp(Math.atan2(v.z,-v.x),-1,1); }
+    pos=THREE.MathUtils.clamp((0.5-lastHipX)*2*MAX_X,-MAX_X,MAX_X);
+    if(vis(11,12,23,24)) plan.push(['Spine','Spine1',dirOf(hipMid,shMid).lerp(UP,0.35).normalize(),0.4]);
+    if(vis(0,11,12)) plan.push(['Neck','Head',dirOf(shMid,P(0)).lerp(UP,0.6).normalize(),0.35]);
+    if(vis(12,14)) plan.push(['LeftArm','LeftForeArm',dirOf(P(12),P(14)),0.55]);
+    if(vis(14,16)) plan.push(['LeftForeArm','LeftHand',dirOf(P(14),P(16)),0.55]);
+    if(vis(11,13)) plan.push(['RightArm','RightForeArm',dirOf(P(11),P(13)),0.55]);
+    if(vis(13,15)) plan.push(['RightForeArm','RightHand',dirOf(P(13),P(15)),0.55]);
+    if(legs){
+      if(vis(24,26)) plan.push(['LeftUpLeg','LeftLeg',dirOf(P(24),P(26)),0.45]);
+      if(vis(26,28)) plan.push(['LeftLeg','LeftFoot',dirOf(P(26),P(28)),0.45]);
+      if(vis(23,25)) plan.push(['RightUpLeg','RightLeg',dirOf(P(23),P(25)),0.45]);
+      if(vis(25,27)) plan.push(['RightLeg','RightFoot',dirOf(P(25),P(27)),0.45]);
+    }
+  }
+  const aimed=new Set(plan.map(p=>p[0]));
+  for(const [n,b] of Object.entries(bones)){
+    if(aimed.has(n)){ b.quaternion.copy(neutral[n]); continue; }
+    const s=smooth[n]||(smooth[n]=b.quaternion.clone());
+    s.slerp(neutral[n],0.12); b.quaternion.copy(s);
+  }
+  yawS+=(yaw-yawS)*0.2; posS+=(pos-posS)*0.15;
+  model.rotation.y=BASE_YAW+yawS; model.position.x=posS;
+  model.updateMatrixWorld(true);
+  for(const p of plan) aim(...p);
+  // aviso aparece depois de 1,5 s sem ninguém
+  $('#hint').classList.toggle('off', !hintOn || !running || !lostAt || performance.now()-lostAt<1500);
+}
+renderer.setAnimationLoop(()=>{ updateMirror(); renderer.render(scene,camera); });
+window.__mascote={testPose:(lm,hipX=0.5)=>{lastLm=lm;lastHipX=hipX;lostAt=0;}, size:()=>[canvas.width,canvas.height]};
+</script>
+</body>
+</html>
