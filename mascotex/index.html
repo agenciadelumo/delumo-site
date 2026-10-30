@@ -8,9 +8,9 @@
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Figtree:wght@500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Figtree:wght@500;600&display=swap">
 <style>
-/* Saída para painel de LED 2:1 (672x336 px). O quadro renderiza em 3x (2016x1008) e é encaixado na janela sem distorcer. Fundo preto = LED apagado. */
+/* Saída para painel de LED em pé 1x2 m (336x672 px). O quadro renderiza em 3x (1008x2016) e é encaixado na janela sem distorcer. Fundo preto = LED apagado. */
 :root{
   --black:#000; --panel:#141010; --ink:#f6f1ef; --muted:#a8a09d; --red:#e62b1e; --line:rgba(246,241,239,.16);
   --f-display:"Bricolage Grotesque","Arial Black",system-ui,sans-serif;
@@ -28,11 +28,16 @@ body.op{cursor:default}
   container-type:size;overflow:hidden;background:var(--black)}
 #stage{position:absolute;inset:0;width:100%;height:100%;display:block}
 /* aviso dentro do quadro: legível no LED */
-.hint{position:absolute;left:50%;top:5cqh;transform:translateX(-50%);white-space:nowrap;
-  font-family:var(--f-display);font-weight:800;font-size:6.2cqh;line-height:1;letter-spacing:-.01em;
+.hint{position:absolute;left:50%;top:6cqh;transform:translateX(-50%);width:88cqw;text-align:center;text-wrap:balance;
+  font-family:var(--f-display);font-weight:800;font-size:min(6.2cqh,10cqw);line-height:1.05;letter-spacing:-.01em;
   color:var(--ink);text-shadow:0 0 2cqh rgba(0,0,0,.9);transition:opacity .5s}
 .hint b{color:var(--red)}
 .hint.off{opacity:0}
+/* assinatura Delumo (igual ao rodapé do site: POWERED + logotipo) */
+.sign{position:absolute;left:50%;bottom:2.4cqh;transform:translateX(-50%);display:flex;align-items:center;gap:.55em;font-size:min(2.6cqh,5.5cqw);opacity:.9;pointer-events:none}
+.sign>span:first-child{font:700 .42em var(--f-display);letter-spacing:.04em;color:#7f988b}
+.delumo-logo{font-family:var(--f-display);font-weight:800;display:inline-flex;align-items:center;line-height:.78;color:#fff}
+.delumo-logo svg{width:.8em;height:.8em;margin-left:.08em;overflow:visible}
 .loading{position:absolute;inset:0;display:grid;place-items:center;font-size:4cqh;color:var(--muted)}
 /* camada do operador: aparece ao mexer o mouse, some sozinha */
 .ops{position:fixed;inset:0;pointer-events:none;opacity:0;transition:opacity .25s;z-index:10}
@@ -67,12 +72,13 @@ kbd{font:600 11px var(--f-body);border:1px solid var(--line);border-radius:4px;p
   <canvas id="stage" aria-label="Mascote X imitando quem está na frente da câmera"></canvas>
   <div class="loading" id="loading">Carregando…</div>
   <div class="hint off" id="hint">Fique na frente da câmera e <b>mexa-se!</b></div>
+  <div class="sign" aria-label="Powered by Delumo"><span>POWERED</span><span class="delumo-logo" role="img" aria-label="Delumo">delum<svg viewBox="-32 -32 64 64" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><circle r="27" stroke-width="8" stroke-dasharray="80 14 60 15.6" transform="rotate(35)"/><circle r="15.5" stroke-width="7" stroke-dasharray="45 12 28 12.4" transform="rotate(190)"/><circle r="5" stroke-width="6" stroke-dasharray="22 9.4" transform="rotate(80)"/></svg></span></div>
 </div>
 
 <div class="ops" id="ops">
   <div class="pip" id="pip" hidden><video id="video" playsinline muted></video><canvas id="overlay"></canvas></div>
   <div class="bar">
-    <div class="info" id="info">Saída <strong id="res">2016×1008</strong> · painel 672×336 (3×) · <span id="status">preparando…</span></div>
+    <div class="info" id="info">Saída <strong id="res">1008×2016</strong> · painel 336×672 (3×) · <span id="status">preparando…</span></div>
     <div class="btns">
       <button id="fsBtn" type="button">Tela cheia<kbd>F</kbd></button>
       <button id="pipBtn" type="button" aria-pressed="false">Ver câmera<kbd>C</kbd></button>
@@ -103,10 +109,10 @@ import { RoomEnvironment } from './vendor/RoomEnvironment.js';
 
 const $=s=>document.querySelector(s);
 // ---------- resolução de saída ----------
-// Painel: 672x336 px. Renderiza em 3x = 2016x1008 e encaixa na tela.
-// Pode trocar pela URL: ?w=672&h=336&escala=3
+// Painel em pé (1 m x 2 m): 336x672 px. Renderiza em 3x = 1008x2016 e encaixa na tela.
+// Pode trocar pela URL: ?w=672&h=336&escala=3 (painel deitado)
 const qs=new URLSearchParams(location.search);
-const PANEL_W=+qs.get('w')||672, PANEL_H=+qs.get('h')||336, SCALE=+qs.get('escala')||3;
+const PANEL_W=+qs.get('w')||336, PANEL_H=+qs.get('h')||672, SCALE=+qs.get('escala')||3;
 const OUT_W=PANEL_W*SCALE, OUT_H=PANEL_H*SCALE, AR=OUT_W/OUT_H;
 document.documentElement.style.setProperty('--ar',AR);
 $('#res').textContent=`${OUT_W}×${OUT_H}`;
@@ -126,21 +132,25 @@ const pmrem=new THREE.PMREMGenerator(renderer);
 scene.environment=pmrem.fromScene(new RoomEnvironment(),0.04).texture; scene.environmentIntensity=0.6;
 // câmera enquadra o mascote em ~88% da altura do painel
 const camera=new THREE.PerspectiveCamera(30,AR,0.01,50);
-const LOOK=new THREE.Vector3(0,0.5,0);
-const fitDist=(1.32/2)/Math.tan(THREE.MathUtils.degToRad(15));
-camera.position.set(0,0.56,fitDist); camera.lookAt(LOOK);
+// enquadramento: cabe na altura (painel deitado) ou na largura, com braços abertos (painel em pé)
+const T15=Math.tan(THREE.MathUtils.degToRad(15));
+const fitDist=Math.max((1.32/2)/T15, (1.4/2)/(T15*AR));
+const visH=2*fitDist*T15;
+const portrait=AR<1;
+const LOOK=new THREE.Vector3(0, portrait? visH*0.32 : 0.5, 0);   // em pé: pés a ~18% do chão do painel, aviso em cima, assinatura embaixo
+camera.position.set(0, LOOK.y+(portrait?0.12:0.06), fitDist); camera.lookAt(LOOK);
 const key=new THREE.SpotLight(0xffffff,30,0,Math.PI/5,0.6,1.5);
 key.position.set(1.2,2.6,2.2); key.target.position.set(0,0.4,0); key.castShadow=true; key.shadow.mapSize.set(2048,2048); key.shadow.bias=-0.0004;
 scene.add(key,key.target);
 const rim=new THREE.DirectionalLight(0xff5544,1.6); rim.position.set(-2,1.5,-2); scene.add(rim);
 scene.add(new THREE.HemisphereLight(0xffffff,0x221111,0.4));
 const floor=new THREE.Mesh(new THREE.CircleGeometry(0.55,128),new THREE.MeshStandardMaterial({color:0x7a140d,roughness:0.9}));
-floor.rotation.x=-Math.PI/2; floor.scale.set(Math.min(2.2,AR),1,1); floor.receiveShadow=true; scene.add(floor);
+floor.rotation.x=-Math.PI/2; floor.scale.set(Math.max(1,Math.min(2.2,AR)),1,1); floor.receiveShadow=true; scene.add(floor);
 const ground=new THREE.Mesh(new THREE.PlaneGeometry(30,30),new THREE.ShadowMaterial({opacity:0.4}));
 ground.rotation.x=-Math.PI/2; ground.position.y=-0.001; ground.receiveShadow=true; scene.add(ground);
 // quanto o mascote pode andar para os lados (cabe no quadro largo)
-const halfW=Math.tan(THREE.MathUtils.degToRad(15))*fitDist*AR;
-const MAX_X=Math.max(0.2,halfW-0.45);
+const halfW=T15*fitDist*AR;
+const MAX_X=Math.max(0.04,halfW-0.5);
 
 // ---------- modelo ----------
 const BASE_YAW=-Math.PI/2;
