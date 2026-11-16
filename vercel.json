@@ -28,6 +28,11 @@
       "source": "/xx",
       "destination": "/xx/",
       "permanent": false
+    },
+    {
+      "source": "/droperechim",
+      "destination": "/droperechim/",
+      "permanent": false
     }
   ],
   "rewrites": [
@@ -78,6 +83,14 @@
     {
       "source": "/xx/:path*",
       "destination": "https://delumo-xx.vercel.app/:path*"
+    },
+    {
+      "source": "/droperechim/",
+      "destination": "https://droperechim.vercel.app/droperechim/"
+    },
+    {
+      "source": "/droperechim/:path*",
+      "destination": "https://droperechim.vercel.app/droperechim/:path*"
     }
   ],
   "headers": [
