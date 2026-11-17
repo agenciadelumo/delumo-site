@@ -10,7 +10,7 @@ await mkdir(output, { recursive: true });
 // Retain published standalone proposals, tours and applications at their existing URLs.
 // Gestor and Aprender are served by their Next.js applications through Vercel rewrites.
 // Keep the historical source folder, but do not publish its static export.
-const legacyDirectories = ['assets', 'blog', 'bora', 'cases', 'convite', 'erechim', 'imersao', 'propostadayro', 'propostaunimed', 'redelius', 'propostacastelinho', 'orcamentocastelinho', 'propostaerbs', 'propostaerbsrh', 'propostav3t', 'propostavandanamotos', 'servicos', 'aratiba_taverna', 'longines', 'gamelongines', 'mascotex'];
+const legacyDirectories = ['assets', 'blog', 'bora', 'cases', 'convite', 'erechim', 'imersao', 'propostadayro', 'propostaunimed', 'redelius', 'propostacastelinho', 'orcamentocastelinho', 'sociocastelinho', 'propostaerbs', 'propostaerbsrh', 'propostav3t', 'propostavandanamotos', 'servicos', 'aratiba_taverna', 'longines', 'gamelongines', 'mascotex'];
 // Executable installers are published as GitHub Releases, never from the site itself.
 const excluded = source => /[\\/]downloads([\\/]|$)/.test(path.relative(root, source)) || /\.(zip|exe|msi|apk|rar|7z|dmg)$/i.test(source);
 const existing = new Set((await readdir(root, { withFileTypes: true })).map(item => item.name));
@@ -21,7 +21,7 @@ for (const name of ['robots.txt', 'sitemap.xml']) {
   if (existing.has(name)) await cp(path.join(root, name), path.join(output, name));
 }
 await cp(path.join(root, 'web/out'), output, { recursive: true });
-for (const route of ['propostadayro/index.html', 'propostaunimed/index.html', 'redelius/index.html', 'propostacastelinho/index.html', 'orcamentocastelinho/index.html', 'propostaerbs/index.html', 'propostaerbsrh/index.html', 'convite/index.html', 'erechim/index.html', 'imersao/index.html', 'index.html']) {
+for (const route of ['propostadayro/index.html', 'propostaunimed/index.html', 'redelius/index.html', 'propostacastelinho/index.html', 'orcamentocastelinho/index.html', 'sociocastelinho/index.html', 'sociocastelinho/obra.html', 'sociocastelinho/projetos.html', 'propostaerbs/index.html', 'propostaerbsrh/index.html', 'convite/index.html', 'erechim/index.html', 'imersao/index.html', 'index.html']) {
   const html = await readFile(path.join(output, route), 'utf8');
   if (!html.includes('<html')) throw new Error(`Missing published route: ${route}`);
 }
