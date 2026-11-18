@@ -26,6 +26,7 @@ window.CASTELINHO_FOTOS = (function () {
   Object.keys(qtd).forEach(function (c) {
     for (var i = 1; i <= qtd[c]; i++) {
       var id = c + "-" + (i < 10 ? "0" : "") + i;
+      if (id === "registros-10") continue; // repetida de registros-09
       lista.push({
         id: id,
         cat: c,

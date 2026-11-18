@@ -149,7 +149,7 @@
   // Galeria da página inicial (slider)
   var thumbs = $("#thumbs");
   if (thumbs) {
-    var escolha = ["antes-03", "antes-01", "historia-01", "antes-04", "durante-01", "durante-02", "registros-01", "antes-12", "registros-09", "durante-05", "antes-06", "registros-10"];
+    var escolha = ["antes-03", "antes-01", "antes-04", "durante-01", "durante-02", "registros-01", "antes-12", "registros-09", "durante-05", "antes-06", "durante-03"];
     var fotos = escolha.map(function (id) { return DATA.lista.filter(function (f) { return f.id === id; })[0]; }).filter(Boolean);
     var cur = 0, img = $("#mediaImg"), cap = $("#mediaCap");
     fotos.forEach(function (f, i) {
@@ -248,6 +248,24 @@
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(dados.email)) return erro("Informe um e-mail válido.", form.email);
       if (!dados.consentimento) return erro("Marque a autorização de contato para continuar.", form.consentimento);
 
+      // WhatsApp da Associação: abre a conversa já com os dados preenchidos.
+      var nomes = { socio: "sócio(a)", voluntario: "voluntário(a)", colaborar: "colaborador(a)" };
+      var texto = "Olá! Quero fazer parte da Associação dos Amigos do Castelinho.\n" +
+        "Nome: " + dados.nome + "\n" +
+        "Como quero participar: " + dados.interesse.map(function (i) { return nomes[i]; }).join(", ") + "\n" +
+        "WhatsApp: " + dados.whatsapp + "\n" +
+        "E-mail: " + dados.email + (dados.cidade ? "\nCidade: " + dados.cidade : "") +
+        (dados.mensagem ? "\nMensagem: " + dados.mensagem : "");
+      var waUrl = "https://wa.me/555496747864?text=" + encodeURIComponent(texto);
+      // A janela abre agora, no clique, para o navegador não bloquear; o endereço entra depois do envio.
+      var waWin = window.open("", "_blank");
+      var waAberto = false;
+      var abrirWa = function () {
+        if (waAberto) return; waAberto = true;
+        if (waWin && !waWin.closed) { try { waWin.opener = null; } catch (e) {} waWin.location.href = waUrl; }
+        else window.location.href = waUrl;
+      };
+
       btn.disabled = true; btn.textContent = "Enviando…";
       msg.className = "form-msg";
       fetch("/api/socio-castelinho", {
@@ -257,18 +275,21 @@
       })
         .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, j: j }; }); })
         .then(function (r) {
+          abrirWa();
           if (!r.ok) throw new Error(r.j.error || "Não foi possível enviar agora.");
           var primeiro = dados.nome.split(" ")[0];
           $("#formBox").innerHTML =
             '<div class="success"><img src="/sociocastelinho/img/selo.webp" alt="Selo Sou amigo do Castelinho">' +
             "<h3>Bem-vindo(a), " + primeiro.replace(/[<>&"]/g, "") + "!</h3>" +
-            '<p class="muted">Recebemos seu cadastro. A Associação vai falar com você pelo WhatsApp em breve. Essa história também é sua.</p>' +
+            '<p class="muted">Recebemos seu cadastro e abrimos a conversa com a Associação no WhatsApp. É só tocar em enviar. Essa história também é sua.</p>' +
+            '<p><a class="btn red" href="' + waUrl.replace(/"/g, "&quot;") + '" target="_blank" rel="noopener">Abrir WhatsApp (54) 9674-7864</a></p>' +
             '<div class="cta-row" style="justify-content:center"><a class="btn" href="https://castelinho.delumo.com.br" target="_blank" rel="noopener">Jogar Castelinho Vivo</a>' +
             '<a class="btn ghost" href="https://www.instagram.com/amigosdocastelinhoerechim/" target="_blank" rel="noopener">Seguir no Instagram</a></div></div>';
           if (window.gtag) window.gtag("event", "generate_lead", { form: "socio_castelinho" });
         })
         .catch(function (err) {
-          erro(err.message + " Se preferir, chame a Associação pelo Instagram @amigosdocastelinhoerechim.");
+          abrirWa();
+          erro(err.message + " Abrimos o WhatsApp da Associação (54) 9674-7864 com seus dados: é só enviar a mensagem.");
           btn.disabled = false; btn.textContent = "Quero fazer parte dessa história";
         });
     });
