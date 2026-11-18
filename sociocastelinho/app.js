@@ -48,7 +48,12 @@
         if (!e.isIntersecting) return;
         tabs.forEach(function (a) { a.classList.remove("on"); });
         var a = map[e.target.id];
-        if (a) { a.classList.add("on"); a.scrollIntoView({ block: "nearest", inline: "center" }); }
+        if (a) {
+          a.classList.add("on");
+          // Rola só a barra de abas na horizontal; nunca a página (scrollIntoView puxava a página de volta).
+          var bar = a.parentNode, alvoX = a.offsetLeft - (bar.clientWidth - a.offsetWidth) / 2;
+          if (Math.abs(bar.scrollLeft - alvoX) > 4) bar.scrollTo({ left: Math.max(0, alvoX), behavior: "auto" });
+        }
       });
     }, { rootMargin: "-45% 0px -50% 0px" });
     Object.keys(map).forEach(function (id) { var s = document.getElementById(id); if (s) so.observe(s); });
@@ -89,11 +94,17 @@
       $("#janelaSelo").textContent = jImgs[i].getAttribute("data-selo");
       $("#janelaLeg").textContent = jImgs[i].getAttribute("data-leg");
     };
-    jBtns.forEach(function (b, i) { b.addEventListener("click", function () { clearInterval(jTimer); jShow(i); }); });
-    var jCur = 0;
-    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+    jBtns.forEach(function (b, i) { b.addEventListener("click", function () { jParado = true; clearInterval(jTimer); jCur = i; jShow(i); }); });
+    var jCur = 0, jParado = false;
+    var jPlay = function () {
+      clearInterval(jTimer);
+      if (jParado || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       jTimer = setInterval(function () { jCur = (jCur + 1) % jImgs.length; jShow(jCur); }, 4200);
-    janela.addEventListener("pointerenter", function () { clearInterval(jTimer); });
+    };
+    // Só troca as fotos enquanto a janela está na tela.
+    if ("IntersectionObserver" in window)
+      new IntersectionObserver(function (es) { if (es[0].isIntersecting) jPlay(); else clearInterval(jTimer); }, { threshold: 0.3 }).observe(janela);
+    janela.addEventListener("pointerenter", function () { jParado = true; clearInterval(jTimer); });
   }
 
   // Lightbox
@@ -175,7 +186,7 @@
       lista.forEach(function (f, i) {
         var fig = document.createElement("figure");
         fig.tabIndex = 0; fig.setAttribute("role", "button"); fig.setAttribute("aria-label", "Ampliar: " + f.cap);
-        fig.innerHTML = '<img src="' + f.thumb + '" alt="' + f.cap.replace(/"/g, "&quot;") + '" loading="lazy"><figcaption>' + f.catNome + "</figcaption>";
+        fig.innerHTML = '<img src="' + f.thumb + '" width="' + f.w + '" height="' + f.h + '" alt="' + f.cap.replace(/"/g, "&quot;") + '" loading="lazy"><figcaption>' + f.catNome + "</figcaption>";
         fig.onclick = function () { lbOpen(lista, i); };
         fig.onkeydown = function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); lbOpen(lista, i); } };
         grid.appendChild(fig);
