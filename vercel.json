@@ -33,6 +33,11 @@
       "source": "/droperechim",
       "destination": "/droperechim/",
       "permanent": false
+    },
+    {
+      "source": "/castelinho1",
+      "destination": "/castelinho1/",
+      "permanent": false
     }
   ],
   "rewrites": [
